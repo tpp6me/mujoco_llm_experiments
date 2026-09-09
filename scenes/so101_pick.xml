@@ -1,0 +1,23 @@
+<mujoco model="SO101 red cube pickup">
+  <include file="../models/so101/so101.xml"/>
+  <compiler meshdir="../models/so101/assets"/>
+  <option timestep="0.002" iterations="50"/>
+  <visual>
+    <global azimuth="135" elevation="-25" offwidth="960" offheight="720"/>
+    <headlight diffuse="0.7 0.7 0.7" ambient="0.3 0.3 0.3" specular="0.1 0.1 0.1"/>
+    <rgba haze="0.15 0.18 0.22 1"/>
+  </visual>
+  <asset>
+    <texture name="sky" type="skybox" builtin="gradient" rgb1="0.22 0.28 0.35" rgb2="0.06 0.08 0.1" width="512" height="3072"/>
+    <texture name="table_grid" type="2d" builtin="checker" rgb1="0.3 0.35 0.4" rgb2="0.24 0.28 0.32" width="512" height="512"/>
+    <material name="table_material" texture="table_grid" texrepeat="8 8" texuniform="true" reflectance="0.1"/>
+  </asset>
+  <worldbody>
+    <light pos="0 -0.3 1.5" dir="0 0 -1" directional="true"/>
+    <geom name="table" type="plane" size="0.6 0.6 0.01" material="table_material"/>
+    <body name="red_cube" pos="0.22 0 0.015">
+      <freejoint name="cube_free"/>
+      <geom name="red_cube" type="box" size="0.015 0.015 0.015" mass="0.02" rgba="0.9 0.03 0.025 1" friction="1 0.005 0.0001" condim="4"/>
+    </body>
+  </worldbody>
+</mujoco>
