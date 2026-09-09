@@ -1,0 +1,6046 @@
+{
+  "phase": 1,
+  "episodes": 30,
+  "total_cubes": 180,
+  "collected_cubes": 180,
+  "passed_episodes": 30,
+  "all_passed": true,
+  "speeds_m_s": [
+    0.01,
+    0.03,
+    0.05
+  ],
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "criteria": {
+    "all_cubes_in_pass_bin": true,
+    "arm_cube_contacts": 0,
+    "max_arm_deviation_rad": 0.01,
+    "max_belt_speed_error_m_s": 0.002,
+    "max_lateral_drift_m": 0.005,
+    "premature_belt_departures": 0
+  },
+  "note": "Phase 1 mechanical validation; this does not measure LLM sorting performance.",
+  "runs": [
+    {
+      "phase": 1,
+      "config": {
+        "seed": 0,
+        "count": 6,
+        "belt_speed": 0.01,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.22375924287040327,
+            -0.35669795538177823,
+            0.016
+          ],
+          "yaw_rad": 0.03199073273015396
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.22275395873180798,
+            -0.2396510000682766,
+            0.016
+          ],
+          "yaw_rad": 0.13052172713633045
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.22379024264945838,
+            -0.12397809199863881,
+            0.016
+          ],
+          "yaw_rad": 0.1072212829762708
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21440302690366558,
+            0.0018372435714395525,
+            0.016
+          ],
+          "yaw_rad": -0.0973033138192323
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.22435814706819865,
+            0.12033168976199272,
+            0.016
+          ],
+          "yaw_rad": -0.060086432838784565
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.21907224665437192,
+            0.2362265573691637,
+            0.016
+          ],
+          "yaw_rad": -0.11271501705013082
+        }
+      ],
+      "simulation_duration_s": 86.67,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.147016221371484e-11,
+      "mean_belt_speed_error_m_s": 2.492748865126847e-11,
+      "max_lateral_drift_m": 5.0508208726540715e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 81.5259999999921,
+            "final_position_m": [
+              0.23841985999346454,
+              0.47308341610840876,
+              -0.20910993085347368
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 69.96600000001904,
+            "final_position_m": [
+              0.26593871412693226,
+              0.5063862981006898,
+              -0.23510775542021617
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 58.30400000002492,
+            "final_position_m": [
+              0.24821701758048662,
+              0.4476103513886512,
+              -0.23517901799716742
+            ],
+            "final_contacts": [
+              "cube_000",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 69.69400000001967,
+            "final_position_m": [
+              0.2121459097514064,
+              0.5101695291800832,
+              -0.20539430322228694
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_004",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 34.061999999995294,
+            "final_position_m": [
+              0.22268067598535934,
+              0.5342151046835225,
+              -0.2351381664997981
+            ],
+            "final_contacts": [
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 22.263999999998706,
+            "final_position_m": [
+              0.21787923386166475,
+              0.5021559872454576,
+              -0.23520483604622952
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 1,
+        "count": 6,
+        "belt_speed": 0.01,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "blue",
+          "position_m": [
+            0.21774197742412582,
+            -0.3606133884082194,
+            0.016
+          ],
+          "yaw_rad": 0.09831077814613252
+        },
+        {
+          "id": "cube_001",
+          "color": "red",
+          "position_m": [
+            0.21891038963642995,
+            -0.23960325049861553,
+            0.016
+          ],
+          "yaw_rad": -0.14173226602707947
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.22304215730409768,
+            -0.11969485349424577,
+            0.016
+          ],
+          "yaw_rad": -0.05108048505027235
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.22346114444114085,
+            -0.0015744413656668401,
+            0.016
+          ],
+          "yaw_rad": -0.013950633155804549
+        },
+        {
+          "id": "cube_004",
+          "color": "green",
+          "position_m": [
+            0.21560850036696597,
+            0.11922490389157703,
+            0.016
+          ],
+          "yaw_rad": -0.08896342779715512
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.2171477600853022,
+            0.2420029173810404,
+            0.016
+          ],
+          "yaw_rad": -0.06587737260418802
+        }
+      ],
+      "simulation_duration_s": 87.062,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.152177891074253e-11,
+      "mean_belt_speed_error_m_s": 3.434143281142715e-11,
+      "max_lateral_drift_m": 4.836825384657573e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 82.13799999999067,
+            "final_position_m": [
+              0.21661161176935645,
+              0.47108531992057356,
+              -0.205320109069072
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 81.76399999999154,
+            "final_position_m": [
+              0.21699069013011374,
+              0.502178698127452,
+              -0.1759074932648529
+            ],
+            "final_contacts": [
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 60.48000000002758,
+            "final_position_m": [
+              0.22004219054468466,
+              0.47522560138332925,
+              -0.23517765704185967
+            ],
+            "final_contacts": [
+              "cube_000",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 82.00199999999099,
+            "final_position_m": [
+              0.22485644521313855,
+              0.44131978972845903,
+              -0.2351389107646397
+            ],
+            "final_contacts": [
+              "cube_000",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 69.69400000001967,
+            "final_position_m": [
+              0.21341247879168168,
+              0.50481795693759,
+              -0.2056737512073857
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 33.823999999995,
+            "final_position_m": [
+              0.21585892431980777,
+              0.5084223703146845,
+              -0.23529095331553912
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 2,
+        "count": 6,
+        "belt_speed": 0.01,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.21510299130562116,
+            -0.3591991957922748,
+            0.016
+          ],
+          "yaw_rad": 0.06856815804353839
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.21625481288039924,
+            -0.24355882698133544,
+            0.016
+          ],
+          "yaw_rad": -0.06750918962818857
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.2218891961785071,
+            -0.11950187469775657,
+            0.016
+          ],
+          "yaw_rad": -0.10498132100839916
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21919156948965746,
+            0.001354378388596162,
+            0.016
+          ],
+          "yaw_rad": -0.023164598018961657
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.2215982127912894,
+            0.1237394876199494,
+            0.016
+          ],
+          "yaw_rad": 0.054919446692887584
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.2186994979969603,
+            0.2374980205577608,
+            0.016
+          ],
+          "yaw_rad": -0.04621180032848007
+        }
+      ],
+      "simulation_duration_s": 86.92,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.150560434905252e-11,
+      "mean_belt_speed_error_m_s": 2.5880478097894073e-11,
+      "max_lateral_drift_m": 7.589817663244958e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 81.6959999999917,
+            "final_position_m": [
+              0.21544126256283275,
+              0.5052309934909721,
+              -0.17581468613383064
+            ],
+            "final_contacts": [
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 71.32600000001587,
+            "final_position_m": [
+              0.21906689370974036,
+              0.4255101995284373,
+              -0.23510775542021617
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 58.168000000024755,
+            "final_position_m": [
+              0.21618753639946434,
+              0.5600075166021726,
+              -0.23510775542021617
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 70.51000000001777,
+            "final_position_m": [
+              0.22256843151059227,
+              0.47282481492650164,
+              -0.23514328350325578
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 45.58800000000938,
+            "final_position_m": [
+              0.2214327908401726,
+              0.5029317981113656,
+              -0.20556332202273753
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 22.05999999999882,
+            "final_position_m": [
+              0.21805096392051254,
+              0.5039856142033103,
+              -0.2352639801205687
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 3,
+        "count": 6,
+        "belt_speed": 0.01,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "green",
+          "position_m": [
+            0.22098594443277242,
+            -0.3632469708620768,
+            0.016
+          ],
+          "yaw_rad": -0.02006191792905786
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.21974861557769002,
+            -0.24272208868290338,
+            0.016
+          ],
+          "yaw_rad": 0.07037314542276436
+        },
+        {
+          "id": "cube_002",
+          "color": "blue",
+          "position_m": [
+            0.21536406423905685,
+            -0.1208701744760347,
+            0.016
+          ],
+          "yaw_rad": 0.0050220547864091025
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21916753624497012,
+            0.0006943885715051259,
+            0.016
+          ],
+          "yaw_rad": 0.07135133618764807
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.22547520705803317,
+            0.11827360930999033,
+            0.016
+          ],
+          "yaw_rad": 0.044564162123947516
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.22235459196004187,
+            0.23834176599209989,
+            0.016
+          ],
+          "yaw_rad": -0.14955297494734915
+        }
+      ],
+      "simulation_duration_s": 87.326,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.149529835688174e-11,
+      "mean_belt_speed_error_m_s": 2.6606734943977618e-11,
+      "max_lateral_drift_m": 3.3920644071372408e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 82.27399999999035,
+            "final_position_m": [
+              0.22324880112535656,
+              0.4656857466516498,
+              -0.17589709184971272
+            ],
+            "final_contacts": [
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 82.0359999999909,
+            "final_position_m": [
+              0.22139560635090574,
+              0.5019751649441522,
+              -0.17587818546654485
+            ],
+            "final_contacts": [
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 57.99800000002455,
+            "final_position_m": [
+              0.21630857509107082,
+              0.4686584592761775,
+              -0.2056726800579845
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 45.894000000009754,
+            "final_position_m": [
+              0.22013589257552627,
+              0.46341688249392027,
+              -0.23529220137719858
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 70.00000000001896,
+            "final_position_m": [
+              0.22663239138420488,
+              0.5054171705614758,
+              -0.20569679653622058
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 21.991999999998857,
+            "final_position_m": [
+              0.21907648968801322,
+              0.5020515918666923,
+              -0.23529066902841578
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 4,
+        "count": 6,
+        "belt_speed": 0.01,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "blue",
+          "position_m": [
+            0.22128826998394036,
+            -0.3609881073249818,
+            0.016
+          ],
+          "yaw_rad": 0.09057036209574217
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.21609433379372833,
+            -0.23702691780649873,
+            0.016
+          ],
+          "yaw_rad": 0.013182420229049452
+        },
+        {
+          "id": "cube_002",
+          "color": "red",
+          "position_m": [
+            0.22482658095659186,
+            -0.12018277180928634,
+            0.016
+          ],
+          "yaw_rad": -0.020851116681176063
+        },
+        {
+          "id": "cube_003",
+          "color": "green",
+          "position_m": [
+            0.22346736061053196,
+            0.003873223999448971,
+            0.016
+          ],
+          "yaw_rad": -0.03908226220427136
+        },
+        {
+          "id": "cube_004",
+          "color": "blue",
+          "position_m": [
+            0.22562719443179483,
+            0.12343221110212335,
+            0.016
+          ],
+          "yaw_rad": -0.09669222427140567
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.22130621940213457,
+            0.24163891796451792,
+            0.016
+          ],
+          "yaw_rad": 0.13284110373875016
+        }
+      ],
+      "simulation_duration_s": 87.1,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.150048691479839e-11,
+      "mean_belt_speed_error_m_s": 3.059468284908056e-11,
+      "max_lateral_drift_m": 5.168226957508182e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 82.06999999999083,
+            "final_position_m": [
+              0.21976024490686455,
+              0.46502337793958093,
+              -0.20535888925334841
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 79.34999999999717,
+            "final_position_m": [
+              0.20211010464414073,
+              0.4724338512501861,
+              -0.23516235016207518
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 57.99800000002455,
+            "final_position_m": [
+              0.2289418980221167,
+              0.4437958863209582,
+              -0.23515356050229697
+            ],
+            "final_contacts": [
+              "cube_000",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 81.83199999999138,
+            "final_position_m": [
+              0.22070238184361726,
+              0.5048457990543374,
+              -0.17582468190851763
+            ],
+            "final_contacts": [
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 45.38400000000913,
+            "final_position_m": [
+              0.2247432802353974,
+              0.5049368621464769,
+              -0.2056680295963387
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 21.651999999999045,
+            "final_position_m": [
+              0.22384782561180186,
+              0.5083818748423224,
+              -0.23529232171201817
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 5,
+        "count": 6,
+        "belt_speed": 0.01,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "blue",
+          "position_m": [
+            0.21464716842857987,
+            -0.36093304895371586,
+            0.016
+          ],
+          "yaw_rad": -0.027458038374000404
+        },
+        {
+          "id": "cube_001",
+          "color": "blue",
+          "position_m": [
+            0.21454330232682933,
+            -0.24360993831418265,
+            0.016
+          ],
+          "yaw_rad": 0.14975283451952143
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.22182842933905586,
+            -0.1221239183866414,
+            0.016
+          ],
+          "yaw_rad": -0.01951573433245739
+        },
+        {
+          "id": "cube_003",
+          "color": "red",
+          "position_m": [
+            0.22569023431911106,
+            0.0031814208648683904,
+            0.016
+          ],
+          "yaw_rad": 0.10326931128262229
+        },
+        {
+          "id": "cube_004",
+          "color": "green",
+          "position_m": [
+            0.21870885597201734,
+            0.11994418414985393,
+            0.016
+          ],
+          "yaw_rad": 0.05300680554931981
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.21472963255549668,
+            0.2404447689353658,
+            0.016
+          ],
+          "yaw_rad": -0.06856451864096953
+        }
+      ],
+      "simulation_duration_s": 87.094,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.150988391186775e-11,
+      "mean_belt_speed_error_m_s": 3.471341502170137e-11,
+      "max_lateral_drift_m": 5.019124005301023e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 82.06999999999083,
+            "final_position_m": [
+              0.2129256484175667,
+              0.4455469282792474,
+              -0.20548127313107528
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 81.79799999999146,
+            "final_position_m": [
+              0.21714217104392566,
+              0.5019242214765589,
+              -0.17581618675061936
+            ],
+            "final_contacts": [
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 82.0359999999909,
+            "final_position_m": [
+              0.2219945139156679,
+              0.4759571492674475,
+              -0.2351078781304784
+            ],
+            "final_contacts": [
+              "cube_000",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 45.75800000000959,
+            "final_position_m": [
+              0.2206579153810949,
+              0.4393013076034789,
+              -0.23520443042086756
+            ],
+            "final_contacts": [
+              "cube_000",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 57.930000000024464,
+            "final_position_m": [
+              0.2206066902017612,
+              0.5079403149611308,
+              -0.20560129428476653
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 33.75599999999492,
+            "final_position_m": [
+              0.2144848405712147,
+              0.5079335228161661,
+              -0.23529053789589438
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 6,
+        "count": 6,
+        "belt_speed": 0.01,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "green",
+          "position_m": [
+            0.22159307527128574,
+            -0.358605408555964,
+            0.016
+          ],
+          "yaw_rad": -0.05101096338436249
+        },
+        {
+          "id": "cube_001",
+          "color": "red",
+          "position_m": [
+            0.22215901193396828,
+            -0.24301622100090248,
+            0.016
+          ],
+          "yaw_rad": -0.13448123040486742
+        },
+        {
+          "id": "cube_002",
+          "color": "red",
+          "position_m": [
+            0.22420229616170545,
+            -0.12392883355571652,
+            0.016
+          ],
+          "yaw_rad": 0.143630268655589
+        },
+        {
+          "id": "cube_003",
+          "color": "green",
+          "position_m": [
+            0.22392403630982866,
+            0.0022816876746109714,
+            0.016
+          ],
+          "yaw_rad": -0.13557495389923604
+        },
+        {
+          "id": "cube_004",
+          "color": "blue",
+          "position_m": [
+            0.2164892711944837,
+            0.12279892504876169,
+            0.016
+          ],
+          "yaw_rad": -0.020251556503490763
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.2215296152044369,
+            0.2369782591904877,
+            0.016
+          ],
+          "yaw_rad": -0.09409910439665115
+        }
+      ],
+      "simulation_duration_s": 86.862,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.14956262196187e-11,
+      "mean_belt_speed_error_m_s": 3.108947247269823e-11,
+      "max_lateral_drift_m": 4.730743574654639e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 82.0359999999909,
+            "final_position_m": [
+              0.20244281347172075,
+              0.42948145102899393,
+              -0.23510775542021595
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 70.37400000001809,
+            "final_position_m": [
+              0.2262009025292158,
+              0.47246710874758086,
+              -0.2126508566241594
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 58.33800000002496,
+            "final_position_m": [
+              0.23191095919984048,
+              0.44473663343509456,
+              -0.2351782954442027
+            ],
+            "final_contacts": [
+              "cube_001",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 45.55400000000934,
+            "final_position_m": [
+              0.2201722897935612,
+              0.5120542572954849,
+              -0.17588612786997498
+            ],
+            "final_contacts": [
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 33.51799999999463,
+            "final_position_m": [
+              0.2133657896748529,
+              0.5072193702713168,
+              -0.20560162422993136
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 33.449999999994546,
+            "final_position_m": [
+              0.21853894642594143,
+              0.5071448958932788,
+              -0.23530942295137874
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 7,
+        "count": 6,
+        "belt_speed": 0.01,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "green",
+          "position_m": [
+            0.2167024862798871,
+            -0.3615986697207102,
+            0.016
+          ],
+          "yaw_rad": 0.11206603361887857
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.2140631836547869,
+            -0.23743017265293787,
+            0.016
+          ],
+          "yaw_rad": 0.08912082862561387
+        },
+        {
+          "id": "cube_002",
+          "color": "red",
+          "position_m": [
+            0.21961521943412465,
+            -0.12157574058544549,
+            0.016
+          ],
+          "yaw_rad": -0.066472316369768
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.2170584350518495,
+            -0.0004393895529388274,
+            0.016
+          ],
+          "yaw_rad": 0.0013644776873859897
+        },
+        {
+          "id": "cube_004",
+          "color": "blue",
+          "position_m": [
+            0.2206419682248939,
+            0.12396400226747514,
+            0.016
+          ],
+          "yaw_rad": 0.08779857576412592
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.22146615075329396,
+            0.24391168118145506,
+            0.016
+          ],
+          "yaw_rad": -0.08540739052932031
+        }
+      ],
+      "simulation_duration_s": 87.16,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.143981322650262e-11,
+      "mean_belt_speed_error_m_s": 3.479576443413699e-11,
+      "max_lateral_drift_m": 4.281713872344994e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 82.00199999999099,
+            "final_position_m": [
+              0.21588452153388046,
+              0.5041253875927795,
+              -0.14641417343676535
+            ],
+            "final_contacts": [
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 70.00000000001896,
+            "final_position_m": [
+              0.21549868690142396,
+              0.4737571288550608,
+              -0.2351077554202161
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 81.96799999999106,
+            "final_position_m": [
+              0.21774644924628572,
+              0.5010621601440686,
+              -0.17623442902579847
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 46.16600000001009,
+            "final_position_m": [
+              0.2191986382532375,
+              0.44222147145404045,
+              -0.2351077554202161
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 33.415999999994504,
+            "final_position_m": [
+              0.2205530841948598,
+              0.5055384958720227,
+              -0.20583769693699736
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 21.379999999999196,
+            "final_position_m": [
+              0.21982493645657145,
+              0.5046210528107097,
+              -0.23536616557074927
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 8,
+        "count": 6,
+        "belt_speed": 0.01,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.22346258722984036,
+            -0.35704082790643027,
+            0.016
+          ],
+          "yaw_rad": -0.032674558038241805
+        },
+        {
+          "id": "cube_001",
+          "color": "red",
+          "position_m": [
+            0.2192545824774736,
+            -0.24101800877528518,
+            0.016
+          ],
+          "yaw_rad": -0.11791392105816768
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.2197475854499526,
+            -0.12206918283932254,
+            0.016
+          ],
+          "yaw_rad": -0.07285642543466107
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21621677868201297,
+            -0.0024490836087655145,
+            0.016
+          ],
+          "yaw_rad": 0.0941483010465063
+        },
+        {
+          "id": "cube_004",
+          "color": "green",
+          "position_m": [
+            0.2190758102577307,
+            0.1180473640412658,
+            0.016
+          ],
+          "yaw_rad": 0.02727085552962347
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.22125126755270147,
+            0.2411748642164815,
+            0.016
+          ],
+          "yaw_rad": 0.12340691413455722
+        }
+      ],
+      "simulation_duration_s": 86.706,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.141684722240417e-11,
+      "mean_belt_speed_error_m_s": 3.071382253006503e-11,
+      "max_lateral_drift_m": 5.0734139112051935e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 81.59399999999194,
+            "final_position_m": [
+              0.22711855326079275,
+              0.45410781117114235,
+              -0.20537794891041544
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 69.8980000000192,
+            "final_position_m": [
+              0.21564776916138864,
+              0.5058425637846549,
+              -0.17589192887526067
+            ],
+            "final_contacts": [
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 77.61600000000121,
+            "final_position_m": [
+              0.2222836213134325,
+              0.4702293582856413,
+              -0.23517373432765468
+            ],
+            "final_contacts": [
+              "cube_000",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 69.83000000001935,
+            "final_position_m": [
+              0.21298472943547633,
+              0.4403447869718194,
+              -0.23514218099363043
+            ],
+            "final_contacts": [
+              "cube_000",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 69.83000000001935,
+            "final_position_m": [
+              0.2203768796154499,
+              0.5062973155631243,
+              -0.20569350115090823
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 21.685999999999026,
+            "final_position_m": [
+              0.22370881300848897,
+              0.5112859381344226,
+              -0.23528688751932397
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 9,
+        "count": 6,
+        "belt_speed": 0.01,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.22333040899504214,
+            -0.35827140296317145,
+            0.016
+          ],
+          "yaw_rad": 0.12461403614715226
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.2243247237901946,
+            -0.2366540989676099,
+            0.016
+          ],
+          "yaw_rad": -0.14202367965972082
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.2192469760015541,
+            -0.12012044538418169,
+            0.016
+          ],
+          "yaw_rad": -0.13045374078896774
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.2140675126081527,
+            0.002644971495770056,
+            0.016
+          ],
+          "yaw_rad": 0.14499067328585266
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.22341531823207217,
+            0.11852482791982619,
+            0.016
+          ],
+          "yaw_rad": 0.06160011137683613
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.21759017287837895,
+            0.24192598786300598,
+            0.016
+          ],
+          "yaw_rad": -0.0660758340755139
+        }
+      ],
+      "simulation_duration_s": 86.828,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.144697936918188e-11,
+      "mean_belt_speed_error_m_s": 2.0473557363325674e-11,
+      "max_lateral_drift_m": 1.6827095272731185e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 81.93399999999114,
+            "final_position_m": [
+              0.21964436597570053,
+              0.43007911219124123,
+              -0.21289917401606384
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_front"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 69.45600000002023,
+            "final_position_m": [
+              0.2234524445187776,
+              0.5002689451952719,
+              -0.1758571455193141
+            ],
+            "final_contacts": [
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 58.10000000002467,
+            "final_position_m": [
+              0.22654191754047823,
+              0.46264137069690286,
+              -0.23517485519730794
+            ],
+            "final_contacts": [
+              "cube_000",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 69.38800000002038,
+            "final_position_m": [
+              0.2168622648632787,
+              0.5094381246427242,
+              -0.2055787676373616
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 34.12999999999538,
+            "final_position_m": [
+              0.2502849093769701,
+              0.5109670176891754,
+              -0.23510775542021625
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 34.02799999999525,
+            "final_position_m": [
+              0.21518340148721726,
+              0.5043862172661251,
+              -0.23529091819226897
+            ],
+            "final_contacts": [
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 0,
+        "count": 6,
+        "belt_speed": 0.03,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.22375924287040327,
+            -0.35669795538177823,
+            0.016
+          ],
+          "yaw_rad": 0.03199073273015396
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.22275395873180798,
+            -0.2396510000682766,
+            0.016
+          ],
+          "yaw_rad": 0.13052172713633045
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.22379024264945838,
+            -0.12397809199863881,
+            0.016
+          ],
+          "yaw_rad": 0.1072212829762708
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21440302690366558,
+            0.0018372435714395525,
+            0.016
+          ],
+          "yaw_rad": -0.0973033138192323
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.22435814706819865,
+            0.12033168976199272,
+            0.016
+          ],
+          "yaw_rad": -0.060086432838784565
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.21907224665437192,
+            0.2362265573691637,
+            0.016
+          ],
+          "yaw_rad": -0.11271501705013082
+        }
+      ],
+      "simulation_duration_s": 32.89,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.130016798668649e-11,
+      "mean_belt_speed_error_m_s": 3.625522358749611e-11,
+      "max_lateral_drift_m": 5.410949466266857e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 27.907999999995578,
+            "final_position_m": [
+              0.24719732339838701,
+              0.5531207267467398,
+              -0.23510775542021614
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.66999999999571,
+            "final_position_m": [
+              0.22387048063949277,
+              0.4936155232018626,
+              -0.17632263369537698
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.70399999999569,
+            "final_position_m": [
+              0.22311664626925795,
+              0.46403011651135984,
+              -0.20545037495096036
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.601999999995748,
+            "final_position_m": [
+              0.21378765862879306,
+              0.5062656562212002,
+              -0.20566839992197747
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 27.63599999999573,
+            "final_position_m": [
+              0.22675744587331603,
+              0.47081769823924585,
+              -0.23520595502366318
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.601999999995748,
+            "final_position_m": [
+              0.21599038560375688,
+              0.5120523645226597,
+              -0.23527928977700663
+            ],
+            "final_contacts": [
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 1,
+        "count": 6,
+        "belt_speed": 0.03,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "blue",
+          "position_m": [
+            0.21774197742412582,
+            -0.3606133884082194,
+            0.016
+          ],
+          "yaw_rad": 0.09831077814613252
+        },
+        {
+          "id": "cube_001",
+          "color": "red",
+          "position_m": [
+            0.21891038963642995,
+            -0.23960325049861553,
+            0.016
+          ],
+          "yaw_rad": -0.14173226602707947
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.22304215730409768,
+            -0.11969485349424577,
+            0.016
+          ],
+          "yaw_rad": -0.05108048505027235
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.22346114444114085,
+            -0.0015744413656668401,
+            0.016
+          ],
+          "yaw_rad": -0.013950633155804549
+        },
+        {
+          "id": "cube_004",
+          "color": "green",
+          "position_m": [
+            0.21560850036696597,
+            0.11922490389157703,
+            0.016
+          ],
+          "yaw_rad": -0.08896342779715512
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.2171477600853022,
+            0.2420029173810404,
+            0.016
+          ],
+          "yaw_rad": -0.06587737260418802
+        }
+      ],
+      "simulation_duration_s": 33.022,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.119361780134504e-11,
+      "mean_belt_speed_error_m_s": 3.638678217571895e-11,
+      "max_lateral_drift_m": 5.074829445561591e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.771999999995653,
+            "final_position_m": [
+              0.22015063562168147,
+              0.509480517832027,
+              -0.1759173106026627
+            ],
+            "final_contacts": [
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 23.86199999999782,
+            "final_position_m": [
+              0.21929699901112346,
+              0.47085090704944466,
+              -0.20544922768802545
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 23.86199999999782,
+            "final_position_m": [
+              0.2216122293124246,
+              0.44061259454854335,
+              -0.23510269198004238
+            ],
+            "final_contacts": [
+              "cube_001",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.042000000001927,
+            "final_position_m": [
+              0.223557131639789,
+              0.473755811171245,
+              -0.23521268099700204
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.771999999995653,
+            "final_position_m": [
+              0.21539077229002548,
+              0.5053113512992149,
+              -0.20567696842297525
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 7.7119999999994056,
+            "final_position_m": [
+              0.21287741727551296,
+              0.5112651373915407,
+              -0.23528790369974184
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 2,
+        "count": 6,
+        "belt_speed": 0.03,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.21510299130562116,
+            -0.3591991957922748,
+            0.016
+          ],
+          "yaw_rad": 0.06856815804353839
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.21625481288039924,
+            -0.24355882698133544,
+            0.016
+          ],
+          "yaw_rad": -0.06750918962818857
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.2218891961785071,
+            -0.11950187469775657,
+            0.016
+          ],
+          "yaw_rad": -0.10498132100839916
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21919156948965746,
+            0.001354378388596162,
+            0.016
+          ],
+          "yaw_rad": -0.023164598018961657
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.2215982127912894,
+            0.1237394876199494,
+            0.016
+          ],
+          "yaw_rad": 0.054919446692887584
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.2186994979969603,
+            0.2374980205577608,
+            0.016
+          ],
+          "yaw_rad": -0.04621180032848007
+        }
+      ],
+      "simulation_duration_s": 32.974,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.117744670910199e-11,
+      "mean_belt_speed_error_m_s": 3.6923005707523854e-11,
+      "max_lateral_drift_m": 5.401512570557543e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 27.70399999999569,
+            "final_position_m": [
+              0.21954044869504688,
+              0.5069588322350476,
+              -0.17910839553719193
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.70399999999569,
+            "final_position_m": [
+              0.21787056764571056,
+              0.5335151033844188,
+              -0.2031128561460729
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 23.82799999999784,
+            "final_position_m": [
+              0.22139551228196622,
+              0.4817338111874954,
+              -0.20545517801323224
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 15.770000000001836,
+            "final_position_m": [
+              0.2114734149996707,
+              0.4641151824840334,
+              -0.23522515208433983
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 24.031999999997726,
+            "final_position_m": [
+              0.22692918745075916,
+              0.5519763595321318,
+              -0.23523033261142715
+            ],
+            "final_contacts": [
+              "cube_001",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 7.847999999999391,
+            "final_position_m": [
+              0.21868837941108224,
+              0.5087375428401689,
+              -0.23515553530113809
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 3,
+        "count": 6,
+        "belt_speed": 0.03,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "green",
+          "position_m": [
+            0.22098594443277242,
+            -0.3632469708620768,
+            0.016
+          ],
+          "yaw_rad": -0.02006191792905786
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.21974861557769002,
+            -0.24272208868290338,
+            0.016
+          ],
+          "yaw_rad": 0.07037314542276436
+        },
+        {
+          "id": "cube_002",
+          "color": "blue",
+          "position_m": [
+            0.21536406423905685,
+            -0.1208701744760347,
+            0.016
+          ],
+          "yaw_rad": 0.0050220547864091025
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21916753624497012,
+            0.0006943885715051259,
+            0.016
+          ],
+          "yaw_rad": 0.07135133618764807
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.22547520705803317,
+            0.11827360930999033,
+            0.016
+          ],
+          "yaw_rad": 0.044564162123947516
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.22235459196004187,
+            0.23834176599209989,
+            0.016
+          ],
+          "yaw_rad": -0.14955297494734915
+        }
+      ],
+      "simulation_duration_s": 33.11,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.117863325995955e-11,
+      "mean_belt_speed_error_m_s": 3.6497361837358784e-11,
+      "max_lateral_drift_m": 5.336564523616971e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 28.00999999999552,
+            "final_position_m": [
+              0.22114353953821525,
+              0.47608125394845496,
+              -0.17652586898848205
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 24.031999999997726,
+            "final_position_m": [
+              0.21331704221826783,
+              0.4589851935519146,
+              -0.2056384486764023
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 23.963999999997764,
+            "final_position_m": [
+              0.2144183067842215,
+              0.4562643319881441,
+              -0.2352834225401694
+            ],
+            "final_contacts": [
+              "cube_001",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.771999999995653,
+            "final_position_m": [
+              0.22185383522353244,
+              0.5086073357402734,
+              -0.17589392044464847
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 15.668000000001802,
+            "final_position_m": [
+              0.22778292021824703,
+              0.5066235596056506,
+              -0.20570184700214156
+            ],
+            "final_contacts": [
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 7.847999999999391,
+            "final_position_m": [
+              0.21956579203109775,
+              0.5091834957996408,
+              -0.23529330866109802
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 4,
+        "count": 6,
+        "belt_speed": 0.03,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "blue",
+          "position_m": [
+            0.22128826998394036,
+            -0.3609881073249818,
+            0.016
+          ],
+          "yaw_rad": 0.09057036209574217
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.21609433379372833,
+            -0.23702691780649873,
+            0.016
+          ],
+          "yaw_rad": 0.013182420229049452
+        },
+        {
+          "id": "cube_002",
+          "color": "red",
+          "position_m": [
+            0.22482658095659186,
+            -0.12018277180928634,
+            0.016
+          ],
+          "yaw_rad": -0.020851116681176063
+        },
+        {
+          "id": "cube_003",
+          "color": "green",
+          "position_m": [
+            0.22346736061053196,
+            0.003873223999448971,
+            0.016
+          ],
+          "yaw_rad": -0.03908226220427136
+        },
+        {
+          "id": "cube_004",
+          "color": "blue",
+          "position_m": [
+            0.22562719443179483,
+            0.12343221110212335,
+            0.016
+          ],
+          "yaw_rad": -0.09669222427140567
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.22130621940213457,
+            0.24163891796451792,
+            0.016
+          ],
+          "yaw_rad": 0.13284110373875016
+        }
+      ],
+      "simulation_duration_s": 33.034,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.118757055530779e-11,
+      "mean_belt_speed_error_m_s": 3.6945319157599366e-11,
+      "max_lateral_drift_m": 6.455669332439129e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.97599999999554,
+            "final_position_m": [
+              0.21391448139699765,
+              0.5487212589175309,
+              -0.23510775542021597
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.94199999999556,
+            "final_position_m": [
+              0.18076781368180622,
+              0.5666937658900331,
+              -0.2351077554202162
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 19.884000000000025,
+            "final_position_m": [
+              0.2376306914886119,
+              0.5826236568138492,
+              -0.23510775542021597
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 15.634000000001791,
+            "final_position_m": [
+              0.21519442339128783,
+              0.488391177142352,
+              -0.21180380520215225
+            ],
+            "final_contacts": [
+              "cube_004",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 19.71400000000012,
+            "final_position_m": [
+              0.22790576286909392,
+              0.4615400453726224,
+              -0.23515968204592164
+            ],
+            "final_contacts": [
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 15.566000000001768,
+            "final_position_m": [
+              0.22503939608492324,
+              0.5146622497887274,
+              -0.23515626019535263
+            ],
+            "final_contacts": [
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 5,
+        "count": 6,
+        "belt_speed": 0.03,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "blue",
+          "position_m": [
+            0.21464716842857987,
+            -0.36093304895371586,
+            0.016
+          ],
+          "yaw_rad": -0.027458038374000404
+        },
+        {
+          "id": "cube_001",
+          "color": "blue",
+          "position_m": [
+            0.21454330232682933,
+            -0.24360993831418265,
+            0.016
+          ],
+          "yaw_rad": 0.14975283451952143
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.22182842933905586,
+            -0.1221239183866414,
+            0.016
+          ],
+          "yaw_rad": -0.01951573433245739
+        },
+        {
+          "id": "cube_003",
+          "color": "red",
+          "position_m": [
+            0.22569023431911106,
+            0.0031814208648683904,
+            0.016
+          ],
+          "yaw_rad": 0.10326931128262229
+        },
+        {
+          "id": "cube_004",
+          "color": "green",
+          "position_m": [
+            0.21870885597201734,
+            0.11994418414985393,
+            0.016
+          ],
+          "yaw_rad": 0.05300680554931981
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.21472963255549668,
+            0.2404447689353658,
+            0.016
+          ],
+          "yaw_rad": -0.06856451864096953
+        }
+      ],
+      "simulation_duration_s": 33.032,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.120751293638762e-11,
+      "mean_belt_speed_error_m_s": 3.689157590551551e-11,
+      "max_lateral_drift_m": 1.2581047315052274e-12,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.94199999999556,
+            "final_position_m": [
+              0.21365046850726213,
+              0.4749470375931811,
+              -0.17683664883598668
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.873999999995597,
+            "final_position_m": [
+              0.2160300649203331,
+              0.4561011537400181,
+              -0.2056808498836097
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 19.98599999999997,
+            "final_position_m": [
+              0.219327843069879,
+              0.4508481437086602,
+              -0.2352768329858747
+            ],
+            "final_contacts": [
+              "cube_001",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 27.70399999999569,
+            "final_position_m": [
+              0.2281568758047259,
+              0.5078648275454777,
+              -0.1760853267742279
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 11.758000000000496,
+            "final_position_m": [
+              0.22013951022857214,
+              0.5059495983425846,
+              -0.205699492041356
+            ],
+            "final_contacts": [
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 7.745999999999402,
+            "final_position_m": [
+              0.21439246265796277,
+              0.5092758093512293,
+              -0.2352873509392424
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 6,
+        "count": 6,
+        "belt_speed": 0.03,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "green",
+          "position_m": [
+            0.22159307527128574,
+            -0.358605408555964,
+            0.016
+          ],
+          "yaw_rad": -0.05101096338436249
+        },
+        {
+          "id": "cube_001",
+          "color": "red",
+          "position_m": [
+            0.22215901193396828,
+            -0.24301622100090248,
+            0.016
+          ],
+          "yaw_rad": -0.13448123040486742
+        },
+        {
+          "id": "cube_002",
+          "color": "red",
+          "position_m": [
+            0.22420229616170545,
+            -0.12392883355571652,
+            0.016
+          ],
+          "yaw_rad": 0.143630268655589
+        },
+        {
+          "id": "cube_003",
+          "color": "green",
+          "position_m": [
+            0.22392403630982866,
+            0.0022816876746109714,
+            0.016
+          ],
+          "yaw_rad": -0.13557495389923604
+        },
+        {
+          "id": "cube_004",
+          "color": "blue",
+          "position_m": [
+            0.2164892711944837,
+            0.12279892504876169,
+            0.016
+          ],
+          "yaw_rad": -0.020251556503490763
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.2215296152044369,
+            0.2369782591904877,
+            0.016
+          ],
+          "yaw_rad": -0.09409910439665115
+        }
+      ],
+      "simulation_duration_s": 32.954,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.12920147863494e-11,
+      "mean_belt_speed_error_m_s": 3.6314272429322796e-11,
+      "max_lateral_drift_m": 8.992251387951455e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.70399999999569,
+            "final_position_m": [
+              0.22081813220040472,
+              0.5102890412710119,
+              -0.17588586621318608
+            ],
+            "final_contacts": [
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 24.4399999999975,
+            "final_position_m": [
+              0.24847250581756988,
+              0.4719703244881864,
+              -0.23510775542021609
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 27.63599999999573,
+            "final_position_m": [
+              0.22706518159437195,
+              0.507414058163993,
+              -0.20568987718489776
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_004",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 15.906000000001882,
+            "final_position_m": [
+              0.2239812934425183,
+              0.435760925962706,
+              -0.23510775542021595
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 19.850000000000044,
+            "final_position_m": [
+              0.21648852531237697,
+              0.4780321555234869,
+              -0.23510505381503516
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 7.881999999999387,
+            "final_position_m": [
+              0.22048324188580262,
+              0.5118814534548778,
+              -0.2352939688025162
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 7,
+        "count": 6,
+        "belt_speed": 0.03,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "green",
+          "position_m": [
+            0.2167024862798871,
+            -0.3615986697207102,
+            0.016
+          ],
+          "yaw_rad": 0.11206603361887857
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.2140631836547869,
+            -0.23743017265293787,
+            0.016
+          ],
+          "yaw_rad": 0.08912082862561387
+        },
+        {
+          "id": "cube_002",
+          "color": "red",
+          "position_m": [
+            0.21961521943412465,
+            -0.12157574058544549,
+            0.016
+          ],
+          "yaw_rad": -0.066472316369768
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.2170584350518495,
+            -0.0004393895529388274,
+            0.016
+          ],
+          "yaw_rad": 0.0013644776873859897
+        },
+        {
+          "id": "cube_004",
+          "color": "blue",
+          "position_m": [
+            0.2206419682248939,
+            0.12396400226747514,
+            0.016
+          ],
+          "yaw_rad": 0.08779857576412592
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.22146615075329396,
+            0.24391168118145506,
+            0.016
+          ],
+          "yaw_rad": -0.08540739052932031
+        }
+      ],
+      "simulation_duration_s": 33.054,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.120443900638818e-11,
+      "mean_belt_speed_error_m_s": 3.46533794375536e-11,
+      "max_lateral_drift_m": 8.002765117254285e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.805999999995635,
+            "final_position_m": [
+              0.21870020134958781,
+              0.5009465709075849,
+              -0.14652102213535756
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.771999999995653,
+            "final_position_m": [
+              0.21588341836570862,
+              0.5038029425633883,
+              -0.1762831019110244
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 20.189999999999856,
+            "final_position_m": [
+              0.21209689120008332,
+              0.47776494157525934,
+              -0.23510786027680522
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.11000000000195,
+            "final_position_m": [
+              0.21620142857503538,
+              0.44606208978812073,
+              -0.23510775542021622
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 23.58999999999797,
+            "final_position_m": [
+              0.2211991176706658,
+              0.5070624077820751,
+              -0.20584609660657344
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_002",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 7.643999999999413,
+            "final_position_m": [
+              0.22018229056065944,
+              0.510303641936897,
+              -0.2353572931058117
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 8,
+        "count": 6,
+        "belt_speed": 0.03,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.22346258722984036,
+            -0.35704082790643027,
+            0.016
+          ],
+          "yaw_rad": -0.032674558038241805
+        },
+        {
+          "id": "cube_001",
+          "color": "red",
+          "position_m": [
+            0.2192545824774736,
+            -0.24101800877528518,
+            0.016
+          ],
+          "yaw_rad": -0.11791392105816768
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.2197475854499526,
+            -0.12206918283932254,
+            0.016
+          ],
+          "yaw_rad": -0.07285642543466107
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21621677868201297,
+            -0.0024490836087655145,
+            0.016
+          ],
+          "yaw_rad": 0.0941483010465063
+        },
+        {
+          "id": "cube_004",
+          "color": "green",
+          "position_m": [
+            0.2190758102577307,
+            0.1180473640412658,
+            0.016
+          ],
+          "yaw_rad": 0.02727085552962347
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.22125126755270147,
+            0.2411748642164815,
+            0.016
+          ],
+          "yaw_rad": 0.12340691413455722
+        }
+      ],
+      "simulation_duration_s": 32.902,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.119899197467362e-11,
+      "mean_belt_speed_error_m_s": 3.690068001588798e-11,
+      "max_lateral_drift_m": 7.282507930028714e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 28.043999999995503,
+            "final_position_m": [
+              0.22814023821509685,
+              0.5800437486883578,
+              -0.23510775542021597
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 27.737999999995672,
+            "final_position_m": [
+              0.2152618856981538,
+              0.42720507312038447,
+              -0.20324159280052334
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_004",
+              "pass_bin_front"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.737999999995672,
+            "final_position_m": [
+              0.21714061484905903,
+              0.45966371529742917,
+              -0.20557460914225736
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.737999999995672,
+            "final_position_m": [
+              0.21510763826179735,
+              0.4866246527685316,
+              -0.23060310698838696
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.66999999999571,
+            "final_position_m": [
+              0.21552624927016667,
+              0.4497882351953249,
+              -0.23526224595601497
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.97599999999554,
+            "final_position_m": [
+              0.22563271951544062,
+              0.5498180954016013,
+              -0.23510775542021622
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 9,
+        "count": 6,
+        "belt_speed": 0.03,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.22333040899504214,
+            -0.35827140296317145,
+            0.016
+          ],
+          "yaw_rad": 0.12461403614715226
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.2243247237901946,
+            -0.2366540989676099,
+            0.016
+          ],
+          "yaw_rad": -0.14202367965972082
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.2192469760015541,
+            -0.12012044538418169,
+            0.016
+          ],
+          "yaw_rad": -0.13045374078896774
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.2140675126081527,
+            0.002644971495770056,
+            0.016
+          ],
+          "yaw_rad": 0.14499067328585266
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.22341531823207217,
+            0.11852482791982619,
+            0.016
+          ],
+          "yaw_rad": 0.06160011137683613
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.21759017287837895,
+            0.24192598786300598,
+            0.016
+          ],
+          "yaw_rad": -0.0660758340755139
+        }
+      ],
+      "simulation_duration_s": 32.944,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.128032621956827e-11,
+      "mean_belt_speed_error_m_s": 3.6906373263671645e-11,
+      "max_lateral_drift_m": 3.430034034579421e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 27.70399999999569,
+            "final_position_m": [
+              0.22329159652567193,
+              0.4834397622417298,
+              -0.14694759444865751
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 27.66999999999571,
+            "final_position_m": [
+              0.22460220611885806,
+              0.4925527684462131,
+              -0.17637800755685287
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 19.951999999999988,
+            "final_position_m": [
+              0.2223953996960437,
+              0.4771784597223968,
+              -0.20712040032242873
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 15.770000000001836,
+            "final_position_m": [
+              0.21155223429700423,
+              0.45553945079306846,
+              -0.23525257722117063
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 11.82600000000052,
+            "final_position_m": [
+              0.2245338512552916,
+              0.5102005400333871,
+              -0.20580099678261765
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_002",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 11.758000000000496,
+            "final_position_m": [
+              0.21650388951392882,
+              0.5063447763529008,
+              -0.2353013567952325
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 0,
+        "count": 6,
+        "belt_speed": 0.05,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.22375924287040327,
+            -0.35669795538177823,
+            0.016
+          ],
+          "yaw_rad": 0.03199073273015396
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.22275395873180798,
+            -0.2396510000682766,
+            0.016
+          ],
+          "yaw_rad": 0.13052172713633045
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.22379024264945838,
+            -0.12397809199863881,
+            0.016
+          ],
+          "yaw_rad": 0.1072212829762708
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21440302690366558,
+            0.0018372435714395525,
+            0.016
+          ],
+          "yaw_rad": -0.0973033138192323
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.22435814706819865,
+            0.12033168976199272,
+            0.016
+          ],
+          "yaw_rad": -0.060086432838784565
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.21907224665437192,
+            0.2362265573691637,
+            0.016
+          ],
+          "yaw_rad": -0.11271501705013082
+        }
+      ],
+      "simulation_duration_s": 22.134,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 1.1763756635474465e-09,
+      "mean_belt_speed_error_m_s": 3.514113669496896e-11,
+      "max_lateral_drift_m": 0.0005797457755516155,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 16.82400000000172,
+            "final_position_m": [
+              0.2245435430044047,
+              0.5023707420906649,
+              -0.11720397159166646
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.79000000000174,
+            "final_position_m": [
+              0.2249912150247354,
+              0.49593910364006055,
+              -0.1469409210979879
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 12.3700000000007,
+            "final_position_m": [
+              0.2659757928314523,
+              0.5178370233985657,
+              -0.23510775542021614
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.75600000000176,
+            "final_position_m": [
+              0.21414801864244917,
+              0.49927553969950916,
+              -0.17648726325013936
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 7.337999999999447,
+            "final_position_m": [
+              0.2250746590343946,
+              0.49403117253011974,
+              -0.20600527158878632
+            ],
+            "final_contacts": [
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 5.059999999999698,
+            "final_position_m": [
+              0.21797943114577403,
+              0.4979745503617136,
+              -0.23542033223595
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 1,
+        "count": 6,
+        "belt_speed": 0.05,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "blue",
+          "position_m": [
+            0.21774197742412582,
+            -0.3606133884082194,
+            0.016
+          ],
+          "yaw_rad": 0.09831077814613252
+        },
+        {
+          "id": "cube_001",
+          "color": "red",
+          "position_m": [
+            0.21891038963642995,
+            -0.23960325049861553,
+            0.016
+          ],
+          "yaw_rad": -0.14173226602707947
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.22304215730409768,
+            -0.11969485349424577,
+            0.016
+          ],
+          "yaw_rad": -0.05108048505027235
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.22346114444114085,
+            -0.0015744413656668401,
+            0.016
+          ],
+          "yaw_rad": -0.013950633155804549
+        },
+        {
+          "id": "cube_004",
+          "color": "green",
+          "position_m": [
+            0.21560850036696597,
+            0.11922490389157703,
+            0.016
+          ],
+          "yaw_rad": -0.08896342779715512
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.2171477600853022,
+            0.2420029173810404,
+            0.016
+          ],
+          "yaw_rad": -0.06587737260418802
+        }
+      ],
+      "simulation_duration_s": 22.214,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.111636362606589e-11,
+      "mean_belt_speed_error_m_s": 3.315877310282269e-11,
+      "max_lateral_drift_m": 3.9737657608895915e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 17.028000000001608,
+            "final_position_m": [
+              0.21823827930557985,
+              0.49397211931565554,
+              -0.14601012396293522
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 17.028000000001608,
+            "final_position_m": [
+              0.21701020689249953,
+              0.4979193161929094,
+              -0.17592226277259443
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 12.302000000000678,
+            "final_position_m": [
+              0.2275082423672161,
+              0.47445742789115164,
+              -0.20545905114719745
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 10.023999999999917,
+            "final_position_m": [
+              0.2225248159060528,
+              0.4615209708314913,
+              -0.2351889824187326
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.858000000001702,
+            "final_position_m": [
+              0.21455219905371523,
+              0.5072746606226824,
+              -0.2058068752584321
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 7.3039999999994505,
+            "final_position_m": [
+              0.21707301389168637,
+              0.49751207313256374,
+              -0.2353777249636279
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 2,
+        "count": 6,
+        "belt_speed": 0.05,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.21510299130562116,
+            -0.3591991957922748,
+            0.016
+          ],
+          "yaw_rad": 0.06856815804353839
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.21625481288039924,
+            -0.24355882698133544,
+            0.016
+          ],
+          "yaw_rad": -0.06750918962818857
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.2218891961785071,
+            -0.11950187469775657,
+            0.016
+          ],
+          "yaw_rad": -0.10498132100839916
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21919156948965746,
+            0.001354378388596162,
+            0.016
+          ],
+          "yaw_rad": -0.023164598018961657
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.2215982127912894,
+            0.1237394876199494,
+            0.016
+          ],
+          "yaw_rad": 0.054919446692887584
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.2186994979969603,
+            0.2374980205577608,
+            0.016
+          ],
+          "yaw_rad": -0.04621180032848007
+        }
+      ],
+      "simulation_duration_s": 22.184,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.102962051337315e-11,
+      "mean_belt_speed_error_m_s": 3.676436090277609e-11,
+      "max_lateral_drift_m": 4.5449755070592346e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 16.892000000001683,
+            "final_position_m": [
+              0.21462883807065747,
+              0.4920734598662034,
+              -0.1460263133104645
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 14.61400000000145,
+            "final_position_m": [
+              0.21506753272916823,
+              0.4964042536887858,
+              -0.17584632974465655
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 12.132000000000621,
+            "final_position_m": [
+              0.2221870414948247,
+              0.499212138853238,
+              -0.20551312765858784
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_004",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 9.921999999999883,
+            "final_position_m": [
+              0.21600109320013003,
+              0.42742072061522474,
+              -0.23510775542021617
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 9.887999999999872,
+            "final_position_m": [
+              0.22345401114796654,
+              0.48195333297085746,
+              -0.23526943638703654
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 4.991999999999705,
+            "final_position_m": [
+              0.21871006622409503,
+              0.5142402818870555,
+              -0.23522404662565435
+            ],
+            "final_contacts": [
+              "cube_002",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 3,
+        "count": 6,
+        "belt_speed": 0.05,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "green",
+          "position_m": [
+            0.22098594443277242,
+            -0.3632469708620768,
+            0.016
+          ],
+          "yaw_rad": -0.02006191792905786
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.21974861557769002,
+            -0.24272208868290338,
+            0.016
+          ],
+          "yaw_rad": 0.07037314542276436
+        },
+        {
+          "id": "cube_002",
+          "color": "blue",
+          "position_m": [
+            0.21536406423905685,
+            -0.1208701744760347,
+            0.016
+          ],
+          "yaw_rad": 0.0050220547864091025
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21916753624497012,
+            0.0006943885715051259,
+            0.016
+          ],
+          "yaw_rad": 0.07135133618764807
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.22547520705803317,
+            0.11827360930999033,
+            0.016
+          ],
+          "yaw_rad": 0.044564162123947516
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.22235459196004187,
+            0.23834176599209989,
+            0.016
+          ],
+          "yaw_rad": -0.14955297494734915
+        }
+      ],
+      "simulation_duration_s": 22.266,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.130293660535415e-11,
+      "mean_belt_speed_error_m_s": 3.562744151102752e-11,
+      "max_lateral_drift_m": 4.169165013223619e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.960000000001646,
+            "final_position_m": [
+              0.21983807208362943,
+              0.4923675246868297,
+              -0.08778699039352303
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.926000000001665,
+            "final_position_m": [
+              0.21817052783453542,
+              0.4996877819253513,
+              -0.11765501754429278
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 14.546000000001428,
+            "final_position_m": [
+              0.21337982225078964,
+              0.49553822642926915,
+              -0.14735825037118463
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 14.478000000001405,
+            "final_position_m": [
+              0.21731592298388436,
+              0.5006141183739652,
+              -0.17686629233681353
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 9.649999999999793,
+            "final_position_m": [
+              0.22549257282800544,
+              0.49032256763902815,
+              -0.20603820712078272
+            ],
+            "final_contacts": [
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 4.991999999999705,
+            "final_position_m": [
+              0.2215665837520091,
+              0.49407350371555364,
+              -0.23547588484550502
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 4,
+        "count": 6,
+        "belt_speed": 0.05,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "blue",
+          "position_m": [
+            0.22128826998394036,
+            -0.3609881073249818,
+            0.016
+          ],
+          "yaw_rad": 0.09057036209574217
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.21609433379372833,
+            -0.23702691780649873,
+            0.016
+          ],
+          "yaw_rad": 0.013182420229049452
+        },
+        {
+          "id": "cube_002",
+          "color": "red",
+          "position_m": [
+            0.22482658095659186,
+            -0.12018277180928634,
+            0.016
+          ],
+          "yaw_rad": -0.020851116681176063
+        },
+        {
+          "id": "cube_003",
+          "color": "green",
+          "position_m": [
+            0.22346736061053196,
+            0.003873223999448971,
+            0.016
+          ],
+          "yaw_rad": -0.03908226220427136
+        },
+        {
+          "id": "cube_004",
+          "color": "blue",
+          "position_m": [
+            0.22562719443179483,
+            0.12343221110212335,
+            0.016
+          ],
+          "yaw_rad": -0.09669222427140567
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.22130621940213457,
+            0.24163891796451792,
+            0.016
+          ],
+          "yaw_rad": 0.13284110373875016
+        }
+      ],
+      "simulation_duration_s": 22.22,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.115575572675837e-11,
+      "mean_belt_speed_error_m_s": 3.670589130522163e-11,
+      "max_lateral_drift_m": 3.9918068850397503e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.926000000001665,
+            "final_position_m": [
+              0.2188162104656669,
+              0.498402171085951,
+              -0.08774241687239002
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.892000000001683,
+            "final_position_m": [
+              0.2098284914863501,
+              0.4879541655866593,
+              -0.11806659818226127
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 16.82400000000172,
+            "final_position_m": [
+              0.22285197240944593,
+              0.4912191167512055,
+              -0.14719913798644255
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 14.37600000000137,
+            "final_position_m": [
+              0.22325520649992808,
+              0.49673171271005456,
+              -0.17670354392568977
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 9.58199999999977,
+            "final_position_m": [
+              0.22633781927369623,
+              0.5022459641529684,
+              -0.20602311497870154
+            ],
+            "final_contacts": [
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 7.235999999999458,
+            "final_position_m": [
+              0.22150324469920865,
+              0.4986197098042588,
+              -0.23547469242341965
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 5,
+        "count": 6,
+        "belt_speed": 0.05,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "blue",
+          "position_m": [
+            0.21464716842857987,
+            -0.36093304895371586,
+            0.016
+          ],
+          "yaw_rad": -0.027458038374000404
+        },
+        {
+          "id": "cube_001",
+          "color": "blue",
+          "position_m": [
+            0.21454330232682933,
+            -0.24360993831418265,
+            0.016
+          ],
+          "yaw_rad": 0.14975283451952143
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.22182842933905586,
+            -0.1221239183866414,
+            0.016
+          ],
+          "yaw_rad": -0.01951573433245739
+        },
+        {
+          "id": "cube_003",
+          "color": "red",
+          "position_m": [
+            0.22569023431911106,
+            0.0031814208648683904,
+            0.016
+          ],
+          "yaw_rad": 0.10326931128262229
+        },
+        {
+          "id": "cube_004",
+          "color": "green",
+          "position_m": [
+            0.21870885597201734,
+            0.11994418414985393,
+            0.016
+          ],
+          "yaw_rad": 0.05300680554931981
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.21472963255549668,
+            0.2404447689353658,
+            0.016
+          ],
+          "yaw_rad": -0.06856451864096953
+        }
+      ],
+      "simulation_duration_s": 22.22,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.114539595815984e-11,
+      "mean_belt_speed_error_m_s": 3.6038671309090616e-11,
+      "max_lateral_drift_m": 4.173883461078276e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 17.028000000001608,
+            "final_position_m": [
+              0.2120471747659785,
+              0.4985661672424095,
+              -0.11702707693885277
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 17.028000000001608,
+            "final_position_m": [
+              0.21179773376116523,
+              0.4955882640470827,
+              -0.14692003110825286
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 14.512000000001416,
+            "final_position_m": [
+              0.2206714325615344,
+              0.49252654319528416,
+              -0.17628322163193252
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 12.09800000000061,
+            "final_position_m": [
+              0.22566693556255432,
+              0.4980930261927004,
+              -0.20571795010753255
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_004",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 7.4399999999994355,
+            "final_position_m": [
+              0.22301554282086797,
+              0.47198620831906346,
+              -0.23526393006206295
+            ],
+            "final_contacts": [
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 4.957999999999709,
+            "final_position_m": [
+              0.2128125730699222,
+              0.5139233483065895,
+              -0.23529607930664478
+            ],
+            "final_contacts": [
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 6,
+        "count": 6,
+        "belt_speed": 0.05,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "green",
+          "position_m": [
+            0.22159307527128574,
+            -0.358605408555964,
+            0.016
+          ],
+          "yaw_rad": -0.05101096338436249
+        },
+        {
+          "id": "cube_001",
+          "color": "red",
+          "position_m": [
+            0.22215901193396828,
+            -0.24301622100090248,
+            0.016
+          ],
+          "yaw_rad": -0.13448123040486742
+        },
+        {
+          "id": "cube_002",
+          "color": "red",
+          "position_m": [
+            0.22420229616170545,
+            -0.12392883355571652,
+            0.016
+          ],
+          "yaw_rad": 0.143630268655589
+        },
+        {
+          "id": "cube_003",
+          "color": "green",
+          "position_m": [
+            0.22392403630982866,
+            0.0022816876746109714,
+            0.016
+          ],
+          "yaw_rad": -0.13557495389923604
+        },
+        {
+          "id": "cube_004",
+          "color": "blue",
+          "position_m": [
+            0.2164892711944837,
+            0.12279892504876169,
+            0.016
+          ],
+          "yaw_rad": -0.020251556503490763
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.2215296152044369,
+            0.2369782591904877,
+            0.016
+          ],
+          "yaw_rad": -0.09409910439665115
+        }
+      ],
+      "simulation_duration_s": 22.174,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.116666366797531e-11,
+      "mean_belt_speed_error_m_s": 3.2437399564992984e-11,
+      "max_lateral_drift_m": 6.075695502261169e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.858000000001702,
+            "final_position_m": [
+              0.22384367428036067,
+              0.4894616798902564,
+              -0.11708118827004256
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 16.82400000000172,
+            "final_position_m": [
+              0.22374413103998567,
+              0.49132912576270016,
+              -0.14691730053649296
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 16.82400000000172,
+            "final_position_m": [
+              0.22590572499078693,
+              0.5002346981555321,
+              -0.17631528785087927
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 9.683999999999804,
+            "final_position_m": [
+              0.224014675833644,
+              0.4993235819973836,
+              -0.20607712037266482
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_004",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.82400000000172,
+            "final_position_m": [
+              0.2160724876237293,
+              0.4694971716057964,
+              -0.23510143349637808
+            ],
+            "final_contacts": [
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 5.025999999999701,
+            "final_position_m": [
+              0.220164366903101,
+              0.5067011270372409,
+              -0.23538795885755118
+            ],
+            "final_contacts": [
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 7,
+        "count": 6,
+        "belt_speed": 0.05,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "green",
+          "position_m": [
+            0.2167024862798871,
+            -0.3615986697207102,
+            0.016
+          ],
+          "yaw_rad": 0.11206603361887857
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.2140631836547869,
+            -0.23743017265293787,
+            0.016
+          ],
+          "yaw_rad": 0.08912082862561387
+        },
+        {
+          "id": "cube_002",
+          "color": "red",
+          "position_m": [
+            0.21961521943412465,
+            -0.12157574058544549,
+            0.016
+          ],
+          "yaw_rad": -0.066472316369768
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.2170584350518495,
+            -0.0004393895529388274,
+            0.016
+          ],
+          "yaw_rad": 0.0013644776873859897
+        },
+        {
+          "id": "cube_004",
+          "color": "blue",
+          "position_m": [
+            0.2206419682248939,
+            0.12396400226747514,
+            0.016
+          ],
+          "yaw_rad": 0.08779857576412592
+        },
+        {
+          "id": "cube_005",
+          "color": "red",
+          "position_m": [
+            0.22146615075329396,
+            0.24391168118145506,
+            0.016
+          ],
+          "yaw_rad": -0.08540739052932031
+        }
+      ],
+      "simulation_duration_s": 22.232,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.106668808460782e-11,
+      "mean_belt_speed_error_m_s": 3.669027530739497e-11,
+      "max_lateral_drift_m": 3.207156762385921e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.960000000001646,
+            "final_position_m": [
+              0.21292648317197002,
+              0.5019232599884201,
+              -0.08784499681954837
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.926000000001665,
+            "final_position_m": [
+              0.2116336542619085,
+              0.4986507763913984,
+              -0.11761196325966615
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 16.892000000001683,
+            "final_position_m": [
+              0.21733658037751521,
+              0.49309684787743274,
+              -0.14699269019492603
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 14.37600000000137,
+            "final_position_m": [
+              0.21592565157790852,
+              0.4950724331393404,
+              -0.17660426890461292
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 7.269999999999454,
+            "final_position_m": [
+              0.2210961280297817,
+              0.4933851329499823,
+              -0.20595061091243838
+            ],
+            "final_contacts": [
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 4.889999999999716,
+            "final_position_m": [
+              0.22105782746403513,
+              0.4954884700258491,
+              -0.23546842778084026
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 8,
+        "count": 6,
+        "belt_speed": 0.05,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.22346258722984036,
+            -0.35704082790643027,
+            0.016
+          ],
+          "yaw_rad": -0.032674558038241805
+        },
+        {
+          "id": "cube_001",
+          "color": "red",
+          "position_m": [
+            0.2192545824774736,
+            -0.24101800877528518,
+            0.016
+          ],
+          "yaw_rad": -0.11791392105816768
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.2197475854499526,
+            -0.12206918283932254,
+            0.016
+          ],
+          "yaw_rad": -0.07285642543466107
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.21621677868201297,
+            -0.0024490836087655145,
+            0.016
+          ],
+          "yaw_rad": 0.0941483010465063
+        },
+        {
+          "id": "cube_004",
+          "color": "green",
+          "position_m": [
+            0.2190758102577307,
+            0.1180473640412658,
+            0.016
+          ],
+          "yaw_rad": 0.02727085552962347
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.22125126755270147,
+            0.2411748642164815,
+            0.016
+          ],
+          "yaw_rad": 0.12340691413455722
+        }
+      ],
+      "simulation_duration_s": 22.142,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.103847454199453e-11,
+      "mean_belt_speed_error_m_s": 3.6813208704390346e-11,
+      "max_lateral_drift_m": 5.388745005774354e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 16.82400000000172,
+            "final_position_m": [
+              0.2251617428968709,
+              0.49472583584094304,
+              -0.11696978047478088
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 14.546000000001428,
+            "final_position_m": [
+              0.2203359945916765,
+              0.5042800716489282,
+              -0.1466792834115291
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 12.3700000000007,
+            "final_position_m": [
+              0.22683702830335942,
+              0.5582340831964594,
+              -0.235107755420216
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 14.512000000001416,
+            "final_position_m": [
+              0.21562532191862613,
+              0.5014735561403485,
+              -0.17639217076002833
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_004"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 9.717999999999815,
+            "final_position_m": [
+              0.21864692689135834,
+              0.49801266231663854,
+              -0.2058912995387109
+            ],
+            "final_contacts": [
+              "cube_003",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 4.923999999999713,
+            "final_position_m": [
+              0.22182321696716098,
+              0.4980441106714931,
+              -0.23542635072705892
+            ],
+            "final_contacts": [
+              "cube_004",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    },
+    {
+      "phase": 1,
+      "config": {
+        "seed": 9,
+        "count": 6,
+        "belt_speed": 0.05,
+        "target_color": "red"
+      },
+      "initial_cubes": [
+        {
+          "id": "cube_000",
+          "color": "red",
+          "position_m": [
+            0.22333040899504214,
+            -0.35827140296317145,
+            0.016
+          ],
+          "yaw_rad": 0.12461403614715226
+        },
+        {
+          "id": "cube_001",
+          "color": "green",
+          "position_m": [
+            0.2243247237901946,
+            -0.2366540989676099,
+            0.016
+          ],
+          "yaw_rad": -0.14202367965972082
+        },
+        {
+          "id": "cube_002",
+          "color": "green",
+          "position_m": [
+            0.2192469760015541,
+            -0.12012044538418169,
+            0.016
+          ],
+          "yaw_rad": -0.13045374078896774
+        },
+        {
+          "id": "cube_003",
+          "color": "blue",
+          "position_m": [
+            0.2140675126081527,
+            0.002644971495770056,
+            0.016
+          ],
+          "yaw_rad": 0.14499067328585266
+        },
+        {
+          "id": "cube_004",
+          "color": "red",
+          "position_m": [
+            0.22341531823207217,
+            0.11852482791982619,
+            0.016
+          ],
+          "yaw_rad": 0.06160011137683613
+        },
+        {
+          "id": "cube_005",
+          "color": "blue",
+          "position_m": [
+            0.21759017287837895,
+            0.24192598786300598,
+            0.016
+          ],
+          "yaw_rad": -0.0660758340755139
+        }
+      ],
+      "simulation_duration_s": 22.166,
+      "completed": true,
+      "transport_success": true,
+      "collected_cubes": 6,
+      "arm_cube_contact_steps": 0,
+      "max_arm_deviation_rad": 0.0008266687926744303,
+      "max_belt_speed_error_m_s": 8.115249444662354e-11,
+      "mean_belt_speed_error_m_s": 3.673231549928147e-11,
+      "max_lateral_drift_m": 5.002109837448643e-13,
+      "premature_belt_departures": [],
+      "scoring": {
+        "target_color": "red",
+        "total_cubes": 6,
+        "classified_cubes": 6,
+        "resolved_cubes": 6,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "cubes": [
+          {
+            "id": "cube_000",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 16.858000000001702,
+            "final_position_m": [
+              0.22554950516639555,
+              0.49368440489457915,
+              -0.11716461421327093
+            ],
+            "final_contacts": [
+              "cube_001"
+            ]
+          },
+          {
+            "id": "cube_001",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 16.79000000000174,
+            "final_position_m": [
+              0.22767726638162683,
+              0.5009880824050679,
+              -0.14697573225360702
+            ],
+            "final_contacts": [
+              "cube_000",
+              "cube_002"
+            ]
+          },
+          {
+            "id": "cube_002",
+            "color": "green",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 14.410000000001382,
+            "final_position_m": [
+              0.2209213589372298,
+              0.49281101461884874,
+              -0.17647853873411962
+            ],
+            "final_contacts": [
+              "cube_001",
+              "cube_003"
+            ]
+          },
+          {
+            "id": "cube_003",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 14.37600000000137,
+            "final_position_m": [
+              0.21420666232637992,
+              0.49883937541905327,
+              -0.20585571792225257
+            ],
+            "final_contacts": [
+              "cube_002",
+              "cube_005"
+            ]
+          },
+          {
+            "id": "cube_004",
+            "color": "red",
+            "destination": "pass",
+            "outcome": "target_missed",
+            "resolved_at_s": 7.541999999999424,
+            "final_position_m": [
+              0.22406275042344553,
+              0.5304101684402434,
+              -0.2351077554202161
+            ],
+            "final_contacts": [
+              "pass_bin_floor"
+            ]
+          },
+          {
+            "id": "cube_005",
+            "color": "blue",
+            "destination": "pass",
+            "outcome": "correct_pass",
+            "resolved_at_s": 9.615999999999781,
+            "final_position_m": [
+              0.21728474304223938,
+              0.496301063120522,
+              -0.23542020352636037
+            ],
+            "final_contacts": [
+              "cube_003",
+              "pass_bin_floor"
+            ]
+          }
+        ]
+      },
+      "versions": {
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5"
+      },
+      "source_sha256": {
+        "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+        "conveyor_sim/environment.py": "6defb712ebbd1c01062e4528edf12a1e1eadc1fa4547926cd273725cb288566c",
+        "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+        "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308"
+      },
+      "note": "Transport baseline: arm parked. Target misses are expected sorting outcomes."
+    }
+  ]
+}

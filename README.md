@@ -3,6 +3,16 @@
 MuJoCo runs locally on the Mac. Codex operates a simulated SO101 arm through
 terminal commands, observing state and contacts after each action.
 
+## Experiment plans
+
+- [SO101 conveyor color sorting](experiments/conveyor-color-sorting/PLAN.md):
+  phased plan for evaluating LLM instruction-following, vision, and timed robotic actions.
+
+The [Phase 1 conveyor guide](experiments/conveyor-color-sorting/README.md) covers
+transport trials, independent scoring, viewer replay, video export, and validation.
+The [Phase 2 pushing results](experiments/conveyor-color-sorting/PHASE2_RESULTS.md)
+document the validated conventional controller, its demonstration video, and timing limits.
+
 ## SO101 red cube pickup
 
 The scene uses the SO101 model from Google DeepMind's MuJoCo Menagerie and a

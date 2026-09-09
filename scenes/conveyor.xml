@@ -1,0 +1,38 @@
+<mujoco model="SO101 conveyor transport">
+  <include file="../models/so101/so101.xml"/>
+  <compiler meshdir="../models/so101/assets"/>
+  <option timestep="0.002" iterations="50"/>
+  <visual>
+    <global offwidth="960" offheight="720"/>
+    <headlight diffuse="0.7 0.7 0.7" ambient="0.3 0.3 0.3" specular="0.1 0.1 0.1"/>
+  </visual>
+  <asset>
+    <texture name="conveyor_sky" type="skybox" builtin="gradient" rgb1="0.22 0.28 0.35" rgb2="0.06 0.08 0.1" width="512" height="3072"/>
+    <material name="belt_material" rgba="0.13 0.17 0.20 1"/>
+    <material name="frame_material" rgba="0.55 0.61 0.66 1"/>
+  </asset>
+  <worldbody>
+    <light pos="0 -0.3 1.5" dir="0 0 -1" directional="true"/>
+    <geom name="world_floor" type="plane" pos="0 0 -0.35" size="1.5 1.5 0.01" rgba="0.22 0.25 0.29 1"/>
+    <geom name="arm_mount" type="box" pos="0.015 0 -0.025" size="0.09 0.10 0.025" material="frame_material"/>
+    <geom name="belt" type="box" pos="0.22 0 -0.015" size="0.06 0.45 0.015"
+      material="belt_material" surfacevel="0 0.03 0 0 0 0" friction="0.8 0.005 0.0001" condim="4"/>
+    <geom name="belt_frame_left" type="box" pos="0.151 0 -0.025" size="0.009 0.46 0.015" material="frame_material"/>
+    <geom name="belt_frame_right" type="box" pos="0.289 0 -0.025" size="0.009 0.46 0.015" material="frame_material"/>
+    <geom name="belt_leg_1" type="box" pos="0.17 -0.35 -0.18" size="0.012 0.025 0.15" material="frame_material"/>
+    <geom name="belt_leg_2" type="box" pos="0.27 -0.35 -0.18" size="0.012 0.025 0.15" material="frame_material"/>
+    <geom name="belt_leg_3" type="box" pos="0.17 0.35 -0.18" size="0.012 0.025 0.15" material="frame_material"/>
+    <geom name="belt_leg_4" type="box" pos="0.27 0.35 -0.18" size="0.012 0.025 0.15" material="frame_material"/>
+    <geom name="pass_bin_floor" type="box" pos="0.22 0.57 -0.258" size="0.118 0.168 0.008" rgba="0.2 0.5 0.6 1"/>
+    <geom name="pass_bin_left" type="box" pos="0.102 0.57 -0.14" size="0.008 0.168 0.11" rgba="0.2 0.5 0.6 1"/>
+    <geom name="pass_bin_right" type="box" pos="0.338 0.57 -0.14" size="0.008 0.168 0.11" rgba="0.2 0.5 0.6 1"/>
+    <geom name="pass_bin_back" type="box" pos="0.22 0.738 -0.14" size="0.118 0.008 0.11" rgba="0.2 0.5 0.6 1"/>
+    <geom name="pass_bin_front" type="box" pos="0.22 0.402 -0.15" size="0.118 0.008 0.10" rgba="0.2 0.5 0.6 1"/>
+    <geom name="reject_bin_floor" type="box" pos="0.4 0 -0.158" size="0.118 0.188 0.008" rgba="0.65 0.4 0.2 1"/>
+    <geom name="reject_bin_back" type="box" pos="0.518 0 -0.09" size="0.008 0.188 0.06" rgba="0.65 0.4 0.2 1"/>
+    <geom name="reject_bin_side1" type="box" pos="0.4 -0.188 -0.09" size="0.118 0.008 0.06" rgba="0.65 0.4 0.2 1"/>
+    <geom name="reject_bin_side2" type="box" pos="0.4 0.188 -0.09" size="0.118 0.008 0.06" rgba="0.65 0.4 0.2 1"/>
+    <geom name="reject_bin_front" type="box" pos="0.282 0 -0.10" size="0.008 0.188 0.05" rgba="0.65 0.4 0.2 1"/>
+    <camera name="overhead" pos="0.24 0.12 1.3" xyaxes="1 0 0 0 1 0" fovy="55"/>
+  </worldbody>
+</mujoco>

@@ -12,7 +12,7 @@ import numpy as np
 from .environment import configure_camera
 
 
-def record(env, output, fps=30):
+def record(env, output, fps=30, camera_setup=configure_camera, annotate=None):
     ffmpeg = shutil.which("ffmpeg")
     if ffmpeg is None:
         raise RuntimeError("Video export requires ffmpeg on PATH")
@@ -30,7 +30,7 @@ def record(env, output, fps=30):
     frame_count = math.ceil(round(float(times[-1] - times[0]), 6) * fps) + 1
     visual = mujoco.MjData(env.model)
     camera = mujoco.MjvCamera()
-    configure_camera(camera)
+    camera_setup(camera)
 
     # Render scratch data only. Neither the saved episode nor live physics changes.
     with tempfile.TemporaryDirectory(prefix="so101-video-", dir=output.parent) as folder:
@@ -53,7 +53,10 @@ def record(env, output, fps=30):
                         visual.qpos[:] = env.frames[index]
                         mujoco.mj_forward(env.model, visual)
                         renderer.update_scene(visual, camera=camera)
-                        process.stdin.write(renderer.render().tobytes())
+                        pixels = renderer.render()
+                        if annotate is not None:
+                            pixels = annotate(pixels, timestamp)
+                        process.stdin.write(pixels.tobytes())
                 process.stdin.close()
                 returncode = process.wait(timeout=60)
                 if returncode:
