@@ -12,6 +12,16 @@ The [Phase 1 conveyor guide](experiments/conveyor-color-sorting/README.md) cover
 transport trials, independent scoring, viewer replay, video export, and validation.
 The [Phase 2 pushing results](experiments/conveyor-color-sorting/PHASE2_RESULTS.md)
 document the validated conventional controller, its demonstration video, and timing limits.
+The [Phase 3 results](experiments/conveyor-color-sorting/PHASE3_RESULTS.md) compare
+Codex's explicit sorting actions with the conventional controller using structured state.
+The [Phase 4 results](experiments/conveyor-color-sorting/PHASE4_RESULTS.md) show
+continuous-time sorting and the measured command-latency and cycle-time limits.
+The [Phase 5 results](experiments/conveyor-color-sorting/PHASE5_RESULTS.md) compare
+camera-based Codex decisions with conventional vision: correct visual selections,
+but 6/16 versus 15/16 physical rejections because of timing failures.
+The [Phase 6 development results](experiments/conveyor-color-sorting/PHASE6_RESULTS.md)
+cover changed layouts, lighting, camera orientation, counting, and instruction
+changes, with runtime-health failures reported separately.
 
 ## SO101 red cube pickup
 

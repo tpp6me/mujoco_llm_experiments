@@ -1,0 +1,56 @@
+[
+  {
+    "id": "9000_red",
+    "seed": 9000,
+    "target_color": "red",
+    "instruction": "Reject red cubes; let the others pass."
+  },
+  {
+    "id": "9000_blue",
+    "seed": 9000,
+    "target_color": "blue",
+    "instruction": "Reject blue cubes; let the others pass."
+  },
+  {
+    "id": "9000_green",
+    "seed": 9000,
+    "target_color": "green",
+    "instruction": "Reject green cubes; let the others pass."
+  },
+  {
+    "id": "9001_red",
+    "seed": 9001,
+    "target_color": "red",
+    "instruction": "Push only red blocks into the side tray. Leave other colors on the belt."
+  },
+  {
+    "id": "9001_blue",
+    "seed": 9001,
+    "target_color": "blue",
+    "instruction": "Push only blue blocks into the side tray. Leave other colors on the belt."
+  },
+  {
+    "id": "9001_green",
+    "seed": 9001,
+    "target_color": "green",
+    "instruction": "Push only green blocks into the side tray. Leave other colors on the belt."
+  },
+  {
+    "id": "9002_red",
+    "seed": 9002,
+    "target_color": "red",
+    "instruction": "Keep blue and green on the conveyor; remove red into the side tray."
+  },
+  {
+    "id": "9002_blue",
+    "seed": 9002,
+    "target_color": "blue",
+    "instruction": "Keep red and green on the conveyor; remove blue into the side tray."
+  },
+  {
+    "id": "9002_green",
+    "seed": 9002,
+    "target_color": "green",
+    "instruction": "Keep red and blue on the conveyor; remove green into the side tray."
+  }
+]

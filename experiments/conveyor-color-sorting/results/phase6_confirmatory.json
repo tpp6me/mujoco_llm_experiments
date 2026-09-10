@@ -1,0 +1,3169 @@
+{
+  "phase": 6,
+  "development_measurement_complete": true,
+  "all_runtimes_healthy": true,
+  "formal_benchmark_complete": false,
+  "matched_initial_states": true,
+  "source_hashes_verified": true,
+  "public_schema_verified": true,
+  "cases": [
+    {
+      "id": "confirm_switch_01",
+      "condition": "rule_switch",
+      "config": {
+        "seed": 24003,
+        "layout": 0,
+        "target_color": "red",
+        "rule_colors": [
+          "red"
+        ],
+        "instruction": "Reject red cubes; let the others pass.",
+        "front_y": -0.2,
+        "spacing": 0.1,
+        "switch_at_s": 20,
+        "next_colors": [
+          "blue"
+        ],
+        "next_instruction": "Reject blue cubes; let the others pass."
+      }
+    },
+    {
+      "id": "confirm_switch_02",
+      "condition": "rule_switch",
+      "config": {
+        "seed": 24004,
+        "layout": 1,
+        "target_color": "green",
+        "rule_colors": [
+          "green"
+        ],
+        "instruction": "Reject green cubes; let the others pass.",
+        "front_y": -0.2,
+        "spacing": 0.1,
+        "switch_at_s": 20,
+        "next_colors": [
+          "red"
+        ],
+        "next_instruction": "Reject red cubes; let the others pass."
+      }
+    }
+  ],
+  "groups": {
+    "codex_session": {
+      "summary": {
+        "episodes": 2,
+        "successful_episodes": 0,
+        "physically_successful_episodes": 0,
+        "episode_success_wilson_95": [
+          0,
+          0.6576197724933469
+        ],
+        "selection_correct_episodes": 2,
+        "realtime_healthy_episodes": 2,
+        "target_cubes": 2,
+        "non_target_cubes": 4,
+        "outcomes": {
+          "correct_pass": 4,
+          "target_missed": 2
+        },
+        "target_rejection_rate": 0.0,
+        "command_statuses": {
+          "cancelled_rule_change": 2,
+          "expired": 2
+        },
+        "estimates": 4,
+        "correct_colors": 4,
+        "final_rule_estimates": 2,
+        "correct_final_targets": 2,
+        "position_error_m": {
+          "count": 4,
+          "min": 6.258787780923275e-05,
+          "median": 0.0003591495997239088,
+          "p95": 0.0011667117193159956,
+          "max": 0.0012739335212238313
+        },
+        "response_wall_s": {
+          "count": 4,
+          "min": 10.791075083892792,
+          "median": 11.40728506189771,
+          "p95": 12.909329098218585,
+          "max": 13.15790304215625
+        },
+        "adaptation_delay_s": {
+          "count": 2,
+          "min": 18.188000000000706,
+          "median": 18.86300000000153,
+          "p95": 19.47050000000227,
+          "max": 19.538000000002356
+        },
+        "max_simulation_lag_s": 0.06881870799995227,
+        "unintended_contact_episodes": 0
+      },
+      "runs": [
+        {
+          "phase": 6,
+          "config": {
+            "seed": 24003,
+            "target_color": "red",
+            "instruction": "Reject red cubes; let the others pass.",
+            "actor": "codex_session",
+            "belt_speed": 0.005,
+            "spacing": 0.1,
+            "count": 3,
+            "scenario": "mixed",
+            "layout": 0,
+            "position_spread": 0.006,
+            "yaw_limit": 0.15,
+            "illumination": 1.0,
+            "camera_rotation": 0.0,
+            "front_y": -0.2,
+            "rule_colors": [
+              "red"
+            ],
+            "rule_count": 3,
+            "switch_at_s": 20,
+            "next_instruction": "Reject blue cubes; let the others pass.",
+            "next_colors": [
+              "blue"
+            ]
+          },
+          "initial_cubes": [
+            {
+              "id": "cube_000",
+              "color": "red",
+              "position_m": [
+                0.2250425724675334,
+                -0.4002077375043106,
+                0.016
+              ],
+              "yaw_rad": 0.018303814783864048
+            },
+            {
+              "id": "cube_001",
+              "color": "green",
+              "position_m": [
+                0.21848493799381408,
+                -0.29716465636548434,
+                0.016
+              ],
+              "yaw_rad": 0.036366170803688626
+            },
+            {
+              "id": "cube_002",
+              "color": "blue",
+              "position_m": [
+                0.2200435149138938,
+                -0.20340628037050693,
+                0.016
+              ],
+              "yaw_rad": 0.009442001482485373
+            }
+          ],
+          "target_ids": [
+            "cube_002"
+          ],
+          "completed": true,
+          "push_success": false,
+          "controller_error": null,
+          "simulation_duration_s": 176.04200000011247,
+          "touched_cube_ids": [],
+          "unintended_cube_contacts": [],
+          "cube_neighbor_contacts_on_belt": [],
+          "fixture_contacts": [],
+          "max_tracking_error_m": 0.0,
+          "actions": [],
+          "rejections": [],
+          "scoring": {
+            "total_cubes": 3,
+            "classified_cubes": 3,
+            "resolved_cubes": 3,
+            "outcomes": {
+              "correct_pass": 2,
+              "target_missed": 1
+            },
+            "cubes": [
+              {
+                "id": "cube_000",
+                "color": "red",
+                "destination": "pass",
+                "outcome": "correct_pass",
+                "resolved_at_s": 171.11600000008752,
+                "final_position_m": [
+                  0.2171033289773988,
+                  0.43360974462404556,
+                  -0.23510775542021595
+                ],
+                "final_contacts": [
+                  "pass_bin_floor"
+                ]
+              },
+              {
+                "id": "cube_001",
+                "color": "green",
+                "destination": "pass",
+                "outcome": "correct_pass",
+                "resolved_at_s": 171.08200000008736,
+                "final_position_m": [
+                  0.21938747665590733,
+                  0.4805984235071057,
+                  -0.23510775542021603
+                ],
+                "final_contacts": [
+                  "pass_bin_floor"
+                ]
+              },
+              {
+                "id": "cube_002",
+                "color": "blue",
+                "destination": "pass",
+                "outcome": "target_missed",
+                "resolved_at_s": 131.5059999998984,
+                "final_position_m": [
+                  0.21997826666826858,
+                  0.5118565129762249,
+                  -0.235107755420216
+                ],
+                "final_contacts": [
+                  "pass_bin_floor"
+                ]
+              }
+            ],
+            "target_ids": [
+              "cube_002"
+            ]
+          },
+          "source_sha256": {
+            "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+            "conveyor_sim/environment.py": "9df36fe167d5011e4b796a80632658eae56b7fd68ae8c1cb0aa63307beec8271",
+            "conveyor_sim/pushing.py": "7e899f5bc21ee45041d723698d3c12a10a84eea8fc467185eb0e4a43fc9ef2cc",
+            "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+            "so101_sim/environment.py": "5ef54403aa4451b119bd9956d5f0b27e0fd131e227a1f987a8193a5dfcaeb2ef",
+            "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308",
+            "conveyor_sim/interactive.py": "f8a9753fe4baec3dc4579a11837d7b558b7b804c1733ce41aeed4574e191137e",
+            "conveyor_sim/realtime.py": "470e2abbac30c666e185467be323acb20df1573648b5882e4a80398788fdfc92",
+            "conveyor_sim/live.py": "c2ef11eafa1d1d39ab27decc1fb401c1385f805f03fda299ca72a24de7dd30a2",
+            "conveyor_sim/live_experiment.py": "aa89ba70d69f4757d7397e2d09661891171e40909eaf8be0f60693e3c0218e6c",
+            "experiments/conveyor-color-sorting/phase4/PROTOCOL.md": "c9be97c7421d1242e02a6cb246603f925e1170b566d94284a4edf8793f0e2598",
+            "experiments/conveyor-color-sorting/phase4/cases.json": "87d47701aa5456ca44f07d594b16bd7d15a12a823f6d42aef71ce5dbfbf38d81",
+            "conveyor_sim/camera.py": "dc2caf02b3c028481e9f89530ee94443f7338d44a3240a293fb01e83256ed255",
+            "conveyor_sim/vision_runtime.py": "458db7b5d47774e13e669d48d72bcfacb8ae7bdfcc3009f65754900a516e4554",
+            "conveyor_sim/vision_render.py": "34f63decad39b7a430f279e93c1df0416933e3f094e72c365d1f9aaa0934fab6",
+            "conveyor_sim/vision.py": "c8bfb28f464a97c2c73a1f6f406514d12f96cb629dec6d955f0aa428aea38616",
+            "experiments/conveyor-color-sorting/phase5/PROTOCOL.md": "cf6d63f62a4981655fb49cf544b3bd1c782630e499f258928fdbf61f968ff54e",
+            "experiments/conveyor-color-sorting/phase5/cases.json": "87d47701aa5456ca44f07d594b16bd7d15a12a823f6d42aef71ce5dbfbf38d81",
+            "conveyor_sim/phase6_scene.py": "7c9439457b3481b790e2c7b302b5cf835e84a644604ea831d2880c38160abcc6",
+            "conveyor_sim/phase6_runtime.py": "b977fd8da24a0fb7650ad24795714c63c87d912d192cbe47e0b3c6c549dc7e4c",
+            "conveyor_sim/phase6_render.py": "90acff53a2b3226f49636ddf8ff21f2c3ff353c2d9c28387356914b30a471107",
+            "conveyor_sim/phase6.py": "605e20e9f2d633c11997a20a96197dab4cce083416477308d797b575f1826299",
+            "conveyor_sim/phase6_pixels.py": "46ed5f35ebee5ee4243f524febeeeac5c4da64519fd40d60f45d97b91c572d61",
+            "experiments/conveyor-color-sorting/phase6/PROTOCOL.md": "a50af13113459752773f23e50538afde9908087724f4a92d557829c2eddeb206",
+            "experiments/conveyor-color-sorting/phase6/cases.json": "72e16d9efcf053930b4d2ab82cdae5c885e97cfceed862090d525500697d3beb"
+          },
+          "versions": {
+            "mujoco": "3.12.0",
+            "numpy": "2.5.3"
+          },
+          "note": "Camera decisions with explicit rule versions; cancelled old-rule commands excluded from final selection scoring.",
+          "actor": "codex_session",
+          "time_mode": "continuous_wall_clock_camera",
+          "selected_cube_ids": [
+            "cube_002"
+          ],
+          "selection_correct": true,
+          "sorting_success": false,
+          "realtime_healthy": true,
+          "max_simulation_lag_s": 0.06881870799995227,
+          "allowed_lag_s": 0.25,
+          "wall_started_utc": "2026-09-09T15:17:30.378745+00:00",
+          "wall_finished_utc": "2026-09-09T15:20:25.921439+00:00",
+          "timing_failures": 1,
+          "events": [
+            {
+              "request_id": "87f4152809464db69853e4acbe2abf7f",
+              "command": {
+                "observation_id": "ac30e500b7ae4cf9a2dfb07f5c5686e3",
+                "start_at_s": 74.98861693042922,
+                "expires_at_s": 75.03861693042921,
+                "primitives": [
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      0.005,
+                      0.065
+                    ],
+                    "seconds": 2,
+                    "joint": true
+                  },
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      -0.005,
+                      0.02
+                    ],
+                    "seconds": 1
+                  },
+                  {
+                    "tool": "sweep",
+                    "xyz": [
+                      0.3,
+                      0.004999999999999999,
+                      0.02
+                    ],
+                    "seconds": 2
+                  },
+                  {
+                    "tool": "retract"
+                  }
+                ],
+                "cube_id": "object_v0_0"
+              },
+              "status": "cancelled_rule_change",
+              "received_at_utc": "2026-09-09T15:17:43.548723+00:00",
+              "received_at_sim_s": 13.668000000001234,
+              "error": "Pending old-rule motion cancelled at instruction change",
+              "actual_start_s": null,
+              "actual_end_s": null,
+              "observation": {
+                "observation_id": "ac30e500b7ae4cf9a2dfb07f5c5686e3",
+                "instruction": "Reject red cubes; let the others pass.",
+                "time_s": 0.5100000000000003,
+                "observed_at_utc": "2026-09-09T15:17:30.390793+00:00",
+                "time_mode": "continuous_wall_clock_camera_phase6",
+                "belt_velocity_m_s": [
+                  0,
+                  0.005,
+                  0
+                ],
+                "calibration": {
+                  "width": 960,
+                  "height": 720,
+                  "camera_world_xyz_m": [
+                    0.22,
+                    -0.18,
+                    0.7
+                  ],
+                  "fovy_degrees": 45.0,
+                  "focal_length_px": 869.1168824543141,
+                  "principal_point_px": [
+                    480.0,
+                    360.0
+                  ],
+                  "object_top_plane_z_m": 0.03,
+                  "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                  "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                  "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                  "rotation_degrees": 0.0
+                },
+                "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_01/images/ac30e500b7ae4cf9a2dfb07f5c5686e3.png",
+                "rule_version": 0,
+                "next_rule_change_at_s": 20,
+                "capture_to_image_ready_wall_s": 0.22844441700726748,
+                "image_ready_at_utc": "2026-09-09T15:17:30.619238+00:00"
+              },
+              "observation_to_submission_wall_s": 13.15790304215625,
+              "observation_age_sim_s": 13.158000000001234,
+              "perception": {
+                "object_id": "object_v0_0",
+                "pixel_xy": [
+                  486,
+                  642
+                ],
+                "perceived_color": "red",
+                "estimated_world_xy_m": [
+                  0.2246253847798329,
+                  -0.39739308465214607
+                ]
+              },
+              "rule_version": 0,
+              "planned_motion_s": 6.5200000000000005
+            },
+            {
+              "request_id": "050cf5f6dc13448e95cbdf7058bebf73",
+              "command": {
+                "observation_id": "98cd69962f0f4a5a9b393e35bb553de4",
+                "start_at_s": 35.67415305679809,
+                "expires_at_s": 35.72415305679809,
+                "primitives": [
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      0.005,
+                      0.065
+                    ],
+                    "seconds": 2,
+                    "joint": true
+                  },
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      -0.005,
+                      0.02
+                    ],
+                    "seconds": 1
+                  },
+                  {
+                    "tool": "sweep",
+                    "xyz": [
+                      0.3,
+                      0.004999999999999999,
+                      0.02
+                    ],
+                    "seconds": 2
+                  },
+                  {
+                    "tool": "retract"
+                  }
+                ],
+                "cube_id": "object_v1_0"
+              },
+              "status": "expired",
+              "received_at_utc": "2026-09-09T15:18:08.071142+00:00",
+              "received_at_sim_s": 38.188000000000706,
+              "error": "Command arrived after its latest start",
+              "actual_start_s": null,
+              "actual_end_s": null,
+              "observation": {
+                "observation_id": "98cd69962f0f4a5a9b393e35bb553de4",
+                "instruction": "Reject blue cubes; let the others pass.",
+                "time_s": 26.875999999995983,
+                "observed_at_utc": "2026-09-09T15:17:56.757197+00:00",
+                "time_mode": "continuous_wall_clock_camera_phase6",
+                "belt_velocity_m_s": [
+                  0,
+                  0.005,
+                  0
+                ],
+                "calibration": {
+                  "width": 960,
+                  "height": 720,
+                  "camera_world_xyz_m": [
+                    0.22,
+                    -0.18,
+                    0.7
+                  ],
+                  "fovy_degrees": 45.0,
+                  "focal_length_px": 869.1168824543141,
+                  "principal_point_px": [
+                    480.0,
+                    360.0
+                  ],
+                  "object_top_plane_z_m": 0.03,
+                  "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                  "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                  "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                  "rotation_degrees": 0.0
+                },
+                "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_01/images/98cd69962f0f4a5a9b393e35bb553de4.png",
+                "rule_version": 1,
+                "next_rule_change_at_s": 20,
+                "capture_to_image_ready_wall_s": 0.2492202918510884,
+                "image_ready_at_utc": "2026-09-09T15:17:57.006398+00:00"
+              },
+              "observation_to_submission_wall_s": 11.313826707890257,
+              "observation_age_sim_s": 11.312000000004723,
+              "perception": {
+                "object_id": "object_v1_0",
+                "pixel_xy": [
+                  480,
+                  216
+                ],
+                "perceived_color": "blue",
+                "estimated_world_xy_m": [
+                  0.22,
+                  -0.06899076528401053
+                ]
+              },
+              "rule_version": 1
+            }
+          ],
+          "observations": [
+            {
+              "observation_id": "ac30e500b7ae4cf9a2dfb07f5c5686e3",
+              "instruction": "Reject red cubes; let the others pass.",
+              "time_s": 0.5100000000000003,
+              "observed_at_utc": "2026-09-09T15:17:30.390793+00:00",
+              "time_mode": "continuous_wall_clock_camera_phase6",
+              "belt_velocity_m_s": [
+                0,
+                0.005,
+                0
+              ],
+              "calibration": {
+                "width": 960,
+                "height": 720,
+                "camera_world_xyz_m": [
+                  0.22,
+                  -0.18,
+                  0.7
+                ],
+                "fovy_degrees": 45.0,
+                "focal_length_px": 869.1168824543141,
+                "principal_point_px": [
+                  480.0,
+                  360.0
+                ],
+                "object_top_plane_z_m": 0.03,
+                "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                "rotation_degrees": 0.0
+              },
+              "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_01/images/ac30e500b7ae4cf9a2dfb07f5c5686e3.png",
+              "rule_version": 0,
+              "next_rule_change_at_s": 20,
+              "capture_to_image_ready_wall_s": 0.22844441700726748,
+              "image_ready_at_utc": "2026-09-09T15:17:30.619238+00:00"
+            },
+            {
+              "observation_id": "98cd69962f0f4a5a9b393e35bb553de4",
+              "instruction": "Reject blue cubes; let the others pass.",
+              "time_s": 26.875999999995983,
+              "observed_at_utc": "2026-09-09T15:17:56.757197+00:00",
+              "time_mode": "continuous_wall_clock_camera_phase6",
+              "belt_velocity_m_s": [
+                0,
+                0.005,
+                0
+              ],
+              "calibration": {
+                "width": 960,
+                "height": 720,
+                "camera_world_xyz_m": [
+                  0.22,
+                  -0.18,
+                  0.7
+                ],
+                "fovy_degrees": 45.0,
+                "focal_length_px": 869.1168824543141,
+                "principal_point_px": [
+                  480.0,
+                  360.0
+                ],
+                "object_top_plane_z_m": 0.03,
+                "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                "rotation_degrees": 0.0
+              },
+              "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_01/images/98cd69962f0f4a5a9b393e35bb553de4.png",
+              "rule_version": 1,
+              "next_rule_change_at_s": 20,
+              "capture_to_image_ready_wall_s": 0.2492202918510884,
+              "image_ready_at_utc": "2026-09-09T15:17:57.006398+00:00"
+            }
+          ],
+          "perception_audits": [
+            {
+              "request_id": "87f4152809464db69853e4acbe2abf7f",
+              "object_id": "object_v0_0",
+              "pixel_xy": [
+                486,
+                642
+              ],
+              "perceived_color": "red",
+              "estimated_world_xy_m": [
+                0.2246253847798329,
+                -0.39739308465214607
+              ],
+              "matched_physical_id": "cube_000",
+              "true_color": "red",
+              "true_world_xy_m": [
+                0.22504257246753331,
+                -0.39776533630694966
+              ],
+              "position_error_m": 0.0005591215085049278,
+              "y_error_m": 0.00037225165480359035,
+              "color_correct": true,
+              "is_target": false,
+              "touched_physical_ids": [],
+              "rule_version": 0,
+              "superseded": true
+            },
+            {
+              "request_id": "050cf5f6dc13448e95cbdf7058bebf73",
+              "object_id": "object_v1_0",
+              "pixel_xy": [
+                480,
+                216
+              ],
+              "perceived_color": "blue",
+              "estimated_world_xy_m": [
+                0.22,
+                -0.06899076528401053
+              ],
+              "matched_physical_id": "cube_002",
+              "true_color": "blue",
+              "true_world_xy_m": [
+                0.22004351491356858,
+                -0.06914387958638307
+              ],
+              "position_error_m": 0.0001591776909428898,
+              "y_error_m": 0.00015311430237253953,
+              "color_correct": true,
+              "is_target": true,
+              "touched_physical_ids": [],
+              "rule_version": 1,
+              "superseded": false
+            }
+          ],
+          "rule_changes": [
+            {
+              "effective_at_s": 20,
+              "applied_at_s": 20.00999999999979,
+              "instruction": "Reject blue cubes; let the others pass.",
+              "cancelled_requests": [
+                "87f4152809464db69853e4acbe2abf7f"
+              ]
+            }
+          ],
+          "final_rule_version": 1,
+          "adaptation_delay_s": 18.188000000000706,
+          "case_id": "confirm_switch_01",
+          "condition": "rule_switch"
+        },
+        {
+          "phase": 6,
+          "config": {
+            "seed": 24004,
+            "target_color": "green",
+            "instruction": "Reject green cubes; let the others pass.",
+            "actor": "codex_session",
+            "belt_speed": 0.005,
+            "spacing": 0.1,
+            "count": 3,
+            "scenario": "mixed",
+            "layout": 1,
+            "position_spread": 0.006,
+            "yaw_limit": 0.15,
+            "illumination": 1.0,
+            "camera_rotation": 0.0,
+            "front_y": -0.2,
+            "rule_colors": [
+              "green"
+            ],
+            "rule_count": 3,
+            "switch_at_s": 20,
+            "next_instruction": "Reject red cubes; let the others pass.",
+            "next_colors": [
+              "red"
+            ]
+          },
+          "initial_cubes": [
+            {
+              "id": "cube_000",
+              "color": "green",
+              "position_m": [
+                0.2171473067378765,
+                -0.40176624156340546,
+                0.016
+              ],
+              "yaw_rad": -0.12448546760353617
+            },
+            {
+              "id": "cube_001",
+              "color": "blue",
+              "position_m": [
+                0.2244686630590527,
+                -0.29876810299800827,
+                0.016
+              ],
+              "yaw_rad": 0.07647780179981063
+            },
+            {
+              "id": "cube_002",
+              "color": "red",
+              "position_m": [
+                0.21847362909020665,
+                -0.20283532817448258,
+                0.016
+              ],
+              "yaw_rad": -0.08353211481228678
+            }
+          ],
+          "target_ids": [
+            "cube_002"
+          ],
+          "completed": true,
+          "push_success": false,
+          "controller_error": null,
+          "simulation_duration_s": 176.35400000011396,
+          "touched_cube_ids": [],
+          "unintended_cube_contacts": [],
+          "cube_neighbor_contacts_on_belt": [],
+          "fixture_contacts": [],
+          "max_tracking_error_m": 0.0,
+          "actions": [],
+          "rejections": [],
+          "scoring": {
+            "total_cubes": 3,
+            "classified_cubes": 3,
+            "resolved_cubes": 3,
+            "outcomes": {
+              "correct_pass": 2,
+              "target_missed": 1
+            },
+            "cubes": [
+              {
+                "id": "cube_000",
+                "color": "green",
+                "destination": "pass",
+                "outcome": "correct_pass",
+                "resolved_at_s": 171.3200000000885,
+                "final_position_m": [
+                  0.19640281314704985,
+                  0.44558620959591516,
+                  -0.23510775542021609
+                ],
+                "final_contacts": [
+                  "pass_bin_floor"
+                ]
+              },
+              {
+                "id": "cube_001",
+                "color": "blue",
+                "destination": "pass",
+                "outcome": "correct_pass",
+                "resolved_at_s": 171.08200000008736,
+                "final_position_m": [
+                  0.2272483840863957,
+                  0.5009336761355403,
+                  -0.20552226693046732
+                ],
+                "final_contacts": [
+                  "cube_002"
+                ]
+              },
+              {
+                "id": "cube_002",
+                "color": "red",
+                "destination": "pass",
+                "outcome": "target_missed",
+                "resolved_at_s": 150.5459999999893,
+                "final_position_m": [
+                  0.2168694422167804,
+                  0.5068592170193612,
+                  -0.23520323612480037
+                ],
+                "final_contacts": [
+                  "cube_001",
+                  "pass_bin_floor"
+                ]
+              }
+            ],
+            "target_ids": [
+              "cube_002"
+            ]
+          },
+          "source_sha256": {
+            "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+            "conveyor_sim/environment.py": "9df36fe167d5011e4b796a80632658eae56b7fd68ae8c1cb0aa63307beec8271",
+            "conveyor_sim/pushing.py": "7e899f5bc21ee45041d723698d3c12a10a84eea8fc467185eb0e4a43fc9ef2cc",
+            "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+            "so101_sim/environment.py": "5ef54403aa4451b119bd9956d5f0b27e0fd131e227a1f987a8193a5dfcaeb2ef",
+            "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308",
+            "conveyor_sim/interactive.py": "f8a9753fe4baec3dc4579a11837d7b558b7b804c1733ce41aeed4574e191137e",
+            "conveyor_sim/realtime.py": "470e2abbac30c666e185467be323acb20df1573648b5882e4a80398788fdfc92",
+            "conveyor_sim/live.py": "c2ef11eafa1d1d39ab27decc1fb401c1385f805f03fda299ca72a24de7dd30a2",
+            "conveyor_sim/live_experiment.py": "aa89ba70d69f4757d7397e2d09661891171e40909eaf8be0f60693e3c0218e6c",
+            "experiments/conveyor-color-sorting/phase4/PROTOCOL.md": "c9be97c7421d1242e02a6cb246603f925e1170b566d94284a4edf8793f0e2598",
+            "experiments/conveyor-color-sorting/phase4/cases.json": "87d47701aa5456ca44f07d594b16bd7d15a12a823f6d42aef71ce5dbfbf38d81",
+            "conveyor_sim/camera.py": "dc2caf02b3c028481e9f89530ee94443f7338d44a3240a293fb01e83256ed255",
+            "conveyor_sim/vision_runtime.py": "458db7b5d47774e13e669d48d72bcfacb8ae7bdfcc3009f65754900a516e4554",
+            "conveyor_sim/vision_render.py": "34f63decad39b7a430f279e93c1df0416933e3f094e72c365d1f9aaa0934fab6",
+            "conveyor_sim/vision.py": "c8bfb28f464a97c2c73a1f6f406514d12f96cb629dec6d955f0aa428aea38616",
+            "experiments/conveyor-color-sorting/phase5/PROTOCOL.md": "cf6d63f62a4981655fb49cf544b3bd1c782630e499f258928fdbf61f968ff54e",
+            "experiments/conveyor-color-sorting/phase5/cases.json": "87d47701aa5456ca44f07d594b16bd7d15a12a823f6d42aef71ce5dbfbf38d81",
+            "conveyor_sim/phase6_scene.py": "7c9439457b3481b790e2c7b302b5cf835e84a644604ea831d2880c38160abcc6",
+            "conveyor_sim/phase6_runtime.py": "b977fd8da24a0fb7650ad24795714c63c87d912d192cbe47e0b3c6c549dc7e4c",
+            "conveyor_sim/phase6_render.py": "90acff53a2b3226f49636ddf8ff21f2c3ff353c2d9c28387356914b30a471107",
+            "conveyor_sim/phase6.py": "605e20e9f2d633c11997a20a96197dab4cce083416477308d797b575f1826299",
+            "conveyor_sim/phase6_pixels.py": "46ed5f35ebee5ee4243f524febeeeac5c4da64519fd40d60f45d97b91c572d61",
+            "experiments/conveyor-color-sorting/phase6/PROTOCOL.md": "a50af13113459752773f23e50538afde9908087724f4a92d557829c2eddeb206",
+            "experiments/conveyor-color-sorting/phase6/cases.json": "72e16d9efcf053930b4d2ab82cdae5c885e97cfceed862090d525500697d3beb"
+          },
+          "versions": {
+            "mujoco": "3.12.0",
+            "numpy": "2.5.3"
+          },
+          "note": "Camera decisions with explicit rule versions; cancelled old-rule commands excluded from final selection scoring.",
+          "actor": "codex_session",
+          "time_mode": "continuous_wall_clock_camera",
+          "selected_cube_ids": [
+            "cube_002"
+          ],
+          "selection_correct": true,
+          "sorting_success": false,
+          "realtime_healthy": true,
+          "max_simulation_lag_s": 0.025998749857194525,
+          "allowed_lag_s": 0.25,
+          "wall_started_utc": "2026-09-09T15:21:01.779939+00:00",
+          "wall_finished_utc": "2026-09-09T15:23:57.623378+00:00",
+          "timing_failures": 1,
+          "events": [
+            {
+              "request_id": "6f1f4c97dbf34bf9b7f88df73f7ab701",
+              "command": {
+                "observation_id": "b236f648dec54f9bb427aad67f68296a",
+                "start_at_s": 75.62733490107358,
+                "expires_at_s": 75.67733490107358,
+                "primitives": [
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      0.005,
+                      0.065
+                    ],
+                    "seconds": 2,
+                    "joint": true
+                  },
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      -0.005,
+                      0.02
+                    ],
+                    "seconds": 1
+                  },
+                  {
+                    "tool": "sweep",
+                    "xyz": [
+                      0.3,
+                      0.004999999999999999,
+                      0.02
+                    ],
+                    "seconds": 2
+                  },
+                  {
+                    "tool": "retract"
+                  }
+                ],
+                "cube_id": "object_v0_0"
+              },
+              "status": "cancelled_rule_change",
+              "received_at_utc": "2026-09-09T15:21:12.603376+00:00",
+              "received_at_sim_s": 11.32200000000045,
+              "error": "Pending old-rule motion cancelled at instruction change",
+              "actual_start_s": null,
+              "actual_end_s": null,
+              "observation": {
+                "observation_id": "b236f648dec54f9bb427aad67f68296a",
+                "instruction": "Reject green cubes; let the others pass.",
+                "time_s": 0.5320000000000004,
+                "observed_at_utc": "2026-09-09T15:21:01.812280+00:00",
+                "time_mode": "continuous_wall_clock_camera_phase6",
+                "belt_velocity_m_s": [
+                  0,
+                  0.005,
+                  0
+                ],
+                "calibration": {
+                  "width": 960,
+                  "height": 720,
+                  "camera_world_xyz_m": [
+                    0.22,
+                    -0.18,
+                    0.7
+                  ],
+                  "fovy_degrees": 45.0,
+                  "focal_length_px": 869.1168824543141,
+                  "principal_point_px": [
+                    480.0,
+                    360.0
+                  ],
+                  "object_top_plane_z_m": 0.03,
+                  "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                  "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                  "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                  "rotation_degrees": 0.0
+                },
+                "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_02/images/b236f648dec54f9bb427aad67f68296a.png",
+                "rule_version": 0,
+                "next_rule_change_at_s": 20,
+                "capture_to_image_ready_wall_s": 0.2418996668420732,
+                "image_ready_at_utc": "2026-09-09T15:21:02.054182+00:00"
+              },
+              "observation_to_submission_wall_s": 10.791075083892792,
+              "observation_age_sim_s": 10.79000000000045,
+              "perception": {
+                "object_id": "object_v0_0",
+                "pixel_xy": [
+                  476,
+                  646
+                ],
+                "perceived_color": "green",
+                "estimated_world_xy_m": [
+                  0.21691641014677807,
+                  -0.40047667450536795
+                ]
+              },
+              "rule_version": 0,
+              "planned_motion_s": 6.5200000000000005
+            },
+            {
+              "request_id": "d9a2b41b4272404d86da7c878e779f3b",
+              "command": {
+                "observation_id": "1436c6ad274845139d6c4fd2009e2b63",
+                "start_at_s": 35.60271711550867,
+                "expires_at_s": 35.652717115508665,
+                "primitives": [
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      0.005,
+                      0.065
+                    ],
+                    "seconds": 2,
+                    "joint": true
+                  },
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      -0.005,
+                      0.02
+                    ],
+                    "seconds": 1
+                  },
+                  {
+                    "tool": "sweep",
+                    "xyz": [
+                      0.3,
+                      0.004999999999999999,
+                      0.02
+                    ],
+                    "seconds": 2
+                  },
+                  {
+                    "tool": "retract"
+                  }
+                ],
+                "cube_id": "object_v1_0"
+              },
+              "status": "expired",
+              "received_at_utc": "2026-09-09T15:21:40.820713+00:00",
+              "received_at_sim_s": 39.538000000002356,
+              "error": "Command arrived after its latest start",
+              "actual_start_s": null,
+              "actual_end_s": null,
+              "observation": {
+                "observation_id": "1436c6ad274845139d6c4fd2009e2b63",
+                "instruction": "Reject red cubes; let the others pass.",
+                "time_s": 28.03799999999534,
+                "observed_at_utc": "2026-09-09T15:21:29.319971+00:00",
+                "time_mode": "continuous_wall_clock_camera_phase6",
+                "belt_velocity_m_s": [
+                  0,
+                  0.005,
+                  0
+                ],
+                "calibration": {
+                  "width": 960,
+                  "height": 720,
+                  "camera_world_xyz_m": [
+                    0.22,
+                    -0.18,
+                    0.7
+                  ],
+                  "fovy_degrees": 45.0,
+                  "focal_length_px": 869.1168824543141,
+                  "principal_point_px": [
+                    480.0,
+                    360.0
+                  ],
+                  "object_top_plane_z_m": 0.03,
+                  "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                  "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                  "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                  "rotation_degrees": 0.0
+                },
+                "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_02/images/1436c6ad274845139d6c4fd2009e2b63.png",
+                "rule_version": 1,
+                "next_rule_change_at_s": 20,
+                "capture_to_image_ready_wall_s": 0.3145349158439785,
+                "image_ready_at_utc": "2026-09-09T15:21:29.634485+00:00"
+              },
+              "observation_to_submission_wall_s": 11.500743415905163,
+              "observation_age_sim_s": 11.500000000007017,
+              "perception": {
+                "object_id": "object_v1_0",
+                "pixel_xy": [
+                  478,
+                  208
+                ],
+                "perceived_color": "red",
+                "estimated_world_xy_m": [
+                  0.21845820507338903,
+                  -0.06282358557756666
+                ]
+              },
+              "rule_version": 1
+            }
+          ],
+          "observations": [
+            {
+              "observation_id": "b236f648dec54f9bb427aad67f68296a",
+              "instruction": "Reject green cubes; let the others pass.",
+              "time_s": 0.5320000000000004,
+              "observed_at_utc": "2026-09-09T15:21:01.812280+00:00",
+              "time_mode": "continuous_wall_clock_camera_phase6",
+              "belt_velocity_m_s": [
+                0,
+                0.005,
+                0
+              ],
+              "calibration": {
+                "width": 960,
+                "height": 720,
+                "camera_world_xyz_m": [
+                  0.22,
+                  -0.18,
+                  0.7
+                ],
+                "fovy_degrees": 45.0,
+                "focal_length_px": 869.1168824543141,
+                "principal_point_px": [
+                  480.0,
+                  360.0
+                ],
+                "object_top_plane_z_m": 0.03,
+                "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                "rotation_degrees": 0.0
+              },
+              "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_02/images/b236f648dec54f9bb427aad67f68296a.png",
+              "rule_version": 0,
+              "next_rule_change_at_s": 20,
+              "capture_to_image_ready_wall_s": 0.2418996668420732,
+              "image_ready_at_utc": "2026-09-09T15:21:02.054182+00:00"
+            },
+            {
+              "observation_id": "1436c6ad274845139d6c4fd2009e2b63",
+              "instruction": "Reject red cubes; let the others pass.",
+              "time_s": 28.03799999999534,
+              "observed_at_utc": "2026-09-09T15:21:29.319971+00:00",
+              "time_mode": "continuous_wall_clock_camera_phase6",
+              "belt_velocity_m_s": [
+                0,
+                0.005,
+                0
+              ],
+              "calibration": {
+                "width": 960,
+                "height": 720,
+                "camera_world_xyz_m": [
+                  0.22,
+                  -0.18,
+                  0.7
+                ],
+                "fovy_degrees": 45.0,
+                "focal_length_px": 869.1168824543141,
+                "principal_point_px": [
+                  480.0,
+                  360.0
+                ],
+                "object_top_plane_z_m": 0.03,
+                "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                "rotation_degrees": 0.0
+              },
+              "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_02/images/1436c6ad274845139d6c4fd2009e2b63.png",
+              "rule_version": 1,
+              "next_rule_change_at_s": 20,
+              "capture_to_image_ready_wall_s": 0.3145349158439785,
+              "image_ready_at_utc": "2026-09-09T15:21:29.634485+00:00"
+            }
+          ],
+          "perception_audits": [
+            {
+              "request_id": "6f1f4c97dbf34bf9b7f88df73f7ab701",
+              "object_id": "object_v0_0",
+              "pixel_xy": [
+                476,
+                646
+              ],
+              "perceived_color": "green",
+              "estimated_world_xy_m": [
+                0.21691641014677807,
+                -0.40047667450536795
+              ],
+              "matched_physical_id": "cube_000",
+              "true_color": "green",
+              "true_world_xy_m": [
+                0.21714730673787624,
+                -0.3992238403660195
+              ],
+              "position_error_m": 0.0012739335212238313,
+              "y_error_m": -0.0012528341393484577,
+              "color_correct": true,
+              "is_target": false,
+              "touched_physical_ids": [],
+              "rule_version": 0,
+              "superseded": true
+            },
+            {
+              "request_id": "d9a2b41b4272404d86da7c878e779f3b",
+              "object_id": "object_v1_0",
+              "pixel_xy": [
+                478,
+                208
+              ],
+              "perceived_color": "red",
+              "estimated_world_xy_m": [
+                0.21845820507338903,
+                -0.06282358557756666
+              ],
+              "matched_physical_id": "cube_002",
+              "true_color": "red",
+              "true_world_xy_m": [
+                0.218473629096424,
+                -0.06276292799797367
+              ],
+              "position_error_m": 6.258787780923275e-05,
+              "y_error_m": -6.065757959299034e-05,
+              "color_correct": true,
+              "is_target": true,
+              "touched_physical_ids": [],
+              "rule_version": 1,
+              "superseded": false
+            }
+          ],
+          "rule_changes": [
+            {
+              "effective_at_s": 20,
+              "applied_at_s": 20.00599999999979,
+              "instruction": "Reject red cubes; let the others pass.",
+              "cancelled_requests": [
+                "6f1f4c97dbf34bf9b7f88df73f7ab701"
+              ]
+            }
+          ],
+          "final_rule_version": 1,
+          "adaptation_delay_s": 19.538000000002356,
+          "case_id": "confirm_switch_02",
+          "condition": "rule_switch"
+        }
+      ],
+      "conditions": {
+        "rule_switch": {
+          "episodes": 2,
+          "successful_episodes": 0,
+          "physically_successful_episodes": 0,
+          "episode_success_wilson_95": [
+            0,
+            0.6576197724933469
+          ],
+          "selection_correct_episodes": 2,
+          "realtime_healthy_episodes": 2,
+          "target_cubes": 2,
+          "non_target_cubes": 4,
+          "outcomes": {
+            "correct_pass": 4,
+            "target_missed": 2
+          },
+          "target_rejection_rate": 0.0,
+          "command_statuses": {
+            "cancelled_rule_change": 2,
+            "expired": 2
+          },
+          "estimates": 4,
+          "correct_colors": 4,
+          "final_rule_estimates": 2,
+          "correct_final_targets": 2,
+          "position_error_m": {
+            "count": 4,
+            "min": 6.258787780923275e-05,
+            "median": 0.0003591495997239088,
+            "p95": 0.0011667117193159956,
+            "max": 0.0012739335212238313
+          },
+          "response_wall_s": {
+            "count": 4,
+            "min": 10.791075083892792,
+            "median": 11.40728506189771,
+            "p95": 12.909329098218585,
+            "max": 13.15790304215625
+          },
+          "adaptation_delay_s": {
+            "count": 2,
+            "min": 18.188000000000706,
+            "median": 18.86300000000153,
+            "p95": 19.47050000000227,
+            "max": 19.538000000002356
+          },
+          "max_simulation_lag_s": 0.06881870799995227,
+          "unintended_contact_episodes": 0
+        }
+      }
+    },
+    "conventional": {
+      "summary": {
+        "episodes": 2,
+        "successful_episodes": 2,
+        "physically_successful_episodes": 2,
+        "episode_success_wilson_95": [
+          0.34238022750665303,
+          1
+        ],
+        "selection_correct_episodes": 2,
+        "realtime_healthy_episodes": 2,
+        "target_cubes": 2,
+        "non_target_cubes": 4,
+        "outcomes": {
+          "correct_pass": 4,
+          "correct_reject": 2
+        },
+        "target_rejection_rate": 1.0,
+        "command_statuses": {
+          "cancelled_rule_change": 2,
+          "completed": 2
+        },
+        "estimates": 4,
+        "correct_colors": 4,
+        "final_rule_estimates": 2,
+        "correct_final_targets": 2,
+        "position_error_m": {
+          "count": 4,
+          "min": 0.0007376408008896148,
+          "median": 0.0010671517749972087,
+          "p95": 0.004001035313229484,
+          "max": 0.004501670228264027
+        },
+        "response_wall_s": {
+          "count": 4,
+          "min": 0.26137649989686906,
+          "median": 0.2902208954328671,
+          "p95": 0.3211205998202786,
+          "max": 0.32270949985831976
+        },
+        "adaptation_delay_s": {
+          "count": 2,
+          "min": 0.3219999999996155,
+          "median": 0.3459999999996022,
+          "p95": 0.3675999999995902,
+          "max": 0.3699999999995889
+        },
+        "max_simulation_lag_s": 0.06603945790214993,
+        "unintended_contact_episodes": 0
+      },
+      "runs": [
+        {
+          "phase": 6,
+          "config": {
+            "seed": 24003,
+            "target_color": "red",
+            "instruction": "Reject red cubes; let the others pass.",
+            "actor": "conventional",
+            "belt_speed": 0.005,
+            "spacing": 0.1,
+            "count": 3,
+            "scenario": "mixed",
+            "layout": 0,
+            "position_spread": 0.006,
+            "yaw_limit": 0.15,
+            "illumination": 1.0,
+            "camera_rotation": 0.0,
+            "front_y": -0.2,
+            "rule_colors": [
+              "red"
+            ],
+            "rule_count": 3,
+            "switch_at_s": 20,
+            "next_instruction": "Reject blue cubes; let the others pass.",
+            "next_colors": [
+              "blue"
+            ]
+          },
+          "initial_cubes": [
+            {
+              "id": "cube_000",
+              "color": "red",
+              "position_m": [
+                0.2250425724675334,
+                -0.4002077375043106,
+                0.016
+              ],
+              "yaw_rad": 0.018303814783864048
+            },
+            {
+              "id": "cube_001",
+              "color": "green",
+              "position_m": [
+                0.21848493799381408,
+                -0.29716465636548434,
+                0.016
+              ],
+              "yaw_rad": 0.036366170803688626
+            },
+            {
+              "id": "cube_002",
+              "color": "blue",
+              "position_m": [
+                0.2200435149138938,
+                -0.20340628037050693,
+                0.016
+              ],
+              "yaw_rad": 0.009442001482485373
+            }
+          ],
+          "target_ids": [
+            "cube_002"
+          ],
+          "completed": true,
+          "push_success": true,
+          "controller_error": null,
+          "simulation_duration_s": 176.04200000011247,
+          "touched_cube_ids": [
+            "cube_002"
+          ],
+          "unintended_cube_contacts": [],
+          "cube_neighbor_contacts_on_belt": [],
+          "fixture_contacts": [],
+          "max_tracking_error_m": 0.0002805864345562886,
+          "actions": [
+            {
+              "action": "move_to",
+              "target_xyz_m": [
+                0.18,
+                0.005,
+                0.065
+              ],
+              "start_s": 35.92399999999794,
+              "end_s": 37.92400000000038,
+              "position_error_m": 0.00017044950955030937
+            },
+            {
+              "action": "move_to",
+              "target_xyz_m": [
+                0.18,
+                -0.005,
+                0.02
+              ],
+              "start_s": 37.92400000000038,
+              "end_s": 38.924000000001605,
+              "position_error_m": 0.00017856229100316742
+            },
+            {
+              "action": "sweep",
+              "target_xyz_m": [
+                0.3,
+                0.004999999999999999,
+                0.02
+              ],
+              "start_s": 38.924000000001605,
+              "end_s": 40.92400000000405,
+              "position_error_m": 0.0002805864345562886
+            },
+            {
+              "action": "retract",
+              "target_xyz_m": [
+                0.22,
+                0.005,
+                0.075
+              ],
+              "start_s": 40.92400000000405,
+              "end_s": 42.44400000000591,
+              "position_error_m": 0.00022214826600751994
+            }
+          ],
+          "rejections": [],
+          "scoring": {
+            "total_cubes": 3,
+            "classified_cubes": 3,
+            "resolved_cubes": 3,
+            "outcomes": {
+              "correct_pass": 2,
+              "correct_reject": 1
+            },
+            "cubes": [
+              {
+                "id": "cube_000",
+                "color": "red",
+                "destination": "pass",
+                "outcome": "correct_pass",
+                "resolved_at_s": 170.84400000008623,
+                "final_position_m": [
+                  0.22561785574092186,
+                  0.505360470140478,
+                  -0.20543804487422357
+                ],
+                "final_contacts": [
+                  "cube_001"
+                ]
+              },
+              {
+                "id": "cube_001",
+                "color": "green",
+                "destination": "pass",
+                "outcome": "correct_pass",
+                "resolved_at_s": 150.273999999988,
+                "final_position_m": [
+                  0.21977036068380953,
+                  0.5039518379209218,
+                  -0.2352062041297526
+                ],
+                "final_contacts": [
+                  "cube_000",
+                  "pass_bin_floor"
+                ]
+              },
+              {
+                "id": "cube_002",
+                "color": "blue",
+                "destination": "reject",
+                "outcome": "correct_reject",
+                "resolved_at_s": 41.16800000000398,
+                "final_position_m": [
+                  0.3358891209264824,
+                  -0.008118254621564111,
+                  -0.13510775542021622
+                ],
+                "final_contacts": [
+                  "reject_bin_floor"
+                ]
+              }
+            ],
+            "target_ids": [
+              "cube_002"
+            ]
+          },
+          "source_sha256": {
+            "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+            "conveyor_sim/environment.py": "9df36fe167d5011e4b796a80632658eae56b7fd68ae8c1cb0aa63307beec8271",
+            "conveyor_sim/pushing.py": "7e899f5bc21ee45041d723698d3c12a10a84eea8fc467185eb0e4a43fc9ef2cc",
+            "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+            "so101_sim/environment.py": "5ef54403aa4451b119bd9956d5f0b27e0fd131e227a1f987a8193a5dfcaeb2ef",
+            "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308",
+            "conveyor_sim/interactive.py": "f8a9753fe4baec3dc4579a11837d7b558b7b804c1733ce41aeed4574e191137e",
+            "conveyor_sim/realtime.py": "470e2abbac30c666e185467be323acb20df1573648b5882e4a80398788fdfc92",
+            "conveyor_sim/live.py": "c2ef11eafa1d1d39ab27decc1fb401c1385f805f03fda299ca72a24de7dd30a2",
+            "conveyor_sim/live_experiment.py": "aa89ba70d69f4757d7397e2d09661891171e40909eaf8be0f60693e3c0218e6c",
+            "experiments/conveyor-color-sorting/phase4/PROTOCOL.md": "c9be97c7421d1242e02a6cb246603f925e1170b566d94284a4edf8793f0e2598",
+            "experiments/conveyor-color-sorting/phase4/cases.json": "87d47701aa5456ca44f07d594b16bd7d15a12a823f6d42aef71ce5dbfbf38d81",
+            "conveyor_sim/camera.py": "dc2caf02b3c028481e9f89530ee94443f7338d44a3240a293fb01e83256ed255",
+            "conveyor_sim/vision_runtime.py": "458db7b5d47774e13e669d48d72bcfacb8ae7bdfcc3009f65754900a516e4554",
+            "conveyor_sim/vision_render.py": "34f63decad39b7a430f279e93c1df0416933e3f094e72c365d1f9aaa0934fab6",
+            "conveyor_sim/vision.py": "c8bfb28f464a97c2c73a1f6f406514d12f96cb629dec6d955f0aa428aea38616",
+            "experiments/conveyor-color-sorting/phase5/PROTOCOL.md": "cf6d63f62a4981655fb49cf544b3bd1c782630e499f258928fdbf61f968ff54e",
+            "experiments/conveyor-color-sorting/phase5/cases.json": "87d47701aa5456ca44f07d594b16bd7d15a12a823f6d42aef71ce5dbfbf38d81",
+            "conveyor_sim/phase6_scene.py": "7c9439457b3481b790e2c7b302b5cf835e84a644604ea831d2880c38160abcc6",
+            "conveyor_sim/phase6_runtime.py": "b977fd8da24a0fb7650ad24795714c63c87d912d192cbe47e0b3c6c549dc7e4c",
+            "conveyor_sim/phase6_render.py": "90acff53a2b3226f49636ddf8ff21f2c3ff353c2d9c28387356914b30a471107",
+            "conveyor_sim/phase6.py": "605e20e9f2d633c11997a20a96197dab4cce083416477308d797b575f1826299",
+            "conveyor_sim/phase6_pixels.py": "46ed5f35ebee5ee4243f524febeeeac5c4da64519fd40d60f45d97b91c572d61",
+            "experiments/conveyor-color-sorting/phase6/PROTOCOL.md": "a50af13113459752773f23e50538afde9908087724f4a92d557829c2eddeb206",
+            "experiments/conveyor-color-sorting/phase6/cases.json": "72e16d9efcf053930b4d2ab82cdae5c885e97cfceed862090d525500697d3beb"
+          },
+          "versions": {
+            "mujoco": "3.12.0",
+            "numpy": "2.5.3"
+          },
+          "note": "Camera decisions with explicit rule versions; cancelled old-rule commands excluded from final selection scoring.",
+          "actor": "conventional",
+          "time_mode": "continuous_wall_clock_camera",
+          "selected_cube_ids": [
+            "cube_002"
+          ],
+          "selection_correct": true,
+          "sorting_success": true,
+          "realtime_healthy": true,
+          "max_simulation_lag_s": 0.06603945790214993,
+          "allowed_lag_s": 0.25,
+          "wall_started_utc": "2026-09-09T15:17:45.310921+00:00",
+          "wall_finished_utc": "2026-09-09T15:20:40.853503+00:00",
+          "timing_failures": 0,
+          "events": [
+            {
+              "request_id": "d947375012414f25bf34f0ae9f915114",
+              "command": {
+                "observation_id": "e33938b241f34683a23ed2b37e3ff6d4",
+                "start_at_s": 74.17030133494094,
+                "expires_at_s": 74.22030133494094,
+                "primitives": [
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      0.005,
+                      0.065
+                    ],
+                    "seconds": 2,
+                    "joint": true
+                  },
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      -0.005,
+                      0.02
+                    ],
+                    "seconds": 1
+                  },
+                  {
+                    "tool": "sweep",
+                    "xyz": [
+                      0.3,
+                      0.004999999999999999,
+                      0.02
+                    ],
+                    "seconds": 2
+                  },
+                  {
+                    "tool": "retract"
+                  }
+                ],
+                "cube_id": "object_v0_0"
+              },
+              "status": "cancelled_rule_change",
+              "received_at_utc": "2026-09-09T15:17:45.801385+00:00",
+              "received_at_sim_s": 0.9880000000000008,
+              "error": "Pending old-rule motion cancelled at instruction change",
+              "actual_start_s": null,
+              "actual_end_s": null,
+              "observation": {
+                "observation_id": "e33938b241f34683a23ed2b37e3ff6d4",
+                "instruction": "Reject red cubes; let the others pass.",
+                "time_s": 0.6760000000000005,
+                "observed_at_utc": "2026-09-09T15:17:45.489270+00:00",
+                "time_mode": "continuous_wall_clock_camera_phase6",
+                "belt_velocity_m_s": [
+                  0,
+                  0.005,
+                  0
+                ],
+                "calibration": {
+                  "width": 960,
+                  "height": 720,
+                  "camera_world_xyz_m": [
+                    0.22,
+                    -0.18,
+                    0.7
+                  ],
+                  "fovy_degrees": 45.0,
+                  "focal_length_px": 869.1168824543141,
+                  "principal_point_px": [
+                    480.0,
+                    360.0
+                  ],
+                  "object_top_plane_z_m": 0.03,
+                  "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                  "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                  "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                  "rotation_degrees": 0.0
+                },
+                "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_01/images/e33938b241f34683a23ed2b37e3ff6d4.png",
+                "rule_version": 0,
+                "next_rule_change_at_s": 20,
+                "capture_to_image_ready_wall_s": 0.23923266702331603,
+                "image_ready_at_utc": "2026-09-09T15:17:45.728503+00:00"
+              },
+              "observation_to_submission_wall_s": 0.31211683293804526,
+              "observation_age_sim_s": 0.3120000000000003,
+              "perception": {
+                "object_id": "object_v0_0",
+                "pixel_xy": [
+                  485.8927282104177,
+                  635.6157813305828
+                ],
+                "perceived_color": "red",
+                "estimated_world_xy_m": [
+                  0.22454268922935966,
+                  -0.39247150667470476
+                ]
+              },
+              "rule_version": 0,
+              "planned_motion_s": 6.5200000000000005
+            },
+            {
+              "request_id": "a92f0b6b03e042df9f03561bb73136d1",
+              "command": {
+                "observation_id": "eb71e77d3e7b4578ae14fd8134be29d9",
+                "start_at_s": 35.92376446437329,
+                "expires_at_s": 35.97376446437329,
+                "primitives": [
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      0.005,
+                      0.065
+                    ],
+                    "seconds": 2,
+                    "joint": true
+                  },
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      -0.005,
+                      0.02
+                    ],
+                    "seconds": 1
+                  },
+                  {
+                    "tool": "sweep",
+                    "xyz": [
+                      0.3,
+                      0.004999999999999999,
+                      0.02
+                    ],
+                    "seconds": 2
+                  },
+                  {
+                    "tool": "retract"
+                  }
+                ],
+                "cube_id": "object_v1_0"
+              },
+              "status": "completed",
+              "received_at_utc": "2026-09-09T15:18:05.183405+00:00",
+              "received_at_sim_s": 20.36999999999959,
+              "error": null,
+              "actual_start_s": 35.92399999999794,
+              "actual_end_s": 42.44400000000591,
+              "observation": {
+                "observation_id": "eb71e77d3e7b4578ae14fd8134be29d9",
+                "instruction": "Reject blue cubes; let the others pass.",
+                "time_s": 20.047999999999767,
+                "observed_at_utc": "2026-09-09T15:18:04.860747+00:00",
+                "time_mode": "continuous_wall_clock_camera_phase6",
+                "belt_velocity_m_s": [
+                  0,
+                  0.005,
+                  0
+                ],
+                "calibration": {
+                  "width": 960,
+                  "height": 720,
+                  "camera_world_xyz_m": [
+                    0.22,
+                    -0.18,
+                    0.7
+                  ],
+                  "fovy_degrees": 45.0,
+                  "focal_length_px": 869.1168824543141,
+                  "principal_point_px": [
+                    480.0,
+                    360.0
+                  ],
+                  "object_top_plane_z_m": 0.03,
+                  "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                  "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                  "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                  "rotation_degrees": 0.0
+                },
+                "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_01/images/eb71e77d3e7b4578ae14fd8134be29d9.png",
+                "rule_version": 1,
+                "next_rule_change_at_s": 20,
+                "capture_to_image_ready_wall_s": 0.2500826248433441,
+                "image_ready_at_utc": "2026-09-09T15:18:05.110789+00:00"
+              },
+              "observation_to_submission_wall_s": 0.32270949985831976,
+              "observation_age_sim_s": 0.32199999999982154,
+              "perception": {
+                "object_id": "object_v1_0",
+                "pixel_xy": [
+                  479.5437062937063,
+                  261.90501165501166
+                ],
+                "perceived_color": "blue",
+                "estimated_world_xy_m": [
+                  0.21964824433929592,
+                  -0.10437882232186763
+                ]
+              },
+              "rule_version": 1,
+              "planned_motion_s": 6.5200000000000005,
+              "queue_wait_sim_s": 15.55399999999835,
+              "after": {
+                "instruction": "Reject red cubes; let the others pass.",
+                "time_s": 42.44400000000591,
+                "time_mode": "continuous_wall_clock",
+                "belt_velocity_m_s": [
+                  0,
+                  0.005,
+                  0
+                ],
+                "deadline_s": 176.04154750086212,
+                "tool_xyz_m": [
+                  0.21999334374032825,
+                  0.0050155607645935,
+                  0.0747784973839825
+                ],
+                "joint_positions_rad": [
+                  0.0375997728422007,
+                  -0.10702477699959818,
+                  0.12711917923617447,
+                  1.551434748210362,
+                  1.657080248015576,
+                  1.8454566633124827e-07
+                ],
+                "joint_velocities_rad_s": [
+                  0.010689000327041722,
+                  -0.4563991792958603,
+                  0.24788597865936599,
+                  0.2081529392192773,
+                  0.010686503344387902,
+                  1.2507468302732447e-08
+                ],
+                "selected_cube_id": "object_v1_0",
+                "completed": false,
+                "cubes": [
+                  {
+                    "id": "cube_000",
+                    "color": "red",
+                    "position": [
+                      0.2250425724660597,
+                      -0.18809533786511323,
+                      0.014892244579783834
+                    ],
+                    "half_extents": [
+                      0.015272029239099828,
+                      0.015272029240124984,
+                      0.015000000001045982
+                    ],
+                    "velocity": [
+                      -4.0877351840220164e-14,
+                      0.004999999962599959,
+                      -3.1041209912908703e-16
+                    ],
+                    "contacts": [
+                      "belt"
+                    ],
+                    "destination": null
+                  },
+                  {
+                    "id": "cube_001",
+                    "color": "green",
+                    "position": [
+                      0.21848493799389385,
+                      -0.08505225672556734,
+                      0.014892244579783836
+                    ],
+                    "half_extents": [
+                      0.015535454689737225,
+                      0.015535454690757157,
+                      0.015000000001056354
+                    ],
+                    "velocity": [
+                      1.1496773476434803e-14,
+                      0.004999999962819739,
+                      -3.3825665184339134e-16
+                    ],
+                    "contacts": [
+                      "belt"
+                    ],
+                    "destination": null
+                  },
+                  {
+                    "id": "cube_002",
+                    "color": "blue",
+                    "position": [
+                      0.33588912076377275,
+                      -0.008118254771252931,
+                      -0.135107755420216
+                    ],
+                    "half_extents": [
+                      0.020876869053143,
+                      0.02087686905308377,
+                      0.01500000000113415
+                    ],
+                    "velocity": [
+                      2.2690122707113157e-11,
+                      2.0875431090458264e-11,
+                      -4.628968842568671e-15
+                    ],
+                    "contacts": [
+                      "reject_bin_floor"
+                    ],
+                    "destination": "reject"
+                  }
+                ]
+              }
+            }
+          ],
+          "observations": [
+            {
+              "observation_id": "e33938b241f34683a23ed2b37e3ff6d4",
+              "instruction": "Reject red cubes; let the others pass.",
+              "time_s": 0.6760000000000005,
+              "observed_at_utc": "2026-09-09T15:17:45.489270+00:00",
+              "time_mode": "continuous_wall_clock_camera_phase6",
+              "belt_velocity_m_s": [
+                0,
+                0.005,
+                0
+              ],
+              "calibration": {
+                "width": 960,
+                "height": 720,
+                "camera_world_xyz_m": [
+                  0.22,
+                  -0.18,
+                  0.7
+                ],
+                "fovy_degrees": 45.0,
+                "focal_length_px": 869.1168824543141,
+                "principal_point_px": [
+                  480.0,
+                  360.0
+                ],
+                "object_top_plane_z_m": 0.03,
+                "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                "rotation_degrees": 0.0
+              },
+              "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_01/images/e33938b241f34683a23ed2b37e3ff6d4.png",
+              "rule_version": 0,
+              "next_rule_change_at_s": 20,
+              "capture_to_image_ready_wall_s": 0.23923266702331603,
+              "image_ready_at_utc": "2026-09-09T15:17:45.728503+00:00"
+            },
+            {
+              "observation_id": "eb71e77d3e7b4578ae14fd8134be29d9",
+              "instruction": "Reject blue cubes; let the others pass.",
+              "time_s": 20.047999999999767,
+              "observed_at_utc": "2026-09-09T15:18:04.860747+00:00",
+              "time_mode": "continuous_wall_clock_camera_phase6",
+              "belt_velocity_m_s": [
+                0,
+                0.005,
+                0
+              ],
+              "calibration": {
+                "width": 960,
+                "height": 720,
+                "camera_world_xyz_m": [
+                  0.22,
+                  -0.18,
+                  0.7
+                ],
+                "fovy_degrees": 45.0,
+                "focal_length_px": 869.1168824543141,
+                "principal_point_px": [
+                  480.0,
+                  360.0
+                ],
+                "object_top_plane_z_m": 0.03,
+                "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                "rotation_degrees": 0.0
+              },
+              "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_01/images/eb71e77d3e7b4578ae14fd8134be29d9.png",
+              "rule_version": 1,
+              "next_rule_change_at_s": 20,
+              "capture_to_image_ready_wall_s": 0.2500826248433441,
+              "image_ready_at_utc": "2026-09-09T15:18:05.110789+00:00"
+            }
+          ],
+          "perception_audits": [
+            {
+              "request_id": "d947375012414f25bf34f0ae9f915114",
+              "object_id": "object_v0_0",
+              "pixel_xy": [
+                485.8927282104177,
+                635.6157813305828
+              ],
+              "perceived_color": "red",
+              "estimated_world_xy_m": [
+                0.22454268922935966,
+                -0.39247150667470476
+              ],
+              "matched_physical_id": "cube_000",
+              "true_color": "red",
+              "true_world_xy_m": [
+                0.2250425724675318,
+                -0.396945336308501
+              ],
+              "position_error_m": 0.004501670228264027,
+              "y_error_m": 0.0044738296337962224,
+              "color_correct": true,
+              "is_target": false,
+              "touched_physical_ids": [],
+              "rule_version": 0,
+              "superseded": true
+            },
+            {
+              "request_id": "a92f0b6b03e042df9f03561bb73136d1",
+              "object_id": "object_v1_0",
+              "pixel_xy": [
+                479.5437062937063,
+                261.90501165501166
+              ],
+              "perceived_color": "blue",
+              "estimated_world_xy_m": [
+                0.21964824433929592,
+                -0.10437882232186763
+              ],
+              "matched_physical_id": "cube_002",
+              "true_color": "blue",
+              "true_world_xy_m": [
+                0.22004351491356858,
+                -0.10328387958636984
+              ],
+              "position_error_m": 0.0011641041280337511,
+              "y_error_m": -0.0010949427354977892,
+              "color_correct": true,
+              "is_target": true,
+              "touched_physical_ids": [
+                "cube_002"
+              ],
+              "rule_version": 1,
+              "superseded": false
+            }
+          ],
+          "rule_changes": [
+            {
+              "effective_at_s": 20,
+              "applied_at_s": 20.00599999999979,
+              "instruction": "Reject blue cubes; let the others pass.",
+              "cancelled_requests": [
+                "d947375012414f25bf34f0ae9f915114"
+              ]
+            }
+          ],
+          "final_rule_version": 1,
+          "adaptation_delay_s": 0.3699999999995889,
+          "case_id": "confirm_switch_01",
+          "condition": "rule_switch"
+        },
+        {
+          "phase": 6,
+          "config": {
+            "seed": 24004,
+            "target_color": "green",
+            "instruction": "Reject green cubes; let the others pass.",
+            "actor": "conventional",
+            "belt_speed": 0.005,
+            "spacing": 0.1,
+            "count": 3,
+            "scenario": "mixed",
+            "layout": 1,
+            "position_spread": 0.006,
+            "yaw_limit": 0.15,
+            "illumination": 1.0,
+            "camera_rotation": 0.0,
+            "front_y": -0.2,
+            "rule_colors": [
+              "green"
+            ],
+            "rule_count": 3,
+            "switch_at_s": 20,
+            "next_instruction": "Reject red cubes; let the others pass.",
+            "next_colors": [
+              "red"
+            ]
+          },
+          "initial_cubes": [
+            {
+              "id": "cube_000",
+              "color": "green",
+              "position_m": [
+                0.2171473067378765,
+                -0.40176624156340546,
+                0.016
+              ],
+              "yaw_rad": -0.12448546760353617
+            },
+            {
+              "id": "cube_001",
+              "color": "blue",
+              "position_m": [
+                0.2244686630590527,
+                -0.29876810299800827,
+                0.016
+              ],
+              "yaw_rad": 0.07647780179981063
+            },
+            {
+              "id": "cube_002",
+              "color": "red",
+              "position_m": [
+                0.21847362909020665,
+                -0.20283532817448258,
+                0.016
+              ],
+              "yaw_rad": -0.08353211481228678
+            }
+          ],
+          "target_ids": [
+            "cube_002"
+          ],
+          "completed": true,
+          "push_success": true,
+          "controller_error": null,
+          "simulation_duration_s": 176.35400000011396,
+          "touched_cube_ids": [
+            "cube_002"
+          ],
+          "unintended_cube_contacts": [],
+          "cube_neighbor_contacts_on_belt": [],
+          "fixture_contacts": [],
+          "max_tracking_error_m": 0.0002805870679985544,
+          "actions": [
+            {
+              "action": "move_to",
+              "target_xyz_m": [
+                0.18,
+                0.005,
+                0.065
+              ],
+              "start_s": 35.75999999999774,
+              "end_s": 37.76000000000018,
+              "position_error_m": 0.0001704495095501123
+            },
+            {
+              "action": "move_to",
+              "target_xyz_m": [
+                0.18,
+                -0.005,
+                0.02
+              ],
+              "start_s": 37.76000000000018,
+              "end_s": 38.760000000001405,
+              "position_error_m": 0.0001785622910032314
+            },
+            {
+              "action": "sweep",
+              "target_xyz_m": [
+                0.3,
+                0.004999999999999999,
+                0.02
+              ],
+              "start_s": 38.760000000001405,
+              "end_s": 40.76000000000385,
+              "position_error_m": 0.0002805870679985544
+            },
+            {
+              "action": "retract",
+              "target_xyz_m": [
+                0.22,
+                0.005,
+                0.075
+              ],
+              "start_s": 40.76000000000385,
+              "end_s": 42.28000000000571,
+              "position_error_m": 0.0002221482660074929
+            }
+          ],
+          "rejections": [],
+          "scoring": {
+            "total_cubes": 3,
+            "classified_cubes": 3,
+            "resolved_cubes": 3,
+            "outcomes": {
+              "correct_pass": 2,
+              "correct_reject": 1
+            },
+            "cubes": [
+              {
+                "id": "cube_000",
+                "color": "green",
+                "destination": "pass",
+                "outcome": "correct_pass",
+                "resolved_at_s": 171.18400000008785,
+                "final_position_m": [
+                  0.21513429980082868,
+                  0.5020725917374106,
+                  -0.205548656723387
+                ],
+                "final_contacts": [
+                  "cube_001"
+                ]
+              },
+              {
+                "id": "cube_001",
+                "color": "blue",
+                "destination": "pass",
+                "outcome": "correct_pass",
+                "resolved_at_s": 150.61399999998963,
+                "final_position_m": [
+                  0.22700059498579678,
+                  0.5068632225904789,
+                  -0.23520265787062608
+                ],
+                "final_contacts": [
+                  "cube_000",
+                  "pass_bin_floor"
+                ]
+              },
+              {
+                "id": "cube_002",
+                "color": "red",
+                "destination": "reject",
+                "outcome": "correct_reject",
+                "resolved_at_s": 41.13400000000394,
+                "final_position_m": [
+                  0.3476697568071835,
+                  -0.0080786025168524,
+                  -0.13510775542021616
+                ],
+                "final_contacts": [
+                  "reject_bin_floor"
+                ]
+              }
+            ],
+            "target_ids": [
+              "cube_002"
+            ]
+          },
+          "source_sha256": {
+            "scenes/conveyor.xml": "c577228cc759acab98aed1d1729e9e1b4ee2a3abbffa430b155680c02239c142",
+            "conveyor_sim/environment.py": "9df36fe167d5011e4b796a80632658eae56b7fd68ae8c1cb0aa63307beec8271",
+            "conveyor_sim/pushing.py": "7e899f5bc21ee45041d723698d3c12a10a84eea8fc467185eb0e4a43fc9ef2cc",
+            "conveyor_sim/scoring.py": "bf5a33bdcfa9f43c4113d5da2b67f142870a6a5d9acd0d31f0223fc9fd259a7e",
+            "so101_sim/environment.py": "5ef54403aa4451b119bd9956d5f0b27e0fd131e227a1f987a8193a5dfcaeb2ef",
+            "models/so101/so101.xml": "5ad49f2b45c083baac9ffe5d4d3213a5da7eac8039095bb2df177a697aae8308",
+            "conveyor_sim/interactive.py": "f8a9753fe4baec3dc4579a11837d7b558b7b804c1733ce41aeed4574e191137e",
+            "conveyor_sim/realtime.py": "470e2abbac30c666e185467be323acb20df1573648b5882e4a80398788fdfc92",
+            "conveyor_sim/live.py": "c2ef11eafa1d1d39ab27decc1fb401c1385f805f03fda299ca72a24de7dd30a2",
+            "conveyor_sim/live_experiment.py": "aa89ba70d69f4757d7397e2d09661891171e40909eaf8be0f60693e3c0218e6c",
+            "experiments/conveyor-color-sorting/phase4/PROTOCOL.md": "c9be97c7421d1242e02a6cb246603f925e1170b566d94284a4edf8793f0e2598",
+            "experiments/conveyor-color-sorting/phase4/cases.json": "87d47701aa5456ca44f07d594b16bd7d15a12a823f6d42aef71ce5dbfbf38d81",
+            "conveyor_sim/camera.py": "dc2caf02b3c028481e9f89530ee94443f7338d44a3240a293fb01e83256ed255",
+            "conveyor_sim/vision_runtime.py": "458db7b5d47774e13e669d48d72bcfacb8ae7bdfcc3009f65754900a516e4554",
+            "conveyor_sim/vision_render.py": "34f63decad39b7a430f279e93c1df0416933e3f094e72c365d1f9aaa0934fab6",
+            "conveyor_sim/vision.py": "c8bfb28f464a97c2c73a1f6f406514d12f96cb629dec6d955f0aa428aea38616",
+            "experiments/conveyor-color-sorting/phase5/PROTOCOL.md": "cf6d63f62a4981655fb49cf544b3bd1c782630e499f258928fdbf61f968ff54e",
+            "experiments/conveyor-color-sorting/phase5/cases.json": "87d47701aa5456ca44f07d594b16bd7d15a12a823f6d42aef71ce5dbfbf38d81",
+            "conveyor_sim/phase6_scene.py": "7c9439457b3481b790e2c7b302b5cf835e84a644604ea831d2880c38160abcc6",
+            "conveyor_sim/phase6_runtime.py": "b977fd8da24a0fb7650ad24795714c63c87d912d192cbe47e0b3c6c549dc7e4c",
+            "conveyor_sim/phase6_render.py": "90acff53a2b3226f49636ddf8ff21f2c3ff353c2d9c28387356914b30a471107",
+            "conveyor_sim/phase6.py": "605e20e9f2d633c11997a20a96197dab4cce083416477308d797b575f1826299",
+            "conveyor_sim/phase6_pixels.py": "46ed5f35ebee5ee4243f524febeeeac5c4da64519fd40d60f45d97b91c572d61",
+            "experiments/conveyor-color-sorting/phase6/PROTOCOL.md": "a50af13113459752773f23e50538afde9908087724f4a92d557829c2eddeb206",
+            "experiments/conveyor-color-sorting/phase6/cases.json": "72e16d9efcf053930b4d2ab82cdae5c885e97cfceed862090d525500697d3beb"
+          },
+          "versions": {
+            "mujoco": "3.12.0",
+            "numpy": "2.5.3"
+          },
+          "note": "Camera decisions with explicit rule versions; cancelled old-rule commands excluded from final selection scoring.",
+          "actor": "conventional",
+          "time_mode": "continuous_wall_clock_camera",
+          "selected_cube_ids": [
+            "cube_002"
+          ],
+          "selection_correct": true,
+          "sorting_success": true,
+          "realtime_healthy": true,
+          "max_simulation_lag_s": 0.027334209056149916,
+          "allowed_lag_s": 0.25,
+          "wall_started_utc": "2026-09-09T15:21:14.500031+00:00",
+          "wall_finished_utc": "2026-09-09T15:24:10.338919+00:00",
+          "timing_failures": 0,
+          "events": [
+            {
+              "request_id": "8bedb4c40737435ebb9118cf6381e771",
+              "command": {
+                "observation_id": "457c05f6b98649c2b5c1bc1b8632b4b8",
+                "start_at_s": 75.2619713229207,
+                "expires_at_s": 75.3119713229207,
+                "primitives": [
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      0.005,
+                      0.065
+                    ],
+                    "seconds": 2,
+                    "joint": true
+                  },
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      -0.005,
+                      0.02
+                    ],
+                    "seconds": 1
+                  },
+                  {
+                    "tool": "sweep",
+                    "xyz": [
+                      0.3,
+                      0.004999999999999999,
+                      0.02
+                    ],
+                    "seconds": 2
+                  },
+                  {
+                    "tool": "retract"
+                  }
+                ],
+                "cube_id": "object_v0_0"
+              },
+              "status": "cancelled_rule_change",
+              "received_at_utc": "2026-09-09T15:21:14.958625+00:00",
+              "received_at_sim_s": 0.9580000000000007,
+              "error": "Pending old-rule motion cancelled at instruction change",
+              "actual_start_s": null,
+              "actual_end_s": null,
+              "observation": {
+                "observation_id": "457c05f6b98649c2b5c1bc1b8632b4b8",
+                "instruction": "Reject green cubes; let the others pass.",
+                "time_s": 0.6880000000000005,
+                "observed_at_utc": "2026-09-09T15:21:14.690304+00:00",
+                "time_mode": "continuous_wall_clock_camera_phase6",
+                "belt_velocity_m_s": [
+                  0,
+                  0.005,
+                  0
+                ],
+                "calibration": {
+                  "width": 960,
+                  "height": 720,
+                  "camera_world_xyz_m": [
+                    0.22,
+                    -0.18,
+                    0.7
+                  ],
+                  "fovy_degrees": 45.0,
+                  "focal_length_px": 869.1168824543141,
+                  "principal_point_px": [
+                    480.0,
+                    360.0
+                  ],
+                  "object_top_plane_z_m": 0.03,
+                  "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                  "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                  "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                  "rotation_degrees": 0.0
+                },
+                "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_02/images/457c05f6b98649c2b5c1bc1b8632b4b8.png",
+                "rule_version": 0,
+                "next_rule_change_at_s": 20,
+                "capture_to_image_ready_wall_s": 0.2060439579654485,
+                "image_ready_at_utc": "2026-09-09T15:21:14.896347+00:00"
+              },
+              "observation_to_submission_wall_s": 0.26832495792768896,
+              "observation_age_sim_s": 0.27000000000000024,
+              "perception": {
+                "object_id": "object_v0_0",
+                "pixel_xy": [
+                  475.6985151710781,
+                  642.6184635248547
+                ],
+                "perceived_color": "green",
+                "estimated_world_xy_m": [
+                  0.2166839962569371,
+                  -0.3978698566146035
+                ]
+              },
+              "rule_version": 0,
+              "planned_motion_s": 6.5200000000000005
+            },
+            {
+              "request_id": "6efa868350b64614b2cb55702d69a1a6",
+              "command": {
+                "observation_id": "fd1c39859232404496de134dab49e60e",
+                "start_at_s": 35.75972142136734,
+                "expires_at_s": 35.809721421367335,
+                "primitives": [
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      0.005,
+                      0.065
+                    ],
+                    "seconds": 2,
+                    "joint": true
+                  },
+                  {
+                    "tool": "move_to",
+                    "xyz": [
+                      0.18,
+                      -0.005,
+                      0.02
+                    ],
+                    "seconds": 1
+                  },
+                  {
+                    "tool": "sweep",
+                    "xyz": [
+                      0.3,
+                      0.004999999999999999,
+                      0.02
+                    ],
+                    "seconds": 2
+                  },
+                  {
+                    "tool": "retract"
+                  }
+                ],
+                "cube_id": "object_v1_0"
+              },
+              "status": "completed",
+              "received_at_utc": "2026-09-09T15:21:34.322586+00:00",
+              "received_at_sim_s": 20.321999999999615,
+              "error": null,
+              "actual_start_s": 35.75999999999774,
+              "actual_end_s": 42.28000000000571,
+              "observation": {
+                "observation_id": "fd1c39859232404496de134dab49e60e",
+                "instruction": "Reject red cubes; let the others pass.",
+                "time_s": 20.05999999999976,
+                "observed_at_utc": "2026-09-09T15:21:34.061263+00:00",
+                "time_mode": "continuous_wall_clock_camera_phase6",
+                "belt_velocity_m_s": [
+                  0,
+                  0.005,
+                  0
+                ],
+                "calibration": {
+                  "width": 960,
+                  "height": 720,
+                  "camera_world_xyz_m": [
+                    0.22,
+                    -0.18,
+                    0.7
+                  ],
+                  "fovy_degrees": 45.0,
+                  "focal_length_px": 869.1168824543141,
+                  "principal_point_px": [
+                    480.0,
+                    360.0
+                  ],
+                  "object_top_plane_z_m": 0.03,
+                  "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                  "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                  "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                  "rotation_degrees": 0.0
+                },
+                "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_02/images/fd1c39859232404496de134dab49e60e.png",
+                "rule_version": 1,
+                "next_rule_change_at_s": 20,
+                "capture_to_image_ready_wall_s": 0.1986977078486234,
+                "image_ready_at_utc": "2026-09-09T15:21:34.259909+00:00"
+              },
+              "observation_to_submission_wall_s": 0.26137649989686906,
+              "observation_age_sim_s": 0.2619999999998548,
+              "perception": {
+                "object_id": "object_v1_0",
+                "pixel_xy": [
+                  477.4268366727383,
+                  260.7632058287796
+                ],
+                "perceived_color": "red",
+                "estimated_world_xy_m": [
+                  0.21801635491834329,
+                  -0.10349860710683789
+                ]
+              },
+              "rule_version": 1,
+              "planned_motion_s": 6.5200000000000005,
+              "queue_wait_sim_s": 15.437999999998123,
+              "after": {
+                "instruction": "Reject green cubes; let the others pass.",
+                "time_s": 42.28000000000571,
+                "time_mode": "continuous_wall_clock",
+                "belt_velocity_m_s": [
+                  0,
+                  0.005,
+                  0
+                ],
+                "deadline_s": 176.3532483126811,
+                "tool_xyz_m": [
+                  0.21999334374032828,
+                  0.005015560764593521,
+                  0.07477849738398253
+                ],
+                "joint_positions_rad": [
+                  0.03759977284220092,
+                  -0.10702477699959773,
+                  0.12711917923617402,
+                  1.551434748210362,
+                  1.6570802480155762,
+                  1.8454566633124615e-07
+                ],
+                "joint_velocities_rad_s": [
+                  0.01068900032704777,
+                  -0.45639917929585627,
+                  0.24788597865936943,
+                  0.2081529392192714,
+                  0.01068650334435793,
+                  1.2507468302910259e-08
+                ],
+                "selected_cube_id": "object_v1_0",
+                "completed": false,
+                "cubes": [
+                  {
+                    "id": "cube_000",
+                    "color": "green",
+                    "position": [
+                      0.21714730673644383,
+                      -0.19047384191744263,
+                      0.014892244579783815
+                    ],
+                    "half_extents": [
+                      0.016746388262066515,
+                      0.016746388262960946,
+                      0.015000000000998744
+                    ],
+                    "velocity": [
+                      -2.4772867643709804e-14,
+                      0.004999999973004263,
+                      -2.6506769290010247e-16
+                    ],
+                    "contacts": [
+                      "belt"
+                    ],
+                    "destination": null
+                  },
+                  {
+                    "id": "cube_001",
+                    "color": "blue",
+                    "position": [
+                      0.22446866306215296,
+                      -0.08747570255219779,
+                      0.014892244579783814
+                    ],
+                    "half_extents": [
+                      0.016102231050017218,
+                      0.016102231050017218,
+                      0.014999999999999987
+                    ],
+                    "velocity": [
+                      -4.875005106822599e-17,
+                      0.005000000000000049,
+                      2.082757083616192e-17
+                    ],
+                    "contacts": [
+                      "belt"
+                    ],
+                    "destination": null
+                  },
+                  {
+                    "id": "cube_002",
+                    "color": "red",
+                    "position": [
+                      0.34766975701876823,
+                      -0.008078602535737651,
+                      -0.135107755420216
+                    ],
+                    "half_extents": [
+                      0.020622386457663802,
+                      0.020622386456636357,
+                      0.015000000001584381
+                    ],
+                    "velocity": [
+                      -3.8306707512404824e-11,
+                      3.419195546946316e-12,
+                      -4.025274166841527e-15
+                    ],
+                    "contacts": [
+                      "reject_bin_floor"
+                    ],
+                    "destination": "reject"
+                  }
+                ]
+              }
+            }
+          ],
+          "observations": [
+            {
+              "observation_id": "457c05f6b98649c2b5c1bc1b8632b4b8",
+              "instruction": "Reject green cubes; let the others pass.",
+              "time_s": 0.6880000000000005,
+              "observed_at_utc": "2026-09-09T15:21:14.690304+00:00",
+              "time_mode": "continuous_wall_clock_camera_phase6",
+              "belt_velocity_m_s": [
+                0,
+                0.005,
+                0
+              ],
+              "calibration": {
+                "width": 960,
+                "height": 720,
+                "camera_world_xyz_m": [
+                  0.22,
+                  -0.18,
+                  0.7
+                ],
+                "fovy_degrees": 45.0,
+                "focal_length_px": 869.1168824543141,
+                "principal_point_px": [
+                  480.0,
+                  360.0
+                ],
+                "object_top_plane_z_m": 0.03,
+                "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                "rotation_degrees": 0.0
+              },
+              "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_02/images/457c05f6b98649c2b5c1bc1b8632b4b8.png",
+              "rule_version": 0,
+              "next_rule_change_at_s": 20,
+              "capture_to_image_ready_wall_s": 0.2060439579654485,
+              "image_ready_at_utc": "2026-09-09T15:21:14.896347+00:00"
+            },
+            {
+              "observation_id": "fd1c39859232404496de134dab49e60e",
+              "instruction": "Reject red cubes; let the others pass.",
+              "time_s": 20.05999999999976,
+              "observed_at_utc": "2026-09-09T15:21:34.061263+00:00",
+              "time_mode": "continuous_wall_clock_camera_phase6",
+              "belt_velocity_m_s": [
+                0,
+                0.005,
+                0
+              ],
+              "calibration": {
+                "width": 960,
+                "height": 720,
+                "camera_world_xyz_m": [
+                  0.22,
+                  -0.18,
+                  0.7
+                ],
+                "fovy_degrees": 45.0,
+                "focal_length_px": 869.1168824543141,
+                "principal_point_px": [
+                  480.0,
+                  360.0
+                ],
+                "object_top_plane_z_m": 0.03,
+                "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+                "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+                "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+                "rotation_degrees": 0.0
+              },
+              "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_02/images/fd1c39859232404496de134dab49e60e.png",
+              "rule_version": 1,
+              "next_rule_change_at_s": 20,
+              "capture_to_image_ready_wall_s": 0.1986977078486234,
+              "image_ready_at_utc": "2026-09-09T15:21:34.259909+00:00"
+            }
+          ],
+          "perception_audits": [
+            {
+              "request_id": "8bedb4c40737435ebb9118cf6381e771",
+              "object_id": "object_v0_0",
+              "pixel_xy": [
+                475.6985151710781,
+                642.6184635248547
+              ],
+              "perceived_color": "green",
+              "estimated_world_xy_m": [
+                0.2166839962569371,
+                -0.3978698566146035
+              ],
+              "matched_physical_id": "cube_000",
+              "true_color": "green",
+              "true_world_xy_m": [
+                0.21714730673787427,
+                -0.39844384036819835
+              ],
+              "position_error_m": 0.0007376408008896148,
+              "y_error_m": 0.0005739837535948533,
+              "color_correct": true,
+              "is_target": false,
+              "touched_physical_ids": [],
+              "rule_version": 0,
+              "superseded": true
+            },
+            {
+              "request_id": "6efa868350b64614b2cb55702d69a1a6",
+              "object_id": "object_v1_0",
+              "pixel_xy": [
+                477.4268366727383,
+                260.7632058287796
+              ],
+              "perceived_color": "red",
+              "estimated_world_xy_m": [
+                0.21801635491834329,
+                -0.10349860710683789
+              ],
+              "matched_physical_id": "cube_002",
+              "true_color": "red",
+              "true_world_xy_m": [
+                0.21847362909460744,
+                -0.10264292770069634
+              ],
+              "position_error_m": 0.0009701994219606661,
+              "y_error_m": -0.000855679406141549,
+              "color_correct": true,
+              "is_target": true,
+              "touched_physical_ids": [
+                "cube_002"
+              ],
+              "rule_version": 1,
+              "superseded": false
+            }
+          ],
+          "rule_changes": [
+            {
+              "effective_at_s": 20,
+              "applied_at_s": 20.00799999999979,
+              "instruction": "Reject red cubes; let the others pass.",
+              "cancelled_requests": [
+                "8bedb4c40737435ebb9118cf6381e771"
+              ]
+            }
+          ],
+          "final_rule_version": 1,
+          "adaptation_delay_s": 0.3219999999996155,
+          "case_id": "confirm_switch_02",
+          "condition": "rule_switch"
+        }
+      ],
+      "conditions": {
+        "rule_switch": {
+          "episodes": 2,
+          "successful_episodes": 2,
+          "physically_successful_episodes": 2,
+          "episode_success_wilson_95": [
+            0.34238022750665303,
+            1
+          ],
+          "selection_correct_episodes": 2,
+          "realtime_healthy_episodes": 2,
+          "target_cubes": 2,
+          "non_target_cubes": 4,
+          "outcomes": {
+            "correct_pass": 4,
+            "correct_reject": 2
+          },
+          "target_rejection_rate": 1.0,
+          "command_statuses": {
+            "cancelled_rule_change": 2,
+            "completed": 2
+          },
+          "estimates": 4,
+          "correct_colors": 4,
+          "final_rule_estimates": 2,
+          "correct_final_targets": 2,
+          "position_error_m": {
+            "count": 4,
+            "min": 0.0007376408008896148,
+            "median": 0.0010671517749972087,
+            "p95": 0.004001035313229484,
+            "max": 0.004501670228264027
+          },
+          "response_wall_s": {
+            "count": 4,
+            "min": 0.26137649989686906,
+            "median": 0.2902208954328671,
+            "p95": 0.3211205998202786,
+            "max": 0.32270949985831976
+          },
+          "adaptation_delay_s": {
+            "count": 2,
+            "min": 0.3219999999996155,
+            "median": 0.3459999999996022,
+            "p95": 0.3675999999995902,
+            "max": 0.3699999999995889
+          },
+          "max_simulation_lag_s": 0.06603945790214993,
+          "unintended_contact_episodes": 0
+        }
+      }
+    }
+  },
+  "images": [
+    {
+      "actor": "codex_session",
+      "case": "confirm_switch_01",
+      "rule_version": 0,
+      "image": "phase6/confirmatory/inputs/codex_session/confirm_switch_01_v0.png",
+      "sha256": "a487db2b9d99f9939d21c3c90dfb0f97eb846d4fe86988e48f20662e3a9af493",
+      "observation": {
+        "observation_id": "ac30e500b7ae4cf9a2dfb07f5c5686e3",
+        "instruction": "Reject red cubes; let the others pass.",
+        "time_s": 0.5100000000000003,
+        "observed_at_utc": "2026-09-09T15:17:30.390793+00:00",
+        "time_mode": "continuous_wall_clock_camera_phase6",
+        "belt_velocity_m_s": [
+          0,
+          0.005,
+          0
+        ],
+        "calibration": {
+          "width": 960,
+          "height": 720,
+          "camera_world_xyz_m": [
+            0.22,
+            -0.18,
+            0.7
+          ],
+          "fovy_degrees": 45.0,
+          "focal_length_px": 869.1168824543141,
+          "principal_point_px": [
+            480.0,
+            360.0
+          ],
+          "object_top_plane_z_m": 0.03,
+          "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+          "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+          "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+          "rotation_degrees": 0.0
+        },
+        "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_01/images/ac30e500b7ae4cf9a2dfb07f5c5686e3.png",
+        "rule_version": 0,
+        "next_rule_change_at_s": 20,
+        "capture_to_image_ready_wall_s": 0.22844441700726748,
+        "image_ready_at_utc": "2026-09-09T15:17:30.619238+00:00"
+      }
+    },
+    {
+      "actor": "codex_session",
+      "case": "confirm_switch_01",
+      "rule_version": 1,
+      "image": "phase6/confirmatory/inputs/codex_session/confirm_switch_01_v1.png",
+      "sha256": "13e0ca1adb94ae0b2bcca1a89fcf67c770ebd3965f49c42499204f0524460787",
+      "observation": {
+        "observation_id": "98cd69962f0f4a5a9b393e35bb553de4",
+        "instruction": "Reject blue cubes; let the others pass.",
+        "time_s": 26.875999999995983,
+        "observed_at_utc": "2026-09-09T15:17:56.757197+00:00",
+        "time_mode": "continuous_wall_clock_camera_phase6",
+        "belt_velocity_m_s": [
+          0,
+          0.005,
+          0
+        ],
+        "calibration": {
+          "width": 960,
+          "height": 720,
+          "camera_world_xyz_m": [
+            0.22,
+            -0.18,
+            0.7
+          ],
+          "fovy_degrees": 45.0,
+          "focal_length_px": 869.1168824543141,
+          "principal_point_px": [
+            480.0,
+            360.0
+          ],
+          "object_top_plane_z_m": 0.03,
+          "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+          "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+          "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+          "rotation_degrees": 0.0
+        },
+        "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_01/images/98cd69962f0f4a5a9b393e35bb553de4.png",
+        "rule_version": 1,
+        "next_rule_change_at_s": 20,
+        "capture_to_image_ready_wall_s": 0.2492202918510884,
+        "image_ready_at_utc": "2026-09-09T15:17:57.006398+00:00"
+      }
+    },
+    {
+      "actor": "codex_session",
+      "case": "confirm_switch_02",
+      "rule_version": 0,
+      "image": "phase6/confirmatory/inputs/codex_session/confirm_switch_02_v0.png",
+      "sha256": "7c5f2f1fa514f4c9ff52f1ee07366624921206c1c985a9a7ecd0b58fc23bc9e5",
+      "observation": {
+        "observation_id": "b236f648dec54f9bb427aad67f68296a",
+        "instruction": "Reject green cubes; let the others pass.",
+        "time_s": 0.5320000000000004,
+        "observed_at_utc": "2026-09-09T15:21:01.812280+00:00",
+        "time_mode": "continuous_wall_clock_camera_phase6",
+        "belt_velocity_m_s": [
+          0,
+          0.005,
+          0
+        ],
+        "calibration": {
+          "width": 960,
+          "height": 720,
+          "camera_world_xyz_m": [
+            0.22,
+            -0.18,
+            0.7
+          ],
+          "fovy_degrees": 45.0,
+          "focal_length_px": 869.1168824543141,
+          "principal_point_px": [
+            480.0,
+            360.0
+          ],
+          "object_top_plane_z_m": 0.03,
+          "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+          "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+          "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+          "rotation_degrees": 0.0
+        },
+        "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_02/images/b236f648dec54f9bb427aad67f68296a.png",
+        "rule_version": 0,
+        "next_rule_change_at_s": 20,
+        "capture_to_image_ready_wall_s": 0.2418996668420732,
+        "image_ready_at_utc": "2026-09-09T15:21:02.054182+00:00"
+      }
+    },
+    {
+      "actor": "codex_session",
+      "case": "confirm_switch_02",
+      "rule_version": 1,
+      "image": "phase6/confirmatory/inputs/codex_session/confirm_switch_02_v1.png",
+      "sha256": "6dabe0d7e04c87f8f7c122a78212afa6568454f1d04905ae1d2348c75933f524",
+      "observation": {
+        "observation_id": "1436c6ad274845139d6c4fd2009e2b63",
+        "instruction": "Reject red cubes; let the others pass.",
+        "time_s": 28.03799999999534,
+        "observed_at_utc": "2026-09-09T15:21:29.319971+00:00",
+        "time_mode": "continuous_wall_clock_camera_phase6",
+        "belt_velocity_m_s": [
+          0,
+          0.005,
+          0
+        ],
+        "calibration": {
+          "width": 960,
+          "height": 720,
+          "camera_world_xyz_m": [
+            0.22,
+            -0.18,
+            0.7
+          ],
+          "fovy_degrees": 45.0,
+          "focal_length_px": 869.1168824543141,
+          "principal_point_px": [
+            480.0,
+            360.0
+          ],
+          "object_top_plane_z_m": 0.03,
+          "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+          "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+          "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+          "rotation_degrees": 0.0
+        },
+        "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/codex_session/confirm_switch_02/images/1436c6ad274845139d6c4fd2009e2b63.png",
+        "rule_version": 1,
+        "next_rule_change_at_s": 20,
+        "capture_to_image_ready_wall_s": 0.3145349158439785,
+        "image_ready_at_utc": "2026-09-09T15:21:29.634485+00:00"
+      }
+    },
+    {
+      "actor": "conventional",
+      "case": "confirm_switch_01",
+      "rule_version": 0,
+      "image": "phase6/confirmatory/inputs/conventional/confirm_switch_01_v0.png",
+      "sha256": "e4b5315761ae93acb6131b7f16b60b821ac5e44223394983e196c8981879b264",
+      "observation": {
+        "observation_id": "e33938b241f34683a23ed2b37e3ff6d4",
+        "instruction": "Reject red cubes; let the others pass.",
+        "time_s": 0.6760000000000005,
+        "observed_at_utc": "2026-09-09T15:17:45.489270+00:00",
+        "time_mode": "continuous_wall_clock_camera_phase6",
+        "belt_velocity_m_s": [
+          0,
+          0.005,
+          0
+        ],
+        "calibration": {
+          "width": 960,
+          "height": 720,
+          "camera_world_xyz_m": [
+            0.22,
+            -0.18,
+            0.7
+          ],
+          "fovy_degrees": 45.0,
+          "focal_length_px": 869.1168824543141,
+          "principal_point_px": [
+            480.0,
+            360.0
+          ],
+          "object_top_plane_z_m": 0.03,
+          "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+          "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+          "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+          "rotation_degrees": 0.0
+        },
+        "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_01/images/e33938b241f34683a23ed2b37e3ff6d4.png",
+        "rule_version": 0,
+        "next_rule_change_at_s": 20,
+        "capture_to_image_ready_wall_s": 0.23923266702331603,
+        "image_ready_at_utc": "2026-09-09T15:17:45.728503+00:00"
+      }
+    },
+    {
+      "actor": "conventional",
+      "case": "confirm_switch_01",
+      "rule_version": 1,
+      "image": "phase6/confirmatory/inputs/conventional/confirm_switch_01_v1.png",
+      "sha256": "b15bbe3d6a8ea83ced3c9852c402e6eee83bfcfab3f1402faaa0a8428ca1af51",
+      "observation": {
+        "observation_id": "eb71e77d3e7b4578ae14fd8134be29d9",
+        "instruction": "Reject blue cubes; let the others pass.",
+        "time_s": 20.047999999999767,
+        "observed_at_utc": "2026-09-09T15:18:04.860747+00:00",
+        "time_mode": "continuous_wall_clock_camera_phase6",
+        "belt_velocity_m_s": [
+          0,
+          0.005,
+          0
+        ],
+        "calibration": {
+          "width": 960,
+          "height": 720,
+          "camera_world_xyz_m": [
+            0.22,
+            -0.18,
+            0.7
+          ],
+          "fovy_degrees": 45.0,
+          "focal_length_px": 869.1168824543141,
+          "principal_point_px": [
+            480.0,
+            360.0
+          ],
+          "object_top_plane_z_m": 0.03,
+          "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+          "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+          "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+          "rotation_degrees": 0.0
+        },
+        "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_01/images/eb71e77d3e7b4578ae14fd8134be29d9.png",
+        "rule_version": 1,
+        "next_rule_change_at_s": 20,
+        "capture_to_image_ready_wall_s": 0.2500826248433441,
+        "image_ready_at_utc": "2026-09-09T15:18:05.110789+00:00"
+      }
+    },
+    {
+      "actor": "conventional",
+      "case": "confirm_switch_02",
+      "rule_version": 0,
+      "image": "phase6/confirmatory/inputs/conventional/confirm_switch_02_v0.png",
+      "sha256": "c08f6b591aebce843fc4c62c76c11abf2be94042f4482b409d012ee9731a9c22",
+      "observation": {
+        "observation_id": "457c05f6b98649c2b5c1bc1b8632b4b8",
+        "instruction": "Reject green cubes; let the others pass.",
+        "time_s": 0.6880000000000005,
+        "observed_at_utc": "2026-09-09T15:21:14.690304+00:00",
+        "time_mode": "continuous_wall_clock_camera_phase6",
+        "belt_velocity_m_s": [
+          0,
+          0.005,
+          0
+        ],
+        "calibration": {
+          "width": 960,
+          "height": 720,
+          "camera_world_xyz_m": [
+            0.22,
+            -0.18,
+            0.7
+          ],
+          "fovy_degrees": 45.0,
+          "focal_length_px": 869.1168824543141,
+          "principal_point_px": [
+            480.0,
+            360.0
+          ],
+          "object_top_plane_z_m": 0.03,
+          "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+          "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+          "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+          "rotation_degrees": 0.0
+        },
+        "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_02/images/457c05f6b98649c2b5c1bc1b8632b4b8.png",
+        "rule_version": 0,
+        "next_rule_change_at_s": 20,
+        "capture_to_image_ready_wall_s": 0.2060439579654485,
+        "image_ready_at_utc": "2026-09-09T15:21:14.896347+00:00"
+      }
+    },
+    {
+      "actor": "conventional",
+      "case": "confirm_switch_02",
+      "rule_version": 1,
+      "image": "phase6/confirmatory/inputs/conventional/confirm_switch_02_v1.png",
+      "sha256": "474df37b3a6dd5f5b51ddf4be48edb3c9977a7788d78200b239aae4a21e0287f",
+      "observation": {
+        "observation_id": "fd1c39859232404496de134dab49e60e",
+        "instruction": "Reject red cubes; let the others pass.",
+        "time_s": 20.05999999999976,
+        "observed_at_utc": "2026-09-09T15:21:34.061263+00:00",
+        "time_mode": "continuous_wall_clock_camera_phase6",
+        "belt_velocity_m_s": [
+          0,
+          0.005,
+          0
+        ],
+        "calibration": {
+          "width": 960,
+          "height": 720,
+          "camera_world_xyz_m": [
+            0.22,
+            -0.18,
+            0.7
+          ],
+          "fovy_degrees": 45.0,
+          "focal_length_px": 869.1168824543141,
+          "principal_point_px": [
+            480.0,
+            360.0
+          ],
+          "object_top_plane_z_m": 0.03,
+          "metres_per_pixel_on_top_plane": 0.0007708974633054824,
+          "pixel_to_world": "[x,y]=[0.22,-0.18]+R(rotation_degrees)*[(u-480)*scale,-(v-360)*scale]",
+          "axes": "Calibrated rotation about vertical axis; image need not align with belt",
+          "rotation_degrees": 0.0
+        },
+        "image_path": "/Users/praveen/work/github/mujoco-llms/runtime/conveyor/phase6_confirmatory/conventional/confirm_switch_02/images/fd1c39859232404496de134dab49e60e.png",
+        "rule_version": 1,
+        "next_rule_change_at_s": 20,
+        "capture_to_image_ready_wall_s": 0.1986977078486234,
+        "image_ready_at_utc": "2026-09-09T15:21:34.259909+00:00"
+      }
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "case": "confirm_switch_01",
+      "codex_success": false,
+      "conventional_success": true,
+      "targets": 1,
+      "codex_rejected": 0,
+      "conventional_rejected": 1
+    },
+    {
+      "case": "confirm_switch_02",
+      "codex_success": false,
+      "conventional_success": true,
+      "targets": 1,
+      "codex_rejected": 0,
+      "conventional_rejected": 1
+    }
+  ],
+  "runtime_health_failures": [],
+  "healthy_pair_sensitivity": {
+    "codex_session": {
+      "episodes": 2,
+      "successful_episodes": 0,
+      "physically_successful_episodes": 0,
+      "episode_success_wilson_95": [
+        0,
+        0.6576197724933469
+      ],
+      "selection_correct_episodes": 2,
+      "realtime_healthy_episodes": 2,
+      "target_cubes": 2,
+      "non_target_cubes": 4,
+      "outcomes": {
+        "correct_pass": 4,
+        "target_missed": 2
+      },
+      "target_rejection_rate": 0.0,
+      "command_statuses": {
+        "cancelled_rule_change": 2,
+        "expired": 2
+      },
+      "estimates": 4,
+      "correct_colors": 4,
+      "final_rule_estimates": 2,
+      "correct_final_targets": 2,
+      "position_error_m": {
+        "count": 4,
+        "min": 6.258787780923275e-05,
+        "median": 0.0003591495997239088,
+        "p95": 0.0011667117193159956,
+        "max": 0.0012739335212238313
+      },
+      "response_wall_s": {
+        "count": 4,
+        "min": 10.791075083892792,
+        "median": 11.40728506189771,
+        "p95": 12.909329098218585,
+        "max": 13.15790304215625
+      },
+      "adaptation_delay_s": {
+        "count": 2,
+        "min": 18.188000000000706,
+        "median": 18.86300000000153,
+        "p95": 19.47050000000227,
+        "max": 19.538000000002356
+      },
+      "max_simulation_lag_s": 0.06881870799995227,
+      "unintended_contact_episodes": 0
+    },
+    "conventional": {
+      "episodes": 2,
+      "successful_episodes": 2,
+      "physically_successful_episodes": 2,
+      "episode_success_wilson_95": [
+        0.34238022750665303,
+        1
+      ],
+      "selection_correct_episodes": 2,
+      "realtime_healthy_episodes": 2,
+      "target_cubes": 2,
+      "non_target_cubes": 4,
+      "outcomes": {
+        "correct_pass": 4,
+        "correct_reject": 2
+      },
+      "target_rejection_rate": 1.0,
+      "command_statuses": {
+        "cancelled_rule_change": 2,
+        "completed": 2
+      },
+      "estimates": 4,
+      "correct_colors": 4,
+      "final_rule_estimates": 2,
+      "correct_final_targets": 2,
+      "position_error_m": {
+        "count": 4,
+        "min": 0.0007376408008896148,
+        "median": 0.0010671517749972087,
+        "p95": 0.004001035313229484,
+        "max": 0.004501670228264027
+      },
+      "response_wall_s": {
+        "count": 4,
+        "min": 0.26137649989686906,
+        "median": 0.2902208954328671,
+        "p95": 0.3211205998202786,
+        "max": 0.32270949985831976
+      },
+      "adaptation_delay_s": {
+        "count": 2,
+        "min": 0.3219999999996155,
+        "median": 0.3459999999996022,
+        "p95": 0.3675999999995902,
+        "max": 0.3699999999995889
+      },
+      "max_simulation_lag_s": 0.06603945790214993,
+      "unintended_contact_episodes": 0
+    }
+  },
+  "robustness_pairs": [],
+  "target_rate_difference_codex_minus_conventional": -1.0,
+  "episode_paired_bootstrap_95": null,
+  "bootstrap": {
+    "samples": 10000,
+    "seed": 600006,
+    "unit": "matched episode pair",
+    "note": "Interval omitted below ten pairs; tiny diagnostic cohorts can give degenerate intervals"
+  },
+  "study_artifact_hashes": {
+    "experiments/conveyor-color-sorting/phase6/confirmatory/cases.json": "7f2ec1684270dece9d6516908c2025f4906e6f812eb401b4bb40839067ef7670",
+    "experiments/conveyor-color-sorting/phase6/confirmatory/PROTOCOL.md": "76be8dd9faf99fc136d9d7812b40e6a084ad40306bc147c2131d8cc9b58fdbb8"
+  },
+  "limitations": [
+    "Development manifest, not the planned 30 x 20-cube benchmark",
+    "Small per-condition samples and shared scene/development context",
+    "Camera rotation is about vertical axis, with supplied calibration",
+    "Conventional parser supports exactly the declared tested grammar",
+    "Response gaps include orchestration and image delivery, not isolated inference"
+  ]
+}

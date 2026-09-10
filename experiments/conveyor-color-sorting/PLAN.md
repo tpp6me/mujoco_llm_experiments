@@ -1,7 +1,7 @@
 # SO101 conveyor color-sorting experiment
 
 Date: 2026-09-09
-Status: Phases 1 and 2 complete (2026-09-09). Phases 3–6 have not started.
+Status: Phases 1–5 complete. Phase 6 development evaluation complete; larger formal benchmark remains outstanding (2026-09-09).
 
 Phase 1 evidence: [results and validation notes](PHASE1_RESULTS.md).
 Usage: [conveyor guide](README.md).
@@ -33,7 +33,7 @@ The installed MuJoCo 3.12.0 exposes moving-surface velocity for conveyor
 simulation. Use belt friction to transport free cubes through contact forces.
 Reference: [MuJoCo surface velocity documentation](https://mujoco.readthedocs.io/en/stable/XMLreference.html#body-geom-surfacevel).
 
-## Current starting point
+## Starting point when this plan was written
 
 - The SO101 model, actuator control, and cube contact physics already work.
 - The existing pickup supports observations, motion commands, saved episodes,
@@ -209,10 +209,10 @@ push. Once those work, assess the LLM against the established mechanical baselin
 
 - [x] Phase 1: Conveyor and independent scorer validated (30/30 episodes, 180/180 cubes collected).
 - [x] Phase 2: Physical pushing baseline validated (270/270 gate episodes; overload failures documented).
-- [ ] Phase 3: LLM sorting with structured state and paused time.
-- [ ] Phase 4: Continuous conveyor with measured model latency.
-- [ ] Phase 5: Camera-based LLM sorting.
-- [ ] Phase 6: Robustness, adaptability, and formal comparison.
+- [x] Phase 3: LLM sorting with structured state and paused time (9/9 Codex episodes; 9/9 matched conventional episodes).
+- [x] Phase 4: Continuous conveyor with measured observation-to-command delay (3/3 slowest-speed Codex cases passed; faster and denser failures retained).
+- [x] Phase 5: Camera-based LLM sorting measured (16/16 correct visual selections; 6/16 targets rejected versus 15/16 for conventional vision).
+- [ ] Phase 6: Robustness and adaptability development evaluation complete; larger formal benchmark outstanding.
 
 ### Phase 1 progress
 
@@ -252,5 +252,105 @@ contacts. The 20 overload episodes remain in the report: only 1/10 trials passed
 at 6 cm spacing and 1 cm/s, and 0/10 at 12 cm spacing and 2 cm/s. Eight centimetres
 is the smallest tested passing nominal spacing for consecutive targets at 1 cm/s;
 it is not a universal minimum. See [Phase 2 results](PHASE2_RESULTS.md).
-These runs establish the conventional mechanical baseline; Phase 3 will evaluate
-LLM decisions and has not started.
+These runs establish the conventional mechanical baseline.
+
+### Phase 3 progress
+
+- [x] Expose persistent, color-independent observation and motion tools with paused simulation time.
+- [x] Preserve instructions, observations, actions, timing, state, and independently scored outcomes.
+- [x] Validate persistence, invalid commands, wrong selections, and equivalent controller behavior (24 tests pass).
+- [x] Freeze a nine-episode development protocol covering all three colors and varied wording ([protocol](phase3/PROTOCOL.md), [cases](phase3/cases.json)).
+- [x] Run Codex decisions and a conventional comparator on identical layouts; retain failures (9/9 episodes passed for each controller; 9 targets rejected and 18 non-targets passed per controller).
+- [x] Save comparison results, a demonstration video, and reproduction instructions ([results](PHASE3_RESULTS.md), [tool guide](PHASE3.md), 81.1-second MP4).
+
+Scope: three mixed-color cubes per episode, one of each color, at 1 cm/s and
+12 cm nominal spacing. Three seeds crossed with three target colors give nine
+Codex episodes and nine matched conventional episodes. The gate requires all
+targets rejected, all non-targets passed, and no unintended contacts. This is
+an interactive development demonstration, not the proposed formal 30 × 20-cube
+benchmark. Continuous-time operation remains outside the Phase 3 implementation.
+
+Phase 3 completion note: Codex selected and physically rejected all nine targets
+across all three colors and wordings; all 18 non-targets passed. The conventional
+comparator achieved the same result on identical layouts. Both used 63 primitive
+calls, with zero tool errors or unintended contacts. All 24 automated tests pass.
+The demonstration video was checked by full decoding and visual inspection.
+This establishes successful instruction-following with supplied state and a known
+motion recipe. It does not establish an advantage over the conventional selector
+or continuous-operation performance. Full logs are retained in
+`results/phase3_comparison.json`; no evaluated episodes were retried or excluded.
+
+### Phase 4 progress
+
+- [x] Run physics against a monotonic wall clock independently of Codex calls.
+- [x] Add timestamped observations, queued explicit motion sequences, expiry, and timing logs.
+- [x] Validate continuous advancement, stale/overlapping command rejection, and physical execution (28 tests).
+- [x] Run actual Codex trials at the slowest speed and increase speed/reduce spacing; preserve failures (12 Codex cases; 3/3 slowest-speed gate cases passed).
+- [x] Compare with a conventional selector using the same runtime and motion capability (12 matched cases; all initial layouts match).
+- [x] Save measured operating limits, raw evidence, video, and reproduction instructions ([results](PHASE4_RESULTS.md), [runtime guide](PHASE4.md), success and failure MP4s).
+
+Phase 4 completion note: all 24 live runtimes met the 0.25-second lag criterion
+(worst observed lag 0.047 s). At 0.5 cm/s Codex passed 3/3 mixed-color cases; at
+1 cm/s it passed 2/3, at 2 cm/s 0/3, and at 3 cm/s 0/1. All selections were
+correct; missed start windows and an overlapping reservation explain the failures.
+Measured observation-to-submission gaps were 12.10–16.52 seconds, including
+orchestration, versus 0.010–0.053 seconds for the conventional selector. Across
+all cases, Codex rejected 8/16 targets and the comparator 15/16; both passed every
+non-target. Every outcome and failure is retained in `results/phase4_comparison.json`.
+The 8 cm and 6 cm stream probes separate late commands from robot-cycle capacity.
+All 28 automated tests pass. Both MP4s passed full decoding and visual inspection.
+The small, position-confounded sample establishes a session-specific operating
+condition, not a universal speed limit.
+
+### Phase 5 progress
+
+- [x] Provide timestamped overhead images and calibration without oracle object metadata.
+- [x] Keep rendering and visual decision time independent of the live physics loop.
+- [x] Validate observation filtering, calibration, image-only baseline, and post-hoc perception scoring (calibration errors below 1.66 mm on development seed; new isolation checks pass).
+- [x] Run the Phase 4 case matrix using Codex image interpretations and retain every failure (12 Codex and 12 matched conventional episodes).
+- [x] Compare perception error, command latency, and outcomes with Phase 4 and a conventional visual baseline ([results](PHASE5_RESULTS.md)).
+- [x] Save images, decision logs, results, recordings, and reproduction instructions ([camera guide](PHASE5.md), 24 input PNGs, aggregate JSON, success and failure MP4s).
+
+Phase 5 completion note: all 16 Codex pixel estimates selected the correct target
+color, with maximum position error 1.303 mm. Six commands executed successfully;
+ten expired. Codex rejected 6/16 targets across 4/12 successful episodes, versus
+8/16 targets in Phase 4. Conventional vision rejected 15/16 targets across 11/12
+successful episodes; its one miss was a cycle overlap. Both passed all 20
+non-targets without unintended contacts. All 24 runtimes met the lag criterion
+(worst 0.056 s), and all 31 automated tests passed. The camera measurement gate
+is complete; it does not require every trial to succeed. Prior layout knowledge,
+target-position confounding, and end-to-end orchestration latency limit the
+interpretation. Phase 6 development results follow below.
+
+### Phase 6 progress
+
+- [x] Freeze balanced layouts and separate robustness, timing, and instruction tests ([protocol](phase6/PROTOCOL.md), [24 cases](phase6/cases.json)).
+- [x] Implement calibrated camera rotation, lighting/pose changes, multi-color/count scoring, and versioned instruction changes.
+- [x] Validate rule counting and change semantics, stale-observation rejection, and public-state separation (35 automated tests pass).
+- [x] Execute 24 Codex image-based cases and 24 matched conventional cases; retain every failure (144 cubes accounted for).
+- [x] Audit outcomes, perception, adaptation delay, source hashes, and paired confidence intervals (18/28 versus 27/28 targets rejected; seven runtime-health failures retained).
+- [x] Complete the separately reported new-seed instruction-change check with one pair at a time and no concurrent recording (4/4 runtimes healthy; Codex 0/2 and conventional 2/2 new targets rejected).
+- [x] Save representative videos, input images, results, and reproduction instructions (60 input PNGs, two separate aggregate reports, and three decoded/visually inspected MP4s).
+- [x] Repeat the frozen 24-case matrix with GPT-5.6 Sol and save it separately ([repeat results](PHASE6_GPT56_SOL_RESULTS.md), [machine-readable report](results/phase6_gpt56_sol_comparison.json)); 23/28 targets were rejected versus 18/28 previously, with 20 runtime-health failures retained.
+- [ ] Run the larger formal benchmark (proposed 30 episodes × 20 cubes per condition, held-out seeds, independent model telemetry). This is separate from the 24-case development matrix.
+
+Phase 6 development completion note: the original 48 episodes account for 144
+cubes. Codex selected all 28 final-rule targets correctly and rejected 18; the
+conventional vision/parser baseline rejected 27. Both passed all 44 non-targets.
+Multi-color and counting instructions succeeded for both. Seven original runs
+exceeded the runtime-lag limit, including the final switch trials where recording
+overlapped live simulation; every such run is retained and flagged. A separately
+declared four-run check with new seeds and no recording during live execution
+stayed below 0.069 s lag. Codex correctly selected both new colors but submitted
+18.188–19.538 s after the rule change, missing both start windows; the comparator
+submitted in 0.322–0.370 s and rejected both targets. All 35 tests pass. These are
+development demonstrations with a known scene and motion recipe, not evidence
+of superiority over conventional control. See [results](PHASE6_RESULTS.md),
+[guide](PHASE6.md), and the [remaining formal benchmark](phase6/FORMAL_BENCHMARK.md).
+
+GPT-5.6 Sol repeat note: the separately stored repeat rejected 23/28 targets and
+passed all 44 non-targets, compared with 18/28 and 44/44 in the previous Codex
+run. Only 4/24 repeat runtimes met the lag gate because many simulations ran
+concurrently. The physical improvement is descriptive; changed orchestration
+and poor runtime health prevent attributing it to the model alone. See the
+[repeat report](PHASE6_GPT56_SOL_RESULTS.md).

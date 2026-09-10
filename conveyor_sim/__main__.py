@@ -17,7 +17,23 @@ DEFAULT_EPISODE = ROOT / "runtime" / "conveyor" / "phase1"
 
 def load_episode(directory):
     with np.load(Path(directory) / "episode.npz", allow_pickle=False) as saved:
-        if "phase" in saved and int(saved["phase"]) == 2:
+        if "phase" in saved and int(saved["phase"]) == 6:
+            from .phase6_scene import Config as Phase6Config, Trial
+
+            env = Trial(Phase6Config(**json.loads(str(saved["config"]))))
+            env.live_report = json.loads((Path(directory) / "report.json").read_text())
+            env.observation_phase = 6
+        elif "phase" in saved and int(saved["phase"]) in {4, 5}:
+            from .realtime import RealtimeConfig, RealtimeTrial
+
+            env = RealtimeTrial(RealtimeConfig(**json.loads(str(saved["config"]))))
+            env.live_report = json.loads((Path(directory) / "report.json").read_text())
+            env.observation_phase = int(saved["phase"])
+        elif "phase" in saved and int(saved["phase"]) == 3:
+            from .interactive import InteractiveTrial
+
+            return InteractiveTrial.load(directory)
+        elif "phase" in saved and int(saved["phase"]) == 2:
             from .pushing import PushConfig, PushTrial
 
             env = PushTrial(PushConfig(**json.loads(str(saved["config"]))))
@@ -32,9 +48,17 @@ def load_episode(directory):
 def annotation(env):
     from PIL import Image, ImageDraw, ImageFont
 
+    if getattr(env, "observation_phase", None) == 6:
+        from .phase6_record import annotation as phase6_annotation
+
+        return phase6_annotation(env)
+
     font = ImageFont.load_default(size=19)
     small = ImageFont.load_default(size=16)
     times = np.asarray(env.frame_times)
+    camera_image = None
+    if getattr(env, "observation_phase", None) == 5 and env.live_report["observations"]:
+        camera_image = Image.open(env.live_report["observations"][0]["image_path"]).convert("RGB").resize((240, 180))
 
     def draw(pixels, timestamp):
         index = max(0, int(np.searchsorted(times, timestamp, side="right")) - 1)
@@ -44,14 +68,43 @@ def annotation(env):
         canvas.rectangle((0, 0, image.width, 72), fill=(18, 24, 31))
         pushing = hasattr(env, "target_ids")
         title = "PHASE 2  |  SO101 pushing  |  Conventional controller" if pushing else "PHASE 1  |  Conveyor transport  |  SO101 parked"
+        interactive = hasattr(env, "events")
+        if interactive:
+            actor = "Codex" if env.config.actor == "codex_session" else "Conventional"
+            title = f"PHASE 3  |  {actor}  |  Exact state  |  Paused between actions"
+            if hasattr(env.config, "scenario"):
+                title = f"PHASE 4  |  {actor}  |  Exact state  |  Continuous wall clock"
+            if getattr(env, "observation_phase", None) == 5:
+                title = f"PHASE 5  |  {actor}  |  Camera input  |  Continuous wall clock"
         canvas.text((18, 12), title, font=font, fill="white")
         rejected = env.score_frames[index]["outcomes"].get("correct_reject", 0)
         progress = f"Rejected {rejected}/{len(env.target_ids)}    Passed {collected}" if pushing else f"Collected {collected}/{env.config.count}"
         canvas.text((18, 43), f"Time {timestamp:05.1f}s    Belt {env.config.belt_speed * 100:g} cm/s    "
                     + progress, font=small, fill=(170, 220, 230))
+        if hasattr(env, "live_report"):
+            received = [e for e in env.live_report["events"] if e["received_at_sim_s"] <= timestamp]
+            if not received:
+                state = "Waiting for Codex command; belt continues" if env.config.actor == "codex_session" else "Waiting for controller command"
+            else:
+                event = received[-1]
+                if event["error"]:
+                    state = f"{event['status'].upper()}: {event['error']}"
+                elif event["actual_start_s"] is not None and timestamp >= event["actual_start_s"]:
+                    state = "Motion complete; belt continues" if timestamp >= event["actual_end_s"] else "Executing scheduled motion"
+                else:
+                    state = f"Command queued; motion starts at {event['command']['start_at_s']:.2f}s"
+                state += f"  |  Response gap {event['observation_to_submission_wall_s']:.2f}s"
+            canvas.rectangle((0, 72, image.width, 100), fill=(18, 24, 31))
+            canvas.text((18, 77), state, font=small, fill=(235, 210, 145))
+        if camera_image is not None:
+            image.paste(camera_image, (700, 125))
+            canvas.rectangle((700, 105, 940, 125), fill=(18, 24, 31))
+            canvas.text((704, 107), "Input snapshot (not a live feed)", font=ImageFont.load_default(size=13), fill="white")
         canvas.rectangle((0, image.height - 38, image.width, image.height), fill=(18, 24, 31))
         caption = (f"Reject {env.config.target_color} targets. Exact target IDs and positions supplied; no LLM decisions."
                    if pushing else f"All colors pass in this transport check. Sorting target: {env.config.target_color} (scoring only).")
+        if interactive:
+            caption = env.config.instruction
         canvas.text((18, image.height - 28), caption,
                     font=small, fill=(210, 215, 225))
         return np.asarray(image)
@@ -109,6 +162,14 @@ def validate(seeds, speeds, output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    interactive = commands.add_parser("interact", help="Phase 3 persistent observation and action tools", add_help=False)
+    interactive.add_argument("arguments", nargs=argparse.REMAINDER)
+    camera = commands.add_parser("camera", help="Phase 5 camera observations and live actions", add_help=False)
+    camera.add_argument("arguments", nargs=argparse.REMAINDER)
+    phase6 = commands.add_parser("phase6", help="Robustness and adaptation trials", add_help=False)
+    phase6.add_argument("arguments", nargs=argparse.REMAINDER)
+    followup = commands.add_parser("phase6-followup", help="Supplemental instruction-change check", add_help=False)
+    followup.add_argument("arguments", nargs=argparse.REMAINDER)
     run = commands.add_parser("run", help="Run a complete transport episode and save it")
     run.add_argument("--seed", type=int, default=0)
     run.add_argument("--count", type=int, default=6)
@@ -143,6 +204,22 @@ def main():
     snap.add_argument("--output", type=Path, default=DEFAULT_EPISODE / "conveyor.png")
     args = parser.parse_args()
     try:
+        if args.command == "phase6-followup":
+            from .phase6_followup import main as followup_main
+
+            return followup_main(args.arguments)
+        if args.command == "phase6":
+            from .phase6 import main as phase6_main
+
+            return phase6_main(args.arguments)
+        if args.command == "camera":
+            from .vision import main as camera_main
+
+            return camera_main(args.arguments)
+        if args.command == "interact":
+            from .phase3 import main as interactive_main
+
+            return interactive_main(args.arguments)
         if args.command == "push":
             from .pushing import PushConfig, PushTrial
 

@@ -94,4 +94,5 @@ Runtime artifacts are ignored by Git and can be recreated from the repository:
 ```
 
 See the [pushing guide](PHASE2.md) for controller details and other scenarios,
-and the [progress checklist](PLAN.md) for subsequent phases. Phase 3 has not started.
+and the [progress checklist](PLAN.md) for subsequent phases. LLM decisions are
+evaluated separately in [Phase 3](PHASE3_RESULTS.md).

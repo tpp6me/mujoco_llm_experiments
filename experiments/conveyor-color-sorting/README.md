@@ -6,6 +6,19 @@
 
 **Phase 2 complete:** [270/270 gate episodes passed; overload limits documented](PHASE2_RESULTS.md).
 
+**Phase 3 complete:** [Codex and the conventional selector both passed 9/9 matched episodes](PHASE3_RESULTS.md).
+The [Phase 3 tool guide](PHASE3.md) explains persistent observations and actions.
+
+**Phase 4 complete:** [Continuous-time gate passed at 0.5 cm/s; faster and denser failures retained](PHASE4_RESULTS.md).
+The [Phase 4 runtime guide](PHASE4.md) covers the live queue and expiring commands.
+
+**Phase 5 complete:** [Camera comparison measured: Codex rejected 6/16 targets; conventional vision 15/16](PHASE5_RESULTS.md).
+The [Phase 5 camera guide](PHASE5.md) covers image observations, pixel estimates, and recordings.
+
+**Phase 6 development matrix executed:** [Robustness and adaptation results](PHASE6_RESULTS.md).
+The [Phase 6 guide](PHASE6.md) covers versioned rules and the remaining formal benchmark.
+The frozen matrix was also [repeated separately with GPT-5.6 Sol](PHASE6_GPT56_SOL_RESULTS.md).
+
 [Phase 2 pushing guide](PHASE2.md) covers the conventional rejection controller,
 its scenarios, recording commands, and validation matrix.
 

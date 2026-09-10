@@ -1,0 +1,122 @@
+[
+  {
+    "id": "mixed_0.005_red",
+    "seed": 10000,
+    "target_color": "red",
+    "instruction": "Reject red cubes; let the others pass.",
+    "belt_speed": 0.005,
+    "spacing": 0.12,
+    "scenario": "mixed",
+    "required_for_gate": true
+  },
+  {
+    "id": "mixed_0.005_blue",
+    "seed": 10001,
+    "target_color": "blue",
+    "instruction": "Reject blue cubes; let the others pass.",
+    "belt_speed": 0.005,
+    "spacing": 0.12,
+    "scenario": "mixed",
+    "required_for_gate": true
+  },
+  {
+    "id": "mixed_0.005_green",
+    "seed": 10002,
+    "target_color": "green",
+    "instruction": "Reject green cubes; let the others pass.",
+    "belt_speed": 0.005,
+    "spacing": 0.12,
+    "scenario": "mixed",
+    "required_for_gate": true
+  },
+  {
+    "id": "mixed_0.01_red",
+    "seed": 10000,
+    "target_color": "red",
+    "instruction": "Reject red cubes; let the others pass.",
+    "belt_speed": 0.01,
+    "spacing": 0.12,
+    "scenario": "mixed",
+    "required_for_gate": false
+  },
+  {
+    "id": "mixed_0.01_blue",
+    "seed": 10001,
+    "target_color": "blue",
+    "instruction": "Reject blue cubes; let the others pass.",
+    "belt_speed": 0.01,
+    "spacing": 0.12,
+    "scenario": "mixed",
+    "required_for_gate": false
+  },
+  {
+    "id": "mixed_0.01_green",
+    "seed": 10002,
+    "target_color": "green",
+    "instruction": "Reject green cubes; let the others pass.",
+    "belt_speed": 0.01,
+    "spacing": 0.12,
+    "scenario": "mixed",
+    "required_for_gate": false
+  },
+  {
+    "id": "mixed_0.02_red",
+    "seed": 10000,
+    "target_color": "red",
+    "instruction": "Reject red cubes; let the others pass.",
+    "belt_speed": 0.02,
+    "spacing": 0.12,
+    "scenario": "mixed",
+    "required_for_gate": false
+  },
+  {
+    "id": "mixed_0.02_blue",
+    "seed": 10001,
+    "target_color": "blue",
+    "instruction": "Reject blue cubes; let the others pass.",
+    "belt_speed": 0.02,
+    "spacing": 0.12,
+    "scenario": "mixed",
+    "required_for_gate": false
+  },
+  {
+    "id": "mixed_0.02_green",
+    "seed": 10002,
+    "target_color": "green",
+    "instruction": "Reject green cubes; let the others pass.",
+    "belt_speed": 0.02,
+    "spacing": 0.12,
+    "scenario": "mixed",
+    "required_for_gate": false
+  },
+  {
+    "id": "mixed_0.03_red",
+    "seed": 10000,
+    "target_color": "red",
+    "instruction": "Reject red cubes; let the others pass.",
+    "belt_speed": 0.03,
+    "spacing": 0.12,
+    "scenario": "mixed",
+    "required_for_gate": false
+  },
+  {
+    "id": "stream_0.08",
+    "seed": 11000,
+    "target_color": "red",
+    "instruction": "Reject every red cube into the side tray.",
+    "belt_speed": 0.01,
+    "spacing": 0.08,
+    "scenario": "stream",
+    "required_for_gate": false
+  },
+  {
+    "id": "stream_0.06",
+    "seed": 11000,
+    "target_color": "red",
+    "instruction": "Reject every red cube into the side tray.",
+    "belt_speed": 0.01,
+    "spacing": 0.06,
+    "scenario": "stream",
+    "required_for_gate": false
+  }
+]

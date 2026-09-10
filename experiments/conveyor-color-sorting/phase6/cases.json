@@ -1,0 +1,355 @@
+[
+  {
+    "id": "layout_01",
+    "condition": "balanced_layout",
+    "config": {
+      "seed": 21000,
+      "layout": 0,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass."
+    }
+  },
+  {
+    "id": "layout_02",
+    "condition": "balanced_layout",
+    "config": {
+      "seed": 21001,
+      "layout": 1,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass."
+    }
+  },
+  {
+    "id": "layout_03",
+    "condition": "balanced_layout",
+    "config": {
+      "seed": 21002,
+      "layout": 2,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass."
+    }
+  },
+  {
+    "id": "layout_04",
+    "condition": "balanced_layout",
+    "config": {
+      "seed": 21003,
+      "layout": 0,
+      "target_color": "blue",
+      "rule_colors": [
+        "blue"
+      ],
+      "instruction": "Reject blue cubes; let the others pass."
+    }
+  },
+  {
+    "id": "layout_05",
+    "condition": "balanced_layout",
+    "config": {
+      "seed": 21004,
+      "layout": 1,
+      "target_color": "blue",
+      "rule_colors": [
+        "blue"
+      ],
+      "instruction": "Reject blue cubes; let the others pass."
+    }
+  },
+  {
+    "id": "layout_06",
+    "condition": "balanced_layout",
+    "config": {
+      "seed": 21005,
+      "layout": 2,
+      "target_color": "blue",
+      "rule_colors": [
+        "blue"
+      ],
+      "instruction": "Reject blue cubes; let the others pass."
+    }
+  },
+  {
+    "id": "layout_07",
+    "condition": "balanced_layout",
+    "config": {
+      "seed": 21006,
+      "layout": 0,
+      "target_color": "green",
+      "rule_colors": [
+        "green"
+      ],
+      "instruction": "Reject green cubes; let the others pass."
+    }
+  },
+  {
+    "id": "layout_08",
+    "condition": "balanced_layout",
+    "config": {
+      "seed": 21007,
+      "layout": 1,
+      "target_color": "green",
+      "rule_colors": [
+        "green"
+      ],
+      "instruction": "Reject green cubes; let the others pass."
+    }
+  },
+  {
+    "id": "layout_09",
+    "condition": "balanced_layout",
+    "config": {
+      "seed": 21008,
+      "layout": 2,
+      "target_color": "green",
+      "rule_colors": [
+        "green"
+      ],
+      "instruction": "Reject green cubes; let the others pass."
+    }
+  },
+  {
+    "id": "pose_01",
+    "condition": "pose",
+    "paired_reference": "layout_01",
+    "config": {
+      "seed": 21000,
+      "layout": 0,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "position_spread": 0.015,
+      "yaw_limit": 0.75
+    }
+  },
+  {
+    "id": "pose_02",
+    "condition": "pose",
+    "paired_reference": "layout_02",
+    "config": {
+      "seed": 21001,
+      "layout": 1,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "position_spread": 0.015,
+      "yaw_limit": 0.75
+    }
+  },
+  {
+    "id": "pose_03",
+    "condition": "pose",
+    "paired_reference": "layout_03",
+    "config": {
+      "seed": 21002,
+      "layout": 2,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "position_spread": 0.015,
+      "yaw_limit": 0.75
+    }
+  },
+  {
+    "id": "dim_01",
+    "condition": "dim",
+    "paired_reference": "layout_01",
+    "config": {
+      "seed": 21000,
+      "layout": 0,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "illumination": 0.35
+    }
+  },
+  {
+    "id": "dim_02",
+    "condition": "dim",
+    "paired_reference": "layout_02",
+    "config": {
+      "seed": 21001,
+      "layout": 1,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "illumination": 0.35
+    }
+  },
+  {
+    "id": "dim_03",
+    "condition": "dim",
+    "paired_reference": "layout_03",
+    "config": {
+      "seed": 21002,
+      "layout": 2,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "illumination": 0.35
+    }
+  },
+  {
+    "id": "camera_01",
+    "condition": "camera",
+    "paired_reference": "layout_01",
+    "config": {
+      "seed": 21000,
+      "layout": 0,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "camera_rotation": 15
+    }
+  },
+  {
+    "id": "camera_02",
+    "condition": "camera",
+    "paired_reference": "layout_02",
+    "config": {
+      "seed": 21001,
+      "layout": 1,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "camera_rotation": 15
+    }
+  },
+  {
+    "id": "camera_03",
+    "condition": "camera",
+    "paired_reference": "layout_03",
+    "config": {
+      "seed": 21002,
+      "layout": 2,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "camera_rotation": 15
+    }
+  },
+  {
+    "id": "fast_01",
+    "condition": "speed",
+    "paired_reference": "layout_01",
+    "config": {
+      "seed": 21000,
+      "layout": 0,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "belt_speed": 0.02
+    }
+  },
+  {
+    "id": "dense_01",
+    "condition": "spacing",
+    "config": {
+      "seed": 23000,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "scenario": "stream",
+      "belt_speed": 0.01,
+      "spacing": 0.06
+    }
+  },
+  {
+    "id": "multi_01",
+    "condition": "multi_color",
+    "config": {
+      "seed": 23001,
+      "layout": 1,
+      "target_color": "red",
+      "rule_colors": [
+        "red",
+        "blue"
+      ],
+      "instruction": "Reject red and blue cubes; let the others pass."
+    }
+  },
+  {
+    "id": "count_01",
+    "condition": "counting",
+    "config": {
+      "seed": 23002,
+      "target_color": "green",
+      "rule_colors": [
+        "green"
+      ],
+      "rule_count": 2,
+      "scenario": "stream",
+      "instruction": "Reject the next two green cubes; let the rest pass."
+    }
+  },
+  {
+    "id": "switch_01",
+    "condition": "rule_switch",
+    "config": {
+      "seed": 23003,
+      "layout": 0,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "front_y": -0.2,
+      "spacing": 0.1,
+      "switch_at_s": 20,
+      "next_colors": [
+        "blue"
+      ],
+      "next_instruction": "Reject blue cubes; let the others pass."
+    }
+  },
+  {
+    "id": "switch_02",
+    "condition": "rule_switch",
+    "config": {
+      "seed": 23004,
+      "layout": 1,
+      "target_color": "green",
+      "rule_colors": [
+        "green"
+      ],
+      "instruction": "Reject green cubes; let the others pass.",
+      "front_y": -0.2,
+      "spacing": 0.1,
+      "switch_at_s": 20,
+      "next_colors": [
+        "red"
+      ],
+      "next_instruction": "Reject red cubes; let the others pass."
+    }
+  }
+]

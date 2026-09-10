@@ -1,0 +1,42 @@
+[
+  {
+    "id": "confirm_switch_01",
+    "condition": "rule_switch",
+    "config": {
+      "seed": 24003,
+      "layout": 0,
+      "target_color": "red",
+      "rule_colors": [
+        "red"
+      ],
+      "instruction": "Reject red cubes; let the others pass.",
+      "front_y": -0.2,
+      "spacing": 0.1,
+      "switch_at_s": 20,
+      "next_colors": [
+        "blue"
+      ],
+      "next_instruction": "Reject blue cubes; let the others pass."
+    }
+  },
+  {
+    "id": "confirm_switch_02",
+    "condition": "rule_switch",
+    "config": {
+      "seed": 24004,
+      "layout": 1,
+      "target_color": "green",
+      "rule_colors": [
+        "green"
+      ],
+      "instruction": "Reject green cubes; let the others pass.",
+      "front_y": -0.2,
+      "spacing": 0.1,
+      "switch_at_s": 20,
+      "next_colors": [
+        "red"
+      ],
+      "next_instruction": "Reject red cubes; let the others pass."
+    }
+  }
+]
