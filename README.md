@@ -5,6 +5,9 @@ terminal commands, observing state and contacts after each action.
 
 ## Experiment plans
 
+- [G1 humanoid pick and basket](experiments/humanoid-pick-place/README.md):
+  supported-body contact manipulation, persistent controls, replay, and independent scoring;
+  [implementation plan](experiments/humanoid-pick-place/PLAN.md) progresses toward visual LLM control and free-standing balance.
 - [SO101 conveyor color sorting](experiments/conveyor-color-sorting/PLAN.md):
   phased plan for evaluating LLM instruction-following, vision, and timed robotic actions.
 
