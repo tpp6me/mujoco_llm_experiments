@@ -77,7 +77,7 @@ individual-finger control are outside the initial scope.
 - [x] Audit RGB visibility across manipulation endpoints and expire the table-support prior after interaction; see [P2](PERCEPTION_RESULTS.md).
 - [x] Implement and evaluate a monocular carried-center candidate on fresh trajectories and sensor corruptions; [P3](CARRIED_POSE_RESULTS.md) failed and remains disabled.
 - [x] Implement and freeze temporal RGB/hand-motion fitting: [P4](TEMPORAL_POSE_RESULTS.md) yielded 14/20 post-warmup targets within 20 mm (mean 3.645 mm), below the 16/20 coverage gate.
-- [ ] Add explicit reacquisition after model mismatch/loss and evaluate fresh motion evidence on new trajectories, counting added actions against the task budget.
+- [ ] Add explicit reacquisition after model mismatch/loss and evaluate fresh motion evidence on new trajectories, counting added actions against the task budget. Implementation/development delegated via [AGY task 001](../../coordination/agy/tasks/001-reacquisition.md); fresh validation follows review.
 - [ ] Validate carried-object pose and occlusion handling without private truth inputs.
 - [ ] Build a matched conventional vision comparator and freeze larger evaluations on unused seeds.
 
