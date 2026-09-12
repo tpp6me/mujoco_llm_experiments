@@ -390,21 +390,43 @@ class TemporalReacquisitionEvaluationTests(unittest.TestCase):
             mock_eval_ev.assert_not_called()
             mock_render.assert_not_called()
 
-    def test_render_schedule_derives_midpoint_within_interval(self):
-        # R3: Verify schedule calculation derives midpoint strictly within (t_transport, t_lower)
-        records = [
-            {'stage': 'transport', 'time_s': 11.0},
-            {'stage': 'lower', 'time_s': 13.0},
-        ]
-        t_transport = float(records[0]['time_s'])
-        t_lower = float(records[1]['time_s'])
-        t_mid_target = (t_transport + t_lower) / 2.0
-        self.assertEqual(t_mid_target, 12.0)
+    def test_derive_midpoint_schedule_production_function(self):
+        # R3-B: Exercise production schedule selection with non-11/13 s endpoints
+        from humanoid_sim.temporal_reacquisition_evaluation import derive_midpoint_schedule
 
-        time_arr = np.linspace(10.0, 14.0, 401)
-        idx_mid = int(np.argmin(np.abs(time_arr - t_mid_target)))
-        t_mid_actual = float(time_arr[idx_mid])
-        self.assertTrue(t_transport < t_mid_actual < t_lower)
+        # Non-standard endpoints: transport at 10.4s, lower at 14.8s -> target 12.6s
+        records = [
+            {'stage': 'lift', 'time_s': 8.0},
+            {'stage': 'transport', 'time_s': 10.4},
+            {'stage': 'lower', 'time_s': 14.8},
+        ]
+        time_arr = np.linspace(10.0, 15.0, 501)  # step 0.01s: index 260 is 12.6s
+        sched = derive_midpoint_schedule(records, time_arr)
+        self.assertAlmostEqual(sched['requested_time_s'], 12.6, places=6)
+        self.assertAlmostEqual(sched['actual_time_s'], 12.6, places=6)
+        self.assertEqual(sched['episode_step_index'], 260)
+
+        # Non-standard endpoints with discrete step rounding: transport at 10.1s, lower at 12.0s -> target 11.05s
+        records_2 = [
+            {'stage': 'transport', 'time_s': 10.1},
+            {'stage': 'lower', 'time_s': 12.0},
+        ]
+        time_arr_2 = np.array([9.5, 10.2, 10.72, 10.82, 11.04, 11.12, 11.9])
+        sched_2 = derive_midpoint_schedule(records_2, time_arr_2)
+        self.assertAlmostEqual(sched_2['requested_time_s'], 11.05, places=6)
+        self.assertAlmostEqual(sched_2['actual_time_s'], 11.04, places=6)
+        self.assertEqual(sched_2['episode_step_index'], 4)
+        self.assertTrue(10.1 < sched_2['actual_time_s'] < 12.0)
+
+        # Error cases
+        with self.assertRaisesRegex(ValueError, 'missing transport or lower'):
+            derive_midpoint_schedule([{'stage': 'transport', 'time_s': 10.0}], time_arr)
+        with self.assertRaisesRegex(ValueError, 'strictly greater'):
+            derive_midpoint_schedule([{'stage': 'transport', 'time_s': 12.0}, {'stage': 'lower', 'time_s': 10.0}], time_arr)
+        with self.assertRaisesRegex(ValueError, 'must not be empty'):
+            derive_midpoint_schedule(records, np.array([]))
+        with self.assertRaisesRegex(ValueError, 'does not lie strictly within'):
+            derive_midpoint_schedule(records, np.array([5.0, 6.0]))  # No samples in (10.4, 14.8)
 
     def test_render_source_output_overlap_rejected(self):
         # R3: Overlapping source and output directories must raise ValueError
@@ -414,14 +436,236 @@ class TemporalReacquisitionEvaluationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'must not overlap'):
             render_augmented_dataset(self.capture_dir, self.capture_dir / "sub", [820])
 
-    def test_render_cache_mismatch_triggers_regeneration(self):
-        # R3: Invalid or altered manifest triggers cache invalidation
+    def _setup_mock_source_and_augmented(self, tmp_dir):
+        from humanoid_sim.temporal_reacquisition_evaluation import (
+            file_sha256, get_scene_sha256,
+            AUGMENTED_MANIFEST_VERSION, AUGMENTED_GENERATION_REVISION,
+            AUGMENTED_SCHEDULE_RULE, AUGMENTED_REPLAY_MODE, AUGMENTED_CAMERA_CONFIG
+        )
+        src_root = tmp_dir / "source"
+        out_root = tmp_dir / "output"
+        src_seed = src_root / "seed-820"
+        out_seed = out_root / "seed-820"
+        (src_seed / "episode").mkdir(parents=True)
+        (out_seed / "episode").mkdir(parents=True)
+
+        src_records = [
+            {'stage': 'lift', 'time_s': 8.5, 'image': '04-lift.png'},
+            {'stage': 'transport', 'time_s': 11.0, 'image': '06-transport.png'},
+            {'stage': 'lower', 'time_s': 13.0, 'image': '07-lower.png'},
+        ]
+        src_rec_bytes = json.dumps(src_records).encode('utf-8')
+        (src_seed / "private_records.json").write_bytes(src_rec_bytes)
+
+        # Dummy episode npz
+        npz_bytes = b"DUMMY_EPISODE_NPZ_DATA_820"
+        (src_seed / "episode" / "episode.npz").write_bytes(npz_bytes)
+        (out_seed / "episode" / "episode.npz").write_bytes(npz_bytes)
+
+        # Dummy observations in src
+        obs_06 = {'time_s': 11.0, 'rgb_png_base64': 'AA=='}
+        obs_07 = {'time_s': 13.0, 'rgb_png_base64': 'BB=='}
+        (src_seed / "06-observation.json").write_text(json.dumps(obs_06))
+        (src_seed / "07-observation.json").write_text(json.dumps(obs_07))
+
+        # Copy to output
+        (out_seed / "06-observation.json").write_text(json.dumps(obs_06))
+        (out_seed / "07-observation.json").write_text(json.dumps(obs_07))
+
+        # Output records with lower_mid
+        out_records = [
+            {'stage': 'lift', 'time_s': 8.5, 'image': '04-lift.png'},
+            {'stage': 'transport', 'time_s': 11.0, 'image': '06-transport.png'},
+            {'stage': 'lower_mid', 'time_s': 12.0, 'image': '06b-lower_mid.png'},
+            {'stage': 'lower', 'time_s': 13.0, 'image': '07-lower.png'},
+        ]
+        (out_seed / "private_records.json").write_text(json.dumps(out_records))
+        (out_seed / "06b-observation.json").write_text(json.dumps({'time_s': 12.0}))
+        (out_seed / "06b-lower_mid.png").write_bytes(b"PNG_BYTES")
+
+        src_obs_hashes = {
+            '06-observation.json': file_sha256(src_seed / "06-observation.json"),
+            '07-observation.json': file_sha256(src_seed / "07-observation.json"),
+        }
+
+        manifest = {
+            'manifest_version': AUGMENTED_MANIFEST_VERSION,
+            'generation_revision': AUGMENTED_GENERATION_REVISION,
+            'schedule_rule': AUGMENTED_SCHEDULE_RULE,
+            'replay_mode': AUGMENTED_REPLAY_MODE,
+            'camera_config': AUGMENTED_CAMERA_CONFIG,
+            'scene_sha256': get_scene_sha256(),
+            'seeds': {
+                '820': {
+                    'source_records_sha256': file_sha256(src_seed / "private_records.json"),
+                    'source_episode_npz_sha256': file_sha256(src_seed / "episode" / "episode.npz"),
+                    'source_observations_sha256': src_obs_hashes,
+                    'requested_time_s': 12.0,
+                    'actual_time_s': 11.99,
+                    'episode_step_index': 367,
+                }
+            }
+        }
+        (out_root / "augmented_manifest.json").write_text(json.dumps(manifest))
+        return src_root, out_root
+
+    def test_is_augmented_cache_valid_production_paths(self):
+        # R3-B: Validate all production provenance fields against current run
         from humanoid_sim.temporal_reacquisition_evaluation import is_augmented_cache_valid
-        out_dir = self.capture_dir / "out"
-        out_dir.mkdir()
-        self.assertFalse(is_augmented_cache_valid(self.capture_dir, out_dir, [820]))
-        (out_dir / "augmented_manifest.json").write_text("{\"manifest_version\": 999}")
-        self.assertFalse(is_augmented_cache_valid(self.capture_dir, out_dir, [820]))
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            src, out = self._setup_mock_source_and_augmented(tmp_path)
+
+            # 1. Valid cache returns True
+            self.assertTrue(is_augmented_cache_valid(src, out, [820]))
+
+            # 2. Changed source records invalidates cache
+            orig_records = (src / "seed-820" / "private_records.json").read_text()
+            (src / "seed-820" / "private_records.json").write_text("[]")
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+            (src / "seed-820" / "private_records.json").write_text(orig_records)
+            self.assertTrue(is_augmented_cache_valid(src, out, [820]))
+
+            # 3. Changed source episode npz invalidates cache
+            (src / "seed-820" / "episode" / "episode.npz").write_bytes(b"MODIFIED_NPZ")
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+            (src / "seed-820" / "episode" / "episode.npz").write_bytes(b"DUMMY_EPISODE_NPZ_DATA_820")
+            self.assertTrue(is_augmented_cache_valid(src, out, [820]))
+
+            # 4. Changed source observation invalidates cache
+            orig_obs = (src / "seed-820" / "06-observation.json").read_text()
+            (src / "seed-820" / "06-observation.json").write_text("{\"tampered\": true}")
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+            (src / "seed-820" / "06-observation.json").write_text(orig_obs)
+            self.assertTrue(is_augmented_cache_valid(src, out, [820]))
+
+            # 5. Tampered destination observation invalidates cache (bound to source)
+            orig_out_obs = (out / "seed-820" / "06-observation.json").read_text()
+            (out / "seed-820" / "06-observation.json").write_text("{\"tampered_out\": true}")
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+            (out / "seed-820" / "06-observation.json").write_text(orig_out_obs)
+            self.assertTrue(is_augmented_cache_valid(src, out, [820]))
+
+            # 6. Wrong generation_revision rejected
+            manifest_file = out / "augmented_manifest.json"
+            manifest = json.loads(manifest_file.read_text())
+            manifest['generation_revision'] = 'wrong_revision'
+            manifest_file.write_text(json.dumps(manifest))
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+
+            # 7. Wrong schedule_rule rejected
+            manifest = json.loads(manifest_file.read_text())
+            manifest['generation_revision'] = 'humanoid_sim.temporal_reacquisition_evaluation.render_augmented_dataset.v2'
+            manifest['schedule_rule'] = 'wrong_rule'
+            manifest_file.write_text(json.dumps(manifest))
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+
+            # 8. Wrong replay_mode rejected
+            manifest['schedule_rule'] = 't_mid = (t_transport + t_lower) / 2.0'
+            manifest['replay_mode'] = 'wrong_replay'
+            manifest_file.write_text(json.dumps(manifest))
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+
+            # 9. Wrong camera_config rejected
+            manifest['replay_mode'] = 'qpos_kinematic_replay'
+            manifest['camera_config'] = {'camera_name': 'head'}
+            manifest_file.write_text(json.dumps(manifest))
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+
+            # 10. Wrong scene_sha256 rejected
+            manifest = json.loads(manifest_file.read_text())
+            from humanoid_sim.temporal_reacquisition_evaluation import AUGMENTED_CAMERA_CONFIG
+            manifest['camera_config'] = AUGMENTED_CAMERA_CONFIG
+            manifest['scene_sha256'] = '0' * 64
+            manifest_file.write_text(json.dumps(manifest))
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+
+            # 11. Missing required hash field rejected
+            from humanoid_sim.temporal_reacquisition_evaluation import get_scene_sha256
+            manifest['scene_sha256'] = get_scene_sha256()
+            manifest['seeds']['820']['source_records_sha256'] = None
+            manifest_file.write_text(json.dumps(manifest))
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+
+            # 12. Missing generated observation rejected
+            (out / "seed-820" / "06b-observation.json").unlink()
+            manifest['seeds']['820']['source_records_sha256'] = 'a' * 64
+            manifest_file.write_text(json.dumps(manifest))
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+
+    def test_render_rejects_non_empty_directory_and_cannot_certify_stale_bytes(self):
+        # R3-A: Prove invalid cache cannot be recertified in-place; non-empty directory is rejected
+        from humanoid_sim.temporal_reacquisition_evaluation import (
+            render_augmented_dataset, evaluate_evidence, is_augmented_cache_valid
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            src, out = self._setup_mock_source_and_augmented(tmp_path)
+
+            # Alter source timestamp so cache is now invalid
+            src_records_path = src / "seed-820" / "private_records.json"
+            records = json.loads(src_records_path.read_text())
+            transport = next(r for r in records if r['stage'] == 'transport')
+            transport['time_s'] += 0.2
+            src_records_path.write_text(json.dumps(records))
+
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+
+            # Tag existing midpoint with known stale bytes
+            stale_midpoint_bytes = b"OLD_STALE_MIDPOINT_BYTES_DO_NOT_CERTIFY"
+            midpoint_path = out / "seed-820" / "06b-observation.json"
+            midpoint_path.write_bytes(stale_midpoint_bytes)
+
+            # Direct call to render_augmented_dataset must reject non-empty directory
+            with self.assertRaisesRegex(ValueError, "exists and is not empty"):
+                render_augmented_dataset(src, out, [820])
+
+            # Calling evaluate_evidence must reject stale non-empty directory
+            with self.assertRaisesRegex(ValueError, "invalid or stale, but is not empty"):
+                evaluate_evidence(src, out, [820], render_if_missing=True)
+
+            # Stale bytes must be unchanged and cache must remain invalid
+            self.assertEqual(midpoint_path.read_bytes(), stale_midpoint_bytes)
+            self.assertFalse(is_augmented_cache_valid(src, out, [820]))
+
+    def test_evaluate_evidence_retains_provenance_manifest_in_evidence_output(self):
+        # R3-B: Prove provenance manifest is retained in evidence output JSON
+        from humanoid_sim.temporal_reacquisition_evaluation import evaluate_evidence
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            src, out = self._setup_mock_source_and_augmented(tmp_path)
+            output_evidence_file = tmp_path / "evidence.json"
+
+            dummy_result = {
+                'status': 'complete',
+                'candidates': {
+                    'baseline_p4': {'aggregate': {'original': {'accepted': 1}}, 'records': []},
+                    'reacquisition_2frame': {'aggregate': {'original': {'accepted': 1}}, 'records': []},
+                    'reacquisition_3frame': {'aggregate': {'original': {'accepted': 1}}, 'records': []},
+                }
+            }
+
+            with patch('humanoid_sim.temporal_reacquisition_evaluation.evaluate_dataset', return_value=dummy_result):
+                evidence = evaluate_evidence(src, out, [820], output_file=output_evidence_file, render_if_missing=False)
+
+            self.assertEqual(evidence['status'], 'complete')
+            self.assertIn('cache_manifest', evidence)
+            manifest = evidence['cache_manifest']
+            self.assertIsNotNone(manifest)
+            self.assertEqual(manifest['generation_revision'], 'humanoid_sim.temporal_reacquisition_evaluation.render_augmented_dataset.v2')
+            self.assertEqual(manifest['schedule_rule'], 't_mid = (t_transport + t_lower) / 2.0')
+            self.assertEqual(manifest['replay_mode'], 'qpos_kinematic_replay')
+            self.assertIn('camera_config', manifest)
+            self.assertIn('scene_sha256', manifest)
+            self.assertIn('820', manifest['seeds'])
+            self.assertIn('source_observations_sha256', manifest['seeds']['820'])
+
+            # Verify saved file also contains cache_manifest
+            saved_evidence = json.loads(output_evidence_file.read_text())
+            self.assertEqual(saved_evidence['cache_manifest']['generation_revision'], manifest['generation_revision'])
 
 
 if __name__ == '__main__':

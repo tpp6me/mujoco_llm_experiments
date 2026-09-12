@@ -32,6 +32,26 @@ AUGMENTED_STAGES = ['lift', 'lift_hold', 'transport', 'lower_mid', 'lower', 'rel
 NOMINAL_POST_WARMUP_STAGES = {'transport', 'lower'}
 EXPECTED_VARIANTS = ['original', 'black_transport', 'frozen_transport_rgb']
 
+AUGMENTED_MANIFEST_VERSION = 1
+AUGMENTED_GENERATION_REVISION = 'humanoid_sim.temporal_reacquisition_evaluation.render_augmented_dataset.v2'
+AUGMENTED_SCHEDULE_RULE = 't_mid = (t_transport + t_lower) / 2.0'
+AUGMENTED_REPLAY_MODE = 'qpos_kinematic_replay'
+AUGMENTED_CAMERA_CONFIG = {
+    'camera_name': 'fixed',
+    'lookat': [0.24, -0.24, 0.8],
+    'distance': 1.35,
+    'azimuth': 90.0,
+    'elevation': -65.0,
+    'width': 960,
+    'height': 720,
+}
+
+
+def get_scene_sha256():
+    """Compute sha256 hash of the task scene definition."""
+    from .scene import SCENE
+    return file_sha256(SCENE)
+
 
 def file_sha256(path):
     """Compute sha256 hash of a file if it exists, else None."""
@@ -564,8 +584,45 @@ def evaluate_dataset(capture_dir, seeds, output_file=None, stages=None,
     return results
 
 
+def derive_midpoint_schedule(records, time_arr):
+    """Derive dynamic lowering midpoint target and select nearest discrete sample.
+
+    Target rule: t_mid_target = (t_transport + t_lower) / 2.0.
+    Validates that the selected discrete sample satisfies:
+        t_transport < t_mid_actual < t_lower.
+    Returns a dict with:
+        'requested_time_s': float,
+        'actual_time_s': float,
+        'episode_step_index': int,
+    """
+    transport_rec = next((r for r in records if isinstance(r, dict) and r.get('stage') == 'transport'), None)
+    lower_rec = next((r for r in records if isinstance(r, dict) and r.get('stage') == 'lower'), None)
+    if transport_rec is None or lower_rec is None:
+        raise ValueError("Records missing transport or lower stage record for midpoint calculation")
+    t_transport = float(transport_rec['time_s'])
+    t_lower = float(lower_rec['time_s'])
+    if t_lower <= t_transport:
+        raise ValueError(f"Lower timestamp {t_lower}s must be strictly greater than transport timestamp {t_transport}s")
+    t_mid_target = (t_transport + t_lower) / 2.0
+
+    time_arr = np.asarray(time_arr, dtype=float)
+    if time_arr.size == 0:
+        raise ValueError("Episode time array must not be empty")
+
+    idx_mid = int(np.argmin(np.abs(time_arr - t_mid_target)))
+    t_mid_actual = float(time_arr[idx_mid])
+    if not (t_transport < t_mid_actual < t_lower):
+        raise ValueError(f"Selected sample time {t_mid_actual}s does not lie strictly within ({t_transport}s, {t_lower}s)")
+
+    return {
+        'requested_time_s': t_mid_target,
+        'actual_time_s': t_mid_actual,
+        'episode_step_index': idx_mid,
+    }
+
+
 def is_augmented_cache_valid(source_capture_dir, output_capture_dir, seeds):
-    """Validate that cached augmented captures match source trajectories and manifest."""
+    """Validate that cached augmented captures match current code provenance and source data."""
     source_capture_dir = Path(source_capture_dir).resolve()
     output_capture_dir = Path(output_capture_dir).resolve()
     manifest_file = output_capture_dir / "augmented_manifest.json"
@@ -577,28 +634,100 @@ def is_augmented_cache_valid(source_capture_dir, output_capture_dir, seeds):
         return False
     if not isinstance(manifest, dict):
         return False
-    if manifest.get('manifest_version') != 1:
+
+    # 1. Manifest version and identifiers
+    if manifest.get('manifest_version') != AUGMENTED_MANIFEST_VERSION:
         return False
-    if manifest.get('camera_identity') != 'fixed':
+    if manifest.get('generation_revision') != AUGMENTED_GENERATION_REVISION:
         return False
-    manifest_seeds = manifest.get('seeds', {})
+    if manifest.get('schedule_rule') != AUGMENTED_SCHEDULE_RULE:
+        return False
+    if manifest.get('replay_mode') != AUGMENTED_REPLAY_MODE:
+        return False
+
+    # 2. Camera configuration
+    if manifest.get('camera_config') != AUGMENTED_CAMERA_CONFIG:
+        return False
+
+    # 3. Scene digest
+    try:
+        expected_scene_sha = get_scene_sha256()
+    except Exception:
+        expected_scene_sha = None
+    manifest_scene_sha = manifest.get('scene_sha256')
+    if not isinstance(manifest_scene_sha, str) or len(manifest_scene_sha) != 64:
+        return False
+    if expected_scene_sha is not None and manifest_scene_sha != expected_scene_sha:
+        return False
+
+    # 4. Seeds validation
+    manifest_seeds = manifest.get('seeds')
+    if not isinstance(manifest_seeds, dict):
+        return False
+
     for seed in seeds:
         seed_str = str(seed)
         if seed_str not in manifest_seeds:
             return False
         entry = manifest_seeds[seed_str]
+        if not isinstance(entry, dict):
+            return False
+
+        # Validate required hash fields presence and non-null string format
+        src_rec_hash = entry.get('source_records_sha256')
+        src_npz_hash = entry.get('source_episode_npz_sha256')
+        if not isinstance(src_rec_hash, str) or len(src_rec_hash) != 64:
+            return False
+        if not isinstance(src_npz_hash, str) or len(src_npz_hash) != 64:
+            return False
+
+        # Check schedule fields
+        if not isinstance(entry.get('requested_time_s'), (int, float)):
+            return False
+        if not isinstance(entry.get('actual_time_s'), (int, float)):
+            return False
+        if not isinstance(entry.get('episode_step_index'), int):
+            return False
+
         src_seed = source_capture_dir / f"seed-{seed}"
         out_seed = output_capture_dir / f"seed-{seed}"
+        if not src_seed.is_dir() or not out_seed.is_dir():
+            return False
+
+        # Check required generated midpoint observation files exist
         if not (out_seed / "06b-observation.json").is_file():
+            return False
+        if not (out_seed / "06b-lower_mid.png").is_file():
             return False
         if not (out_seed / "private_records.json").is_file():
             return False
-        src_records_hash = file_sha256(src_seed / "private_records.json")
-        src_npz_hash = file_sha256(src_seed / "episode" / "episode.npz")
-        if src_records_hash != entry.get('source_records_sha256'):
+
+        # Verify source file hashes match manifest
+        src_records_path = src_seed / "private_records.json"
+        src_npz_path = src_seed / "episode" / "episode.npz"
+        if not src_records_path.is_file() or not src_npz_path.is_file():
             return False
-        if src_npz_hash != entry.get('source_episode_npz_sha256'):
+        if file_sha256(src_records_path) != src_rec_hash:
             return False
+        if file_sha256(src_npz_path) != src_npz_hash:
+            return False
+
+        # Bind copied public observations to their source:
+        src_obs_hashes = entry.get('source_observations_sha256')
+        if not isinstance(src_obs_hashes, dict) or not src_obs_hashes:
+            return False
+        for obs_filename, expected_obs_hash in src_obs_hashes.items():
+            if not isinstance(expected_obs_hash, str) or len(expected_obs_hash) != 64:
+                return False
+            src_obs_file = src_seed / obs_filename
+            out_obs_file = out_seed / obs_filename
+            if not src_obs_file.is_file() or not out_obs_file.is_file():
+                return False
+            if file_sha256(src_obs_file) != expected_obs_hash:
+                return False
+            if file_sha256(out_obs_file) != expected_obs_hash:
+                return False
+
     return True
 
 
@@ -606,8 +735,8 @@ def render_augmented_dataset(source_capture_dir, output_capture_dir, seeds):
     """Render deterministic lowering midpoint observations via qpos-based kinematic replay.
 
     Lowering midpoint schedule is derived dynamically: t_mid = (t_transport + t_lower) / 2.0.
-    Renders visual observations and kinematics from saved episode/episode.npz into an isolated
-    output directory without modifying the read-only source capture directory. Dynamic velocity
+    Renders visual observations and kinematics from saved episode/episode.npz into an isolated,
+    empty output directory without modifying the read-only source capture directory. Dynamic velocity
     fields are marked unavailable since saved history contains qpos/time rather than full
     integration velocity states.
     """
@@ -622,6 +751,12 @@ def render_augmented_dataset(source_capture_dir, output_capture_dir, seeds):
         source_capture_dir in output_capture_dir.parents):
         raise ValueError(f"Source capture dir {source_capture_dir} and output dir {output_capture_dir} must not overlap or be subdirectories")
 
+    if output_capture_dir.exists() and any(output_capture_dir.iterdir()):
+        raise ValueError(
+            f"Output directory '{output_capture_dir}' exists and is not empty. "
+            "Rendering requires a new or empty directory to ensure evidence provenance and prevent certifying stale outputs."
+        )
+
     output_capture_dir.mkdir(parents=True, exist_ok=True)
 
     env = Environment()
@@ -629,11 +764,12 @@ def render_augmented_dataset(source_capture_dir, output_capture_dir, seeds):
     session = VisualSession(env, renderer)
 
     manifest = {
-        'manifest_version': 1,
-        'generation_revision': 'task-002-r2',
-        'camera_identity': 'fixed',
-        'replay_mode': 'qpos_kinematic_replay',
-        'schedule_rule': 't_mid = (t_transport + t_lower) / 2.0',
+        'manifest_version': AUGMENTED_MANIFEST_VERSION,
+        'generation_revision': AUGMENTED_GENERATION_REVISION,
+        'schedule_rule': AUGMENTED_SCHEDULE_RULE,
+        'replay_mode': AUGMENTED_REPLAY_MODE,
+        'camera_config': AUGMENTED_CAMERA_CONFIG,
+        'scene_sha256': get_scene_sha256(),
         'seeds': {},
     }
 
@@ -643,26 +779,25 @@ def render_augmented_dataset(source_capture_dir, output_capture_dir, seeds):
             out_seed = output_capture_dir / f"seed-{seed}"
             out_seed.mkdir(parents=True, exist_ok=True)
 
-            # Copy all files from src_seed into out_seed if not already present
+            # Copy all files from src_seed into out_seed
             for item in src_seed.iterdir():
                 dest = out_seed / item.name
-                if not dest.exists():
-                    if item.is_dir():
-                        shutil.copytree(item, dest)
-                    else:
-                        shutil.copy2(item, dest)
+                if item.is_dir():
+                    shutil.copytree(item, dest)
+                else:
+                    shutil.copy2(item, dest)
 
             records_file = out_seed / "private_records.json"
             records = json.loads(records_file.read_text())
+            if any(r.get('stage') == 'lower_mid' for r in records):
+                raise ValueError(f"Seed {seed} source records already contain 'lower_mid' stage; cannot augment an already-augmented dataset")
 
-            # Find declared endpoints to derive requested midpoint schedule dynamically
-            transport_rec = next((r for r in records if isinstance(r, dict) and r.get('stage') == 'transport'), None)
-            lower_rec = next((r for r in records if isinstance(r, dict) and r.get('stage') == 'lower'), None)
-            if transport_rec is None or lower_rec is None:
-                raise ValueError(f"Seed {seed} missing transport or lower stage record for midpoint calculation")
-            t_transport = float(transport_rec['time_s'])
-            t_lower = float(lower_rec['time_s'])
-            t_mid_target = (t_transport + t_lower) / 2.0
+            # Collect source observation hashes to bind copied public observations
+            src_obs_hashes = {}
+            for obs_file in sorted(src_seed.glob("*-observation.json")):
+                src_obs_hashes[obs_file.name] = file_sha256(obs_file)
+            if not src_obs_hashes:
+                raise ValueError(f"Seed {seed} source contains no public observation files (*-observation.json)")
 
             # Load saved episode history
             episode_folder = out_seed / "episode"
@@ -671,22 +806,11 @@ def render_augmented_dataset(source_capture_dir, output_capture_dir, seeds):
             qpos_arr = npz['qpos']
             time_arr = npz['time']
 
-            idx_mid = int(np.argmin(np.abs(time_arr - t_mid_target)))
-            t_mid_actual = float(time_arr[idx_mid])
-            if not (t_transport < t_mid_actual < t_lower):
-                raise ValueError(f"Selected sample time {t_mid_actual}s does not lie strictly within ({t_transport}s, {t_lower}s)")
-
-            manifest['seeds'][str(seed)] = {
-                'source_records_sha256': file_sha256(src_seed / "private_records.json"),
-                'source_episode_npz_sha256': file_sha256(src_seed / "episode" / "episode.npz"),
-                'requested_time_s': t_mid_target,
-                'actual_time_s': t_mid_actual,
-                'episode_step_index': idx_mid,
-            }
-
-            # Check if lower_mid already exists in records
-            if any(r.get('stage') == 'lower_mid' for r in records):
-                continue
+            # Derive requested midpoint schedule dynamically
+            sched = derive_midpoint_schedule(records, time_arr)
+            t_mid_target = sched['requested_time_s']
+            t_mid_actual = sched['actual_time_s']
+            idx_mid = sched['episode_step_index']
 
             # Set exact physical state for kinematics and visual rendering
             env.data.qpos[:] = qpos_arr[idx_mid]
@@ -740,6 +864,15 @@ def render_augmented_dataset(source_capture_dir, output_capture_dir, seeds):
             records.insert(lower_idx, mid_record)
             write_json(records_file, records)
 
+            manifest['seeds'][str(seed)] = {
+                'source_records_sha256': file_sha256(src_seed / "private_records.json"),
+                'source_episode_npz_sha256': file_sha256(src_seed / "episode" / "episode.npz"),
+                'source_observations_sha256': src_obs_hashes,
+                'requested_time_s': t_mid_target,
+                'actual_time_s': t_mid_actual,
+                'episode_step_index': idx_mid,
+            }
+
         write_json(output_capture_dir / "augmented_manifest.json", manifest)
     finally:
         renderer.close()
@@ -752,10 +885,19 @@ def evaluate_evidence(source_capture_dir, augmented_capture_dir, seeds,
     augmented_capture_dir = Path(augmented_capture_dir)
     seeds = list(seeds)
 
-    if render_if_missing:
-        if not is_augmented_cache_valid(source_capture_dir, augmented_capture_dir, seeds):
-            print(f"Augmented cache invalid or missing for seeds {seeds}; rendering into {augmented_capture_dir}...")
-            render_augmented_dataset(source_capture_dir, augmented_capture_dir, seeds)
+    if not is_augmented_cache_valid(source_capture_dir, augmented_capture_dir, seeds):
+        if not render_if_missing:
+            raise ValueError(f"Augmented cache at {augmented_capture_dir} is invalid or missing, and render_if_missing=False")
+        if augmented_capture_dir.exists() and any(augmented_capture_dir.iterdir()):
+            raise ValueError(
+                f"Augmented cache directory '{augmented_capture_dir}' is invalid or stale, but is not empty. "
+                "To protect evidence provenance and prevent certifying stale outputs, provide a new empty output directory or clean the target path."
+            )
+        print(f"Augmented cache invalid or missing for seeds {seeds}; rendering into {augmented_capture_dir}...")
+        render_augmented_dataset(source_capture_dir, augmented_capture_dir, seeds)
+
+    manifest_file = augmented_capture_dir / "augmented_manifest.json"
+    cache_manifest = json.loads(manifest_file.read_text()) if manifest_file.is_file() else None
 
     comparison_configs = [
         ('baseline_p4', lambda: TemporalPose(reacquisition=False)),
@@ -770,8 +912,8 @@ def evaluate_evidence(source_capture_dir, augmented_capture_dir, seeds,
 
     print("Evaluating augmented stream (with lowering midpoint)...")
     aug_results = evaluate_dataset(augmented_capture_dir, seeds, stages=AUGMENTED_STAGES,
-                                   dataset_label='temporal-P4-capture-augmented',
-                                   candidate_configs=comparison_configs)
+                                    dataset_label='temporal-P4-capture-augmented',
+                                    candidate_configs=comparison_configs)
 
     evidence = {
         'status': 'complete' if orig_results['status'] == 'complete' and aug_results['status'] == 'complete' else 'incomplete',
@@ -781,6 +923,7 @@ def evaluate_evidence(source_capture_dir, augmented_capture_dir, seeds,
         'replay_mode': 'qpos_kinematic_replay',
         'source_provenance': str(source_capture_dir),
         'augmented_provenance': str(augmented_capture_dir),
+        'cache_manifest': cache_manifest,
         'original_stream': orig_results,
         'augmented_stream': aug_results,
     }

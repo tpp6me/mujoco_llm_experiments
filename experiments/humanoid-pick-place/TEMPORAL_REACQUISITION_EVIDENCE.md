@@ -107,5 +107,5 @@ Across all seeds 820–829, lowering spans $t=11.0$s to $t=13.0$s:
 
 1. **Incorporate Lowering Midpoint:** Protocol P5 should include a deterministic lowering observation ($t_{\text{mid}} = (t_{\text{transport}} + t_{\text{lower}}) / 2.0$) in the trajectory schedule.
 2. **Primary Candidate:** Use `TemporalThreeFrameReacquisitionPose` as the primary reacquisition candidate for P5, ensuring it enforces the 3-view requirement and cannot emit on truncated histories.
-3. **Revisit Target Mean Gate:** Note that on development data, the post-warmup mean error on original targets is 5.87 mm ($> 5.0$ mm). The P5 protocol definition should take this empirical baseline into account before freezing gates.
+3. **Preserve Target Mean Gate:** On development data, the post-warmup mean error on accepted original targets is 5.87 mm ($> 5.0$ mm), which fails the planning target of $\le 5.0$ mm. Preserve the existing 5.0 mm proposal gate as an unmet development criterion; do not raise or relax it to accommodate development results.
 4. **Status:** Protocol P5 remains proposed in `experiments/humanoid-pick-place/protocols/P5_PROPOSAL.md`. Seeds 840–849 remain untouched pending review.

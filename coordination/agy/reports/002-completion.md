@@ -1,10 +1,11 @@
 # AGY completion — task 002
 
-Status: ready for review (revision 2 addressing Codex review findings R1–R4)
+Status: ready for review (revision 3 addressing Codex review findings R3-A and R3-B)
 Task brief: `coordination/agy/tasks/002-reacquisition-evidence.md`
 Branch: `agy/002-reacquisition-evidence`
 Starting commit: `64bc19a00a03a83a3dc44f75225d6be619a3a754`
 First handoff commit: `6f4fb315193a9d79e8e222fe6aace2e908cbb405`
+Second handoff commit: `c781a501886d8956f5fc916cbff91469f3ace13b`
 
 ---
 
@@ -46,12 +47,6 @@ First handoff commit: `6f4fb315193a9d79e8e222fe6aace2e908cbb405`
     - Kinematic replay marking: explicitly sets `obs['robot_state']['robot']['joint_velocity_rad_s'] = None`, `dynamic_fields_available = False`, and `replay_mode = 'qpos_kinematic_replay'` rather than presenting final-state velocities as midpoint measurements.
     - Record metadata: stores `requested_time_s`, `actual_time_s`, `episode_step_index`, and `replay_mode` in each midpoint record.
     - Cache manifest: writes `output_capture_dir / "augmented_manifest.json"` recording source `private_records.json` and `episode.npz` SHA-256 hashes, camera identity (`fixed`), revision (`task-002-r2`), and schedule rule.
-  - In `humanoid_sim/temporal_reacquisition_evaluation.py:is_augmented_cache_valid`:
-    - Validates manifest existence, revision, camera identity, and matching SHA-256 hashes for each requested seed before reusing cached renderings; triggers re-rendering if invalid or mismatched.
-  - In `tests/test_temporal_reacquisition_evaluation.py`:
-    - Added `test_render_schedule_derives_midpoint_within_interval`.
-    - Added `test_render_source_output_overlap_rejected`.
-    - Added `test_render_cache_mismatch_triggers_regeneration`.
 
 ### R4 (Medium) — Metric Disaggregation, Schedule vs Window Effects, Hypotheses, and Thresholds
 - **Diagnosis:** The previously reported 5.07 mm mean on the augmented stream aggregated all 24 accepted responses, including 7 midpoint estimates, obscuring the mean over the 17 accepted original targets (5.8715 mm). The latter exceeds the proposed P5 planning gate ($\le 5.0$ mm). In addition, all 210 augmented responses match identically between 2-frame and 3-frame candidates, meaning the augmented stream shows an observation-schedule improvement rather than an incremental benefit of the minimum-window rule. Depth ambiguity was stated as fact rather than hypothesis, and report thresholds misstated the code constants.
@@ -82,15 +77,56 @@ First handoff commit: `6f4fb315193a9d79e8e222fe6aace2e908cbb405`
 
 ---
 
-## 2. Validation Evidence
+## 2. Response to Review Findings R3-A and R3-B (`002-review-r2.md`)
+
+### R3-A (High) — Reject Stale Caches and Enforce Empty Target Directories
+- **Diagnosis:** In revision 2, `render_augmented_dataset` copied files only when absent, read destination records/episodes, computed new source hashes, and skipped capture when an existing `lower_mid` row was present. It then certified the unchanged old output with a fresh manifest.
+- **Remedy:**
+  - Enforced strict empty-directory requirements in `humanoid_sim/temporal_reacquisition_evaluation.py`:
+    - `render_augmented_dataset`: Immediately checks `if output_capture_dir.exists() and any(output_capture_dir.iterdir()): raise ValueError(...)`. Direct render calls reject non-empty target directories with a clear message.
+    - Removed the old `lower_mid` skip bypass (`if any(r.get("stage") == "lower_mid" for r in records): continue`) so existing output rows cannot be silently trusted.
+    - `evaluate_evidence`: When `is_augmented_cache_valid` returns False, checks `if augmented_capture_dir.exists() and any(augmented_capture_dir.iterdir()): raise ValueError(...)`. Stale caches are rejected with a clear error requiring an empty directory or manual purge before regeneration, rather than overwriting or re-certifying old bytes.
+    - Manifest generation: `augmented_manifest.json` is written strictly at the end of `render_augmented_dataset` after all seeds complete; failed or partial builds never leave a valid manifest.
+    - Source P4 captures under `runtime/humanoid/temporal-P4/capture/` remain strictly read-only.
+
+### R3-B (Medium) — Production Provenance Validation, Schedule Helper, and Manifest Retention
+- **Diagnosis:** The cache validator ignored `generation_revision`, `schedule_rule`, and `replay_mode`. The manifest lacked a scene digest or concrete camera configuration, allowing configuration drift to pass undetected. Schedule selection arithmetic was duplicated in tests without calling production code.
+- **Remedy:**
+  - In `humanoid_sim/temporal_reacquisition_evaluation.py`:
+    - Production schedule helper: Added `derive_midpoint_schedule(records, time_arr)`. Computes $t_{\text{mid}} = (t_{\text{transport}} + t_{\text{lower}}) / 2.0$, validates $t_{\text{lower}} > t_{\text{transport}}$, searches `time_arr` for the closest sample index, validates strict bounding $t_{\text{transport}} < t_{\text{mid\_actual}} < t_{\text{lower}}$, and returns `(requested_time_s, actual_time_s, sample_idx)`. Called directly by `render_augmented_dataset`.
+    - Production manifest constants and fingerprinting:
+      - `AUGMENTED_MANIFEST_VERSION = 1`
+      - `AUGMENTED_GENERATION_REVISION = 'humanoid_sim.temporal_reacquisition_evaluation.render_augmented_dataset.v2'`
+      - `AUGMENTED_SCHEDULE_RULE = 't_mid = (t_transport + t_lower) / 2.0'`
+      - `AUGMENTED_REPLAY_MODE = 'qpos_kinematic_replay'`
+      - `AUGMENTED_CAMERA_CONFIG = {"camera_name": "head_cam", "width": 640, "height": 480}`
+      - `get_scene_sha256()` hashes `scenes/g1_pick_place.xml`.
+    - Rigorous cache validation: `is_augmented_cache_valid` validates:
+      - Manifest version, generation revision, schedule rule, replay mode, camera configuration dict, and scene SHA-256 match current run constants.
+      - Required hash fields (`source_records_sha256`, `source_episode_npz_sha256`) exist and are valid non-null 64-character hex strings.
+      - Output files (`06b-observation.json`, `06b-lower_mid.png`, `private_records.json`) exist.
+      - Source record and episode npz hashes match the source directory files.
+      - Observation binding: `source_observations_sha256` binds every public observation JSON file to its source hash, and verifies both source and destination observation files match, preventing paired streams from evaluating differing endpoint inputs.
+    - Evidence provenance retention: `evaluate_evidence` reads `augmented_manifest.json` and embeds it directly into the committed evidence JSON under `cache_manifest`. Provenance is fully reviewable from the git repo without relying on gitignored runtime directories.
+  - Regressions added to `tests/test_temporal_reacquisition_evaluation.py`:
+    - `test_derive_midpoint_schedule_production_function`: Tests production schedule selection with non-11/13s endpoints (10.4s to 14.8s -> 12.6s, index 630; 10.1s to 12.0s -> 11.04s, index 552) and error conditions ($t_{\text{lower}} \le t_{\text{transport}}$, missing stages, empty `time_arr`).
+    - `test_is_augmented_cache_valid_production_paths`: Validates production validation code against 12 mutation cases (valid cache, modified source records, modified episode npz, modified source observation, tampered destination observation, wrong generation revision, wrong schedule rule, wrong replay mode, wrong camera config, wrong scene SHA-256, null/missing hash field, missing generated observation file).
+    - `test_render_rejects_non_empty_directory_and_cannot_certify_stale_bytes`: Proves stale bytes cannot receive a new valid manifest; non-empty directory is rejected by both `render_augmented_dataset` and `evaluate_evidence`.
+    - `test_evaluate_evidence_retains_provenance_manifest_in_evidence_output`: Verifies `cache_manifest` is saved inside the evidence output JSON.
+  - P5 Gate Preservation:
+    - Preserved the existing 5.0 mm proposal gate as an unmet development limitation. The post-warmup mean error on accepted original targets is 5.8715 mm ($> 5.0$ mm). No recommendation to raise or relax the gate is made.
+
+---
+
+## 3. Validation Evidence
 
 All checks executed from `/private/tmp/mujoco-llms-agy-002` using Python interpreter `/Users/praveen/work/github/mujoco-llms/.venv/bin/python`:
 
-1. **Evaluator Accounting and Regression Unit Tests (16/16 Passed in 35.2s):**
+1. **Evaluator Accounting and Regression Unit Tests (18/18 Passed in 42.5s):**
    ```sh
    /Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests/test_temporal_reacquisition_evaluation.py -v
    ```
-   **Outcome:** 16/16 passed. Retained log: `.system_generated/tasks/task-994.log`.
+   **Outcome:** 18/18 passed. Retained log: `.system_generated/tasks/task-1863.log`.
 
 2. **Temporal Pose Unit Tests (21/21 Passed in 59.8s):**
    ```sh
@@ -98,18 +134,18 @@ All checks executed from `/private/tmp/mujoco-llms-agy-002` using Python interpr
    ```
    **Outcome:** 21/21 passed. Retained log: `.system_generated/tasks/task-760.log`.
 
-3. **Full Repository Test Discovery (116/116 Passed in 136.9s):**
+3. **Full Repository Test Discovery (118/118 Passed in 160.8s):**
    ```sh
    /Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest discover -s tests -v
    ```
-   **Outcome:** 116/116 passed across all test modules without regressions. Retained log: `.system_generated/tasks/task-998.log`.
+   **Outcome:** 118/118 passed across all test modules without regressions. Retained log: `.system_generated/tasks/task-2004.log`.
 
 4. **Comparative Evidence Evaluation Rerun (`--compare`):**
    ```sh
    /Users/praveen/work/github/mujoco-llms/.venv/bin/python -m humanoid_sim.temporal_reacquisition_evaluation --compare
    ```
-   **Outcome:** Complete. Retained log: `.system_generated/tasks/task-954.log`.
-   Evidence output: `experiments/humanoid-pick-place/results/temporal_reacquisition_evidence_development.json`.
+   **Outcome:** Complete. Freshly rendered 10 augmented seeds (820–829) into empty capture directory, generated 16KB provenance manifest with observation binding, and produced updated evidence artifact. Retained log: `.system_generated/tasks/task-1875.log`.
+   Evidence output: `experiments/humanoid-pick-place/results/temporal_reacquisition_evidence_development.json` (includes embedded `cache_manifest`).
    Historical Task 001 artifact `experiments/humanoid-pick-place/results/temporal_reacquisition_development.json` remains restored byte-for-byte from `64bc19a`.
 
 5. **Git Working Diff and Whitespace Check:**
@@ -120,7 +156,7 @@ All checks executed from `/private/tmp/mujoco-llms-agy-002` using Python interpr
 
 ---
 
-## 3. Experiment Evidence Summary
+## 4. Experiment Evidence Summary
 
 ### Provenance and Scope
 - Evaluated on development seeds **820–829**. Status: **development evidence** (not fresh validation).
@@ -153,7 +189,7 @@ All checks executed from `/private/tmp/mujoco-llms-agy-002` using Python interpr
 
 ---
 
-## 4. Limitations and Next Checkpoint
+## 5. Limitations and Next Checkpoint
 
 1. **Limitations:**
    - On the augmented stream, the mean error across accepted original targets is **5.8715 mm**, which exceeds the earlier P5 planning target of $\le 5.0$ mm.
@@ -164,5 +200,5 @@ All checks executed from `/private/tmp/mujoco-llms-agy-002` using Python interpr
 2. **Recommendation for Protocol P5:**
    - Incorporate a deterministic lowering midpoint ($t_{\text{mid}} = (t_{\text{transport}} + t_{\text{lower}}) / 2.0$) into the P5 trajectory capture schedule.
    - Use `TemporalThreeFrameReacquisitionPose` as the candidate estimator for P5 validation to enforce the 3-view requirement.
-   - Revisit the target mean error gate in the P5 proposal to account for the empirical 5.87 mm development baseline.
+   - Preserve the existing 5.0 mm proposal gate as an unmet development criterion. Do not raise or relax the gate to accommodate development results (any future gate revision requires separate task-requirement rationale and prospective review).
    - Protocol P5 remains proposed in `experiments/humanoid-pick-place/protocols/P5_PROPOSAL.md`. Seeds 840–849 remain untouched pending review.
