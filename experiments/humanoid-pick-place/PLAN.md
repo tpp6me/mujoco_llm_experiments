@@ -59,7 +59,7 @@ individual-finger control are outside the initial scope.
 | 2. Physical baseline and scorer | Complete | [V4](V4_RESULTS.md): 98/100 task successes, **96/100 strict passes**; ≥95 required |
 | 3. Action/observation interface | Complete for the declared recipe | [G2](GUARDED_RESULTS.md): 100/100 placements, 97/100 strict passes, zero rejections through interface v2 |
 | 4. LLM with exact state | Development pilot complete | [L2](LLM_RESULTS.md): LLM 0/3 placements, 1/3 lifts; conventional 3/3 placements; formal comparison pending |
-| 5. Visual action control | In progress | [RGB boundary](VISUAL.md) and freshness checks implemented; [P1 initial block estimate](POSE_RESULTS.md) passes 20/20 images within 5 mm; [P2 validity guard](PERCEPTION_RESULTS.md) implemented; [P3](CARRIED_POSE_RESULTS.md) and [P4 temporal candidate](TEMPORAL_POSE_RESULTS.md) failed their coverage/accuracy screens; reacquisition, qualified carried pose, comparator and visual model runner pending |
+| 5. Visual action control | In progress | [RGB boundary](VISUAL.md) and freshness checks implemented; [P1 initial block estimate](POSE_RESULTS.md) passes 20/20 images within 5 mm; [P2 validity guard](PERCEPTION_RESULTS.md) implemented; [P3](CARRIED_POSE_RESULTS.md) and [P4 temporal candidate](TEMPORAL_POSE_RESULTS.md) failed their coverage/accuracy screens; [reacquisition development](TEMPORAL_REACQUISITION_DEVELOPMENT.md) integrated; qualified carried pose, comparator and visual model runner pending |
 | 6. Free-standing manipulation | Not started | Balance controller and mechanical requalification |
 | 7. Continuous-time execution | Not started | Independent physics/control loop and latency measurement |
 | 8. Robustness and recovery | Not started | Frozen challenge sets and recovery evaluation |
@@ -69,6 +69,9 @@ individual-finger control are outside the initial scope.
 
 ## Next actions
 
+- [x] Integrate reviewed AGY task 001: 17/20 development targets accepted, 16 within 20 mm; seed 820 still fails accuracy.
+- [ ] Execute [AGY task 002](../../coordination/agy/tasks/002-reacquisition-evidence.md): compare additional fresh-view evidence before any P5 validation.
+
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
 - [x] Implement timestamped camera observations paired with robot-state-only inputs; see [visual boundary](VISUAL.md).
@@ -76,8 +79,7 @@ individual-finger control are outside the initial scope.
 - [x] Validate initial upright block position from RGB and declared priors: [P1](POSE_RESULTS.md), 20/20 fresh images within 5 mm.
 - [x] Audit RGB visibility across manipulation endpoints and expire the table-support prior after interaction; see [P2](PERCEPTION_RESULTS.md).
 - [x] Implement and evaluate a monocular carried-center candidate on fresh trajectories and sensor corruptions; [P3](CARRIED_POSE_RESULTS.md) failed and remains disabled.
-- [x] Implement and freeze temporal RGB/hand-motion fitting: [P4](TEMPORAL_POSE_RESULTS.md) yielded 14/20 post-warmup targets within 20 mm (mean 3.645 mm), below the 16/20 coverage gate.
-- [ ] Add explicit reacquisition after model mismatch/loss and evaluate fresh motion evidence on new trajectories, counting added actions against the task budget. Implementation/development delegated via [AGY task 001](../../coordination/agy/tasks/001-reacquisition.md); fresh validation follows review.
+- [ ] Add explicit reacquisition after model mismatch/loss and evaluate fresh motion evidence on new trajectories, counting added actions against the task budget. Implementation and development complete via [AGY task 001](../../coordination/agy/tasks/001-reacquisition.md); see [development report](TEMPORAL_REACQUISITION_DEVELOPMENT.md) and proposed protocol [P5](protocols/P5_PROPOSAL.md); task 001 is accepted for development-only integration, and task 002 precedes any fresh validation.
 - [ ] Validate carried-object pose and occlusion handling without private truth inputs.
 - [ ] Build a matched conventional vision comparator and freeze larger evaluations on unused seeds.
 
@@ -85,7 +87,7 @@ The live exact-state L2 development pilot is complete: **LLM 0/3 placements,
 1/3 sustained lifts; conventional 3/3 placements and 2/3 strict passes**.
 All 18 L2 API calls completed. L1's three request-schema errors remain separately
 archived. See [pilot results](LLM_RESULTS.md) and the [runner guide](LLM_RUNNER.md).
-All 84 automated tests pass. These three cases do not establish a general model
+All 106 automated tests pass. These three cases do not establish a general model
 comparison; no visual policy, balance controller or walking policy has been evaluated.
 
 ## Phase 1 — Select the robot and build the supported scene
@@ -352,6 +354,8 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-12 | Added RGB visibility tracking and explicit expiry of the initial table-support prior; 75 tests passed | [P2 audit](PERCEPTION_RESULTS.md) covers action endpoints in 20 exact-state-driven episodes; no carried 3D pose or visual control claimed |
 | 2026-09-12 | Implemented experimental monocular cuboid center fitting; 79 tests passed | [P3](CARRIED_POSE_RESULTS.md): 18/40 originals within 20 mm; one accepted error in originals and one in partial occlusion; failed screen, no control integration |
 | 2026-09-12 | Added temporal RGB/hand-motion candidate and post-audit metadata hardening; current suite 84 tests | [P4](TEMPORAL_POSE_RESULTS.md): 14/20 post-warmup targets, mean 3.645 mm / max 7.420 mm; 16/20 coverage gate failed; release and corrupted transport views withheld |
+| 2026-09-12 | Implemented temporal reacquisition candidate, verified input hardening, evaluated on seeds 820–829; 93 tests passed | [Development report](TEMPORAL_REACQUISITION_DEVELOPMENT.md): post-warmup coverage 17/20 accepted, 16/20 within 20 mm; seed 820 depth error 21.94 mm; proposed [P5](protocols/P5_PROPOSAL.md); disconnected from control |
+| 2026-09-12 | Accepted AGY task 001 after three reviews; 106 tests independently passed | [Acceptance](../../coordination/agy/reviews/001-acceptance.md): evaluator failures retain accounting; known 21.94 mm error remains; task 002 ready, no fresh P5 run |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.

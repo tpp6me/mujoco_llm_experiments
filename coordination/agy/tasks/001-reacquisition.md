@@ -1,6 +1,6 @@
 # AGY task 001 — Temporal tracking reacquisition
 
-Status: **ready**. Branch: `agy/001-reacquisition`.
+Status: **accepted for development-only integration**; see [review](../reviews/001-acceptance.md). Branch: `agy/001-reacquisition`.
 Functional starting revision: `3a3dd24`. Start from the main revision containing
 this brief; record its full hash. Later workflow-only commits are expected.
 If functional code has changed since `3a3dd24`, inspect and report that difference
