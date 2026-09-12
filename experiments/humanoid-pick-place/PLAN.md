@@ -70,7 +70,7 @@ individual-finger control are outside the initial scope.
 ## Next actions
 
 - [x] Integrate reviewed AGY task 001: 17/20 development targets accepted, 16 within 20 mm; seed 820 still fails accuracy.
-- [ ] Complete and integrate [AGY task 002](../../coordination/agy/tasks/002-reacquisition-evidence.md): [review requests changes](../../coordination/agy/reviews/002-review.md) for observation matching, evidence preservation, replay provenance and reporting; 110 tests pass, no P5 validation.
+- [ ] Complete and integrate [AGY task 002](../../coordination/agy/tasks/002-reacquisition-evidence.md): [revision review requests cache fixes](../../coordination/agy/reviews/002-review-r2.md); observation matching, historical evidence and target reporting corrected; no P5 validation.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -358,6 +358,8 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-12 | Accepted AGY task 001 after three reviews; 106 tests independently passed | [Acceptance](../../coordination/agy/reviews/001-acceptance.md): evaluator failures retain accounting; known 21.94 mm error remains; task 002 ready, no fresh P5 run |
 
 | 2026-09-12 | Reviewed AGY task 002 at `6f4fb31`; 110 tests independently passed; changes requested | [Review](../../coordination/agy/reviews/002-review.md): midpoint improves seed 820 for both candidates; original-target mean 5.872 mm, missing-image mapping and evidence provenance need correction; no merge or P5 run |
+
+| 2026-09-12 | Reviewed task 002 revision `c781a50`; 116 tests independently passed | [Revision review](../../coordination/agy/reviews/002-review-r2.md): R1/R2 and target reporting corrected; reproduced stale cache recertification, R3 remains open; no merge or P5 run |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.
