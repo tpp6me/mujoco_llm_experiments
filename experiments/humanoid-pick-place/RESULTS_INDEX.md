@@ -76,7 +76,8 @@ corrupted streams. Proposed protocol [P5](protocols/P5_PROPOSAL.md).
 
 [Multi-view reacquisition evidence (Task 002)](TEMPORAL_REACQUISITION_EVIDENCE.md), seeds 820–829:
 Comparing 2-frame vs 3-frame reacquisition across original (endpoint-only) and augmented
-(lowering midpoint at t=12.0s) streams. On the augmented stream, the 3-frame candidate recovers
-17/20 post-warmup targets with 100% within 20 mm (mean 5.066 mm, maximum 14.848 mm). Seed 820
-error drops from 21.937 mm to 14.848 mm. Zero accepted on release, retract, or corrupted streams.
+(lowering midpoint) streams. On the augmented stream, the 3-frame candidate recovers 17/20
+post-warmup targets with 100% within 20 mm (mean over accepted original targets: 5.872 mm,
+all-accepted mean: 5.066 mm, maximum: 14.848 mm). Seed 820 error drops from 21.937 mm to 14.848 mm.
+Zero accepted on release, retract, or corrupted streams.
 Results: [evidence development data](results/temporal_reacquisition_evidence_development.json).

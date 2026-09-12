@@ -5,14 +5,14 @@ Base commit: `64bc19a00a03a83a3dc44f75225d6be619a3a754`.
 
 ---
 
-## 1. Objective and Hypothesis
+## 1. Objective and Hypotheses
 
-In Task 001 (`agy/001-reacquisition`), enabling temporal reacquisition upon model mismatch recovered 17/20 post-warmup targets on development seeds 820–829, recovering accurate lower poses on Seeds 825 and 828, but accepted Seed 820 at **21.94 mm** error (a false acceptance exceeding the 20 mm gate due to monocular depth ambiguity along the camera optical axis).
+In Task 001 (`agy/001-reacquisition`), enabling temporal reacquisition upon model mismatch recovered 17/20 post-warmup targets on development seeds 820–829, recovering accurate lower poses on Seeds 825 and 828, but accepted Seed 820 at **21.94 mm** error (a false acceptance exceeding the 20 mm gate, hypothesized to stem from monocular optical-axis depth ambiguity).
 
 Task 002 tested the specific hypothesis:
 > **Hypothesis:** Requiring a third distinct, fresh RGB/hand observation within the reacquired window reduces the known Seed 820 false acceptance without eliminating useful post-warmup coverage.
 
-To isolate the effect of the observation schedule from the minimum-window rule, Task 002 compared three conditions across both the original endpoint-only stream (6 stages) and an augmented stream (7 stages) with a deterministic lowering midpoint:
+To isolate the effect of the observation schedule from the minimum-window rule, Task 002 compared three conditions across both the original endpoint-only stream (6 stages) and an augmented stream (7 stages) with an intermediate lowering observation:
 1. `baseline_p4`: `TemporalPose(reacquisition=False)` — baseline P4 tracker (no recovery after mismatch).
 2. `reacquisition_2frame`: `TemporalReacquisitionPose(min_reacquisition_frames=2)` — Task 001 accepted 2-frame recovery candidate.
 3. `reacquisition_3frame`: `TemporalThreeFrameReacquisitionPose()` — Task 002 opt-in 3-frame candidate requiring $\ge 3$ distinct, fresh observations since recovery seed before emitting a center.
@@ -28,29 +28,29 @@ To isolate the effect of the observation schedule from the minimum-window rule, 
 - All ground-truth poses and private drift measurements are computed post-hoc by the evaluator and are never visible to the tracker.
 
 ### Observation Schedules
-1. **Original Endpoint-Only Stream (6 stages, 60 responses/variant):**
+1. **Original Endpoint-Only Stream (6 stages, 60 responses/variant per candidate):**
    - Stages: `lift` ($t=8.5$s), `lift_hold` ($t=9.0$s), `transport` ($t=11.0$s), `lower` ($t=13.0$s), `release` ($t=15.0$s), `retract` ($t=17.0$s).
-   - Post-warmup targets: nominal targets are fixed at 2 per seed (`transport` and `lower`), giving 20 post-warmup targets.
-2. **Augmented Stream (7 stages, 70 responses/variant):**
-   - Stages: `lift` ($t=8.5$s), `lift_hold` ($t=9.0$s), `transport` ($t=11.0$s), `lower_mid` ($t=12.0$s), `lower` ($t=13.0$s), `release` ($t=15.0$s), `retract` ($t=17.0$s).
-   - Deterministic schedule: lowering midpoint selected solely by timestamp $t_{\text{mid}} = (t_{\text{transport}} + t_{\text{lower}}) / 2 = 12.0$s.
-   - Exact physical states were rendered from saved `episode/episode.npz` recordings using unchanged MuJoCo scene and camera models into `runtime/humanoid/temporal-P4-augmented/capture/` (local and gitignored).
+   - Post-warmup targets: fixed at 2 per seed (`transport` and `lower`), giving 20 post-warmup targets across 10 seeds.
+2. **Augmented Stream (7 stages, 70 responses/variant per candidate):**
+   - Stages: `lift` ($t=8.5$s), `lift_hold` ($t=9.0$s), `transport` ($t=11.0$s), `lower_mid`, `lower` ($t=13.0$s), `release` ($t=15.0$s), `retract` ($t=17.0$s).
+   - Lowering midpoint schedule is derived dynamically from declared stage endpoints: $t_{\text{mid}} = (t_{\text{transport}} + t_{\text{lower}}) / 2.0$. For all development seeds, nominal target is $12.0$s; selected actual samples range from $11.980$s to $11.995$s and are verified to lie strictly within $(t_{\text{transport}}, t_{\text{lower}})$.
+   - Replay mode: **qpos-based kinematic replay** from saved `episode/episode.npz` files into `runtime/humanoid/temporal-P4-augmented/capture/`. Saved history records `qpos` and `time`, not full integration velocity states (`qvel`). Dynamic velocity fields (`joint_velocity_rad_s`) are explicitly marked unavailable rather than presenting final-state velocities as midpoint measurements.
+   - Cache validation: An `augmented_manifest.json` tracks source trajectory file hashes (`private_records.json`, `episode.npz`), generation revision, schedule rule, and camera identity. Overlapping source/output directory paths are rejected before copying/writing.
 
 ---
 
 ## 3. Motion Baselines and Window Mechanics
 
 Across all seeds 820–829, lowering spans $t=11.0$s to $t=13.0$s:
-- **At Lowering Midpoint ($t=12.0$s):** Hand translation from `transport` is **65–72 mm** (below the 80 mm motion threshold).
-  - Both 2-frame and 3-frame reacquisition trackers refuse with `insufficient_motion_history`.
-  - Exactly 0 positions emitted at midpoint for seeds recovering from transport mismatch (Seeds 820, 825, 828).
+- **At Lowering Midpoint ($t \approx 12.0$s):**
+  - For the 3 seeds recovering from transport mismatch (Seeds 820, 825, 828), hand translation from `transport` is **65–72 mm** (below the 80 mm motion threshold). Both 2-frame and 3-frame reacquisition trackers refuse with `insufficient_motion_history`. Exactly 0 positions emitted at midpoint for recovering seeds.
+  - For the 7 nominal tracked seeds (821, 822, 823, 824, 826, 827, 829), accumulated hand motion exceeds 80 mm, and valid midpoint estimates are emitted (mean error 3.12 mm).
 - **At Lower Endpoint ($t=13.0$s):** Total hand translation reaches **97–104 mm** (satisfying the $\ge 80$ mm motion threshold).
   - In the original stream, only 2 frames exist after reacquisition seed (`[transport, lower]`).
-    - `reacquisition_3frame` refuses with `insufficient_motion_history` (proving it cannot emit after only two views).
+    - `reacquisition_3frame` refuses with `insufficient_motion_history` (proving it strictly cannot emit after only two views).
     - `reacquisition_2frame` fits across 2 frames, accepting Seed 820 at 21.94 mm error.
   - In the augmented stream, 3 frames exist in history (`[transport, lower_mid, lower]`).
     - Both 2-frame and 3-frame trackers fit across the full 3-frame window.
-    - Multi-view triangulation resolves the optical-axis depth ambiguity.
 
 ---
 
@@ -58,14 +58,14 @@ Across all seeds 820–829, lowering spans $t=11.0$s to $t=13.0$s:
 
 ### Aggregate Performance Across Development Seeds 820–829
 
-| Stream | Candidate | Accepted / Total | Post-Warmup Accepted / Targets | $\le 20$ mm | $> 20$ mm | Mean Error | Max Error | Release/Retract Accepted |
-|---|---|---|---|---|---|---|---|---|
-| **Original** | `baseline_p4` | 14 / 60 | 14 / 20 | 14 | 0 | 3.64 mm | 7.42 mm | 0 |
-| **Original** | `reacquisition_2frame` | 17 / 60 | 17 / 20 | 16 | 1 (Seed 820) | 4.74 mm | **21.94 mm** | 0 |
-| **Original** | `reacquisition_3frame` | 14 / 60 | 14 / 20 | 14 | 0 | 3.64 mm | 7.42 mm | 0 |
-| **Augmented** | `baseline_p4` | 21 / 70 | 14 / 20 | 21 | 0 | 4.82 mm | 9.44 mm | 0 |
-| **Augmented** | `reacquisition_2frame` | 24 / 70 | 17 / 20 | **24** | **0** | 5.07 mm | **14.85 mm** | 0 |
-| **Augmented** | `reacquisition_3frame` | 24 / 70 | 17 / 20 | **24** | **0** | 5.07 mm | **14.85 mm** | 0 |
+| Stream | Candidate | Accepted / Total | Post-Warmup Targets Accepted / Denom | Mean Error (Accepted Original Targets) | Mean Error (All Accepted Responses) | Max Error | Release/Retract Accepted |
+|---|---|---|---|---|---|---|---|
+| **Original** (6-stage) | `baseline_p4` | 14 / 60 | 14 / 20 | 3.6448 mm | 3.6448 mm | 7.4200 mm | 0 |
+| **Original** (6-stage) | `reacquisition_2frame` | 17 / 60 | 17 / 20 | 4.7443 mm | 4.7443 mm | **21.9367 mm** (Seed 820) | 0 |
+| **Original** (6-stage) | `reacquisition_3frame` | 14 / 60 | 14 / 20 | 3.6448 mm | 3.6448 mm | 7.4200 mm | 0 |
+| **Augmented** (7-stage) | `baseline_p4` | 21 / 70 | 14 / 20 | 5.6723 mm | 4.8180 mm | 9.4442 mm | 0 |
+| **Augmented** (7-stage) | `reacquisition_2frame` | 24 / 70 | 17 / 20 | **5.8715 mm** | 5.0659 mm | **14.8479 mm** | 0 |
+| **Augmented** (7-stage) | `reacquisition_3frame` | 24 / 70 | 17 / 20 | **5.8715 mm** | 5.0659 mm | **14.8479 mm** | 0 |
 
 ### Per-Seed Detail for Slipped Episodes at Lower ($t=13.0$s)
 
@@ -84,18 +84,28 @@ Across all seeds 820–829, lowering spans $t=11.0$s to $t=13.0$s:
 
 ---
 
-## 5. Key Findings
+## 5. Separation of Effects and Discussion
 
-1. **Hypothesis Confirmed:** Adding a third fresh observation within the lowering sequence directly reduced Seed 820's lower pose error from **21.94 mm to 14.85 mm**, resolving the monocular depth ambiguity and satisfying the $\le 20$ mm accuracy gate across 100% of accepted post-warmup poses.
-2. **Refusal Rule Enforced:** In the absence of intermediate views (the original endpoint-only stream), `TemporalThreeFrameReacquisitionPose` strictly refuses at `lower` on all three recovery seeds (820, 825, 828), verifying that it cannot emit after only two views.
-3. **Motion Gate Preserved:** At the lowering midpoint, hand motion is ~68 mm ($< 80$ mm threshold). Both candidates correctly refuse at midpoint (`insufficient_motion_history`), preventing premature estimation before sufficient parallax is established.
-4. **Safety Maintained:** Invalidation upon physical release, hand retraction, black transport, and frozen frames is preserved without regression (0 false acceptances).
-5. **Compute and Communication Cost:** Additional observations require image capture, serialization, and multi-view non-linear optimization time. While simulated physical motion duration is unchanged (25.0s), an active controller making intermediate perception calls incurs compute latency. No 25-second real-time controller qualification is claimed.
+1. **Schedule Improvement vs Minimum-Window Rule:**
+   - On the augmented stream, all 210 responses match identically between `reacquisition_2frame` and `reacquisition_3frame` in detection status, refusal reasons, and 3D errors. Both fit over the available 3-frame history.
+   - The augmented stream demonstrates an **observation-schedule improvement** for Seed 820: adding an intermediate view during lowering reduces Seed 820 error from 21.94 mm to 14.85 mm, satisfying the $\le 20$ mm gate.
+   - The original stream demonstrates the **stricter refusal behavior** of the 3-frame rule: in the absence of an intermediate view, `reacquisition_3frame` refuses at Lower on all three recovering seeds (820, 825, 828), proving it cannot emit after only two views.
+   - The minimum-frame rule provides refusal protection against insufficient views, but does not provide incremental accuracy beyond what a 2-frame candidate achieves when given the same 3-frame history.
+2. **Mean Error Limitation Relative to P5 Proposal:**
+   - The mean error over the 17 accepted *original post-warmup targets* on the augmented stream is **5.8715 mm**.
+   - While all 17 targets are well within the $\le 20$ mm gate (max 14.85 mm), the 5.87 mm mean exceeds the planning target of $\le 5.0$ mm specified in the earlier P5 proposal.
+   - This limitation is reported explicitly; thresholds and gates are not altered.
+3. **Depth Ambiguity Mechanism:**
+   - The hypothesis that Seed 820's 2-frame error was driven by optical-axis depth ambiguity remains a hypothesis consistent with the observation that multi-view triangulations with wider angular baseline reduce the error, not a mathematically proven fact.
+4. **Latency and Compute Cost:**
+   - Adding an observation at the lowering midpoint requires camera rendering, transmission, and non-linear multi-view optimization.
+   - Although the simulated physical motion is unchanged (25.0s duration), calling perception mid-action consumes computation and communication budget. No 25-second real-time controller qualification is claimed.
 
 ---
 
 ## 6. Recommendations for Protocol P5
 
-1. **Observation Schedule:** Protocol P5 should mandate capturing a deterministic lowering midpoint ($t=12.0$s) in addition to endpoints.
-2. **Candidate Selection:** Adopt `TemporalThreeFrameReacquisitionPose` as the primary reacquisition candidate for P5 validation, paired with the 3-frame lowering schedule.
-3. **Status:** P5 remains proposed, not frozen or executed. Seeds 840–849 remain untouched pending formal review.
+1. **Incorporate Lowering Midpoint:** Protocol P5 should include a deterministic lowering observation ($t_{\text{mid}} = (t_{\text{transport}} + t_{\text{lower}}) / 2.0$) in the trajectory schedule.
+2. **Primary Candidate:** Use `TemporalThreeFrameReacquisitionPose` as the primary reacquisition candidate for P5, ensuring it enforces the 3-view requirement and cannot emit on truncated histories.
+3. **Revisit Target Mean Gate:** Note that on development data, the post-warmup mean error on original targets is 5.87 mm ($> 5.0$ mm). The P5 protocol definition should take this empirical baseline into account before freezing gates.
+4. **Status:** Protocol P5 remains proposed in `experiments/humanoid-pick-place/protocols/P5_PROPOSAL.md`. Seeds 840–849 remain untouched pending review.
