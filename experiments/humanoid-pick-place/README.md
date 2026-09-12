@@ -7,7 +7,7 @@ Use the [complete implementation checklist](PLAN.md) as the living reference
 for progress, phase gates, next actions, and the historical scoring protocol.
 
 [Historical V4 results](V4_RESULTS.md): 98/100 task successes, 96/100 strict passes;
-the 95/100 mechanical qualification gate is met. The V4 implementation passed 42 tests; the current suite passes 79 tests.
+the 95/100 mechanical qualification gate is met. The V4 implementation passed 42 tests; the current suite passes 84 tests.
 
 The [versioned policy interface](INTERFACE.md) adds orientation, robot-state
 observations and a sampled collision guard. Its [G2 qualification](GUARDED_RESULTS.md) passed with **100/100 placements,
@@ -160,3 +160,8 @@ The [experimental carried-center candidate](CARRIED_POSE.md) has now been tested
 on fresh trajectories. [P3](CARRIED_POSE_RESULTS.md) failed its continuation screen
 (18/40 original images within 20 mm), so the candidate remains disconnected from
 perception used for control. Temporal disambiguation and full RGB control remain open.
+
+The [temporal RGB/hand-motion candidate](TEMPORAL_POSE.md) was evaluated in
+[P4](TEMPORAL_POSE_RESULTS.md): 14/20 post-warmup targets yielded centers with
+3.645 mm mean and 7.420 mm maximum error. It missed the 16/20 coverage screen,
+so reacquisition remains necessary before control integration.

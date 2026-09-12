@@ -62,3 +62,9 @@ validity/visibility audit, not carried-pose or visual-control qualification.
 sensor corruptions. Originals: 19 accepted, 18 within 20 mm, one accepted error
 20.885 mm; partial blackout: one accepted error 22.992 mm. All 40 blank frames
 refused. The frozen screen failed; no estimator/control integration.
+
+[P4 temporal RGB/hand-motion candidate](TEMPORAL_POSE_RESULTS.md), seeds 820–829:
+14/20 nominal post-warmup targets within 20 mm (mean 3.645 mm, maximum 7.420 mm).
+No positions on release/retract or altered transport frames. The 16/20 coverage
+screen failed. Three correlated streams produced 180 responses from 10 episodes;
+no temporal estimate drove an action.

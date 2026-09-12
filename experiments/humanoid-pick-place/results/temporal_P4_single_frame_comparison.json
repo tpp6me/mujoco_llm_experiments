@@ -1,0 +1,1068 @@
+{
+  "status": "complete",
+  "post_hoc": true,
+  "method": "unchanged_P3_on_P4_original_frames",
+  "source_sha256": {
+    "humanoid_sim/vision_pose.py": "005911f63e4f2c63940477d2ab04983ca9218765fdf51a97297d6f5a43309108",
+    "humanoid_sim/perception_evaluation.py": "009dbb594b5b5f80046c5cec5b4d67ba4e21482e79514d3b8b30e0582b414df2",
+    "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+    "humanoid_sim/render.py": "7c14067e1a3de6d145510353c13e0e59117ddef1321e58071f81abb2c9683e5b",
+    "humanoid_sim/guarded_evaluation.py": "f5fa8c492c575779de235d0ad5de0cb0600b3ec4201d851a568c87a194e9e339",
+    "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386",
+    "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+    "humanoid_sim/carried_pose.py": "ff705e89afbc08643dc029576b6381d5ad990bd981852f51049a445a4af449cb",
+    "humanoid_sim/interface.py": "b9ba6c91fa2c34f248997c6ddc73957b66afcc5068fdcc8c45dbb995121e9afc",
+    "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+    "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+    "humanoid_sim/guarded_baseline.py": "38fab1b84b21e86087e860547fa28112850c30a0f30ff45e051bc47a406fc488",
+    "humanoid_sim/temporal_pose.py": "c489a73e6dff2ef6e42134497608078b9988c425a28fa72027e86c6c6fa3b3eb",
+    "humanoid_sim/temporal_pose_evaluation.py": "9218d45c72a11bedbef69768a16f862ce39d18060b1654724872ccb987689b9d",
+    "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+    "humanoid_sim/visual.py": "8a17935f50acf412b3a5050ffc57d4cb874ccf8be08d6cf2990275bd1f97b5cb",
+    "humanoid_sim/carried_pose_evaluation.py": "b91fc8293046ef6ed92c0cebc0ca5d05241e6999783922b314d0a96d75b68259",
+    "humanoid_sim/perception.py": "47457f5bac5c47d818f7dcf9f909c750f7820d10dfd7a02b6426a5ebc486caad",
+    "humanoid_sim/__main__.py": "4012b00a4d98e65c71f48835fcd6f9d8b29c011c0abb5f4275fc2780702c0237",
+    "humanoid_sim/llm_runner.py": "b7fbcc7a0cf54cf1484a96ce6e395d8e984ab95890be3b81fda58516129e0f8b",
+    "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+    "requirements-lock.txt": "2494fa442b86b7a4b6ff45602a5ca7b207225bb526fc148c49e85532ea9bd732",
+    "experiments/humanoid-pick-place/protocols/P4.md": "8818ef2d0884b8d447e9a1267ec18791ea5abcd64ea056d98efe0bc671995b11"
+  },
+  "records": [
+    {
+      "seed": 820,
+      "stage": "lift",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.22187465611175167,
+          -0.17037275262619717,
+          0.9175787604153642
+        ],
+        "best_rms_px": 0.1441897452624268,
+        "near_best_count": 10,
+        "sampled_center_spread_m": 0.01152225644006638,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3176,
+        "boundary_pixel_count": 93
+      },
+      "error_3d_m": 0.013420829658673925,
+      "within_20mm": true
+    },
+    {
+      "seed": 820,
+      "stage": "lift_hold",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.22261664894449903,
+          -0.17037198354896294,
+          0.9158141040641467
+        ],
+        "best_rms_px": 0.14722668609579764,
+        "near_best_count": 7,
+        "sampled_center_spread_m": 0.01107576248190338,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3224,
+        "boundary_pixel_count": 97
+      },
+      "error_3d_m": 0.014576251877835488,
+      "within_20mm": true
+    },
+    {
+      "seed": 820,
+      "stage": "transport",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.1506031450849929,
+          -0.35765396474099037,
+          0.9165405530588695
+        ],
+        "best_rms_px": 0.11707699971869404,
+        "near_best_count": 6,
+        "sampled_center_spread_m": 0.0022773239248243945,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3908,
+        "boundary_pixel_count": 81
+      },
+      "error_3d_m": 0.01116100546824608,
+      "within_20mm": true
+    },
+    {
+      "seed": 820,
+      "stage": "lower",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.17900281717903732,
+          -0.3540443883779342,
+          0.8186606781768898
+        ],
+        "best_rms_px": 0.09569838624633613,
+        "near_best_count": 5,
+        "sampled_center_spread_m": 0.00021205528849255707,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3447,
+        "boundary_pixel_count": 76
+      },
+      "error_3d_m": 0.013049896837498059,
+      "within_20mm": true
+    },
+    {
+      "seed": 821,
+      "stage": "lift",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.1421963235433256,
+        "near_best_count": 9,
+        "sampled_center_spread_m": 0.03216082412789666,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2411,
+        "boundary_pixel_count": 82
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 821,
+      "stage": "lift_hold",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.16076278712270392,
+        "near_best_count": 10,
+        "sampled_center_spread_m": 0.029124910491529914,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2391,
+        "boundary_pixel_count": 83
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 821,
+      "stage": "transport",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.07273637249152852,
+        "near_best_count": 15,
+        "sampled_center_spread_m": 0.04625164647440631,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 5005,
+        "boundary_pixel_count": 32
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 821,
+      "stage": "lower",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.1602626919673567,
+          -0.35422618935059025,
+          0.8727153632636743
+        ],
+        "best_rms_px": 0.15359255444378206,
+        "near_best_count": 5,
+        "sampled_center_spread_m": 0.0004829535595090111,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4537,
+        "boundary_pixel_count": 127
+      },
+      "error_3d_m": 0.010789067498977676,
+      "within_20mm": true
+    },
+    {
+      "seed": 822,
+      "stage": "lift",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.1561919940949436,
+        "near_best_count": 9,
+        "sampled_center_spread_m": 0.05707104663393909,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2162,
+        "boundary_pixel_count": 78
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 822,
+      "stage": "lift_hold",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.15762003608612246,
+        "near_best_count": 8,
+        "sampled_center_spread_m": 0.05824426960316288,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2146,
+        "boundary_pixel_count": 78
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 822,
+      "stage": "transport",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.07827824296455516,
+        "near_best_count": 16,
+        "sampled_center_spread_m": 0.08069630559711642,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 5076,
+        "boundary_pixel_count": 36
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 822,
+      "stage": "lower",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.15797416726614524,
+          -0.35453727933253143,
+          0.872863274107301
+        ],
+        "best_rms_px": 0.13420544201599846,
+        "near_best_count": 7,
+        "sampled_center_spread_m": 0.0014314804064387838,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4569,
+        "boundary_pixel_count": 146
+      },
+      "error_3d_m": 0.009730290227200735,
+      "within_20mm": true
+    },
+    {
+      "seed": 823,
+      "stage": "lift",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.13876256724080385,
+        "near_best_count": 7,
+        "sampled_center_spread_m": 0.04361974774930462,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 1910,
+        "boundary_pixel_count": 67
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 823,
+      "stage": "lift_hold",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.1283344601071535,
+        "near_best_count": 5,
+        "sampled_center_spread_m": 0.02071362353714992,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 1892,
+        "boundary_pixel_count": 67
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 823,
+      "stage": "transport",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.06846901858777626,
+        "near_best_count": 13,
+        "sampled_center_spread_m": 0.04389900403647109,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4920,
+        "boundary_pixel_count": 31
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 823,
+      "stage": "lower",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.1635539545635193,
+          -0.35391366710856365,
+          0.8708244231552192
+        ],
+        "best_rms_px": 0.1304995970779555,
+        "near_best_count": 7,
+        "sampled_center_spread_m": 0.0005404979606214785,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4462,
+        "boundary_pixel_count": 155
+      },
+      "error_3d_m": 0.011426918542166127,
+      "within_20mm": true
+    },
+    {
+      "seed": 824,
+      "stage": "lift",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.1507756937142742,
+        "near_best_count": 11,
+        "sampled_center_spread_m": 0.06321068057995052,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2426,
+        "boundary_pixel_count": 81
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 824,
+      "stage": "lift_hold",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.16134365823587554,
+        "near_best_count": 11,
+        "sampled_center_spread_m": 0.041818632846945196,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2417,
+        "boundary_pixel_count": 81
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 824,
+      "stage": "transport",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.0795773511444945,
+        "near_best_count": 16,
+        "sampled_center_spread_m": 0.06915234970505257,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4974,
+        "boundary_pixel_count": 32
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 824,
+      "stage": "lower",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.16359857050290808,
+          -0.35517242305787583,
+          0.8781756819950827
+        ],
+        "best_rms_px": 0.1573974119087037,
+        "near_best_count": 6,
+        "sampled_center_spread_m": 0.0008990242691753223,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4524,
+        "boundary_pixel_count": 125
+      },
+      "error_3d_m": 0.008820037732884922,
+      "within_20mm": true
+    },
+    {
+      "seed": 825,
+      "stage": "lift",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.20586991327194462,
+          -0.18588407080280978,
+          0.9107591555598279
+        ],
+        "best_rms_px": 0.1541993021737251,
+        "near_best_count": 7,
+        "sampled_center_spread_m": 0.006211380611801412,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3284,
+        "boundary_pixel_count": 106
+      },
+      "error_3d_m": 0.015058478019048006,
+      "within_20mm": true
+    },
+    {
+      "seed": 825,
+      "stage": "lift_hold",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.2064695996290366,
+          -0.18627011135990962,
+          0.9095451522800598
+        ],
+        "best_rms_px": 0.14732286840783274,
+        "near_best_count": 5,
+        "sampled_center_spread_m": 1.6472344623141494e-06,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3310,
+        "boundary_pixel_count": 110
+      },
+      "error_3d_m": 0.01585251921560341,
+      "within_20mm": true
+    },
+    {
+      "seed": 825,
+      "stage": "transport",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.1518401888730876,
+          -0.3572383417041356,
+          0.9113687700885453
+        ],
+        "best_rms_px": 0.10961947557315475,
+        "near_best_count": 6,
+        "sampled_center_spread_m": 0.0001827725223643994,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3852,
+        "boundary_pixel_count": 83
+      },
+      "error_3d_m": 0.01251397798479167,
+      "within_20mm": true
+    },
+    {
+      "seed": 825,
+      "stage": "lower",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.17686141688843723,
+          -0.3539077886018978,
+          0.8150552017470756
+        ],
+        "best_rms_px": 0.09878035772662536,
+        "near_best_count": 5,
+        "sampled_center_spread_m": 0.0019102236661443504,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3463,
+        "boundary_pixel_count": 78
+      },
+      "error_3d_m": 0.014403135854785695,
+      "within_20mm": true
+    },
+    {
+      "seed": 826,
+      "stage": "lift",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.13419661891807655,
+        "near_best_count": 11,
+        "sampled_center_spread_m": 0.056940630571488855,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 1823,
+        "boundary_pixel_count": 74
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 826,
+      "stage": "lift_hold",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.13006546262977525,
+        "near_best_count": 10,
+        "sampled_center_spread_m": 0.11373233598243777,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 1789,
+        "boundary_pixel_count": 75
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 826,
+      "stage": "transport",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.06844166579486642,
+        "near_best_count": 13,
+        "sampled_center_spread_m": 0.03155293630566631,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4660,
+        "boundary_pixel_count": 36
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 826,
+      "stage": "lower",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.16530828059010622,
+          -0.3532744942473999,
+          0.8752583838325136
+        ],
+        "best_rms_px": 0.14496796623168812,
+        "near_best_count": 7,
+        "sampled_center_spread_m": 0.0008885108068951489,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4301,
+        "boundary_pixel_count": 128
+      },
+      "error_3d_m": 0.011356712933359601,
+      "within_20mm": true
+    },
+    {
+      "seed": 827,
+      "stage": "lift",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.14812309508495974,
+        "near_best_count": 12,
+        "sampled_center_spread_m": 0.07393661709331954,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2208,
+        "boundary_pixel_count": 84
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 827,
+      "stage": "lift_hold",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.16537077794175936,
+        "near_best_count": 12,
+        "sampled_center_spread_m": 0.06345489433130796,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2193,
+        "boundary_pixel_count": 83
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 827,
+      "stage": "transport",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.09273102429564131,
+        "near_best_count": 15,
+        "sampled_center_spread_m": 0.08360682843676734,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4914,
+        "boundary_pixel_count": 34
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 827,
+      "stage": "lower",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.16129336016370302,
+          -0.35515313225905243,
+          0.8745123208453779
+        ],
+        "best_rms_px": 0.1346361381551336,
+        "near_best_count": 7,
+        "sampled_center_spread_m": 0.0001732247514241543,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4509,
+        "boundary_pixel_count": 111
+      },
+      "error_3d_m": 0.009254210260565589,
+      "within_20mm": true
+    },
+    {
+      "seed": 828,
+      "stage": "lift",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.20270129765591968,
+          -0.18145050687950814,
+          0.9169069408678768
+        ],
+        "best_rms_px": 0.14354174452674923,
+        "near_best_count": 10,
+        "sampled_center_spread_m": 0.0008947940420117638,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2996,
+        "boundary_pixel_count": 92
+      },
+      "error_3d_m": 0.012576530155222856,
+      "within_20mm": true
+    },
+    {
+      "seed": 828,
+      "stage": "lift_hold",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.20344276877173842,
+          -0.1831914865309555,
+          0.9171138616543544
+        ],
+        "best_rms_px": 0.14668751735167881,
+        "near_best_count": 9,
+        "sampled_center_spread_m": 0.0042346678161067335,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3077,
+        "boundary_pixel_count": 95
+      },
+      "error_3d_m": 0.011373049142492549,
+      "within_20mm": true
+    },
+    {
+      "seed": 828,
+      "stage": "transport",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.15294207401281293,
+          -0.3548371518472724,
+          0.913823916310772
+        ],
+        "best_rms_px": 0.11083801462515191,
+        "near_best_count": 6,
+        "sampled_center_spread_m": 0.0010380695990899155,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3706,
+        "boundary_pixel_count": 79
+      },
+      "error_3d_m": 0.01287986009979675,
+      "within_20mm": true
+    },
+    {
+      "seed": 828,
+      "stage": "lower",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.17702250112751206,
+          -0.3544243809735772,
+          0.8169423997889009
+        ],
+        "best_rms_px": 0.0856016106685658,
+        "near_best_count": 5,
+        "sampled_center_spread_m": 0.00018456370805220186,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 3353,
+        "boundary_pixel_count": 75
+      },
+      "error_3d_m": 0.015072985308103479,
+      "within_20mm": true
+    },
+    {
+      "seed": 829,
+      "stage": "lift",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.15659036151861921,
+        "near_best_count": 11,
+        "sampled_center_spread_m": 0.030959109492516127,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2497,
+        "boundary_pixel_count": 86
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 829,
+      "stage": "lift_hold",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.15068966272383238,
+        "near_best_count": 11,
+        "sampled_center_spread_m": 0.030269695777295123,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 2472,
+        "boundary_pixel_count": 85
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 829,
+      "stage": "transport",
+      "estimate": {
+        "detected": false,
+        "reason": "ambiguous_depth_or_orientation",
+        "best_rms_px": 0.08490902912411297,
+        "near_best_count": 14,
+        "sampled_center_spread_m": 0.04181320272823597,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 5178,
+        "boundary_pixel_count": 38
+      },
+      "error_3d_m": null,
+      "within_20mm": false
+    },
+    {
+      "seed": 829,
+      "stage": "lower",
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.15837848123653275,
+          -0.3534443742166893,
+          0.8734846295473568
+        ],
+        "best_rms_px": 0.13271050947636392,
+        "near_best_count": 6,
+        "sampled_center_spread_m": 0.000292031894867105,
+        "method": "monocular_cuboid_silhouette_multistart",
+        "experimental": true,
+        "orientation_qualified": false,
+        "assumptions": [
+          "known block dimensions",
+          "block center within 0.13 m of hand",
+          "single red object",
+          "fixed calibrated camera and scene colors"
+        ],
+        "red_pixel_count": 4625,
+        "boundary_pixel_count": 121
+      },
+      "error_3d_m": 0.011857028288593955,
+      "within_20mm": true
+    }
+  ]
+}

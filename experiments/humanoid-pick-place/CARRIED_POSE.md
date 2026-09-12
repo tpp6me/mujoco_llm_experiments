@@ -81,3 +81,8 @@ black image. These deterministic sensor corruptions retain camera/robot inputs a
 use no truth to choose the mask. They test loss/partial occlusion behavior but are
 not physical recovery trajectories. All original and corrupted cases are retained
 separately; they do not increase the count of independent episodes.
+
+The subsequent [P4 temporal candidate](TEMPORAL_POSE_RESULTS.md) combines RGB
+with hand motion. Its accepted centers were accurate on the fresh set, but it
+failed the coverage screen and remains disconnected from control. Reacquisition
+after a rejected window is the next development step.

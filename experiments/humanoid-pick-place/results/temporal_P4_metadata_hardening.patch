@@ -1,0 +1,33 @@
+--- frozen/humanoid_sim/temporal_pose.py
++++ current/humanoid_sim/temporal_pose.py
+@@ -167,7 +167,12 @@
+         self.frames.clear()
+ 
+     def observe(self, observation):
+-        identifier, timestamp = observation['observation_id'], float(observation['time_s'])
++        try:
++            identifier = observation['observation_id']
++            timestamp = float(observation['time_s'])
++        except (KeyError, TypeError, ValueError, OverflowError):
++            self.invalidate()
++            raise ValueError('Invalid temporal observation metadata') from None
+         if (not isinstance(identifier, str) or not identifier or identifier in self.seen
+                 or not np.isfinite(timestamp)
+                 or (self.last_time is not None and timestamp <= self.last_time)):
+--- frozen/tests/test_humanoid_temporal_pose.py
++++ current/tests/test_humanoid_temporal_pose.py
+@@ -93,6 +93,14 @@
+         self.assertEqual(result['reason'], 'insufficient_motion_history')
+         self.assertEqual(result['history_size'], 1)
+ 
++    def test_malformed_metadata_clears_history(self):
++        for invalid in [{'time_s': 10}, {'observation_id': 'bad', 'time_s': 'not-a-time'}]:
++            tracker = TemporalPose()
++            tracker.observe(observation(0))
++            with self.assertRaisesRegex(ValueError, 'metadata'):
++                tracker.observe(invalid)
++            self.assertEqual(tracker.frames, [])
++
+     def test_reused_or_nonadvancing_frames_clear_history(self):
+         for same_id in [True, False]:
+             tracker = TemporalPose()

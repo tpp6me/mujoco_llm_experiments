@@ -59,7 +59,7 @@ individual-finger control are outside the initial scope.
 | 2. Physical baseline and scorer | Complete | [V4](V4_RESULTS.md): 98/100 task successes, **96/100 strict passes**; ≥95 required |
 | 3. Action/observation interface | Complete for the declared recipe | [G2](GUARDED_RESULTS.md): 100/100 placements, 97/100 strict passes, zero rejections through interface v2 |
 | 4. LLM with exact state | Development pilot complete | [L2](LLM_RESULTS.md): LLM 0/3 placements, 1/3 lifts; conventional 3/3 placements; formal comparison pending |
-| 5. Visual action control | In progress | [RGB boundary](VISUAL.md) and freshness checks implemented; [P1 initial block estimate](POSE_RESULTS.md) passes 20/20 images within 5 mm; [P2 validity guard](PERCEPTION_RESULTS.md) implemented; [P3 carried candidate](CARRIED_POSE_RESULTS.md) failed its screen; qualified carried pose, comparator and visual model runner pending |
+| 5. Visual action control | In progress | [RGB boundary](VISUAL.md) and freshness checks implemented; [P1 initial block estimate](POSE_RESULTS.md) passes 20/20 images within 5 mm; [P2 validity guard](PERCEPTION_RESULTS.md) implemented; [P3](CARRIED_POSE_RESULTS.md) and [P4 temporal candidate](TEMPORAL_POSE_RESULTS.md) failed their coverage/accuracy screens; reacquisition, qualified carried pose, comparator and visual model runner pending |
 | 6. Free-standing manipulation | Not started | Balance controller and mechanical requalification |
 | 7. Continuous-time execution | Not started | Independent physics/control loop and latency measurement |
 | 8. Robustness and recovery | Not started | Frozen challenge sets and recovery evaluation |
@@ -76,7 +76,8 @@ individual-finger control are outside the initial scope.
 - [x] Validate initial upright block position from RGB and declared priors: [P1](POSE_RESULTS.md), 20/20 fresh images within 5 mm.
 - [x] Audit RGB visibility across manipulation endpoints and expire the table-support prior after interaction; see [P2](PERCEPTION_RESULTS.md).
 - [x] Implement and evaluate a monocular carried-center candidate on fresh trajectories and sensor corruptions; [P3](CARRIED_POSE_RESULTS.md) failed and remains disabled.
-- [ ] Develop temporal RGB/hand-motion constraints and test whether they resolve the P3 depth ambiguity before a new frozen evaluation.
+- [x] Implement and freeze temporal RGB/hand-motion fitting: [P4](TEMPORAL_POSE_RESULTS.md) yielded 14/20 post-warmup targets within 20 mm (mean 3.645 mm), below the 16/20 coverage gate.
+- [ ] Add explicit reacquisition after model mismatch/loss and evaluate fresh motion evidence on new trajectories, counting added actions against the task budget.
 - [ ] Validate carried-object pose and occlusion handling without private truth inputs.
 - [ ] Build a matched conventional vision comparator and freeze larger evaluations on unused seeds.
 
@@ -84,7 +85,7 @@ The live exact-state L2 development pilot is complete: **LLM 0/3 placements,
 1/3 sustained lifts; conventional 3/3 placements and 2/3 strict passes**.
 All 18 L2 API calls completed. L1's three request-schema errors remain separately
 archived. See [pilot results](LLM_RESULTS.md) and the [runner guide](LLM_RUNNER.md).
-All 79 automated tests pass. These three cases do not establish a general model
+All 84 automated tests pass. These three cases do not establish a general model
 comparison; no visual policy, balance controller or walking policy has been evaluated.
 
 ## Phase 1 — Select the robot and build the supported scene
@@ -203,6 +204,7 @@ and comprehensive failure taxonomy remain pending.
 - [x] Validate initial table-supported block position using RGB, calibration and declared geometry priors; [P1 results](POSE_RESULTS.md).
 - [x] Implement explicit pose unavailability after the initial support prior expires; validate visibility and prior lifetime across 20 exact-state-driven trajectories ([P2](PERCEPTION_RESULTS.md)).
 - [x] Evaluate an experimental carried-center candidate: [P3](CARRIED_POSE_RESULTS.md), 18/40 original frames within 20 mm; screen failed.
+- [x] Test temporal rigid-transform consistency and loss handling on 10 new episodes; [P4](TEMPORAL_POSE_RESULTS.md) failed coverage, remains disconnected from control.
 - [ ] Extend pose estimation to carried, tilted and occluded blocks.
 - [ ] Implement a conventional camera-based perception comparator using equivalent sensor inputs.
 - [x] Declare the current observation as RGB-only; RGB-plus-depth remains a separate future condition. Do not supply
@@ -349,6 +351,7 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-12 | Frozen P1 initial RGB estimator tested on 20 fresh reset images; 70 tests passed | [P1](POSE_RESULTS.md): 20/20 within 5 mm; mean 0.518 mm, maximum 2.418 mm; carried-object perception and full visual control remain pending |
 | 2026-09-12 | Added RGB visibility tracking and explicit expiry of the initial table-support prior; 75 tests passed | [P2 audit](PERCEPTION_RESULTS.md) covers action endpoints in 20 exact-state-driven episodes; no carried 3D pose or visual control claimed |
 | 2026-09-12 | Implemented experimental monocular cuboid center fitting; 79 tests passed | [P3](CARRIED_POSE_RESULTS.md): 18/40 originals within 20 mm; one accepted error in originals and one in partial occlusion; failed screen, no control integration |
+| 2026-09-12 | Added temporal RGB/hand-motion candidate and post-audit metadata hardening; current suite 84 tests | [P4](TEMPORAL_POSE_RESULTS.md): 14/20 post-warmup targets, mean 3.645 mm / max 7.420 mm; 16/20 coverage gate failed; release and corrupted transport views withheld |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.

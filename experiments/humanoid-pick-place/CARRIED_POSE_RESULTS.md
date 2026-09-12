@@ -102,3 +102,8 @@ Original RGB images and public observation/perception payloads remain under
 exactly by the frozen pixel-only transformation. Development fixtures for lift,
 transport and lower are tracked in `tests/fixtures/humanoid_carried_rgb/`. The
 source archive uses the repository's pinned G1 assets rather than duplicating meshes.
+
+The subsequent [P4 temporal candidate](TEMPORAL_POSE_RESULTS.md) combines RGB
+with hand motion. Its accepted centers were accurate on the fresh set, but it
+failed the coverage screen and remains disconnected from control. Reacquisition
+after a rejected window is the next development step.
