@@ -45,6 +45,10 @@ tilted, fallen or partly hidden object without new modeling and validation. One
 red object is assumed; unrelated red regions and changed illumination are outside
 this check. No RGB-driven manipulation or visual LLM trial has been run.
 
+The subsequent [P2 audit and validity guard](PERCEPTION_RESULTS.md) measures
+endpoint visibility and prevents reuse of this initial support prior after actions.
+It does not add a carried-object pose estimator.
+
 Next: validate carried-object pose and occlusion handling, build a conventional
 visual controller using only public observations, then qualify the full task before
 a matched visual LLM comparison. Initial image accuracy alone is not task success.

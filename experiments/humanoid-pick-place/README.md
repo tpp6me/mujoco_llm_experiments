@@ -7,7 +7,7 @@ Use the [complete implementation checklist](PLAN.md) as the living reference
 for progress, phase gates, next actions, and the historical scoring protocol.
 
 [Historical V4 results](V4_RESULTS.md): 98/100 task successes, 96/100 strict passes;
-the 95/100 mechanical qualification gate is met. The V4 implementation passed 42 tests; the current suite passes 70 tests.
+the 95/100 mechanical qualification gate is met. The V4 implementation passed 42 tests; the current suite passes 75 tests.
 
 The [versioned policy interface](INTERFACE.md) adds orientation, robot-state
 observations and a sampled collision guard. Its [G2 qualification](GUARDED_RESULTS.md) passed with **100/100 placements,
@@ -150,3 +150,8 @@ pose estimator. See the [grasp audit](GRASP_AUDIT.md) for the exact-state failur
 The [P1 initial block estimator](POSE_RESULTS.md) uses RGB and declared geometry
 priors: all 20 fresh reset images were within 5 mm XY error. Carried-object pose
 and full visual control remain pending.
+
+The [perception wrapper](PERCEPTION.md) expires that initial support prior before
+interaction and reports pixel visibility separately from unavailable 3D pose.
+[P2](PERCEPTION_RESULTS.md) audits its behavior across manipulation endpoints
+driven by the exact-state baseline; it is not a visual controller evaluation.

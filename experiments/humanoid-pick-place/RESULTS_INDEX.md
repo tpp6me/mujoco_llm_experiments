@@ -50,3 +50,9 @@ reset images within 5 mm XY error (mean 0.518 mm, maximum 2.418 mm). The previou
 centroid method averaged 23.463 mm on the same images. This uses known block/table
 geometry and fixed lighting; it is perception development, not robot qualification.
 [Private validation records](results/pose_P1.json).
+
+[P2 visibility and support-prior audit](PERCEPTION_RESULTS.md), seeds 760–779:
+240/240 endpoint images from 20 exact-state-driven episodes. Red detected in all
+images; the wrapper withheld 3D pose in all 220 post-action frames. Raw P1 accepted
+73/80 post-release frames with >5 mm 3D error (maximum 13.010 mm). This is a
+validity/visibility audit, not carried-pose or visual-control qualification.

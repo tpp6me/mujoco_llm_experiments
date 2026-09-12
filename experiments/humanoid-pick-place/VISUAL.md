@@ -104,3 +104,11 @@ qualify a conventional visual policy before a matched visual LLM comparison.
 Fixed/head RGB examples and validation images remain locally under
 `runtime/humanoid/visual-v1/`. The public JSON contains no scoring data. The private
 validation file includes true poses only for post-hoc error measurement.
+
+## Perception validity during manipulation
+
+Use the [perception wrapper](PERCEPTION.md) when pairing images with position
+estimates. It expires the initial table-support prior before any action attempt,
+including rejection. Later red-pixel detections never restore a table-based pose.
+The [P2 endpoint audit](PERCEPTION_RESULTS.md) records visibility and diagnostic
+errors through grasp, transport and release; carried 3D pose remains unavailable.
