@@ -60,7 +60,7 @@ inputs. It must not mistake missing local artifacts for missing committed code.
 
 | Task | Status | Branch | Scope |
 |---|---|---|---|
-| [001](tasks/001-reacquisition.md) | Ready | `agy/001-reacquisition` | Implement and develop temporal reacquisition; propose fresh protocol, do not execute it |
+| [001](tasks/001-reacquisition.md) | [Changes requested](reviews/001-review.md) | `agy/001-reacquisition` | Implement and develop temporal reacquisition; propose fresh protocol, do not execute it |
 
 Use the [completion template](reports/TEMPLATE.md) and [review template](reviews/TEMPLATE.md).
 The experiment's [living checklist](../../experiments/humanoid-pick-place/PLAN.md)
