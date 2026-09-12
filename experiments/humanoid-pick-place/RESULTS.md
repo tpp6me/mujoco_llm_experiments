@@ -1,3 +1,5 @@
+> Historical V3 report. See [V4 results](V4_RESULTS.md) for the qualifying controller.
+
 # Supported G1 mechanical results
 
 Date: 2026-09-11. **Mechanical qualification gate remains open. No LLM trials have run.**

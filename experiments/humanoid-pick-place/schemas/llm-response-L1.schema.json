@@ -1,0 +1,118 @@
+{
+  "type": "object",
+  "properties": {
+    "command": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "action": {
+              "const": "move"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "xyz_m",
+                "quaternion_wxyz",
+                "seconds"
+              ],
+              "properties": {
+                "xyz_m": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "quaternion_wxyz": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 4,
+                  "maxItems": 4
+                },
+                "seconds": {
+                  "type": "number",
+                  "minimum": 0.02,
+                  "maximum": 10
+                }
+              }
+            }
+          },
+          "required": [
+            "action",
+            "arguments"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "action": {
+              "const": "hand"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "closure",
+                "seconds"
+              ],
+              "properties": {
+                "closure": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "seconds": {
+                  "type": "number",
+                  "minimum": 0.02,
+                  "maximum": 10
+                }
+              }
+            }
+          },
+          "required": [
+            "action",
+            "arguments"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "action": {
+              "const": "hold"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "seconds"
+              ],
+              "properties": {
+                "seconds": {
+                  "type": "number",
+                  "minimum": 0.02,
+                  "maximum": 10
+                }
+              }
+            }
+          },
+          "required": [
+            "action",
+            "arguments"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "required": [
+    "command"
+  ],
+  "additionalProperties": false
+}

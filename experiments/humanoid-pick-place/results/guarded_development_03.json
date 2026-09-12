@@ -1,0 +1,425 @@
+{
+  "development_only": true,
+  "reports": [
+    {
+      "seed": 0,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.700000000010611,
+      "max_object_bottom_m": 0.863247742606276,
+      "max_object_penetration_m": 0.0013334100131390273,
+      "peak_object_contact": {
+        "time_s": 14.316999999997504,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 9.439526016627143,
+        "penetration_m": 0.0013334100131390273
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 300,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.767000000010574,
+      "max_object_bottom_m": 0.8755136614549237,
+      "max_object_penetration_m": 0.0012320717121645473,
+      "peak_object_contact": {
+        "time_s": 14.304999999997511,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 4.959410831936353,
+        "penetration_m": 0.0012320717121645473
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 312,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.072000000010405,
+      "max_object_bottom_m": 0.9206439229164438,
+      "max_object_penetration_m": 0.0012274464657862543,
+      "peak_object_contact": {
+        "time_s": 14.331999999997496,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 6.03680570596635,
+        "penetration_m": 0.0012274464657862543
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 352,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.075000000010403,
+      "max_object_bottom_m": 0.9195164882102248,
+      "max_object_penetration_m": 0.0016292133370188146,
+      "peak_object_contact": {
+        "time_s": 14.328999999997498,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 6.572439147277008,
+        "penetration_m": 0.0016292133370188146
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 357,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.816000000010547,
+      "max_object_bottom_m": 0.8878762338426758,
+      "max_object_penetration_m": 0.0014360337572343843,
+      "peak_object_contact": {
+        "time_s": 14.317999999997504,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 9.685776551137817,
+        "penetration_m": 0.0014360337572343843
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 358,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.042000000010422,
+      "max_object_bottom_m": 0.923636852346087,
+      "max_object_penetration_m": 0.0018249595174803428,
+      "peak_object_contact": {
+        "time_s": 14.338999999997492,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 3.47260227687509,
+        "penetration_m": 0.0018249595174803428
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 365,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.285000000010841,
+      "max_object_bottom_m": 0.9223816038596441,
+      "max_object_penetration_m": 0.0017513200504043994,
+      "peak_object_contact": {
+        "time_s": 14.328999999997498,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 5.805180456901711,
+        "penetration_m": 0.0017513200504043994
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 373,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.968000000010463,
+      "max_object_bottom_m": 0.9224747202284581,
+      "max_object_penetration_m": 0.001812469781850213,
+      "peak_object_contact": {
+        "time_s": 14.331999999997496,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 0.9371642079757833,
+        "penetration_m": 0.001812469781850213
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 393,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.18900000001034,
+      "max_object_bottom_m": 0.8647416960042164,
+      "max_object_penetration_m": 0.0014529121569570192,
+      "peak_object_contact": {
+        "time_s": 14.283999999997523,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 10.521819353944975,
+        "penetration_m": 0.0014529121569570192
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 401,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.997000000010447,
+      "max_object_bottom_m": 0.9217754138599688,
+      "max_object_penetration_m": 0.005353595656647249,
+      "peak_object_contact": {
+        "time_s": 14.12799999999761,
+        "other_body": "right_hand_middle_1_link",
+        "other_geom_id": 100,
+        "normal_force_n": 3.129555962261665,
+        "penetration_m": 0.005353595656647249
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": false
+    },
+    {
+      "seed": 403,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.199000000010335,
+      "max_object_bottom_m": 0.9257386248282826,
+      "max_object_penetration_m": 0.0012874281709136382,
+      "peak_object_contact": {
+        "time_s": 14.1429999999976,
+        "other_body": "right_hand_middle_1_link",
+        "other_geom_id": 100,
+        "normal_force_n": 9.070304244923133,
+        "penetration_m": 0.0012874281709136382
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 482,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.122000000010377,
+      "max_object_bottom_m": 0.9165503979300278,
+      "max_object_penetration_m": 0.0017120935324032157,
+      "peak_object_contact": {
+        "time_s": 14.272999999997529,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 10.358439916248756,
+        "penetration_m": 0.0017120935324032157
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 483,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.00900000001044,
+      "max_object_bottom_m": 0.9286097765020743,
+      "max_object_penetration_m": 0.0011927929551713776,
+      "peak_object_contact": {
+        "time_s": 14.327999999997498,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 6.477076614090073,
+        "penetration_m": 0.0011927929551713776
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 301,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.17000000001035,
+      "max_object_bottom_m": 0.9224944692475001,
+      "max_object_penetration_m": 0.0017781941642499655,
+      "peak_object_contact": {
+        "time_s": 14.311999999997507,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 5.974609486690734,
+        "penetration_m": 0.0017781941642499655
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 302,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.99200000001045,
+      "max_object_bottom_m": 0.9220578277935297,
+      "max_object_penetration_m": 0.0016487106913480466,
+      "peak_object_contact": {
+        "time_s": 14.3259999999975,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 4.968880781307108,
+        "penetration_m": 0.0016487106913480466
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 303,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.052000000010416,
+      "max_object_bottom_m": 0.8697684105003493,
+      "max_object_penetration_m": 0.0013782008377119202,
+      "peak_object_contact": {
+        "time_s": 14.298999999997514,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 10.102073076163414,
+        "penetration_m": 0.0013782008377119202
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 304,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.370000000010794,
+      "max_object_bottom_m": 0.9250469124775708,
+      "max_object_penetration_m": 0.0016596323856152013,
+      "peak_object_contact": {
+        "time_s": 14.334999999997494,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 11.304462705947763,
+        "penetration_m": 0.0016596323856152013
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 305,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.017000000010436,
+      "max_object_bottom_m": 0.8664150580143344,
+      "max_object_penetration_m": 0.0015329603277994411,
+      "peak_object_contact": {
+        "time_s": 14.322999999997501,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 10.23182306937968,
+        "penetration_m": 0.0015329603277994411
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 306,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.680000000010622,
+      "max_object_bottom_m": 0.8658913895662776,
+      "max_object_penetration_m": 0.001608453002978379,
+      "peak_object_contact": {
+        "time_s": 14.3249999999975,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 9.94823796459108,
+        "penetration_m": 0.001608453002978379
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 307,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.843000000010532,
+      "max_object_bottom_m": 0.9228771670552902,
+      "max_object_penetration_m": 0.0016307785742449622,
+      "peak_object_contact": {
+        "time_s": 14.34199999999749,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 5.954331634374201,
+        "penetration_m": 0.0016307785742449622
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    }
+  ]
+}

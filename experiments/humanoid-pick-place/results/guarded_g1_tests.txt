@@ -1,0 +1,57 @@
+test_oracle_changes_do_not_change_compiled_motion (test_camera.CameraTests.test_oracle_changes_do_not_change_compiled_motion) ... ok
+test_public_observation_has_no_oracle_object_fields (test_camera.CameraTests.test_public_observation_has_no_oracle_object_fields) ... ok
+test_wrong_color_estimate_is_scored_without_correcting_command (test_camera.CameraTests.test_wrong_color_estimate_is_scored_without_correcting_command) ... ok
+test_all_colors_reach_collection_without_arm_contact (test_conveyor.ConveyorPhysicsTests.test_all_colors_reach_collection_without_arm_contact) ... ok
+test_cube_dropping_into_reject_tray_is_scored_physically (test_conveyor.ConveyorPhysicsTests.test_cube_dropping_into_reject_tray_is_scored_physically) ... ok
+test_seed_reproduces_initial_scene (test_conveyor.ConveyorPhysicsTests.test_seed_reproduces_initial_scene) ... ok
+test_short_run_accounts_for_every_cube (test_conveyor.ConveyorPhysicsTests.test_short_run_accounts_for_every_cube) ... ok
+test_stopped_surface_does_not_transport_cubes (test_conveyor.ConveyorPhysicsTests.test_stopped_surface_does_not_transport_cubes) ... ok
+test_arrival_requires_containment_contact_and_dwell (test_conveyor.ScoringTests.test_arrival_requires_containment_contact_and_dwell) ... ok
+test_color_and_destination_outcomes (test_conveyor.ScoringTests.test_color_and_destination_outcomes) ... ok
+test_cube_leaving_tray_loses_its_arrival (test_conveyor.ScoringTests.test_cube_leaving_tray_loses_its_arrival) ... ok
+test_declared_target_changes_scoring (test_conveyor.ScoringTests.test_declared_target_changes_scoring) ... ok
+test_missing_cube_and_backwards_time_are_rejected (test_conveyor.ScoringTests.test_missing_cube_and_backwards_time_are_rejected) ... ok
+test_soft_contact_tolerance_does_not_admit_outside_cubes (test_conveyor.ScoringTests.test_soft_contact_tolerance_does_not_admit_outside_cubes) ... ok
+test_stacked_cubes_require_support_chain (test_conveyor.ScoringTests.test_stacked_cubes_require_support_chain) ... ok
+test_stuck_lost_and_unresolved_are_distinct (test_conveyor.ScoringTests.test_stuck_lost_and_unresolved_are_distinct) ... ok
+test_rejection_stops_policy_without_hidden_retry (test_guarded_baseline.GuardedBaselineTests.test_rejection_stops_policy_without_hidden_retry) ... ok
+test_withdrawal_regression_via_public_interface_only (test_guarded_baseline.GuardedBaselineTests.test_withdrawal_regression_via_public_interface_only) ... ok
+test_bad_action_preserves_integration_state (test_humanoid.HumanoidTests.test_bad_action_preserves_integration_state) ... ok
+test_old_episode_does_not_inherit_reset_contact_telemetry (test_humanoid.HumanoidTests.test_old_episode_does_not_inherit_reset_contact_telemetry) ... ok
+test_physical_pick_place_and_resume (test_humanoid.HumanoidTests.test_physical_pick_place_and_resume) ... ok
+test_release_falls_under_gravity (test_humanoid.HumanoidTests.test_release_falls_under_gravity) ... ok
+test_release_regressions (test_humanoid.HumanoidTests.test_release_regressions) ... ok
+test_scorer_requires_lift_dwell_and_revokes_arrival (test_humanoid.HumanoidTests.test_scorer_requires_lift_dwell_and_revokes_arrival) ... ok
+test_supported_model_and_free_object (test_humanoid.HumanoidTests.test_supported_model_and_free_object) ... ok
+test_cli_persistence_malformed_json_and_completed_protection (test_humanoid_interface.InterfaceTests.test_cli_persistence_malformed_json_and_completed_protection) ... ok
+test_collision_rejection_preserves_full_state (test_humanoid_interface.InterfaceTests.test_collision_rejection_preserves_full_state) ... ok
+test_duplicate_and_stale_requests_after_reload (test_humanoid_interface.InterfaceTests.test_duplicate_and_stale_requests_after_reload) ... ok
+test_event_records_are_detached_and_strict_json (test_humanoid_interface.InterfaceTests.test_event_records_are_detached_and_strict_json) ... ok
+test_explicit_orientation_tracks_and_sign_equivalence (test_humanoid_interface.InterfaceTests.test_explicit_orientation_tracks_and_sign_equivalence) ... ok
+test_invalid_requests_preserve_state_and_are_logged (test_humanoid_interface.InterfaceTests.test_invalid_requests_preserve_state_and_are_logged) ... ok
+test_robot_state_has_no_task_or_score_fields (test_humanoid_interface.InterfaceTests.test_robot_state_has_no_task_or_score_fields) ... ok
+test_v4_recipe_hits_new_guard_without_advancing_rejected_move (test_humanoid_interface.InterfaceTests.test_v4_recipe_hits_new_guard_without_advancing_rejected_move) ... ok
+test_conventional_comparator_uses_physical_primitives (test_interactive.InteractiveTests.test_conventional_comparator_uses_physical_primitives) ... ok
+test_invalid_actions_and_early_finish_are_accounted_for (test_interactive.InteractiveTests.test_invalid_actions_and_early_finish_are_accounted_for) ... ok
+test_resume_preserves_physics_and_scorer (test_interactive.InteractiveTests.test_resume_preserves_physics_and_scorer) ... ok
+test_wrong_color_is_allowed_but_fails_independent_scoring (test_interactive.InteractiveTests.test_wrong_color_is_allowed_but_fails_independent_scoring) ... ok
+test_balanced_layouts_and_counting_truth (test_phase6.Phase6Tests.test_balanced_layouts_and_counting_truth) ... ok
+test_camera_geometry_and_parser (test_phase6.Phase6Tests.test_camera_geometry_and_parser) ... ok
+test_rule_scorer_counts_miss_without_promoting_third (test_phase6.Phase6Tests.test_rule_scorer_counts_miss_without_promoting_third) ... ok
+test_switch_cancels_pending_and_rejects_stale_observation (test_phase6.Phase6Tests.test_switch_cancels_pending_and_rejects_stale_observation) ... ok
+test_consecutive_targets_at_supported_spacing (test_pushing.PushingTests.test_consecutive_targets_at_supported_spacing) ... ok
+test_ik_failure_before_motion_preserves_live_state (test_pushing.PushingTests.test_ik_failure_before_motion_preserves_live_state) ... ok
+test_neighbors_pass_without_any_unintended_contact (test_pushing.PushingTests.test_neighbors_pass_without_any_unintended_contact) ... ok
+test_overload_is_reported_as_failure (test_pushing.PushingTests.test_overload_is_reported_as_failure) ... ok
+test_stationary_and_moving_rejections_have_contact_evidence (test_pushing.PushingTests.test_stationary_and_moving_rejections_have_contact_evidence) ... ok
+test_bad_preflight_preserves_live_state (test_realtime.RealtimeTests.test_bad_preflight_preserves_live_state) ... ok
+test_clock_and_cubes_advance_without_commands (test_realtime.RealtimeTests.test_clock_and_cubes_advance_without_commands) ... ok
+test_expired_unknown_observation_and_overlap_are_rejected (test_realtime.RealtimeTests.test_expired_unknown_observation_and_overlap_are_rejected) ... ok
+test_queued_sequence_physically_rejects_selected_cube (test_realtime.RealtimeTests.test_queued_sequence_physically_rejects_selected_cube) ... ok
+test_pickup_persist_hold_and_release (test_so101.PickupTests.test_pickup_persist_hold_and_release) ... ok
+test_unreachable_pose_does_not_move_simulation (test_so101.PickupTests.test_unreachable_pose_does_not_move_simulation) ... ok
+
+----------------------------------------------------------------------
+Ran 52 tests in 33.058s
+
+OK

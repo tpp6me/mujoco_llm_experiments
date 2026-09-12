@@ -1,0 +1,868 @@
+[
+  {
+    "seed": 312,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 10.093000000010393,
+    "max_object_bottom_m": 0.9206373746537805,
+    "max_object_penetration_m": 0.0013406644805030311,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.13245841718292187,
+        -0.36910923644207466,
+        0.7719985795388079
+      ],
+      "object_bottom": 0.7119985795387526,
+      "hand_xyz": [
+        0.23798322467243022,
+        -0.17948558073884985,
+        0.9723451820324504
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 352,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.363000000010798,
+    "max_object_bottom_m": 0.9195104320313618,
+    "max_object_penetration_m": 0.0012356385683014199,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.20247999902272817,
+        -0.343682979467588,
+        0.7369985795388081
+      ],
+      "object_bottom": 0.7119985795379813,
+      "hand_xyz": [
+        0.2379759319456784,
+        -0.17947328438336826,
+        0.9723750571035604
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 365,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.151000000010916,
+    "max_object_bottom_m": 0.9223772725740296,
+    "max_object_penetration_m": 0.00088171113472981,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.20419905895339244,
+        -0.35860292333937654,
+        0.7369985795388079
+      ],
+      "object_bottom": 0.711998579538366,
+      "hand_xyz": [
+        0.23798976823084225,
+        -0.17949398591551463,
+        0.9723219170446115
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 373,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.171000000010904,
+    "max_object_bottom_m": 0.9224699561968138,
+    "max_object_penetration_m": 0.0009673390586040368,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.2032913379142909,
+        -0.3570955595507042,
+        0.736998579538808
+      ],
+      "object_bottom": 0.7119985795384033,
+      "hand_xyz": [
+        0.23798196521877807,
+        -0.1794835237434878,
+        0.9723502525006915
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 300,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 10.458000000010191,
+    "max_object_bottom_m": 0.8755136614549237,
+    "max_object_penetration_m": 0.0011289859270326723,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.15137840470902955,
+        -0.357187107845489,
+        0.7719985795388079
+      ],
+      "object_bottom": 0.7119985795387291,
+      "hand_xyz": [
+        0.2380596404532305,
+        -0.17942457231528047,
+        0.9722883932350348
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 357,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.590000000010672,
+    "max_object_bottom_m": 0.8878762338426758,
+    "max_object_penetration_m": 0.0010402184508227204,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.14265814612879746,
+        -0.37528214523431824,
+        0.771998579538808
+      ],
+      "object_bottom": 0.7119985795386929,
+      "hand_xyz": [
+        0.2381194516669292,
+        -0.17941606595789217,
+        0.9721908562312136
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 358,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.64800000001064,
+    "max_object_bottom_m": 0.9236288176939462,
+    "max_object_penetration_m": 0.0012279148871152576,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.153526657305451,
+        -0.35841736390758255,
+        0.771998579538808
+      ],
+      "object_bottom": 0.7119985795386805,
+      "hand_xyz": [
+        0.2379793276898886,
+        -0.1794795919299106,
+        0.9723603619073744
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 393,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.534000000010703,
+    "max_object_bottom_m": 0.8647416960042164,
+    "max_object_penetration_m": 0.0010667031210638443,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.15509874185964956,
+        -0.3727717295092856,
+        0.7719985795388079
+      ],
+      "object_bottom": 0.7119985795387287,
+      "hand_xyz": [
+        0.23811294345892153,
+        -0.17943465745973725,
+        0.9721776005027357
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 301,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.403000000010776,
+    "max_object_bottom_m": 0.9224914486719209,
+    "max_object_penetration_m": 0.0013334173748132637,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.1940000733765114,
+        -0.32978862616904814,
+        0.736998579538808
+      ],
+      "object_bottom": 0.7119985795378814,
+      "hand_xyz": [
+        0.23797859131619456,
+        -0.17947799888689248,
+        0.9723638536238337
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 302,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.318000000010823,
+    "max_object_bottom_m": 0.9220536314670706,
+    "max_object_penetration_m": 0.0009940477332229065,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.20156265117611546,
+        -0.35261880968298215,
+        0.736998579538808
+      ],
+      "object_bottom": 0.7119985795382608,
+      "hand_xyz": [
+        0.23798194946319784,
+        -0.17948179207844725,
+        0.9723526202568407
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 303,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 10.53200000001015,
+    "max_object_bottom_m": 0.8697684105003493,
+    "max_object_penetration_m": 0.0009379458995415935,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.15259077672177196,
+        -0.35539897923510755,
+        0.7719985795388081
+      ],
+      "object_bottom": 0.7119985795387088,
+      "hand_xyz": [
+        0.2380782129209355,
+        -0.17942941363199413,
+        0.9722480104559118
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 304,
+    "cap": 0.235,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.569000000010684,
+    "max_object_bottom_m": 0.9250436134277349,
+    "max_object_penetration_m": 0.0010751743254626815,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.1632598953373978,
+        -0.3629341780672412,
+        0.7719985795388081
+      ],
+      "object_bottom": 0.7119985795387228,
+      "hand_xyz": [
+        0.23796576405524267,
+        -0.17946140357252285,
+        0.972409594338405
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 312,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.674000000010626,
+    "max_object_bottom_m": 0.9206372665536103,
+    "max_object_penetration_m": 0.001163907804288587,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.15751095358316378,
+        -0.36465618501388647,
+        0.7719985795388081
+      ],
+      "object_bottom": 0.71199857953867,
+      "hand_xyz": [
+        0.2379354571590453,
+        -0.17949933539994956,
+        0.9724135311002217
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 352,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.3610000000108,
+    "max_object_bottom_m": 0.9195102551983688,
+    "max_object_penetration_m": 0.0010472368957321883,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.20365735752866804,
+        -0.35158263338328416,
+        0.7369985795388079
+      ],
+      "object_bottom": 0.7119985795382547,
+      "hand_xyz": [
+        0.2379267079197353,
+        -0.17949052581603767,
+        0.9724413351062045
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 365,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.742000000010588,
+    "max_object_bottom_m": 0.9223774005936018,
+    "max_object_penetration_m": 0.0012553166043597673,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.13622796873683862,
+        -0.3685681016713283,
+        0.771998579538808
+      ],
+      "object_bottom": 0.7119985795386704,
+      "hand_xyz": [
+        0.23794047534820773,
+        -0.17950747947574758,
+        0.9723934126605807
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 373,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.999000000010446,
+    "max_object_bottom_m": 0.92246987976288,
+    "max_object_penetration_m": 0.0013962267228835546,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.14445901391994312,
+        -0.36592662121126535,
+        0.771998579538808
+      ],
+      "object_bottom": 0.7119985795387346,
+      "hand_xyz": [
+        0.2379340522893252,
+        -0.17949779749724343,
+        0.9724181655651984
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 300,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 10.458000000010191,
+    "max_object_bottom_m": 0.8755136614549237,
+    "max_object_penetration_m": 0.0011289859270326723,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.15137840470902955,
+        -0.357187107845489,
+        0.7719985795388079
+      ],
+      "object_bottom": 0.7119985795387291,
+      "hand_xyz": [
+        0.2380596404532305,
+        -0.17942457231528047,
+        0.9722883932350348
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 357,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.590000000010672,
+    "max_object_bottom_m": 0.8878762338426758,
+    "max_object_penetration_m": 0.0010402184508227204,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.14265814612879746,
+        -0.37528214523431824,
+        0.771998579538808
+      ],
+      "object_bottom": 0.7119985795386929,
+      "hand_xyz": [
+        0.2381194516669292,
+        -0.17941606595789217,
+        0.9721908562312136
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 358,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.66700000001063,
+    "max_object_bottom_m": 0.9236286015237933,
+    "max_object_penetration_m": 0.001301481356573365,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.15764885799498812,
+        -0.35820189610407616,
+        0.771998579538808
+      ],
+      "object_bottom": 0.7119985795387209,
+      "hand_xyz": [
+        0.2379308032542248,
+        -0.1794938667043769,
+        0.972429375965503
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 393,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.534000000010703,
+    "max_object_bottom_m": 0.8647416960042164,
+    "max_object_penetration_m": 0.0010667031210638443,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.15509874185964956,
+        -0.3727717295092856,
+        0.7719985795388079
+      ],
+      "object_bottom": 0.7119985795387287,
+      "hand_xyz": [
+        0.23811294345892153,
+        -0.17943465745973725,
+        0.9721776005027357
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 301,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 5.5170000000067425,
+    "max_object_bottom_m": 0.9224913903478524,
+    "max_object_penetration_m": 0.0013424069170144878,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.19810147387811705,
+        -0.32706153712055186,
+        0.7369985795388081
+      ],
+      "object_bottom": 0.7119985795375677,
+      "hand_xyz": [
+        0.23792984362967579,
+        -0.17949356837784927,
+        0.9724315285668673
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 302,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 9.075000000010958,
+    "max_object_bottom_m": 0.9220535651608427,
+    "max_object_penetration_m": 0.0015719844604911667,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.20445832413035891,
+        -0.36622099842971173,
+        0.7369985795388081
+      ],
+      "object_bottom": 0.7119985795382179,
+      "hand_xyz": [
+        0.23793319157623177,
+        -0.17949724237797712,
+        0.9724204805048546
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 303,
+    "cap": 0.24,
+    "error": null,
+    "success": true,
+    "lifted": true,
+    "settled_dwell_s": 10.53200000001015,
+    "max_object_bottom_m": 0.8697684105003493,
+    "max_object_penetration_m": 0.0009379458995415935,
+    "basket_floor_contact": true,
+    "hand_contact": false,
+    "supported_body": true,
+    "final": {
+      "time_s": 25.00000000000757,
+      "object_xyz": [
+        0.15259077672177196,
+        -0.35539897923510755,
+        0.7719985795388081
+      ],
+      "object_bottom": 0.7119985795387088,
+      "hand_xyz": [
+        0.2380782129209355,
+        -0.17942941363199413,
+        0.9722480104559118
+      ],
+      "object_contacts": [
+        "basket"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  },
+  {
+    "seed": 304,
+    "cap": 0.24,
+    "error": "Unreachable hand pose [0.24, -0.36367701140594455, 0.86]: residual 0.0005 m",
+    "success": false,
+    "lifted": true,
+    "settled_dwell_s": 0.0,
+    "max_object_bottom_m": 0.925027273461554,
+    "max_object_penetration_m": 0.0009658334087058731,
+    "basket_floor_contact": false,
+    "hand_contact": true,
+    "supported_body": true,
+    "final": {
+      "time_s": 10.999999999999343,
+      "object_xyz": [
+        0.12629170444231713,
+        -0.35589645186442087,
+        0.9776267425450245
+      ],
+      "object_bottom": 0.9250281324960489,
+      "hand_xyz": [
+        0.1884364774578226,
+        -0.35957346327036543,
+        0.9691556531262108
+      ],
+      "object_contacts": [
+        "right_hand_index_1_link",
+        "right_hand_middle_1_link",
+        "right_hand_thumb_2_link"
+      ],
+      "basket_xyz": [
+        0.18,
+        -0.36,
+        0.7
+      ],
+      "supported_body": true
+    }
+  }
+]

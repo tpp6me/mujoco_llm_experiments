@@ -98,8 +98,10 @@ def main():
                         from .render import snapshot
                         result = {'image':snapshot(env, args.output or args.episode/'snapshot.png', args.time, args.close)}
                     case 'record':
-                        from .render import record
-                        result = record(env, args.output or args.episode/'pick_place.mp4', args.fps)
+                        from .render import record, controller_label
+                        report_path = args.episode/'report.json'
+                        report = json.loads(report_path.read_text()) if report_path.exists() else {}
+                        result = record(env, args.output or args.episode/'pick_place.mp4', args.fps, controller_label(report))
             finally:
                 if mutating:
                     env.save(args.episode)

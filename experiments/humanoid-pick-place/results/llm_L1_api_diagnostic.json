@@ -1,0 +1,9 @@
+{
+  "http_status": 400,
+  "error_type": "invalid_request_error",
+  "error_code": "invalid_json_schema",
+  "parameter": "text.format.schema",
+  "message": "Invalid schema for response_format 'humanoid_primitive': In context=('properties', 'command', 'anyOf', '0', 'properties', 'action'), schema must have a 'type' key.",
+  "charged_estimate_usd": 0.089292,
+  "development_only": true
+}

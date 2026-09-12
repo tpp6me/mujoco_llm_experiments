@@ -1,4 +1,5 @@
 """Mechanics, independent scoring, and persistent action checks for supported G1."""
+import json
 import tempfile
 from pathlib import Path
 import unittest
@@ -88,6 +89,35 @@ class HumanoidTests(unittest.TestCase):
         self.assertLess(env.observe()['object_xyz'][2], height-.08)
         self.assertFalse(env.scorer.hand_contact)
         self.assertFalse(env.scorer.success)
+
+    def test_release_regressions(self):
+        # V3: seed 352 had a 15.4 mm withdrawal collision; seed 300 settled late.
+        for seed in (352, 300):
+            with self.subTest(seed=seed):
+                env = Environment()
+                env.reset(seed, True)
+                self.assertIsNone(run_baseline(env))
+                report = env.scorer.report()
+                self.assertLessEqual(report['max_object_penetration_m'], .002)
+                self.assertGreaterEqual(report['settled_dwell_s'], 2)
+                self.assertAlmostEqual(env.data.time, 25, places=6)
+                peak = report['peak_object_contact']
+                self.assertEqual(peak['penetration_m'], report['max_object_penetration_m'])
+                self.assertTrue(0 < peak['time_s'] <= env.data.time)
+                self.assertGreaterEqual(peak['normal_force_n'], 0)
+
+    def test_old_episode_does_not_inherit_reset_contact_telemetry(self):
+        env = Environment()
+        with tempfile.TemporaryDirectory() as folder:
+            env.save(folder)
+            path = Path(folder)/'metadata.json'
+            metadata = json.loads(path.read_text())
+            metadata['scorer'].pop('peak_contact')
+            path.write_text(json.dumps(metadata))
+            restored = Environment()
+            restored.load(folder)
+            self.assertIsNone(restored.scorer.report()['peak_object_contact'])
+            self.assertEqual(restored.scorer.max_penetration, env.scorer.max_penetration)
 
 
 if __name__ == '__main__':

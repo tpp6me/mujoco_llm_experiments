@@ -149,7 +149,8 @@ class Environment:
         return {'time_s':float(self.data.time), 'object_xyz':p.tolist(), 'object_bottom':float(p[2]-ext[2]), 'hand_xyz':self.data.site_xpos[self.site].tolist(), 'object_contacts':sorted(contacts), 'basket_xyz':[ *BASKET,TABLE_Z], 'supported_body':True}
 
     def event(self, action, args):
-        result={'action':action,'arguments':args,'observation':self.observe()}
+        result={'action':action,'arguments':args,'observation':self.observe(),
+                'score':self.scorer.report()}
         self.events.append(result)
         return result
 
@@ -170,6 +171,8 @@ class Environment:
         if metadata['scene_sha256'] != hashlib.sha256(SCENE.read_bytes()).hexdigest():
             raise ValueError('Saved episode scene differs from current scene; replay requires its original scene')
         self.seed, self.randomized = metadata['seed'], metadata['randomized']
+        # Older episodes did not record the identity of the peak contact.
+        self.scorer.peak_contact = None
         for key, value in metadata['scorer'].items():
             if key in vars(self.scorer) and key != 'model':
                 setattr(self.scorer, key, value)

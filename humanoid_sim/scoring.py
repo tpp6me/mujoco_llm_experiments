@@ -18,6 +18,7 @@ class Scorer:
         self.max_bottom=-float('inf')
         self.last_time=None
         self.max_penetration=0.
+        self.peak_contact=None
         self.support_contact=False
         self.hand_contact=False
 
@@ -28,11 +29,21 @@ class Scorer:
         extent=np.abs(data.xmat[self.object].reshape(3,3)) @ self.model.geom_size[self.geom]
         bottom=float(p[2]-extent[2]);self.max_bottom=max(self.max_bottom,bottom)
         support=False;hand=False
-        for c in data.contact:
+        for contact_id, c in enumerate(data.contact):
             if c.geom1==self.geom:other=c.geom2
             elif c.geom2==self.geom:other=c.geom1
             else:continue
-            self.max_penetration=max(self.max_penetration,float(-c.dist))
+            if -c.dist > self.max_penetration:
+                self.max_penetration = float(-c.dist)
+                force = np.zeros(6)
+                mujoco.mj_contactForce(self.model, data, contact_id, force)
+                self.peak_contact = {
+                    'time_s': float(data.time),
+                    'other_body': self.model.body(int(self.model.geom_bodyid[other])).name,
+                    'other_geom_id': int(other),
+                    'normal_force_n': float(force[0]),
+                    'penetration_m': self.max_penetration,
+                }
             if c.dist>.0005:continue
             support |= other==self.floor
             name=self.model.body(int(self.model.geom_bodyid[other])).name
@@ -51,4 +62,4 @@ class Scorer:
         self.success=bool(self.lifted and self.settled_dwell>=2.)
 
     def report(self):
-        return {'success':self.success,'lifted':bool(self.lifted),'settled_dwell_s':self.settled_dwell,'max_object_bottom_m':self.max_bottom,'max_object_penetration_m':self.max_penetration,'basket_floor_contact':self.support_contact,'hand_contact':self.hand_contact,'supported_body':True}
+        return {'success':self.success,'lifted':bool(self.lifted),'settled_dwell_s':self.settled_dwell,'max_object_bottom_m':self.max_bottom,'max_object_penetration_m':self.max_penetration,'peak_object_contact':self.peak_contact,'basket_floor_contact':self.support_contact,'hand_contact':self.hand_contact,'supported_body':True}

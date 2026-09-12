@@ -1,0 +1,425 @@
+{
+  "development_only": true,
+  "reports": [
+    {
+      "seed": 0,
+      "success": false,
+      "lifted": true,
+      "settled_dwell_s": 0.3979999999997794,
+      "max_object_bottom_m": 0.863247742606276,
+      "max_object_penetration_m": 0.0015565550910146614,
+      "peak_object_contact": {
+        "time_s": 13.923999999997722,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 10.077852548578294,
+        "penetration_m": 0.0015565550910146614
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": "move: rejected: Commanded joint path predicts robot/environment penetration over 2 mm",
+      "time_s": 14.999999999997126,
+      "gate_success": false
+    },
+    {
+      "seed": 300,
+      "success": false,
+      "lifted": true,
+      "settled_dwell_s": 0.17299999999990412,
+      "max_object_bottom_m": 0.8755136614549237,
+      "max_object_penetration_m": 0.0013486990259349123,
+      "peak_object_contact": {
+        "time_s": 13.92899999999772,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 5.391786888538009,
+        "penetration_m": 0.0013486990259349123
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": "move: rejected: Commanded joint path predicts robot/environment penetration over 2 mm",
+      "time_s": 14.999999999997126,
+      "gate_success": false
+    },
+    {
+      "seed": 312,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.38900000001023,
+      "max_object_bottom_m": 0.9206439229164438,
+      "max_object_penetration_m": 0.001163907804288587,
+      "peak_object_contact": {
+        "time_s": 6.7010000000005725,
+        "other_body": "right_hand_index_1_link",
+        "other_geom_id": 104,
+        "normal_force_n": 6.891189900330182,
+        "penetration_m": 0.001163907804288587
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 352,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.086000000010397,
+      "max_object_bottom_m": 0.9195164882102248,
+      "max_object_penetration_m": 0.0010320534128708885,
+      "peak_object_contact": {
+        "time_s": 13.94699999999771,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 5.594899387421176,
+        "penetration_m": 0.0010320534128708885
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 357,
+      "success": false,
+      "lifted": true,
+      "settled_dwell_s": 0.26799999999985147,
+      "max_object_bottom_m": 0.8878762338426758,
+      "max_object_penetration_m": 0.0013624589958962556,
+      "peak_object_contact": {
+        "time_s": 13.942999999997712,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 5.653802565728537,
+        "penetration_m": 0.0013624589958962556
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": "move: rejected: Commanded joint path predicts robot/environment penetration over 2 mm",
+      "time_s": 14.999999999997126,
+      "gate_success": false
+    },
+    {
+      "seed": 358,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.841000000009979,
+      "max_object_bottom_m": 0.923636852346087,
+      "max_object_penetration_m": 0.00122080967489205,
+      "peak_object_contact": {
+        "time_s": 13.957999999997703,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 0.0,
+        "penetration_m": 0.00122080967489205
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 365,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.888000000010507,
+      "max_object_bottom_m": 0.9223816038596441,
+      "max_object_penetration_m": 0.0017499837108481547,
+      "peak_object_contact": {
+        "time_s": 13.947999999997709,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 10.248781013647278,
+        "penetration_m": 0.0017499837108481547
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 373,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.984000000010454,
+      "max_object_bottom_m": 0.9224747202284581,
+      "max_object_penetration_m": 0.0009518703542396891,
+      "peak_object_contact": {
+        "time_s": 13.950999999997707,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 5.16377957182399,
+        "penetration_m": 0.0009518703542396891
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 393,
+      "success": false,
+      "lifted": true,
+      "settled_dwell_s": 0.8979999999995023,
+      "max_object_bottom_m": 0.8647416960042164,
+      "max_object_penetration_m": 0.0010667031210638443,
+      "peak_object_contact": {
+        "time_s": 6.7280000000005815,
+        "other_body": "right_hand_index_1_link",
+        "other_geom_id": 104,
+        "normal_force_n": 6.268801451610271,
+        "penetration_m": 0.0010667031210638443
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": "move: rejected: Commanded joint path predicts robot/environment penetration over 2 mm",
+      "time_s": 14.999999999997126,
+      "gate_success": false
+    },
+    {
+      "seed": 401,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.218000000010324,
+      "max_object_bottom_m": 0.9217754138599688,
+      "max_object_penetration_m": 0.005060788110608371,
+      "peak_object_contact": {
+        "time_s": 13.787999999997798,
+        "other_body": "right_hand_middle_1_link",
+        "other_geom_id": 100,
+        "normal_force_n": 1.5358844199371637,
+        "penetration_m": 0.005060788110608371
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": false
+    },
+    {
+      "seed": 403,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.505000000010165,
+      "max_object_bottom_m": 0.9257386248282826,
+      "max_object_penetration_m": 0.005082298292050592,
+      "peak_object_contact": {
+        "time_s": 13.80199999999779,
+        "other_body": "right_hand_middle_1_link",
+        "other_geom_id": 100,
+        "normal_force_n": 1.6648768101366607,
+        "penetration_m": 0.005082298292050592
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": false
+    },
+    {
+      "seed": 482,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.71400000001005,
+      "max_object_bottom_m": 0.9165503979300278,
+      "max_object_penetration_m": 0.001742329106770941,
+      "peak_object_contact": {
+        "time_s": 13.852999999997762,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 10.491352483968523,
+        "penetration_m": 0.001742329106770941
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 483,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.499000000010168,
+      "max_object_bottom_m": 0.9286097765020743,
+      "max_object_penetration_m": 0.0021776123046988614,
+      "peak_object_contact": {
+        "time_s": 13.94699999999771,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 10.749269769996054,
+        "penetration_m": 0.0021776123046988614
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": false
+    },
+    {
+      "seed": 301,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.585000000010675,
+      "max_object_bottom_m": 0.9224944692475001,
+      "max_object_penetration_m": 0.0034688399550886406,
+      "peak_object_contact": {
+        "time_s": 13.817999999997781,
+        "other_body": "right_hand_middle_1_link",
+        "other_geom_id": 100,
+        "normal_force_n": 0.0,
+        "penetration_m": 0.0034688399550886406
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": false
+    },
+    {
+      "seed": 302,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.054000000010415,
+      "max_object_bottom_m": 0.9220578277935297,
+      "max_object_penetration_m": 0.0016433510325717256,
+      "peak_object_contact": {
+        "time_s": 13.94499999999771,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 10.167096528220732,
+        "penetration_m": 0.0016433510325717256
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 303,
+      "success": false,
+      "lifted": true,
+      "settled_dwell_s": 0.2529999999998598,
+      "max_object_bottom_m": 0.8697684105003493,
+      "max_object_penetration_m": 0.0012004120767039224,
+      "peak_object_contact": {
+        "time_s": 13.916999999997726,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 5.460805259989762,
+        "penetration_m": 0.0012004120767039224
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": "move: rejected: Commanded joint path predicts robot/environment penetration over 2 mm",
+      "time_s": 14.999999999997126,
+      "gate_success": false
+    },
+    {
+      "seed": 304,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.02600000001043,
+      "max_object_bottom_m": 0.9250469124775708,
+      "max_object_penetration_m": 0.001360579893311422,
+      "peak_object_contact": {
+        "time_s": 13.955999999997704,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 6.105021925879958,
+        "penetration_m": 0.001360579893311422
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 305,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.290000000010284,
+      "max_object_bottom_m": 0.8664150580143344,
+      "max_object_penetration_m": 0.0015926317184517813,
+      "peak_object_contact": {
+        "time_s": 13.925999999997721,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 10.547255532532212,
+        "penetration_m": 0.0015926317184517813
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 306,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.198000000010335,
+      "max_object_bottom_m": 0.8658913895662776,
+      "max_object_penetration_m": 0.0011953079908285473,
+      "peak_object_contact": {
+        "time_s": 13.92899999999772,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 5.619776335371131,
+        "penetration_m": 0.0011953079908285473
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    },
+    {
+      "seed": 307,
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.157000000010358,
+      "max_object_bottom_m": 0.9228771670552902,
+      "max_object_penetration_m": 0.0019360464517929389,
+      "peak_object_contact": {
+        "time_s": 13.960999999997702,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 11.368866865659957,
+        "penetration_m": 0.0019360464517929389
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "error": null,
+      "time_s": 25.00000000000757,
+      "gate_success": true
+    }
+  ]
+}

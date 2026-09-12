@@ -12,10 +12,14 @@ from .baseline import run_baseline
 from .environment import Environment
 from .scene import ROOT, SCENE, COMMIT
 
+PROTOCOL = ROOT/'experiments/humanoid-pick-place/protocols/V4.md'
+PROTOCOL_ID = 'supported-g1-v4'
+DEADLINE_S = 25.
+
 
 def provenance():
-    paths = [SCENE, *sorted((ROOT/'humanoid_sim').glob('*.py'))]
-    return {'model_commit': COMMIT, 'mujoco': mujoco.__version__, 'numpy': np.__version__,
+    paths = [SCENE, PROTOCOL, *sorted((ROOT/'humanoid_sim').glob('*.py'))]
+    return {'protocol_id': PROTOCOL_ID, 'model_commit': COMMIT, 'mujoco': mujoco.__version__, 'numpy': np.__version__,
             'python': platform.python_version(), 'platform': platform.platform(),
             'source_sha256': {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}}
 
@@ -38,7 +42,8 @@ def run_trial(output, seed=0, randomize=False):
               'initial': initial, 'final': env.observe(), 'wall_seconds': time.monotonic()-started,
               'provenance': provenance()}
     report['physics_quality_pass'] = report['max_object_penetration_m'] <= .002
-    report['gate_success'] = bool(report['success'] and report['physics_quality_pass'] and error is None)
+    report['deadline_pass'] = env.data.time <= DEADLINE_S + 1e-6
+    report['gate_success'] = bool(report['success'] and report['physics_quality_pass'] and report['deadline_pass'] and error is None)
     env.save(output)
     (output/'report.json').write_text(json.dumps(report, indent=2)+'\n')
     return report

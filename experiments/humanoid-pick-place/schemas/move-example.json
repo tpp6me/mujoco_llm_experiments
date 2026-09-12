@@ -1,0 +1,20 @@
+{
+  "schema_version": "humanoid-actions-v2",
+  "instruction_version": 1,
+  "request_id": "reach-001",
+  "action": "move",
+  "arguments": {
+    "xyz_m": [
+      0.24,
+      -0.18,
+      0.94
+    ],
+    "quaternion_wxyz": [
+      0.5,
+      -0.5,
+      0.5,
+      0.5
+    ],
+    "seconds": 2
+  }
+}

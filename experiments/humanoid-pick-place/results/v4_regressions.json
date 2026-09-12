@@ -1,0 +1,733 @@
+{
+  "development_only": true,
+  "reports": [
+    {
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.049000000010418,
+      "max_object_bottom_m": 0.9206373746537805,
+      "max_object_penetration_m": 0.0014236469653112096,
+      "peak_object_contact": {
+        "time_s": 14.213999999997561,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 8.92326921613148,
+        "penetration_m": 0.0014236469653112096
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "seed": 312,
+      "randomized": true,
+      "controller": "conventional_exact_state",
+      "error": null,
+      "initial": {
+        "time_s": 0.5000000000000003,
+        "object_xyz": [
+          0.24148076307837155,
+          -0.1841460854580995,
+          0.7599985795388077
+        ],
+        "object_bottom": 0.6999985795386767,
+        "hand_xyz": [
+          0.2385147360376968,
+          -0.18032909726373042,
+          0.9332364710259523
+        ],
+        "object_contacts": [
+          "world"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "final": {
+        "time_s": 25.00000000000757,
+        "object_xyz": [
+          0.1351075054878629,
+          -0.3678998194464728,
+          0.771998579538808
+        ],
+        "object_bottom": 0.7119985795387638,
+        "hand_xyz": [
+          0.23798320884280566,
+          -0.17948585751584295,
+          0.9723448359258013
+        ],
+        "object_contacts": [
+          "basket"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "wall_seconds": 2.564005290998466,
+      "provenance": {
+        "protocol_id": "supported-g1-v4",
+        "model_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5",
+        "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+        "source_sha256": {
+          "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+          "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+          "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+          "humanoid_sim/__main__.py": "29ac2423ae1d78b2ea0cc4fc5318a9a0d39d3beefbb660610bd0d106510a2090",
+          "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+          "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+          "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+          "humanoid_sim/render.py": "a54de11f1b89ed48f782c73e2fe548977bcf1fdb20ed8204bd63590e4e081c6c",
+          "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+          "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386"
+        }
+      },
+      "physics_quality_pass": true,
+      "deadline_pass": true,
+      "gate_success": true
+    },
+    {
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.363000000010798,
+      "max_object_bottom_m": 0.9195104320313618,
+      "max_object_penetration_m": 0.0012356385683014199,
+      "peak_object_contact": {
+        "time_s": 14.320999999997502,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 4.429798196783254,
+        "penetration_m": 0.0012356385683014199
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "seed": 352,
+      "randomized": true,
+      "controller": "conventional_exact_state",
+      "error": null,
+      "initial": {
+        "time_s": 0.5000000000000003,
+        "object_xyz": [
+          0.23339516523539547,
+          -0.17791251396192806,
+          0.7599985795388082
+        ],
+        "object_bottom": 0.6999985795387271,
+        "hand_xyz": [
+          0.2385147360376968,
+          -0.18032909726373042,
+          0.9332364710259523
+        ],
+        "object_contacts": [
+          "world"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "final": {
+        "time_s": 25.00000000000757,
+        "object_xyz": [
+          0.20247999902272817,
+          -0.343682979467588,
+          0.7369985795388081
+        ],
+        "object_bottom": 0.7119985795379813,
+        "hand_xyz": [
+          0.2379759319456784,
+          -0.17947328438336826,
+          0.9723750571035604
+        ],
+        "object_contacts": [
+          "basket"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "wall_seconds": 2.603633208997053,
+      "provenance": {
+        "protocol_id": "supported-g1-v4",
+        "model_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5",
+        "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+        "source_sha256": {
+          "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+          "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+          "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+          "humanoid_sim/__main__.py": "29ac2423ae1d78b2ea0cc4fc5318a9a0d39d3beefbb660610bd0d106510a2090",
+          "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+          "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+          "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+          "humanoid_sim/render.py": "a54de11f1b89ed48f782c73e2fe548977bcf1fdb20ed8204bd63590e4e081c6c",
+          "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+          "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386"
+        }
+      },
+      "physics_quality_pass": true,
+      "deadline_pass": true,
+      "gate_success": true
+    },
+    {
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.151000000010916,
+      "max_object_bottom_m": 0.9223772725740296,
+      "max_object_penetration_m": 0.00088171113472981,
+      "peak_object_contact": {
+        "time_s": 6.7880000000006016,
+        "other_body": "right_hand_thumb_2_link",
+        "other_geom_id": 96,
+        "normal_force_n": 1.5510660866757793,
+        "penetration_m": 0.00088171113472981
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "seed": 365,
+      "randomized": true,
+      "controller": "conventional_exact_state",
+      "error": null,
+      "initial": {
+        "time_s": 0.5000000000000003,
+        "object_xyz": [
+          0.24777471278404128,
+          -0.17201335215808405,
+          0.7599985795388078
+        ],
+        "object_bottom": 0.6999985795387217,
+        "hand_xyz": [
+          0.2385147360376968,
+          -0.18032909726373042,
+          0.9332364710259523
+        ],
+        "object_contacts": [
+          "world"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "final": {
+        "time_s": 25.00000000000757,
+        "object_xyz": [
+          0.20419905895339244,
+          -0.35860292333937654,
+          0.7369985795388079
+        ],
+        "object_bottom": 0.711998579538366,
+        "hand_xyz": [
+          0.23798976823084225,
+          -0.17949398591551463,
+          0.9723219170446115
+        ],
+        "object_contacts": [
+          "basket"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "wall_seconds": 2.554995541999233,
+      "provenance": {
+        "protocol_id": "supported-g1-v4",
+        "model_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5",
+        "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+        "source_sha256": {
+          "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+          "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+          "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+          "humanoid_sim/__main__.py": "29ac2423ae1d78b2ea0cc4fc5318a9a0d39d3beefbb660610bd0d106510a2090",
+          "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+          "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+          "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+          "humanoid_sim/render.py": "a54de11f1b89ed48f782c73e2fe548977bcf1fdb20ed8204bd63590e4e081c6c",
+          "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+          "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386"
+        }
+      },
+      "physics_quality_pass": true,
+      "deadline_pass": true,
+      "gate_success": true
+    },
+    {
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.171000000010904,
+      "max_object_bottom_m": 0.9224699561968138,
+      "max_object_penetration_m": 0.0009673390586040368,
+      "peak_object_contact": {
+        "time_s": 14.381999999997468,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 5.0012244755003765,
+        "penetration_m": 0.0009673390586040368
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "seed": 373,
+      "randomized": true,
+      "controller": "conventional_exact_state",
+      "error": null,
+      "initial": {
+        "time_s": 0.5000000000000003,
+        "object_xyz": [
+          0.2532301873420863,
+          -0.17896998606073658,
+          0.7599985795388076
+        ],
+        "object_bottom": 0.6999985795387265,
+        "hand_xyz": [
+          0.2385147360376968,
+          -0.18032909726373042,
+          0.9332364710259523
+        ],
+        "object_contacts": [
+          "world"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "final": {
+        "time_s": 25.00000000000757,
+        "object_xyz": [
+          0.2032913379142909,
+          -0.3570955595507042,
+          0.736998579538808
+        ],
+        "object_bottom": 0.7119985795384033,
+        "hand_xyz": [
+          0.23798196521877807,
+          -0.1794835237434878,
+          0.9723502525006915
+        ],
+        "object_contacts": [
+          "basket"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "wall_seconds": 2.5630724170005124,
+      "provenance": {
+        "protocol_id": "supported-g1-v4",
+        "model_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5",
+        "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+        "source_sha256": {
+          "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+          "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+          "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+          "humanoid_sim/__main__.py": "29ac2423ae1d78b2ea0cc4fc5318a9a0d39d3beefbb660610bd0d106510a2090",
+          "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+          "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+          "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+          "humanoid_sim/render.py": "a54de11f1b89ed48f782c73e2fe548977bcf1fdb20ed8204bd63590e4e081c6c",
+          "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+          "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386"
+        }
+      },
+      "physics_quality_pass": true,
+      "deadline_pass": true,
+      "gate_success": true
+    },
+    {
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 10.51500000001016,
+      "max_object_bottom_m": 0.8755136614549237,
+      "max_object_penetration_m": 0.0007859587105493162,
+      "peak_object_contact": {
+        "time_s": 13.641999999997878,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 4.686343860979205,
+        "penetration_m": 0.0007859587105493162
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "seed": 300,
+      "randomized": true,
+      "controller": "conventional_exact_state",
+      "error": null,
+      "initial": {
+        "time_s": 0.5000000000000003,
+        "object_xyz": [
+          0.2451111003187431,
+          -0.17820219441770102,
+          0.7599985795388094
+        ],
+        "object_bottom": 0.6999985795387135,
+        "hand_xyz": [
+          0.2385147360376968,
+          -0.18032909726373042,
+          0.9332364710259523
+        ],
+        "object_contacts": [
+          "world"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "final": {
+        "time_s": 25.00000000000757,
+        "object_xyz": [
+          0.15189593010472133,
+          -0.35896482215661035,
+          0.771998579538808
+        ],
+        "object_bottom": 0.7119985795386878,
+        "hand_xyz": [
+          0.2380610267203745,
+          -0.17942456159607123,
+          0.9722858827953773
+        ],
+        "object_contacts": [
+          "basket"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "wall_seconds": 2.5148674580013903,
+      "provenance": {
+        "protocol_id": "supported-g1-v4",
+        "model_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5",
+        "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+        "source_sha256": {
+          "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+          "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+          "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+          "humanoid_sim/__main__.py": "29ac2423ae1d78b2ea0cc4fc5318a9a0d39d3beefbb660610bd0d106510a2090",
+          "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+          "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+          "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+          "humanoid_sim/render.py": "a54de11f1b89ed48f782c73e2fe548977bcf1fdb20ed8204bd63590e4e081c6c",
+          "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+          "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386"
+        }
+      },
+      "physics_quality_pass": true,
+      "deadline_pass": true,
+      "gate_success": true
+    },
+    {
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.573000000010682,
+      "max_object_bottom_m": 0.8878762338426758,
+      "max_object_penetration_m": 0.0010402184508227204,
+      "peak_object_contact": {
+        "time_s": 6.712000000000576,
+        "other_body": "right_hand_index_1_link",
+        "other_geom_id": 104,
+        "normal_force_n": 6.60308633608166,
+        "penetration_m": 0.0010402184508227204
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "seed": 357,
+      "randomized": true,
+      "controller": "conventional_exact_state",
+      "error": null,
+      "initial": {
+        "time_s": 0.5000000000000003,
+        "object_xyz": [
+          0.2334277893563881,
+          -0.18674649345508962,
+          0.7599985795388077
+        ],
+        "object_bottom": 0.6999985795387035,
+        "hand_xyz": [
+          0.2385147360376968,
+          -0.18032909726373042,
+          0.9332364710259523
+        ],
+        "object_contacts": [
+          "world"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "final": {
+        "time_s": 25.00000000000757,
+        "object_xyz": [
+          0.14482646555123063,
+          -0.37441447160286273,
+          0.771998579538808
+        ],
+        "object_bottom": 0.7119985795386565,
+        "hand_xyz": [
+          0.23811952718254398,
+          -0.1794159914507018,
+          0.9721908222692296
+        ],
+        "object_contacts": [
+          "basket"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "wall_seconds": 2.527294041999994,
+      "provenance": {
+        "protocol_id": "supported-g1-v4",
+        "model_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5",
+        "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+        "source_sha256": {
+          "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+          "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+          "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+          "humanoid_sim/__main__.py": "29ac2423ae1d78b2ea0cc4fc5318a9a0d39d3beefbb660610bd0d106510a2090",
+          "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+          "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+          "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+          "humanoid_sim/render.py": "a54de11f1b89ed48f782c73e2fe548977bcf1fdb20ed8204bd63590e4e081c6c",
+          "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+          "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386"
+        }
+      },
+      "physics_quality_pass": true,
+      "deadline_pass": true,
+      "gate_success": true
+    },
+    {
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.64800000001064,
+      "max_object_bottom_m": 0.9236288176939462,
+      "max_object_penetration_m": 0.0012279148871152576,
+      "peak_object_contact": {
+        "time_s": 13.939999999997713,
+        "other_body": "basket",
+        "other_geom_id": 106,
+        "normal_force_n": 3.4386525306211526,
+        "penetration_m": 0.0012279148871152576
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "seed": 358,
+      "randomized": true,
+      "controller": "conventional_exact_state",
+      "error": null,
+      "initial": {
+        "time_s": 0.5000000000000003,
+        "object_xyz": [
+          0.24321208654195584,
+          -0.1786755224108894,
+          0.7599985795388083
+        ],
+        "object_bottom": 0.6999985795387128,
+        "hand_xyz": [
+          0.2385147360376968,
+          -0.18032909726373042,
+          0.9332364710259523
+        ],
+        "object_contacts": [
+          "world"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "final": {
+        "time_s": 25.00000000000757,
+        "object_xyz": [
+          0.153526657305451,
+          -0.35841736390758255,
+          0.771998579538808
+        ],
+        "object_bottom": 0.7119985795386805,
+        "hand_xyz": [
+          0.2379793276898886,
+          -0.1794795919299106,
+          0.9723603619073744
+        ],
+        "object_contacts": [
+          "basket"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "wall_seconds": 2.5545219579980767,
+      "provenance": {
+        "protocol_id": "supported-g1-v4",
+        "model_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5",
+        "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+        "source_sha256": {
+          "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+          "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+          "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+          "humanoid_sim/__main__.py": "29ac2423ae1d78b2ea0cc4fc5318a9a0d39d3beefbb660610bd0d106510a2090",
+          "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+          "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+          "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+          "humanoid_sim/render.py": "a54de11f1b89ed48f782c73e2fe548977bcf1fdb20ed8204bd63590e4e081c6c",
+          "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+          "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386"
+        }
+      },
+      "physics_quality_pass": true,
+      "deadline_pass": true,
+      "gate_success": true
+    },
+    {
+      "success": true,
+      "lifted": true,
+      "settled_dwell_s": 9.534000000010703,
+      "max_object_bottom_m": 0.8647416960042164,
+      "max_object_penetration_m": 0.0010667031210638443,
+      "peak_object_contact": {
+        "time_s": 6.7280000000005815,
+        "other_body": "right_hand_index_1_link",
+        "other_geom_id": 104,
+        "normal_force_n": 6.268801451610271,
+        "penetration_m": 0.0010667031210638443
+      },
+      "basket_floor_contact": true,
+      "hand_contact": false,
+      "supported_body": true,
+      "seed": 393,
+      "randomized": true,
+      "controller": "conventional_exact_state",
+      "error": null,
+      "initial": {
+        "time_s": 0.5000000000000003,
+        "object_xyz": [
+          0.23641269648725777,
+          -0.18650540785630326,
+          0.7599985795388078
+        ],
+        "object_bottom": 0.6999985795387252,
+        "hand_xyz": [
+          0.2385147360376968,
+          -0.18032909726373042,
+          0.9332364710259523
+        ],
+        "object_contacts": [
+          "world"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "final": {
+        "time_s": 25.00000000000757,
+        "object_xyz": [
+          0.15509548407182372,
+          -0.37278115606831946,
+          0.771998579538808
+        ],
+        "object_bottom": 0.7119985795386868,
+        "hand_xyz": [
+          0.2381127981963865,
+          -0.17943474256769515,
+          0.9721777482590777
+        ],
+        "object_contacts": [
+          "basket"
+        ],
+        "basket_xyz": [
+          0.18,
+          -0.36,
+          0.7
+        ],
+        "supported_body": true
+      },
+      "wall_seconds": 2.457762415997422,
+      "provenance": {
+        "protocol_id": "supported-g1-v4",
+        "model_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+        "mujoco": "3.12.0",
+        "numpy": "2.5.3",
+        "python": "3.13.5",
+        "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+        "source_sha256": {
+          "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+          "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+          "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+          "humanoid_sim/__main__.py": "29ac2423ae1d78b2ea0cc4fc5318a9a0d39d3beefbb660610bd0d106510a2090",
+          "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+          "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+          "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+          "humanoid_sim/render.py": "a54de11f1b89ed48f782c73e2fe548977bcf1fdb20ed8204bd63590e4e081c6c",
+          "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+          "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386"
+        }
+      },
+      "physics_quality_pass": true,
+      "deadline_pass": true,
+      "gate_success": true
+    }
+  ]
+}

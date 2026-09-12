@@ -23,7 +23,16 @@ def snapshot(env, output, time_s=None, close=False):
     return str(output)
 
 
-def record(env, output, fps=30):
+def controller_label(report):
+    if report.get('controller') == 'llm':
+        model = report.get('provenance', {}).get('model', 'model unspecified')
+        return f'LLM: {model} | exact state'
+    if str(report.get('controller', '')).startswith('conventional'):
+        return 'conventional controller | no LLM'
+    return 'manual/unclassified policy'
+
+
+def record(env, output, fps=30, label='manual/unclassified policy'):
     from PIL import ImageDraw
     from so101_sim.video import record as record_trajectory
 
@@ -31,7 +40,7 @@ def record(env, output, fps=30):
         frame = Image.fromarray(pixels)
         draw = ImageDraw.Draw(frame)
         draw.rectangle((0, 0, 960, 46), fill=(20, 25, 32))
-        draw.text((15, 10), f'G1 | fixed pelvis | conventional controller | no LLM | t = {timestamp:.2f}s', fill='white')
+        draw.text((15, 10), f'G1 | fixed pelvis | {label} | t = {timestamp:.2f}s', fill='white')
         return np.asarray(frame)
 
     return record_trajectory(env, output, fps, camera_setup=configure_camera, annotate=annotate)
