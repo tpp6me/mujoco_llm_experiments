@@ -85,9 +85,14 @@ from a top-face center. This helper is therefore **not a qualified grasp-positio
 estimator or a conventional visual manipulation comparator**. It must not receive
 private truth as a correction in a future visual benchmark.
 
-Next: improve image-only pose estimation with declared object/plane assumptions,
-validate during grasp/transport/release and occlusion, then integrate and qualify
-a conventional visual policy. Only then run a matched visual LLM comparison.
+The subsequent [P1 estimator](POSE_RESULTS.md) separates the bright top surface
+and uses declared table/block geometry. On 20 fresh initial images it achieved
+0.518 mm mean and 2.418 mm maximum XY error, with all 20 within 5 mm.
+This validates an initial supported-block estimate under fixed lighting; Z comes
+from a prior and yaw accuracy was not scored. It does not qualify visual control.
+
+Next: validate carried-object pose and occlusion handling, then integrate and
+qualify a conventional visual policy before a matched visual LLM comparison.
 
 ## Evidence
 

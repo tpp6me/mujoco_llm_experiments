@@ -44,3 +44,9 @@ in `models/g1/`. Source archives do not duplicate the model mesh assets.
 state preservation passed; the centroid/known-plane estimate has up to 2.983 cm
 XY error. The head view crops the task. These are infrastructure checks, not
 visual-controller success rates. [Private validation data](results/visual_v1_validation.json).
+
+[P1 initial RGB position estimation](POSE_RESULTS.md), seeds 720–739: 20/20 fresh
+reset images within 5 mm XY error (mean 0.518 mm, maximum 2.418 mm). The previous
+centroid method averaged 23.463 mm on the same images. This uses known block/table
+geometry and fixed lighting; it is perception development, not robot qualification.
+[Private validation records](results/pose_P1.json).

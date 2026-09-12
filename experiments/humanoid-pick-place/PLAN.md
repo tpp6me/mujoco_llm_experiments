@@ -4,7 +4,7 @@ Started: 2026-09-11. Last updated: 2026-09-12.
 
 Robot: Unitree G1 with hands, simulated in MuJoCo.
 
-Current phase: **Phase 5 — prepare visual observations; analyze the exact-state pilot**
+Current phase: **Phase 5 — develop and validate RGB perception**
 
 This is the canonical, living plan for the experiment. Use it to choose the next
 work item and record progress across sessions. Keep commands in the
@@ -59,7 +59,7 @@ individual-finger control are outside the initial scope.
 | 2. Physical baseline and scorer | Complete | [V4](V4_RESULTS.md): 98/100 task successes, **96/100 strict passes**; ≥95 required |
 | 3. Action/observation interface | Complete for the declared recipe | [G2](GUARDED_RESULTS.md): 100/100 placements, 97/100 strict passes, zero rejections through interface v2 |
 | 4. LLM with exact state | Development pilot complete | [L2](LLM_RESULTS.md): LLM 0/3 placements, 1/3 lifts; conventional 3/3 placements; formal comparison pending |
-| 5. Visual action control | In progress | [RGB boundary](VISUAL.md) and freshness checks implemented; pixel-to-pose estimator, comparator and visual model runner pending |
+| 5. Visual action control | In progress | [RGB boundary](VISUAL.md) and freshness checks implemented; [P1 initial block estimate](POSE_RESULTS.md) passes 20/20 images within 5 mm; carried pose, comparator and visual model runner pending |
 | 6. Free-standing manipulation | Not started | Balance controller and mechanical requalification |
 | 7. Continuous-time execution | Not started | Independent physics/control loop and latency measurement |
 | 8. Robustness and recovery | Not started | Frozen challenge sets and recovery evaluation |
@@ -73,13 +73,15 @@ individual-finger control are outside the initial scope.
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
 - [x] Implement timestamped camera observations paired with robot-state-only inputs; see [visual boundary](VISUAL.md).
 - [x] Test that the visual observation payload excludes object truth and private scoring; model-runner access remains to be audited when connected.
+- [x] Validate initial upright block position from RGB and declared priors: [P1](POSE_RESULTS.md), 20/20 fresh images within 5 mm.
+- [ ] Validate carried-object pose and occlusion handling without private truth inputs.
 - [ ] Build a matched conventional vision comparator and freeze larger evaluations on unused seeds.
 
 The live exact-state L2 development pilot is complete: **LLM 0/3 placements,
 1/3 sustained lifts; conventional 3/3 placements and 2/3 strict passes**.
 All 18 L2 API calls completed. L1's three request-schema errors remain separately
 archived. See [pilot results](LLM_RESULTS.md) and the [runner guide](LLM_RUNNER.md).
-All 67 automated tests pass. These three cases do not establish a general model
+All 70 automated tests pass. These three cases do not establish a general model
 comparison; no visual policy, balance controller or walking policy has been evaluated.
 
 ## Phase 1 — Select the robot and build the supported scene
@@ -195,6 +197,8 @@ and comprehensive failure taxonomy remain pending.
 - [ ] Remove ground-truth object positions, identity labels, scorer flags, private
   reports, and other oracle data from the acting policy's accessible inputs.
 - [x] Add tests that verify public observation isolation and stale-image handling.
+- [x] Validate initial table-supported block position using RGB, calibration and declared geometry priors; [P1 results](POSE_RESULTS.md).
+- [ ] Extend pose estimation to carried, tilted and occluded blocks.
 - [ ] Implement a conventional camera-based perception comparator using equivalent sensor inputs.
 - [x] Declare the current observation as RGB-only; RGB-plus-depth remains a separate future condition. Do not supply
   perfect depth or object pose under an RGB-only label.
@@ -337,6 +341,7 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-11 | Guard v2, partial release, four retained development probes; 53 tests passed; two full guarded matrices | [G1](GUARDED_RESULTS.md): 85 strict passes, failed; G2: 97 strict passes, qualified; next Phase 4 LLM runner |
 | 2026-09-12 | Live exact-state runner, schema fix, matched three-case L2 pilot; 61 tests passed | [Results](LLM_RESULTS.md): LLM 0/3 placements, 1/3 lifts; conventional 3/3 placements; next observation isolation and vision |
 | 2026-09-12 | Grasp audit, RGB/robot observation boundary, stale-frame rejection, fixed/head captures; 67 tests passed | [Visual checks](VISUAL.md): five calibration/state checks pass; centroid pose error up to 3 cm, head view cropped; no visual policy evaluated |
+| 2026-09-12 | Frozen P1 initial RGB estimator tested on 20 fresh reset images; 70 tests passed | [P1](POSE_RESULTS.md): 20/20 within 5 mm; mean 0.518 mm, maximum 2.418 mm; carried-object perception and full visual control remain pending |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.

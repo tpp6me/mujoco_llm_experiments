@@ -1,0 +1,704 @@
+{
+  "development_only": true,
+  "status": "complete",
+  "records": [
+    {
+      "seed": 720,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.2315264559573645,
+          -0.19227331127634578,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": -0.026161522748451738,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1293,
+        "top_coverage_ratio": 1.0041323536742532,
+        "measured_top_spans_m": [
+          0.0504000121972246,
+          0.06997847804228949
+        ]
+      },
+      "xy_error_m": 0.00017026201063465919,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.015124568538217212,
+      "private_true_center_xyz": [
+        0.23156075013157038,
+        -0.19210653879096257,
+        0.7599985795388089
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 721,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.23654544401129418,
+          -0.18834020836577234,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.14214301689787612,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1296,
+        "top_coverage_ratio": 1.0101816055653434,
+        "measured_top_spans_m": [
+          0.050200803815917655,
+          0.07061439245721898
+        ]
+      },
+      "xy_error_m": 0.0004878509584258015,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.017525837534547752,
+      "private_true_center_xyz": [
+        0.23621199027980352,
+        -0.1879841084267216,
+        0.7599985795388086
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 722,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.23900463961483615,
+          -0.16822924980070508,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": -0.040309961470046396,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1273,
+        "top_coverage_ratio": 1.0110620400995498,
+        "measured_top_spans_m": [
+          0.05044687459278489,
+          0.07040077461256972
+        ]
+      },
+      "xy_error_m": 0.0001687226751134341,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.026952542188077477,
+      "private_true_center_xyz": [
+        0.2391205926163589,
+        -0.16810668454243302,
+        0.7599985795388083
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 723,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.23277660820489238,
+          -0.18168283079039432,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": -0.08746806658858852,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1276,
+        "top_coverage_ratio": 1.000806264714124,
+        "measured_top_spans_m": [
+          0.05010033440147715,
+          0.07041204242642012
+        ]
+      },
+      "xy_error_m": 0.00034667869592884776,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.020809153003921377,
+      "private_true_center_xyz": [
+        0.2328792643628452,
+        -0.18135169965104725,
+        0.7599985795388083
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 724,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.22779638661440366,
+          -0.16898286815150668,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.04357088936552045,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1270,
+        "top_coverage_ratio": 1.0079719109049181,
+        "measured_top_spans_m": [
+          0.05038222044992639,
+          0.06992639375073048
+        ]
+      },
+      "xy_error_m": 0.00020314638353276782,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.026755651097596096,
+      "private_true_center_xyz": [
+        0.22776188681724666,
+        -0.16878267270415942,
+        0.7599985795388073
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 725,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.24172299648308437,
+          -0.16918160385338232,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": -0.0837967216619353,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1246,
+        "top_coverage_ratio": 0.9887412243899228,
+        "measured_top_spans_m": [
+          0.05060728396431258,
+          0.07046476185611628
+        ]
+      },
+      "xy_error_m": 0.00046546561829989737,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.026788934479052028,
+      "private_true_center_xyz": [
+        0.24210501678341514,
+        -0.16891567391532628,
+        0.7599985795388077
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 726,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.23486317360472822,
+          -0.18109912943092735,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": -0.11890025565863915,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1281,
+        "top_coverage_ratio": 1.0052769880224892,
+        "measured_top_spans_m": [
+          0.049915030344546085,
+          0.07028322664298431
+        ]
+      },
+      "xy_error_m": 0.00040552752462335917,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.02112177717044123,
+      "private_true_center_xyz": [
+        0.23500582150095728,
+        -0.18071951890561413,
+        0.7599985795388076
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 727,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.23586502684919813,
+          -0.17017525241111942,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": -0.11094750485974036,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1254,
+        "top_coverage_ratio": 0.9941696702003088,
+        "measured_top_spans_m": [
+          0.05014458782053523,
+          0.0703619617226217
+        ]
+      },
+      "xy_error_m": 0.00033693500414047807,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.026243596841989063,
+      "private_true_center_xyz": [
+        0.23618306904589698,
+        -0.17006401231882298,
+        0.7599985795388088
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 728,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.2498777709930714,
+          -0.16700740923519436,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.15584304710861918,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1118,
+        "top_coverage_ratio": 0.8889681474213555,
+        "measured_top_spans_m": [
+          0.04836585736397263,
+          0.07170783536494181
+        ]
+      },
+      "xy_error_m": 0.0024181494369798833,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.02955530313725481,
+      "private_true_center_xyz": [
+        0.2521301265564664,
+        -0.16612744269287028,
+        0.7599985795388078
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 729,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.24494904194757822,
+          -0.16781014777819536,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.1594182131984101,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1260,
+        "top_coverage_ratio": 1.0011301744041947,
+        "measured_top_spans_m": [
+          0.05046130911173424,
+          0.07029163279449303
+        ]
+      },
+      "xy_error_m": 0.0002028420256798889,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.027197480188553978,
+      "private_true_center_xyz": [
+        0.24474628871655058,
+        -0.16781614900221822,
+        0.7599985795388083
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 730,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.23193009589206848,
+          -0.17502022867230696,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": -0.13374930245591532,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1266,
+        "top_coverage_ratio": 0.9991612552648153,
+        "measured_top_spans_m": [
+          0.05008212117222367,
+          0.07005566923784698
+        ]
+      },
+      "xy_error_m": 0.0002810435472911683,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.024194683804849144,
+      "private_true_center_xyz": [
+        0.23203864910373184,
+        -0.17476099581229193,
+        0.7599985795388077
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 731,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.23664851209972138,
+          -0.16502951579816985,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.15284483032695184,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1255,
+        "top_coverage_ratio": 0.9997401748380595,
+        "measured_top_spans_m": [
+          0.05040325002562278,
+          0.0702489264248195
+        ]
+      },
+      "xy_error_m": 0.0002799120138436684,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.02799122896824687,
+      "private_true_center_xyz": [
+        0.2363690308710221,
+        -0.16504503927390046,
+        0.7599985795388083
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 732,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.2451247298644969,
+          -0.19177179819897294,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.10734646625951894,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1299,
+        "top_coverage_ratio": 1.0092677469650482,
+        "measured_top_spans_m": [
+          0.050162664842872906,
+          0.07066135708582023
+        ]
+      },
+      "xy_error_m": 0.0004326099668260421,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.015744097741474717,
+      "private_true_center_xyz": [
+        0.24483724855896552,
+        -0.19144852450321778,
+        0.7599985795388082
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 733,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.22618260892634265,
+          -0.17122362988854933,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.01740947114598912,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1279,
+        "top_coverage_ratio": 1.0129983938908156,
+        "measured_top_spans_m": [
+          0.050264321052180025,
+          0.06988948240461684
+        ]
+      },
+      "xy_error_m": 0.0004883185697612431,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.02571421613731326,
+      "private_true_center_xyz": [
+        0.22652025887266694,
+        -0.17087085866052631,
+        0.7599985795388083
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 734,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.24595703244473402,
+          -0.16773956512639118,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.07899721076138344,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1233,
+        "top_coverage_ratio": 0.9797396007735764,
+        "measured_top_spans_m": [
+          0.05166593312460757,
+          0.07120234798709082
+        ]
+      },
+      "xy_error_m": 0.0009143698147118915,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.028087749062713815,
+      "private_true_center_xyz": [
+        0.2464903312241554,
+        -0.16699682387270728,
+        0.7599985795388078
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 735,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.23647838847411953,
+          -0.1692061890817401,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.142487580977684,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1260,
+        "top_coverage_ratio": 0.999829307730238,
+        "measured_top_spans_m": [
+          0.04995962307320853,
+          0.07000157108538596
+        ]
+      },
+      "xy_error_m": 0.00031041294542432285,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.02666390243078041,
+      "private_true_center_xyz": [
+        0.23617080547868302,
+        -0.16916436925862585,
+        0.7599985795388086
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 736,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.24544660892260667,
+          -0.18541985935672065,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.03787268744597605,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1293,
+        "top_coverage_ratio": 1.0106005672030582,
+        "measured_top_spans_m": [
+          0.05038901192577795,
+          0.07040767618205658
+        ]
+      },
+      "xy_error_m": 0.00035239995619385845,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.018669890346004834,
+      "private_true_center_xyz": [
+        0.24532815483850662,
+        -0.18508796425418755,
+        0.7599985795388075
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 737,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.2361127825048646,
+          -0.19081565260755382,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": -0.05862162793238013,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1294,
+        "top_coverage_ratio": 1.0062837170399632,
+        "measured_top_spans_m": [
+          0.05107648376641936,
+          0.07101848408450555
+        ]
+      },
+      "xy_error_m": 0.00038836727562394297,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.0159961915182577,
+      "private_true_center_xyz": [
+        0.2360097851790666,
+        -0.19044119207337962,
+        0.7599985795388075
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 738,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.24501837623520514,
+          -0.17737416239882123,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.10682641015093042,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1279,
+        "top_coverage_ratio": 1.007205526713608,
+        "measured_top_spans_m": [
+          0.050312669009673905,
+          0.07079805489923327
+        ]
+      },
+      "xy_error_m": 0.00029041923392627726,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.0226411135944886,
+      "private_true_center_xyz": [
+        0.2447745640367793,
+        -0.1772163684086534,
+        0.7599985795388083
+      ],
+      "state_preserved": true
+    },
+    {
+      "seed": 739,
+      "estimate": {
+        "detected": true,
+        "object_center_xyz_m": [
+          0.2464345601810456,
+          -0.1739731461021012,
+          0.76
+        ],
+        "top_face_yaw_rad_mod_pi": 0.014323355476032251,
+        "method": "bright_top_surface_known_plane",
+        "assumptions": [
+          "upright table-supported known cuboid",
+          "single red object",
+          "top brighter than side faces",
+          "fixed calibrated camera"
+        ],
+        "top_pixel_count": 1216,
+        "top_coverage_ratio": 0.960635663363299,
+        "measured_top_spans_m": [
+          0.05162363823963975,
+          0.07310762673707379
+        ]
+      },
+      "xy_error_m": 0.00142315522389944,
+      "within_5mm": true,
+      "old_centroid_xy_error_m": 0.02547541748949373,
+      "private_true_center_xyz": [
+        0.24755223715689023,
+        -0.17309214157942324,
+        0.7599985795388077
+      ],
+      "state_preserved": true
+    }
+  ],
+  "source_sha256": {
+    "humanoid_sim/vision_pose.py": "005911f63e4f2c63940477d2ab04983ca9218765fdf51a97297d6f5a43309108",
+    "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+    "humanoid_sim/render.py": "7c14067e1a3de6d145510353c13e0e59117ddef1321e58071f81abb2c9683e5b",
+    "humanoid_sim/guarded_evaluation.py": "f5fa8c492c575779de235d0ad5de0cb0600b3ec4201d851a568c87a194e9e339",
+    "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386",
+    "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+    "humanoid_sim/interface.py": "b9ba6c91fa2c34f248997c6ddc73957b66afcc5068fdcc8c45dbb995121e9afc",
+    "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+    "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+    "humanoid_sim/guarded_baseline.py": "38fab1b84b21e86087e860547fa28112850c30a0f30ff45e051bc47a406fc488",
+    "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+    "humanoid_sim/visual.py": "8a17935f50acf412b3a5050ffc57d4cb874ccf8be08d6cf2990275bd1f97b5cb",
+    "humanoid_sim/__main__.py": "4012b00a4d98e65c71f48835fcd6f9d8b29c011c0abb5f4275fc2780702c0237",
+    "humanoid_sim/llm_runner.py": "b7fbcc7a0cf54cf1484a96ce6e395d8e984ab95890be3b81fda58516129e0f8b",
+    "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+    "experiments/humanoid-pick-place/protocols/P1.md": "ef14cb13c43ba8fb2fe04df97056c087e525ef28d67e6658f0916913d9c8ad9b"
+  }
+}

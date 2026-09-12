@@ -1,0 +1,124 @@
+{
+  "camera": {
+    "width": 960,
+    "height": 720,
+    "projection": "pinhole",
+    "camera_world_xyz_m": [
+      0.23999999463558197,
+      -0.810534656047821,
+      2.023515462875366
+    ],
+    "world_to_camera_rotation": [
+      [
+        1.0,
+        -6.123233429181629e-17,
+        2.4517539044545777e-24
+      ],
+      [
+        -5.549534048139286e-17,
+        -0.9063077891669693,
+        -0.42261825717221474
+      ],
+      [
+        2.58779046230375e-17,
+        0.42261825717221474,
+        -0.9063077891669693
+      ]
+    ],
+    "focal_xy_px": [
+      869.1168717472739,
+      869.1168717472739
+    ],
+    "principal_xy_px": [
+      479.5,
+      359.5
+    ],
+    "axes": "camera X right, Y down, Z forward; world Z up; pixel centers indexed from 0"
+  },
+  "cases": [
+    {
+      "seed": 700,
+      "state_unchanged": true,
+      "rendered_red_bbox_px": [
+        457,
+        302,
+        493,
+        363
+      ],
+      "projected_geom_bbox_px": [
+        456.2551199296471,
+        302.05920614578747,
+        493.7430651847496,
+        376.8464313293385
+      ],
+      "pixel_detection": {
+        "detected": true,
+        "pixel_count": 2017,
+        "centroid_xy_px": [
+          475.23996033713433,
+          333.6717897868121
+        ],
+        "bbox_xyxy_px": [
+          457,
+          302,
+          493,
+          363
+        ],
+        "assumption": "single red object; visible red surface only, not a 3D pose"
+      },
+      "known_top_plane_estimate_xyz": [
+        0.23339957114956236,
+        -0.20517150469833845,
+        0.8199999999999998
+      ],
+      "private_true_center_xyz": [
+        0.23270007336991605,
+        -0.18732022827734263,
+        0.7599985795388091
+      ],
+      "xy_error_m": 0.017864975986620624
+    },
+    {
+      "seed": 701,
+      "state_unchanged": true,
+      "rendered_red_bbox_px": [
+        470,
+        292,
+        505,
+        363
+      ],
+      "projected_geom_bbox_px": [
+        469.85384276228604,
+        290.93953428284385,
+        505.6858106389724,
+        364.94417471963675
+      ],
+      "pixel_detection": {
+        "detected": true,
+        "pixel_count": 2214,
+        "centroid_xy_px": [
+          487.0691056910569,
+          328.5085817524842
+        ],
+        "bbox_xyxy_px": [
+          470,
+          292,
+          505,
+          363
+        ],
+        "assumption": "single red object; visible red surface only, not a 3D pose"
+      },
+      "known_top_plane_estimate_xyz": [
+        0.2517604582188987,
+        -0.19619547748975197,
+        0.8199999999999998
+      ],
+      "private_true_center_xyz": [
+        0.25268441040712314,
+        -0.16638014118573777,
+        0.7599985795388078
+      ],
+      "xy_error_m": 0.02982964911908271
+    }
+  ]
+}
