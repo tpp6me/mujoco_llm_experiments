@@ -66,3 +66,7 @@ The full image set is retained locally in `runtime/humanoid/pose-P1/`; these run
 images are ignored by Git. Two earlier RGB development fixtures are included with
 the tests. The source ZIP does not duplicate robot meshes; use the pinned assets
 and dependency lockfile in the repository. No model/API calls were made for P1.
+
+The subsequent [P3 carried-center candidate](CARRIED_POSE_RESULTS.md) was
+implemented and evaluated independently. It failed its frozen screen and remains
+disconnected from control; the P2 support-prior guard remains in effect.

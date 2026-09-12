@@ -64,3 +64,7 @@ to every image as a private invalid-prior diagnostic, outside the acting interfa
 - Evaluate visibility and recovery within actions, not only at action endpoints.
 - Integrate a conventional RGB controller without exact-state grasp checks or
   release offsets. Qualify its full physical task before a matched visual LLM run.
+
+The subsequent [P3 carried-center candidate](CARRIED_POSE_RESULTS.md) was
+implemented and evaluated independently. It failed its frozen screen and remains
+disconnected from control; the P2 support-prior guard remains in effect.

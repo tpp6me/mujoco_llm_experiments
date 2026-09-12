@@ -28,12 +28,12 @@ def write_json(path, value):
     path.write_text(json.dumps(value, indent=2)+'\n')
 
 
-def audit(output, seeds):
+def audit(output, seeds, protocol=PROTOCOL, protocol_id="P2"):
     output.mkdir(parents=True, exist_ok=False)
     paths = [*Path('humanoid_sim').glob('*.py'), Path('scenes/g1_pick_place.xml'),
-             Path('requirements-lock.txt'), PROTOCOL]
+             Path('requirements-lock.txt'), protocol]
     frozen = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
-    manifest = {'protocol': 'P2', 'seeds': list(seeds), 'source_sha256': frozen,
+    manifest = {'protocol': protocol_id, 'seeds': list(seeds), 'source_sha256': frozen,
                 'controller': 'conventional_exact_state_guarded_G2',
                 'development_only': True, 'observation_condition': 'fixed_camera_RGB'}
     write_json(output/'manifest.json', manifest)

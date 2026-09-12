@@ -90,3 +90,7 @@ representative RGB fixtures from development seed 740 are tracked in
 `tests/fixtures/humanoid_carried_rgb/`. The archive includes source and dependency
 lockfiles; it relies on the repository's pinned G1 mesh assets. No model/API calls
 were made for this work.
+
+The subsequent [P3 carried-center candidate](CARRIED_POSE_RESULTS.md) was
+implemented and evaluated independently. It failed its frozen screen and remains
+disconnected from control; the P2 support-prior guard remains in effect.

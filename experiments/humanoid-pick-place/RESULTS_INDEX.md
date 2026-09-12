@@ -56,3 +56,9 @@ geometry and fixed lighting; it is perception development, not robot qualificati
 images; the wrapper withheld 3D pose in all 220 post-action frames. Raw P1 accepted
 73/80 post-release frames with >5 mm 3D error (maximum 13.010 mm). This is a
 validity/visibility audit, not carried-pose or visual-control qualification.
+
+[P3 experimental carried-center estimate](CARRIED_POSE_RESULTS.md), seeds 800–809:
+40 original carried frames from 10 exact-state-driven episodes plus 80 correlated
+sensor corruptions. Originals: 19 accepted, 18 within 20 mm, one accepted error
+20.885 mm; partial blackout: one accepted error 22.992 mm. All 40 blank frames
+refused. The frozen screen failed; no estimator/control integration.
