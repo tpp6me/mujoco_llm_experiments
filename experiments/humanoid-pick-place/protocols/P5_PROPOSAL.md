@@ -39,7 +39,7 @@ Tracking remains an experimental candidate and **strictly disconnected from cont
 
 Development evaluation on seeds 820–829 under task 001 established:
 1. Reacquisition enabled tracking to recover at Lower on seeds 825 (2.66 mm error) and 828 (5.03 mm error) after transport rejection.
-2. In Seed 820, Lower was accepted with 21.94 mm error (+20.9 mm in Z), revealing that a 2-frame window (`[transport, lower]`) is susceptible to monocular line-of-sight depth ambiguity despite passing the 0.75 px RMS threshold.
+2. In Seed 820, Lower was accepted with 21.94 mm error. The world error vector is `[+1.120, -6.500, +20.922]` mm, which rotates into camera coordinates ($R_{w\to c}$) as `[+1.120, -2.951, -21.708]` mm along the camera line of sight (optical axis $+Z_c$). Monocular depth ambiguity is a hypothesis consistent with this line-of-sight error in a 2-frame window (`[transport, lower]`), though segmentation or optimization factors may also contribute.
 3. Across all 10 seeds, zero false positives were emitted during release or retract (0/20 accepted), and zero false positives were emitted during sensor disruption (0/20 on altered transport frames).
 
 ### Fixed Model Parameters

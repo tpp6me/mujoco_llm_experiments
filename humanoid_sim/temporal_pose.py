@@ -47,6 +47,10 @@ def prepare_frame(observation):
         geometry[target] = value
     if np.any(geometry['focal'] <= 0):
         raise ValueError('Invalid camera focal length')
+    cam_rot = geometry['rotation']
+    if (not np.allclose(cam_rot.T @ cam_rot, np.eye(3), atol=1e-4)
+            or abs(float(np.linalg.det(cam_rot)) - 1.0) > 1e-4):
+        raise ValueError('Invalid camera rotation')
     png = base64.b64decode(observation['rgb_png_base64'], validate=True)
     edges, points, diagnostics = silhouette_features(png, camera)
     if edges is None:
