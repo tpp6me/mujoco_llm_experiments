@@ -158,7 +158,8 @@ class TemporalPose:
     emitted while warming up or after refusal. Call invalidate() on known release
     or reset; the evaluator separately challenges an unannounced release.
     """
-    def __init__(self):
+    def __init__(self, reacquisition=False):
+        self.reacquisition = bool(reacquisition)
         self.frames = []
         self.seen = set()
         self.last_time = None
@@ -190,6 +191,7 @@ class TemporalPose:
         common = {'observation_id': identifier, 'time_s': timestamp,
                   'method': 'temporal_rigid_cuboid_silhouette', 'experimental': True,
                   'orientation_qualified': False, 'rigid_grasp_confirmed': False,
+                  'reacquisition_mode': self.reacquisition,
                   'assumptions': ['one fixed object-to-hand transform within each window',
                                   'known cuboid and P3 scene-color segmentation'], **diagnostic}
         if frame is None:
@@ -208,6 +210,21 @@ class TemporalPose:
             common['best_window_rms_px'] = hypotheses[0]['frame_rms_px']
         if result.get('reason') in ('poor_silhouette_fit', 'no_feasible_fit'):
             result['reason'] = 'inconsistent_rigid_transform'
-            self.invalidate()
+            if self.reacquisition:
+                self.frames = [frame]
+                common['reacquisition_seeded'] = True
+            else:
+                self.invalidate()
             common['history_cleared'] = True
         return {**result, **common}
+
+
+class TemporalReacquisitionPose(TemporalPose):
+    """Temporal pose tracker with reacquisition enabled.
+
+    On model mismatch, retains only the current valid image as a new seed.
+    Requires subsequent fresh motion evidence; does not produce an immediate
+    3D estimate or inherit prior transforms. Disconnected from control.
+    """
+    def __init__(self):
+        super().__init__(reacquisition=True)

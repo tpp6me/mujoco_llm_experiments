@@ -8,8 +8,8 @@ import unittest
 import numpy as np
 from PIL import Image
 
-from humanoid_sim.temporal_pose import (CORNERS, TemporalPose, convex_hull, fit_window,
-                                        rotation_vector_matrix)
+from humanoid_sim.temporal_pose import (CORNERS, TemporalPose, TemporalReacquisitionPose,
+                                        convex_hull, fit_window, rotation_vector_matrix)
 from humanoid_sim.carried_pose import select_hypotheses
 
 FIXTURES = Path(__file__).parent/'fixtures/humanoid_carried_rgb'
@@ -111,7 +111,142 @@ class TemporalPoseTests(unittest.TestCase):
                 reused['observation_id'] = 'new-id-same-time'
             with self.assertRaisesRegex(ValueError, 'strictly increasing'):
                 tracker.observe(reused)
-            self.assertEqual(tracker.frames, [])
+    def test_default_temporal_pose_preserves_p4_behavior(self):
+        tracker = TemporalPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        result = tracker.observe(observation(2))
+        self.assertFalse(result['detected'])
+        self.assertEqual(result['reason'], 'inconsistent_rigid_transform')
+        self.assertFalse(result['reacquisition_mode'])
+        self.assertNotIn('reacquisition_seeded', result)
+        self.assertEqual(tracker.frames, [])
+
+    def test_reacquisition_seeds_valid_image_without_immediate_position(self):
+        tracker = TemporalReacquisitionPose()
+        first = tracker.observe(observation(0))
+        second = tracker.observe(observation(1))
+        self.assertEqual(first['reason'], 'insufficient_motion_history')
+        self.assertEqual(second['reason'], 'insufficient_motion_history')
+        result = tracker.observe(observation(2))
+        self.assertFalse(result['detected'])
+        self.assertEqual(result['reason'], 'inconsistent_rigid_transform')
+        self.assertNotIn('object_center_xyz_m', result)
+        self.assertTrue(result['reacquisition_mode'])
+        self.assertTrue(result['reacquisition_seeded'])
+        # Exactly one valid frame is retained as the new recovery seed
+        self.assertEqual(len(tracker.frames), 1)
+        self.assertEqual(tracker.frames[0]['time_s'], observation(2)['time_s'])
+
+    def test_reacquisition_insufficient_motion_after_seed(self):
+        tracker = TemporalReacquisitionPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        tracker.observe(observation(2))
+        self.assertEqual(len(tracker.frames), 1)
+        # Feed next observation with hand moved only 2 cm (< 80 mm threshold)
+        small_motion = copy.deepcopy(observation(2))
+        small_motion['observation_id'] = 'small-motion-next'
+        small_motion['time_s'] = observation(2)['time_s'] + 0.5
+        hand_xyz = list(small_motion['robot_state']['robot']['hand_xyz_m'])
+        hand_xyz[2] += 0.02  # 20 mm translation
+        small_motion['robot_state']['robot']['hand_xyz_m'] = hand_xyz
+        res = tracker.observe(small_motion)
+        self.assertFalse(res['detected'])
+        self.assertEqual(res['reason'], 'insufficient_motion_history')
+        self.assertNotIn('object_center_xyz_m', res)
+        self.assertEqual(len(tracker.frames), 2)
+
+    def test_reacquisition_sufficient_motion_fits_fresh_window(self):
+        tracker = TemporalReacquisitionPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        tracker.observe(observation(2))
+        self.assertEqual(len(tracker.frames), 1)
+        # Feed next observation with hand moved 10 cm (>= 80 mm baseline)
+        large_motion = copy.deepcopy(observation(2))
+        large_motion['observation_id'] = 'large-motion-next'
+        large_motion['time_s'] = observation(2)['time_s'] + 1.0
+        hand_xyz = list(large_motion['robot_state']['robot']['hand_xyz_m'])
+        hand_xyz[2] -= 0.10  # 100 mm translation
+        large_motion['robot_state']['robot']['hand_xyz_m'] = hand_xyz
+        res = tracker.observe(large_motion)
+        # It evaluated the 2-frame window without inheriting prior transforms
+        self.assertIn('best_window_rms_px', res)
+        self.assertEqual(len(tracker.frames), 1 if not res['detected'] and res.get('reason') == 'inconsistent_rigid_transform' else len(tracker.frames))
+
+    def test_reacquisition_visibility_loss_clears_seeded_history(self):
+        tracker = TemporalReacquisitionPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        tracker.observe(observation(2))
+        self.assertEqual(len(tracker.frames), 1)
+        hidden = copy.deepcopy(observation(2))
+        hidden['observation_id'] = 'hidden-after-seed'
+        hidden['time_s'] = observation(2)['time_s'] + 0.5
+        buffer = io.BytesIO()
+        Image.new('RGB', (960, 720)).save(buffer, format='PNG')
+        hidden['rgb_png_base64'] = base64.b64encode(buffer.getvalue()).decode()
+        result = tracker.observe(hidden)
+        self.assertFalse(result['detected'])
+        self.assertEqual(result['history_size'], 0)
+        self.assertEqual(tracker.frames, [])
+
+    def test_reacquisition_malformed_metadata_clears_seeded_history(self):
+        tracker = TemporalReacquisitionPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        tracker.observe(observation(2))
+        self.assertEqual(len(tracker.frames), 1)
+        invalid = {'observation_id': 'bad', 'time_s': 'not-a-time'}
+        with self.assertRaisesRegex(ValueError, 'metadata'):
+            tracker.observe(invalid)
+        self.assertEqual(tracker.frames, [])
+
+    def test_reacquisition_reused_or_nonadvancing_clears_seeded_history(self):
+        tracker = TemporalReacquisitionPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        tracker.observe(observation(2))
+        self.assertEqual(len(tracker.frames), 1)
+        # Duplicate ID
+        dup = copy.deepcopy(observation(2))
+        dup['time_s'] = observation(2)['time_s'] + 0.5
+        with self.assertRaisesRegex(ValueError, 'strictly increasing'):
+            tracker.observe(dup)
+        self.assertEqual(tracker.frames, [])
+
+    def test_reacquisition_time_gap_clears_seeded_history(self):
+        tracker = TemporalReacquisitionPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        tracker.observe(observation(2))
+        self.assertEqual(len(tracker.frames), 1)
+        delayed = copy.deepcopy(observation(2))
+        delayed['observation_id'] = 'delayed-frame'
+        delayed['time_s'] = observation(2)['time_s'] + 10.0  # > 3.0 s MAX_GAP_S
+        result = tracker.observe(delayed)
+        self.assertEqual(result['reason'], 'insufficient_motion_history')
+        # Time gap cleared seed before adding new frame, so history size is 1
+        self.assertEqual(result['history_size'], 1)
+        self.assertEqual(len(tracker.frames), 1)
+
+    def test_reacquisition_explicit_invalidation_and_reset(self):
+        tracker = TemporalReacquisitionPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        tracker.observe(observation(2))
+        self.assertEqual(len(tracker.frames), 1)
+        # Explicit invalidation on release/reset
+        tracker.invalidate()
+        self.assertEqual(tracker.frames, [])
+        fresh = copy.deepcopy(observation(2))
+        fresh['observation_id'] = 'fresh-after-reset'
+        fresh['time_s'] = observation(2)['time_s'] + 0.5
+        result = tracker.observe(fresh)
+        self.assertEqual(result['reason'], 'insufficient_motion_history')
+        self.assertEqual(result['history_size'], 1)
+        self.assertEqual(len(tracker.frames), 1)
 
 
 if __name__ == '__main__':

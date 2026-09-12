@@ -76,8 +76,7 @@ individual-finger control are outside the initial scope.
 - [x] Validate initial upright block position from RGB and declared priors: [P1](POSE_RESULTS.md), 20/20 fresh images within 5 mm.
 - [x] Audit RGB visibility across manipulation endpoints and expire the table-support prior after interaction; see [P2](PERCEPTION_RESULTS.md).
 - [x] Implement and evaluate a monocular carried-center candidate on fresh trajectories and sensor corruptions; [P3](CARRIED_POSE_RESULTS.md) failed and remains disabled.
-- [x] Implement and freeze temporal RGB/hand-motion fitting: [P4](TEMPORAL_POSE_RESULTS.md) yielded 14/20 post-warmup targets within 20 mm (mean 3.645 mm), below the 16/20 coverage gate.
-- [ ] Add explicit reacquisition after model mismatch/loss and evaluate fresh motion evidence on new trajectories, counting added actions against the task budget. Implementation/development delegated via [AGY task 001](../../coordination/agy/tasks/001-reacquisition.md); fresh validation follows review.
+- [ ] Add explicit reacquisition after model mismatch/loss and evaluate fresh motion evidence on new trajectories, counting added actions against the task budget. Implementation and development complete via [AGY task 001](../../coordination/agy/tasks/001-reacquisition.md); see [development report](TEMPORAL_REACQUISITION_DEVELOPMENT.md) and proposed protocol [P5](protocols/P5_PROPOSAL.md); fresh validation follows Codex review.
 - [ ] Validate carried-object pose and occlusion handling without private truth inputs.
 - [ ] Build a matched conventional vision comparator and freeze larger evaluations on unused seeds.
 
@@ -352,6 +351,7 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-12 | Added RGB visibility tracking and explicit expiry of the initial table-support prior; 75 tests passed | [P2 audit](PERCEPTION_RESULTS.md) covers action endpoints in 20 exact-state-driven episodes; no carried 3D pose or visual control claimed |
 | 2026-09-12 | Implemented experimental monocular cuboid center fitting; 79 tests passed | [P3](CARRIED_POSE_RESULTS.md): 18/40 originals within 20 mm; one accepted error in originals and one in partial occlusion; failed screen, no control integration |
 | 2026-09-12 | Added temporal RGB/hand-motion candidate and post-audit metadata hardening; current suite 84 tests | [P4](TEMPORAL_POSE_RESULTS.md): 14/20 post-warmup targets, mean 3.645 mm / max 7.420 mm; 16/20 coverage gate failed; release and corrupted transport views withheld |
+| 2026-09-12 | Implemented temporal reacquisition candidate, verified input hardening, evaluated on seeds 820–829; 93 tests passed | [Development report](TEMPORAL_REACQUISITION_DEVELOPMENT.md): post-warmup coverage 17/20 accepted, 16/20 within 20 mm; seed 820 depth error 21.94 mm; proposed [P5](protocols/P5_PROPOSAL.md); disconnected from control |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.
