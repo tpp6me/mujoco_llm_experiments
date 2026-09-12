@@ -61,7 +61,7 @@ inputs. It must not mistake missing local artifacts for missing committed code.
 | Task | Status | Branch | Scope |
 |---|---|---|---|
 | [001](tasks/001-reacquisition.md) | [Accepted; integrated](reviews/001-acceptance.md) | `agy/001-reacquisition` | Implement and develop temporal reacquisition; propose fresh protocol, do not execute it |
-| [002](tasks/002-reacquisition-evidence.md) | Ready | `agy/002-reacquisition-evidence` | Test additional fresh-view evidence on development trajectories; no fresh P5 run |
+| [002](tasks/002-reacquisition-evidence.md) | [Changes requested](reviews/002-review.md) | `agy/002-reacquisition-evidence` | Test additional fresh-view evidence on development trajectories; no fresh P5 run |
 
 Use the [completion template](reports/TEMPLATE.md) and [review template](reviews/TEMPLATE.md).
 The experiment's [living checklist](../../experiments/humanoid-pick-place/PLAN.md)

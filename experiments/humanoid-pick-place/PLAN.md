@@ -70,7 +70,7 @@ individual-finger control are outside the initial scope.
 ## Next actions
 
 - [x] Integrate reviewed AGY task 001: 17/20 development targets accepted, 16 within 20 mm; seed 820 still fails accuracy.
-- [ ] Execute [AGY task 002](../../coordination/agy/tasks/002-reacquisition-evidence.md): compare additional fresh-view evidence before any P5 validation.
+- [ ] Complete and integrate [AGY task 002](../../coordination/agy/tasks/002-reacquisition-evidence.md): [review requests changes](../../coordination/agy/reviews/002-review.md) for observation matching, evidence preservation, replay provenance and reporting; 110 tests pass, no P5 validation.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -356,6 +356,8 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-12 | Added temporal RGB/hand-motion candidate and post-audit metadata hardening; current suite 84 tests | [P4](TEMPORAL_POSE_RESULTS.md): 14/20 post-warmup targets, mean 3.645 mm / max 7.420 mm; 16/20 coverage gate failed; release and corrupted transport views withheld |
 | 2026-09-12 | Implemented temporal reacquisition candidate, verified input hardening, evaluated on seeds 820–829; 93 tests passed | [Development report](TEMPORAL_REACQUISITION_DEVELOPMENT.md): post-warmup coverage 17/20 accepted, 16/20 within 20 mm; seed 820 depth error 21.94 mm; proposed [P5](protocols/P5_PROPOSAL.md); disconnected from control |
 | 2026-09-12 | Accepted AGY task 001 after three reviews; 106 tests independently passed | [Acceptance](../../coordination/agy/reviews/001-acceptance.md): evaluator failures retain accounting; known 21.94 mm error remains; task 002 ready, no fresh P5 run |
+
+| 2026-09-12 | Reviewed AGY task 002 at `6f4fb31`; 110 tests independently passed; changes requested | [Review](../../coordination/agy/reviews/002-review.md): midpoint improves seed 820 for both candidates; original-target mean 5.872 mm, missing-image mapping and evidence provenance need correction; no merge or P5 run |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.
