@@ -68,3 +68,15 @@ refused. The frozen screen failed; no estimator/control integration.
 No positions on release/retract or altered transport frames. The 16/20 coverage
 screen failed. Three correlated streams produced 180 responses from 10 episodes;
 no temporal estimate drove an action.
+
+[Temporal reacquisition development (Task 001)](TEMPORAL_REACQUISITION_DEVELOPMENT.md), seeds 820–829:
+17/20 post-warmup targets accepted, 16/20 within 20 mm (mean 4.744 mm). Seed 820 accepted at
+21.944 mm error due to optical-axis depth ambiguity. Zero accepted on release/retract or
+corrupted streams. Proposed protocol [P5](protocols/P5_PROPOSAL.md).
+
+[Multi-view reacquisition evidence (Task 002)](TEMPORAL_REACQUISITION_EVIDENCE.md), seeds 820–829:
+Comparing 2-frame vs 3-frame reacquisition across original (endpoint-only) and augmented
+(lowering midpoint at t=12.0s) streams. On the augmented stream, the 3-frame candidate recovers
+17/20 post-warmup targets with 100% within 20 mm (mean 5.066 mm, maximum 14.848 mm). Seed 820
+error drops from 21.937 mm to 14.848 mm. Zero accepted on release, retract, or corrupted streams.
+Results: [evidence development data](results/temporal_reacquisition_evidence_development.json).

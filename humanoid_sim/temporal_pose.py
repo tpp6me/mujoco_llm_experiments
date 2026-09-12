@@ -162,14 +162,17 @@ class TemporalPose:
     emitted while warming up or after refusal. Call invalidate() on known release
     or reset; the evaluator separately challenges an unannounced release.
     """
-    def __init__(self, reacquisition=False):
+    def __init__(self, reacquisition=False, min_reacquisition_frames=2):
         self.reacquisition = bool(reacquisition)
+        self.min_reacquisition_frames = int(min_reacquisition_frames)
+        self.recovering = False
         self.frames = []
         self.seen = set()
         self.last_time = None
 
     def invalidate(self):
         self.frames.clear()
+        self.recovering = False
 
     def observe(self, observation):
         try:
@@ -196,6 +199,7 @@ class TemporalPose:
                   'method': 'temporal_rigid_cuboid_silhouette', 'experimental': True,
                   'orientation_qualified': False, 'rigid_grasp_confirmed': False,
                   'reacquisition_mode': self.reacquisition,
+                  'min_reacquisition_frames': self.min_reacquisition_frames,
                   'assumptions': ['one fixed object-to-hand transform within each window',
                                   'known cuboid and P3 scene-color segmentation'], **diagnostic}
         if frame is None:
@@ -206,7 +210,8 @@ class TemporalPose:
         baseline = max(np.linalg.norm(a['hand']-b['hand']) for a in self.frames for b in self.frames)
         common.update({'history_size': len(self.frames), 'hand_baseline_m': float(baseline),
                        'window_times_s': [f['time_s'] for f in self.frames]})
-        if len(self.frames) < 2 or baseline < MIN_BASELINE_M:
+        required_frames = max(2, self.min_reacquisition_frames) if self.recovering else 2
+        if len(self.frames) < required_frames or baseline < MIN_BASELINE_M:
             return {'detected': False, 'reason': 'insufficient_motion_history', **common}
         hypotheses = fit_window(self.frames)
         result = select_hypotheses(hypotheses)
@@ -216,19 +221,34 @@ class TemporalPose:
             result['reason'] = 'inconsistent_rigid_transform'
             if self.reacquisition:
                 self.frames = [frame]
+                self.recovering = True
                 common['reacquisition_seeded'] = True
             else:
                 self.invalidate()
             common['history_cleared'] = True
+        elif result.get('detected'):
+            self.recovering = False
         return {**result, **common}
 
 
 class TemporalReacquisitionPose(TemporalPose):
-    """Temporal pose tracker with reacquisition enabled.
+    """Two-frame temporal pose tracker with reacquisition enabled (Task 001).
 
     On model mismatch, retains only the current valid image as a new seed.
-    Requires subsequent fresh motion evidence; does not produce an immediate
-    3D estimate or inherit prior transforms. Disconnected from control.
+    Requires subsequent fresh motion evidence (>=80 mm); fits across 2 or 3 frames.
+    Disconnected from control.
+    """
+    def __init__(self, min_reacquisition_frames=2):
+        super().__init__(reacquisition=True, min_reacquisition_frames=min_reacquisition_frames)
+
+
+class TemporalThreeFrameReacquisitionPose(TemporalPose):
+    """Three-frame temporal pose tracker with reacquisition enabled (Task 002).
+
+    On model mismatch, retains only the current valid image as a new seed.
+    Requires at least three distinct, fresh observations since the recovery seed
+    (e.g. seed + intermediate + endpoint) and >=80 mm motion before emitting a center.
+    Disconnected from control.
     """
     def __init__(self):
-        super().__init__(reacquisition=True)
+        super().__init__(reacquisition=True, min_reacquisition_frames=3)

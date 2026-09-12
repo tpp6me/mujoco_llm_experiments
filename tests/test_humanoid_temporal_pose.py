@@ -10,6 +10,7 @@ import numpy as np
 from PIL import Image
 
 from humanoid_sim.temporal_pose import (CORNERS, TemporalPose, TemporalReacquisitionPose,
+                                        TemporalThreeFrameReacquisitionPose,
                                         convex_hull, fit_window, prepare_frame,
                                         rotation_vector_matrix)
 from humanoid_sim.carried_pose import select_hypotheses
@@ -403,6 +404,135 @@ class TemporalPoseTests(unittest.TestCase):
         self.assertEqual(res['history_size'], 0)
         self.assertNotIn('reacquisition_seeded', res)
         self.assertEqual(tracker.frames, [])
+
+    def test_three_frame_reacquisition_refuses_after_only_two_views(self):
+        # Tracker requiring 3 frames since recovery seed
+        tracker_3f = TemporalThreeFrameReacquisitionPose()
+        tracker_3f.observe(observation(0))
+        tracker_3f.observe(observation(1))
+        # Observation 2 fails consistency and seeds reacquisition
+        r_seed = tracker_3f.observe(observation(2))
+        self.assertFalse(r_seed['detected'])
+        self.assertTrue(r_seed.get('reacquisition_seeded'))
+        self.assertTrue(tracker_3f.recovering)
+        self.assertEqual(len(tracker_3f.frames), 1)
+
+        # Feed second observation with hand moved >100 mm (baseline >= 80 mm)
+        obs_mid = copy.deepcopy(observation(2))
+        obs_mid['observation_id'] = 'obs-mid'
+        obs_mid['time_s'] = observation(2)['time_s'] + 0.5
+        hand_xyz = list(obs_mid['robot_state']['robot']['hand_xyz_m'])
+        hand_xyz[2] -= 0.10
+        obs_mid['robot_state']['robot']['hand_xyz_m'] = hand_xyz
+
+        mock_hypothesis = [
+            {
+                'rms_px': 0.05,
+                'frame_rms_px': [0.05, 0.05],
+                'center_xyz_m': [0.2, -0.35, 0.88],
+                'object_to_hand_offset_m': [0.0, 0.0, 0.0],
+            }
+            for _ in range(3)
+        ]
+        with patch('humanoid_sim.temporal_pose.fit_window', return_value=mock_hypothesis) as mock_fit:
+            res_3f = tracker_3f.observe(obs_mid)
+            # 3-frame condition CANNOT emit after only two views
+            self.assertFalse(res_3f['detected'])
+            self.assertEqual(res_3f['reason'], 'insufficient_motion_history')
+            self.assertEqual(len(tracker_3f.frames), 2)
+            # fit_window must NOT have been called because window size 2 < 3
+            mock_fit.assert_not_called()
+
+        # Contrast with 2-frame candidate on the exact same input:
+        tracker_2f = TemporalReacquisitionPose()
+        tracker_2f.observe(observation(0))
+        tracker_2f.observe(observation(1))
+        tracker_2f.observe(observation(2))
+        with patch('humanoid_sim.temporal_pose.fit_window', return_value=mock_hypothesis) as mock_fit:
+            res_2f = tracker_2f.observe(obs_mid)
+            # 2-frame candidate DOES emit because 2 frames satisfy its requirement
+            self.assertTrue(res_2f['detected'])
+            mock_fit.assert_called_once()
+
+    def test_three_frame_reacquisition_fits_on_third_fresh_view(self):
+        tracker = TemporalThreeFrameReacquisitionPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        tracker.observe(observation(2))
+        self.assertTrue(tracker.recovering)
+
+        # View 2: intermediate frame (moved 50 mm, total 50 mm)
+        obs_mid = copy.deepcopy(observation(2))
+        obs_mid['observation_id'] = 'view-2'
+        obs_mid['time_s'] = observation(2)['time_s'] + 0.5
+        h1 = list(obs_mid['robot_state']['robot']['hand_xyz_m'])
+        h1[2] -= 0.05
+        obs_mid['robot_state']['robot']['hand_xyz_m'] = h1
+        r_mid = tracker.observe(obs_mid)
+        self.assertFalse(r_mid['detected'])
+        self.assertEqual(r_mid['reason'], 'insufficient_motion_history')
+        self.assertEqual(len(tracker.frames), 2)
+
+        # View 3: third fresh frame (moved another 50 mm, total 100 mm >= 80 mm)
+        obs_end = copy.deepcopy(observation(2))
+        obs_end['observation_id'] = 'view-3'
+        obs_end['time_s'] = observation(2)['time_s'] + 1.0
+        h2 = list(obs_end['robot_state']['robot']['hand_xyz_m'])
+        h2[2] -= 0.10
+        obs_end['robot_state']['robot']['hand_xyz_m'] = h2
+
+        mock_hypothesis = [
+            {
+                'rms_px': 0.05,
+                'frame_rms_px': [0.05, 0.05, 0.05],
+                'center_xyz_m': [0.18, -0.36, 0.85],
+                'object_to_hand_offset_m': [0.0, 0.0, 0.0],
+            }
+            for _ in range(3)
+        ]
+        with patch('humanoid_sim.temporal_pose.fit_window', return_value=mock_hypothesis) as mock_fit:
+            r_end = tracker.observe(obs_end)
+            mock_fit.assert_called_once()
+            fitted_frames = mock_fit.call_args[0][0]
+            # Window must contain exactly 3 frames: [seed, view-2, view-3]
+            self.assertEqual(len(fitted_frames), 3)
+            self.assertEqual(fitted_frames[0]['time_s'], observation(2)['time_s'])
+            self.assertEqual(fitted_frames[1]['time_s'], obs_mid['time_s'])
+            self.assertEqual(fitted_frames[2]['time_s'], obs_end['time_s'])
+            # Pre-rejection observations 0 and 1 are NOT recycled
+            self.assertNotIn(observation(0)['time_s'], [f['time_s'] for f in fitted_frames])
+            self.assertNotIn(observation(1)['time_s'], [f['time_s'] for f in fitted_frames])
+            self.assertTrue(r_end['detected'])
+            self.assertEqual(r_end['object_center_xyz_m'], [0.18, -0.36, 0.85])
+            # Recovery state resets after successful detection
+            self.assertFalse(tracker.recovering)
+
+    def test_three_frame_reacquisition_invalidation_and_gap(self):
+        tracker = TemporalThreeFrameReacquisitionPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        tracker.observe(observation(2))
+        self.assertTrue(tracker.recovering)
+        self.assertEqual(len(tracker.frames), 1)
+
+        # Invalidation resets recovering flag and history
+        tracker.invalidate()
+        self.assertFalse(tracker.recovering)
+        self.assertEqual(tracker.frames, [])
+
+        # Time gap > 3.0s resets recovering flag and history
+        tracker = TemporalThreeFrameReacquisitionPose()
+        tracker.observe(observation(0))
+        tracker.observe(observation(1))
+        tracker.observe(observation(2))
+        self.assertTrue(tracker.recovering)
+        gap_obs = copy.deepcopy(observation(2))
+        gap_obs['observation_id'] = 'gap-obs'
+        gap_obs['time_s'] = observation(2)['time_s'] + 4.0
+        r_gap = tracker.observe(gap_obs)
+        self.assertFalse(r_gap['detected'])
+        self.assertEqual(len(tracker.frames), 1)  # Only the new frame after gap
+        self.assertFalse(tracker.recovering)  # History was invalidated on gap
 
 
 if __name__ == '__main__':

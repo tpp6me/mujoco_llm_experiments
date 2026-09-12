@@ -228,12 +228,14 @@ class TemporalReacquisitionEvaluationTests(unittest.TestCase):
             with patch('humanoid_sim.temporal_reacquisition_evaluation.TemporalPose',
                        return_value=mock_tracker), \
                  patch('humanoid_sim.temporal_reacquisition_evaluation.TemporalReacquisitionPose',
+                       return_value=mock_tracker), \
+                 patch('humanoid_sim.temporal_reacquisition_evaluation.TemporalThreeFrameReacquisitionPose',
                        return_value=mock_tracker):
                 results = evaluate_dataset(self.capture_dir, [seed_int])
 
             self.assertEqual(results['status'], 'incomplete',
                              f"Failed on case {case_name}: status should be incomplete")
-            for name in ['baseline_p4', 'reacquisition_candidate']:
+            for name in ['baseline_p4', 'reacquisition_2frame', 'reacquisition_3frame', 'reacquisition_candidate']:
                 agg = results['candidates'][name]['aggregate']['original']
                 # Acceptance remains visible!
                 self.assertEqual(agg['accepted'], 6,
@@ -252,6 +254,64 @@ class TemporalReacquisitionEvaluationTests(unittest.TestCase):
                 # Expected grid retained
                 records_list = results['candidates'][name]['records']
                 self.assertEqual(len(records_list), 18)  # 6 stages * 3 variants
+
+    def test_three_frame_reacquisition_evaluation_accounting_original_vs_augmented(self):
+        from humanoid_sim.temporal_reacquisition_evaluation import AUGMENTED_STAGES
+        from tests.test_humanoid_temporal_pose import observation
+
+        seed_dir = self.capture_dir / "seed-200"
+        seed_dir.mkdir(parents=True)
+        # Stages: lift, lift_hold, transport, lower_mid, lower, release, retract
+        records = [
+            {'stage': 'lift', 'time_s': 8.5, 'private_true_xyz_m': [0.2, -0.2, 0.9]},
+            {'stage': 'lift_hold', 'time_s': 9.0, 'private_true_xyz_m': [0.2, -0.2, 0.9]},
+            {'stage': 'transport', 'time_s': 11.0, 'private_true_xyz_m': [0.2, -0.2, 0.9]},
+            {'stage': 'lower_mid', 'time_s': 12.0, 'private_true_xyz_m': [0.2, -0.2, 0.9]},
+            {'stage': 'lower', 'time_s': 13.0, 'private_true_xyz_m': [0.2, -0.2, 0.9]},
+            {'stage': 'release', 'time_s': 15.0, 'private_true_xyz_m': [0.2, -0.2, 0.9]},
+            {'stage': 'retract', 'time_s': 17.0, 'private_true_xyz_m': [0.2, -0.2, 0.9]},
+        ]
+        (seed_dir / "private_records.json").write_text(json.dumps(records))
+        # Write observations: 00..06
+        for idx in range(7):
+            obs = observation(min(idx, 2))
+            obs['time_s'] = records[idx]['time_s']
+            obs['observation_id'] = f'obs-seed200-{idx}'
+            (seed_dir / f"{idx:02d}-observation.json").write_text(json.dumps(obs))
+
+        # 1. Original 6-stage stream (without lower_mid)
+        orig_seed_dir = self.capture_dir / "seed-201"
+        orig_seed_dir.mkdir(parents=True)
+        orig_records = [r for r in records if r['stage'] != 'lower_mid']
+        (orig_seed_dir / "private_records.json").write_text(json.dumps(orig_records))
+        for idx in range(6):
+            obs = observation(min(idx, 2))
+            obs['time_s'] = orig_records[idx]['time_s']
+            obs['observation_id'] = f'obs-seed201-{idx}'
+            (orig_seed_dir / f"{idx:02d}-observation.json").write_text(json.dumps(obs))
+
+        # Evaluate original stream (seeds=[201], stages=EXPECTED_STAGES)
+        res_orig = evaluate_dataset(self.capture_dir, [201], stages=EXPECTED_STAGES)
+        self.assertEqual(res_orig['status'], 'complete')
+        agg_orig_2f = res_orig['candidates']['reacquisition_2frame']['aggregate']['original']
+        agg_orig_3f = res_orig['candidates']['reacquisition_3frame']['aggregate']['original']
+        # Both must preserve nominal post-warmup targets = 2 (transport, lower)
+        self.assertEqual(agg_orig_2f['post_warmup_targets'], 2)
+        self.assertEqual(agg_orig_3f['post_warmup_targets'], 2)
+        self.assertEqual(agg_orig_2f['expected_responses'], 6)
+        self.assertEqual(agg_orig_3f['expected_responses'], 6)
+
+        # Evaluate augmented stream (seeds=[200], stages=AUGMENTED_STAGES)
+        res_aug = evaluate_dataset(self.capture_dir, [200], stages=AUGMENTED_STAGES)
+        self.assertEqual(res_aug['status'], 'complete')
+        agg_aug_2f = res_aug['candidates']['reacquisition_2frame']['aggregate']['original']
+        agg_aug_3f = res_aug['candidates']['reacquisition_3frame']['aggregate']['original']
+        # Nominal post-warmup targets remain fixed at 2 (transport, lower) even with lower_mid!
+        self.assertEqual(agg_aug_2f['post_warmup_targets'], 2)
+        self.assertEqual(agg_aug_3f['post_warmup_targets'], 2)
+        # Expected responses per stream is 7 (7 stages)
+        self.assertEqual(agg_aug_2f['expected_responses'], 7)
+        self.assertEqual(agg_aug_3f['expected_responses'], 7)
 
 
 if __name__ == '__main__':
