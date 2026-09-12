@@ -32,12 +32,16 @@
           "missing_responses": 0,
           "missing_or_error_details": [],
           "accepted": 14,
+          "scored_responses": 14,
+          "unscored_accepted": 0,
+          "missing_or_invalid_truth": 0,
           "within_20mm": 14,
           "accepted_over_20mm": 0,
           "accepted_mean_error_m": 0.0036447626143195143,
           "accepted_max_error_m": 0.007420041081561838,
           "post_warmup_targets": 20,
           "post_warmup_accepted": 14,
+          "post_warmup_scored": 14,
           "post_warmup_within_20mm": 14,
           "post_warmup_missing_or_refused": 6,
           "release_or_retract_accepted": 0,
@@ -52,12 +56,16 @@
           "missing_responses": 0,
           "missing_or_error_details": [],
           "accepted": 0,
+          "scored_responses": 0,
+          "unscored_accepted": 0,
+          "missing_or_invalid_truth": 0,
           "within_20mm": 0,
           "accepted_over_20mm": 0,
           "accepted_mean_error_m": null,
           "accepted_max_error_m": null,
           "post_warmup_targets": 20,
           "post_warmup_accepted": 0,
+          "post_warmup_scored": 0,
           "post_warmup_within_20mm": 0,
           "post_warmup_missing_or_refused": 20,
           "release_or_retract_accepted": 0,
@@ -73,12 +81,16 @@
           "missing_responses": 0,
           "missing_or_error_details": [],
           "accepted": 0,
+          "scored_responses": 0,
+          "unscored_accepted": 0,
+          "missing_or_invalid_truth": 0,
           "within_20mm": 0,
           "accepted_over_20mm": 0,
           "accepted_mean_error_m": null,
           "accepted_max_error_m": null,
           "post_warmup_targets": 20,
           "post_warmup_accepted": 0,
+          "post_warmup_scored": 0,
           "post_warmup_within_20mm": 0,
           "post_warmup_missing_or_refused": 20,
           "release_or_retract_accepted": 0,
@@ -116,9 +128,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.04346445799455978,
+          "elapsed_s": 0.04263791599078104,
           "private_true_xyz_m": [
             0.22233659747451992,
             -0.17711785641802286,
@@ -159,9 +172,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02687395799148362,
+          "elapsed_s": 0.027804833007394336,
           "private_true_xyz_m": [
             0.22306362707915064,
             -0.17766271204825324,
@@ -212,9 +226,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.1119428329984657,
+          "elapsed_s": 2.1623514590028208,
           "private_true_xyz_m": [
             0.15153734001728375,
             -0.3617144939805493,
@@ -254,9 +269,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027292208003927954,
+          "elapsed_s": 0.027653208002448082,
           "private_true_xyz_m": [
             0.179622286939489,
             -0.3588678855497586,
@@ -297,9 +313,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027091333002317697,
+          "elapsed_s": 0.026144041999941692,
           "private_true_xyz_m": [
             0.15255290880506764,
             -0.37569523365360963,
@@ -350,9 +367,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.8436808330006897,
+          "elapsed_s": 2.867954125002143,
           "private_true_xyz_m": [
             0.15255290884237604,
             -0.3756952336851387,
@@ -392,9 +410,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027113458010717295,
+          "elapsed_s": 0.027449458008049987,
           "private_true_xyz_m": [
             0.22233659747451992,
             -0.17711785641802286,
@@ -435,9 +454,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026141832990106195,
+          "elapsed_s": 0.0269250420096796,
           "private_true_xyz_m": [
             0.22306362707915064,
             -0.17766271204825324,
@@ -473,9 +493,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.021492083003977314,
+          "elapsed_s": 0.021751916996436194,
           "private_true_xyz_m": [
             0.15153734001728375,
             -0.3617144939805493,
@@ -515,9 +536,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026271333001204766,
+          "elapsed_s": 0.02683695800078567,
           "private_true_xyz_m": [
             0.179622286939489,
             -0.3588678855497586,
@@ -558,9 +580,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02794283299590461,
+          "elapsed_s": 0.02728220899007283,
           "private_true_xyz_m": [
             0.15255290880506764,
             -0.37569523365360963,
@@ -611,9 +634,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.847221999996691,
+          "elapsed_s": 2.8629957089870004,
           "private_true_xyz_m": [
             0.15255290884237604,
             -0.3756952336851387,
@@ -653,9 +677,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026814583005034365,
+          "elapsed_s": 0.028167166994535364,
           "private_true_xyz_m": [
             0.22233659747451992,
             -0.17711785641802286,
@@ -696,9 +721,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02842887499718927,
+          "elapsed_s": 0.02829616700182669,
           "private_true_xyz_m": [
             0.22306362707915064,
             -0.17766271204825324,
@@ -749,9 +775,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.9704356669972185,
+          "elapsed_s": 2.9904752500005998,
           "private_true_xyz_m": [
             0.15153734001728375,
             -0.3617144939805493,
@@ -791,9 +818,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027656250007566996,
+          "elapsed_s": 0.027080915999249555,
           "private_true_xyz_m": [
             0.179622286939489,
             -0.3588678855497586,
@@ -834,9 +862,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026635750007699244,
+          "elapsed_s": 0.026407832992845215,
           "private_true_xyz_m": [
             0.15255290880506764,
             -0.37569523365360963,
@@ -887,9 +916,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.8407227499992587,
+          "elapsed_s": 2.8634746659954544,
           "private_true_xyz_m": [
             0.15255290884237604,
             -0.3756952336851387,
@@ -929,9 +959,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027892209007404745,
+          "elapsed_s": 0.026352041008067317,
           "private_true_xyz_m": [
             0.19553507984051552,
             -0.18608209119639557,
@@ -972,9 +1003,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02646116701362189,
+          "elapsed_s": 0.026250708993757144,
           "private_true_xyz_m": [
             0.1953166047055955,
             -0.18612076956137566,
@@ -1028,9 +1060,10 @@
               0.17303639859964998
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.001568508299256288,
           "within_20mm": true,
-          "elapsed_s": 2.514243792000343,
+          "elapsed_s": 2.540329750001547,
           "private_true_xyz_m": [
             0.11728905863761253,
             -0.3627333097830655,
@@ -1084,9 +1117,10 @@
               0.24696098978889328
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0041984233939624666,
           "within_20mm": true,
-          "elapsed_s": 2.305094374998589,
+          "elapsed_s": 2.340602583004511,
           "private_true_xyz_m": [
             0.16115544542409577,
             -0.3582422344583082,
@@ -1137,9 +1171,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0284372919995803,
+          "elapsed_s": 3.0497545000107493,
           "private_true_xyz_m": [
             0.16000878332746832,
             -0.3645313011269213,
@@ -1179,9 +1214,10 @@
               16.999999999997794
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02640570799121633,
+          "elapsed_s": 0.02740766599890776,
           "private_true_xyz_m": [
             0.15829206713646066,
             -0.3646750814177765,
@@ -1221,9 +1257,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02817829199193511,
+          "elapsed_s": 0.026312208006856963,
           "private_true_xyz_m": [
             0.19553507984051552,
             -0.18608209119639557,
@@ -1264,9 +1301,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026194792008027434,
+          "elapsed_s": 0.026414207997731864,
           "private_true_xyz_m": [
             0.1953166047055955,
             -0.18612076956137566,
@@ -1302,9 +1340,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02112695800315123,
+          "elapsed_s": 0.02111245901323855,
           "private_true_xyz_m": [
             0.11728905863761253,
             -0.3627333097830655,
@@ -1344,9 +1383,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02607500000158325,
+          "elapsed_s": 0.02656891700462438,
           "private_true_xyz_m": [
             0.16115544542409577,
             -0.3582422344583082,
@@ -1387,9 +1427,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026586541993310675,
+          "elapsed_s": 0.02644104100181721,
           "private_true_xyz_m": [
             0.16000878332746832,
             -0.3645313011269213,
@@ -1440,9 +1481,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0892941249912838,
+          "elapsed_s": 3.103705583998817,
           "private_true_xyz_m": [
             0.15829206713646066,
             -0.3646750814177765,
@@ -1482,9 +1524,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027423125007771887,
+          "elapsed_s": 0.026832832998479716,
           "private_true_xyz_m": [
             0.19553507984051552,
             -0.18608209119639557,
@@ -1525,9 +1568,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026156583000556566,
+          "elapsed_s": 0.027544374999706633,
           "private_true_xyz_m": [
             0.1953166047055955,
             -0.18612076956137566,
@@ -1578,9 +1622,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.057517666995409,
+          "elapsed_s": 3.0724926670081913,
           "private_true_xyz_m": [
             0.11728905863761253,
             -0.3627333097830655,
@@ -1620,9 +1665,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026471084012882784,
+          "elapsed_s": 0.026228667004033923,
           "private_true_xyz_m": [
             0.16115544542409577,
             -0.3582422344583082,
@@ -1663,9 +1709,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02612208299979102,
+          "elapsed_s": 0.026704750009230338,
           "private_true_xyz_m": [
             0.16000878332746832,
             -0.3645313011269213,
@@ -1716,9 +1763,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.093172541994136,
+          "elapsed_s": 3.1164469579962315,
           "private_true_xyz_m": [
             0.15829206713646066,
             -0.3646750814177765,
@@ -1758,9 +1806,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026622000004863366,
+          "elapsed_s": 0.026633583998773247,
           "private_true_xyz_m": [
             0.18091327817510164,
             -0.19048058223795217,
@@ -1801,9 +1850,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02648220800620038,
+          "elapsed_s": 0.025925457986886613,
           "private_true_xyz_m": [
             0.1806685979684954,
             -0.19050522387729332,
@@ -1857,9 +1907,10 @@
               0.1757350159455601
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0022700389934526464,
           "within_20mm": true,
-          "elapsed_s": 2.630719084001612,
+          "elapsed_s": 2.7641480839956785,
           "private_true_xyz_m": [
             0.1149988300319548,
             -0.3626916689006106,
@@ -1913,9 +1964,10 @@
               0.21690172681096162
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.005002879275311008,
           "within_20mm": true,
-          "elapsed_s": 2.43707737501245,
+          "elapsed_s": 2.5894074160023592,
           "private_true_xyz_m": [
             0.158885359522929,
             -0.3581848516199885,
@@ -1966,9 +2018,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.253596665992518,
+          "elapsed_s": 3.4640955409995513,
           "private_true_xyz_m": [
             0.13999736537244928,
             -0.3516028861383227,
@@ -2008,9 +2061,10 @@
               16.999999999997794
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026256208002450876,
+          "elapsed_s": 0.028813750002882443,
           "private_true_xyz_m": [
             0.14058717662511588,
             -0.35171382516246036,
@@ -2050,9 +2104,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026200624997727573,
+          "elapsed_s": 0.027849207996041514,
           "private_true_xyz_m": [
             0.18091327817510164,
             -0.19048058223795217,
@@ -2093,9 +2148,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026035208997200243,
+          "elapsed_s": 0.027522958000190556,
           "private_true_xyz_m": [
             0.1806685979684954,
             -0.19050522387729332,
@@ -2131,9 +2187,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02106449998973403,
+          "elapsed_s": 0.021847583004273474,
           "private_true_xyz_m": [
             0.1149988300319548,
             -0.3626916689006106,
@@ -2173,9 +2230,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02601104200584814,
+          "elapsed_s": 0.029751000009127893,
           "private_true_xyz_m": [
             0.158885359522929,
             -0.3581848516199885,
@@ -2216,9 +2274,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02596458299376536,
+          "elapsed_s": 0.02810641699761618,
           "private_true_xyz_m": [
             0.13999736537244928,
             -0.3516028861383227,
@@ -2269,9 +2328,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.2849979999882635,
+          "elapsed_s": 3.392344125008094,
           "private_true_xyz_m": [
             0.14058717662511588,
             -0.35171382516246036,
@@ -2311,9 +2371,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026163207992794923,
+          "elapsed_s": 0.026592875001369976,
           "private_true_xyz_m": [
             0.18091327817510164,
             -0.19048058223795217,
@@ -2354,9 +2415,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02657758299028501,
+          "elapsed_s": 0.026167083997279406,
           "private_true_xyz_m": [
             0.1806685979684954,
             -0.19050522387729332,
@@ -2407,9 +2469,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.056922333998955,
+          "elapsed_s": 3.081330834000255,
           "private_true_xyz_m": [
             0.1149988300319548,
             -0.3626916689006106,
@@ -2449,9 +2512,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026357166992966086,
+          "elapsed_s": 0.026502708002226427,
           "private_true_xyz_m": [
             0.158885359522929,
             -0.3581848516199885,
@@ -2492,9 +2556,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02600879101373721,
+          "elapsed_s": 0.026306625004508533,
           "private_true_xyz_m": [
             0.13999736537244928,
             -0.3516028861383227,
@@ -2545,9 +2610,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.260270082988427,
+          "elapsed_s": 3.276253916992573,
           "private_true_xyz_m": [
             0.14058717662511588,
             -0.35171382516246036,
@@ -2587,9 +2653,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02650579200417269,
+          "elapsed_s": 0.026794999997946434,
           "private_true_xyz_m": [
             0.18801635316676313,
             -0.17164116997990667,
@@ -2630,9 +2697,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02790783300588373,
+          "elapsed_s": 0.026021249999757856,
           "private_true_xyz_m": [
             0.18773274356467257,
             -0.17167432364769897,
@@ -2686,9 +2754,10 @@
               0.1922337578383862
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.002889475768293624,
           "within_20mm": true,
-          "elapsed_s": 2.48010683299799,
+          "elapsed_s": 2.4930806670017773,
           "private_true_xyz_m": [
             0.12067061267558335,
             -0.3622265186944465,
@@ -2742,9 +2811,10 @@
               0.27371101250992674
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.007420041081561838,
           "within_20mm": true,
-          "elapsed_s": 2.372998541992274,
+          "elapsed_s": 2.329302333004307,
           "private_true_xyz_m": [
             0.16437743517732117,
             -0.3582299467046409,
@@ -2795,9 +2865,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1667503339995164,
+          "elapsed_s": 3.154380958992988,
           "private_true_xyz_m": [
             0.16860226429792183,
             -0.3593289389112,
@@ -2837,9 +2908,10 @@
               16.999999999997794
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026446042000316083,
+          "elapsed_s": 0.02635924999776762,
           "private_true_xyz_m": [
             0.16860226429641317,
             -0.3593289388579477,
@@ -2879,9 +2951,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026239416998578236,
+          "elapsed_s": 0.026087249992997386,
           "private_true_xyz_m": [
             0.18801635316676313,
             -0.17164116997990667,
@@ -2922,9 +2995,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026184750007814728,
+          "elapsed_s": 0.026119000001926906,
           "private_true_xyz_m": [
             0.18773274356467257,
             -0.17167432364769897,
@@ -2960,9 +3034,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.021717708004871383,
+          "elapsed_s": 0.021155416005058214,
           "private_true_xyz_m": [
             0.12067061267558335,
             -0.3622265186944465,
@@ -3002,9 +3077,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026438834000146016,
+          "elapsed_s": 0.02616670899442397,
           "private_true_xyz_m": [
             0.16437743517732117,
             -0.3582299467046409,
@@ -3045,9 +3121,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.025987000000895932,
+          "elapsed_s": 0.02591795900661964,
           "private_true_xyz_m": [
             0.16860226429792183,
             -0.3593289389112,
@@ -3098,9 +3175,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1122082920046523,
+          "elapsed_s": 3.14923120799358,
           "private_true_xyz_m": [
             0.16860226429641317,
             -0.3593289388579477,
@@ -3140,9 +3218,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026783459004946053,
+          "elapsed_s": 0.026262334009516053,
           "private_true_xyz_m": [
             0.18801635316676313,
             -0.17164116997990667,
@@ -3183,9 +3262,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026050291999126785,
+          "elapsed_s": 0.026187040988588706,
           "private_true_xyz_m": [
             0.18773274356467257,
             -0.17167432364769897,
@@ -3236,9 +3316,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.033782500002417,
+          "elapsed_s": 3.03242337499978,
           "private_true_xyz_m": [
             0.12067061267558335,
             -0.3622265186944465,
@@ -3278,9 +3359,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026671458006603643,
+          "elapsed_s": 0.026982332987245172,
           "private_true_xyz_m": [
             0.16437743517732117,
             -0.3582299467046409,
@@ -3321,9 +3403,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02671287499833852,
+          "elapsed_s": 0.025854666993836872,
           "private_true_xyz_m": [
             0.16860226429792183,
             -0.3593289389112,
@@ -3374,9 +3457,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1434734579961514,
+          "elapsed_s": 3.1409188749967143,
           "private_true_xyz_m": [
             0.16860226429641317,
             -0.3593289388579477,
@@ -3416,9 +3500,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.0263678329938557,
+          "elapsed_s": 0.028497833001893014,
           "private_true_xyz_m": [
             0.19323492693370767,
             -0.1889130067712887,
@@ -3459,9 +3544,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026255374992615543,
+          "elapsed_s": 0.026225082998280413,
           "private_true_xyz_m": [
             0.19287129093156472,
             -0.18929461344106108,
@@ -3515,9 +3601,10 @@
               0.18238897376911045
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0039654396347066,
           "within_20mm": true,
-          "elapsed_s": 2.7212122500059195,
+          "elapsed_s": 2.729781208996428,
           "private_true_xyz_m": [
             0.12061831462108745,
             -0.3636802276433761,
@@ -3571,9 +3658,10 @@
               0.22963919553813605
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0008638597235996825,
           "within_20mm": true,
-          "elapsed_s": 2.0472269999881973,
+          "elapsed_s": 2.0554575419955654,
           "private_true_xyz_m": [
             0.1642774108116628,
             -0.3585611132599709,
@@ -3624,9 +3712,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.883287125005154,
+          "elapsed_s": 2.9109607090067584,
           "private_true_xyz_m": [
             0.1640005640384955,
             -0.36720393823205427,
@@ -3666,9 +3755,10 @@
               16.999999999997794
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02640229200187605,
+          "elapsed_s": 0.02675699999963399,
           "private_true_xyz_m": [
             0.16826705316766338,
             -0.367297154808098,
@@ -3708,9 +3798,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026005125007941388,
+          "elapsed_s": 0.026545708009507507,
           "private_true_xyz_m": [
             0.19323492693370767,
             -0.1889130067712887,
@@ -3751,9 +3842,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026702000002842396,
+          "elapsed_s": 0.025972332994570024,
           "private_true_xyz_m": [
             0.19287129093156472,
             -0.18929461344106108,
@@ -3789,9 +3881,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.0212284580047708,
+          "elapsed_s": 0.02111958399473224,
           "private_true_xyz_m": [
             0.12061831462108745,
             -0.3636802276433761,
@@ -3831,9 +3924,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02596508400165476,
+          "elapsed_s": 0.02589024999178946,
           "private_true_xyz_m": [
             0.1642774108116628,
             -0.3585611132599709,
@@ -3874,9 +3968,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026186749993939884,
+          "elapsed_s": 0.025767208004253916,
           "private_true_xyz_m": [
             0.1640005640384955,
             -0.36720393823205427,
@@ -3919,9 +4014,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0603973339893855,
+          "elapsed_s": 3.0837897910096217,
           "private_true_xyz_m": [
             0.16826705316766338,
             -0.367297154808098,
@@ -3961,9 +4057,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026792249991558492,
+          "elapsed_s": 0.026285083004040644,
           "private_true_xyz_m": [
             0.19323492693370767,
             -0.1889130067712887,
@@ -4004,9 +4101,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026578874996630475,
+          "elapsed_s": 0.027174875009222887,
           "private_true_xyz_m": [
             0.19287129093156472,
             -0.18929461344106108,
@@ -4057,9 +4155,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.9900934170000255,
+          "elapsed_s": 3.0159310839953832,
           "private_true_xyz_m": [
             0.12061831462108745,
             -0.3636802276433761,
@@ -4099,9 +4198,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02779799999552779,
+          "elapsed_s": 0.02640154199616518,
           "private_true_xyz_m": [
             0.1642774108116628,
             -0.3585611132599709,
@@ -4142,9 +4242,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02615320800396148,
+          "elapsed_s": 0.025985708998632617,
           "private_true_xyz_m": [
             0.1640005640384955,
             -0.36720393823205427,
@@ -4187,9 +4288,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.061266250006156,
+          "elapsed_s": 3.0816012499999488,
           "private_true_xyz_m": [
             0.16826705316766338,
             -0.367297154808098,
@@ -4229,9 +4331,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02649725000082981,
+          "elapsed_s": 0.02644891699310392,
           "private_true_xyz_m": [
             0.20656236670826594,
             -0.1933753342331145,
@@ -4272,9 +4375,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026127167002414353,
+          "elapsed_s": 0.02735120800207369,
           "private_true_xyz_m": [
             0.20702776406439027,
             -0.19403185267209636,
@@ -4325,9 +4429,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.5345394169999054,
+          "elapsed_s": 2.556792999996105,
           "private_true_xyz_m": [
             0.15297872880970484,
             -0.36174698522977544,
@@ -4367,9 +4472,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026884250008151866,
+          "elapsed_s": 0.026159582994296215,
           "private_true_xyz_m": [
             0.17773939142984793,
             -0.3589064494539189,
@@ -4410,9 +4516,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.025862000009510666,
+          "elapsed_s": 0.026419874993734993,
           "private_true_xyz_m": [
             0.1559652455728174,
             -0.37349987848423233,
@@ -4463,9 +4570,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.6834561249997932,
+          "elapsed_s": 2.7112199580005836,
           "private_true_xyz_m": [
             0.15596524552630833,
             -0.3734998784535823,
@@ -4505,9 +4613,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028496208004071377,
+          "elapsed_s": 0.02651325000624638,
           "private_true_xyz_m": [
             0.20656236670826594,
             -0.1933753342331145,
@@ -4548,9 +4657,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026073542001540773,
+          "elapsed_s": 0.026197041996056214,
           "private_true_xyz_m": [
             0.20702776406439027,
             -0.19403185267209636,
@@ -4586,9 +4696,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02120891699451022,
+          "elapsed_s": 0.020951792001142167,
           "private_true_xyz_m": [
             0.15297872880970484,
             -0.36174698522977544,
@@ -4628,9 +4739,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026751917001092806,
+          "elapsed_s": 0.026361791999079287,
           "private_true_xyz_m": [
             0.17773939142984793,
             -0.3589064494539189,
@@ -4671,9 +4783,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.025938332997611724,
+          "elapsed_s": 0.025987750006606802,
           "private_true_xyz_m": [
             0.1559652455728174,
             -0.37349987848423233,
@@ -4724,9 +4837,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.6988971670070896,
+          "elapsed_s": 2.7137001669907477,
           "private_true_xyz_m": [
             0.15596524552630833,
             -0.3734998784535823,
@@ -4766,9 +4880,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026612333007506095,
+          "elapsed_s": 0.026577500000712462,
           "private_true_xyz_m": [
             0.20656236670826594,
             -0.1933753342331145,
@@ -4809,9 +4924,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026217542006634176,
+          "elapsed_s": 0.026283999992301688,
           "private_true_xyz_m": [
             0.20702776406439027,
             -0.19403185267209636,
@@ -4862,9 +4978,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.03602154199325,
+          "elapsed_s": 3.044035666011041,
           "private_true_xyz_m": [
             0.15297872880970484,
             -0.36174698522977544,
@@ -4904,9 +5021,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02811995799129363,
+          "elapsed_s": 0.02677783399121836,
           "private_true_xyz_m": [
             0.17773939142984793,
             -0.3589064494539189,
@@ -4947,9 +5065,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026282666003680788,
+          "elapsed_s": 0.026085290999617428,
           "private_true_xyz_m": [
             0.1559652455728174,
             -0.37349987848423233,
@@ -5000,9 +5119,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.689178999993601,
+          "elapsed_s": 2.692140458006179,
           "private_true_xyz_m": [
             0.15596524552630833,
             -0.3734998784535823,
@@ -5042,9 +5162,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026782665998325683,
+          "elapsed_s": 0.026742665999336168,
           "private_true_xyz_m": [
             0.18659674131528028,
             -0.17289938719032333,
@@ -5085,9 +5206,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027454416995169595,
+          "elapsed_s": 0.02634966600453481,
           "private_true_xyz_m": [
             0.18614621065857545,
             -0.17294382225478808,
@@ -5141,9 +5263,10 @@
               0.2886104481044534
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.002358561078684618,
           "within_20mm": true,
-          "elapsed_s": 2.4827077920053853,
+          "elapsed_s": 2.4849492499924963,
           "private_true_xyz_m": [
             0.12272743916743264,
             -0.3584005653098423,
@@ -5197,9 +5320,10 @@
               0.3521787485939648
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0073662208289373135,
           "within_20mm": true,
-          "elapsed_s": 2.239298291009618,
+          "elapsed_s": 2.2418252500065137,
           "private_true_xyz_m": [
             0.16627411141248577,
             -0.3575317851403341,
@@ -5250,9 +5374,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0185304999904474,
+          "elapsed_s": 3.0269531249941792,
           "private_true_xyz_m": [
             0.16224308952530883,
             -0.36236999096664985,
@@ -5292,9 +5417,10 @@
               16.999999999997794
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02638762499555014,
+          "elapsed_s": 0.02681908299564384,
           "private_true_xyz_m": [
             0.16695728214475192,
             -0.36245258456288487,
@@ -5334,9 +5460,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026459167012944818,
+          "elapsed_s": 0.02648600000247825,
           "private_true_xyz_m": [
             0.18659674131528028,
             -0.17289938719032333,
@@ -5377,9 +5504,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026035624992800876,
+          "elapsed_s": 0.026079208008013666,
           "private_true_xyz_m": [
             0.18614621065857545,
             -0.17294382225478808,
@@ -5415,9 +5543,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02107104199239984,
+          "elapsed_s": 0.020940541988238692,
           "private_true_xyz_m": [
             0.12272743916743264,
             -0.3584005653098423,
@@ -5457,9 +5586,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026038042007712647,
+          "elapsed_s": 0.026359709008829668,
           "private_true_xyz_m": [
             0.16627411141248577,
             -0.3575317851403341,
@@ -5500,9 +5630,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026415708009153605,
+          "elapsed_s": 0.025938374994439073,
           "private_true_xyz_m": [
             0.16224308952530883,
             -0.36236999096664985,
@@ -5553,9 +5684,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0315995419950923,
+          "elapsed_s": 3.0313348330091685,
           "private_true_xyz_m": [
             0.16695728214475192,
             -0.36245258456288487,
@@ -5595,9 +5727,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02652266700170003,
+          "elapsed_s": 0.02689341599761974,
           "private_true_xyz_m": [
             0.18659674131528028,
             -0.17289938719032333,
@@ -5638,9 +5771,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026121540999156423,
+          "elapsed_s": 0.026456332998350263,
           "private_true_xyz_m": [
             0.18614621065857545,
             -0.17294382225478808,
@@ -5691,9 +5825,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.095154416994774,
+          "elapsed_s": 3.0800428340007784,
           "private_true_xyz_m": [
             0.12272743916743264,
             -0.3584005653098423,
@@ -5733,9 +5868,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026647374994354323,
+          "elapsed_s": 0.026478250001673587,
           "private_true_xyz_m": [
             0.16627411141248577,
             -0.3575317851403341,
@@ -5776,9 +5912,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026623458994436078,
+          "elapsed_s": 0.02601570800470654,
           "private_true_xyz_m": [
             0.16224308952530883,
             -0.36236999096664985,
@@ -5829,9 +5966,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.041582833000575,
+          "elapsed_s": 3.052918083005352,
           "private_true_xyz_m": [
             0.16695728214475192,
             -0.36245258456288487,
@@ -5871,9 +6009,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02661304200591985,
+          "elapsed_s": 0.02713200000289362,
           "private_true_xyz_m": [
             0.1944668330749096,
             -0.17914777588098027,
@@ -5914,9 +6053,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027189332991838455,
+          "elapsed_s": 0.02706900000339374,
           "private_true_xyz_m": [
             0.1942166987473713,
             -0.17921730443068687,
@@ -5970,9 +6110,10 @@
               0.18471386746651436
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0006044367789936133,
           "within_20mm": true,
-          "elapsed_s": 2.610418500000378,
+          "elapsed_s": 2.6293410420039436,
           "private_true_xyz_m": [
             0.11844282995866096,
             -0.36138610047325403,
@@ -6026,9 +6167,10 @@
               0.20436151935619096
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.001753087939751909,
           "within_20mm": true,
-          "elapsed_s": 2.0899171249911888,
+          "elapsed_s": 2.1123379159980686,
           "private_true_xyz_m": [
             0.16205444869809377,
             -0.35856025594847496,
@@ -6079,9 +6221,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.5067481660080375,
+          "elapsed_s": 2.5329742090107175,
           "private_true_xyz_m": [
             0.13594668125161144,
             -0.33911539230214677,
@@ -6121,9 +6264,10 @@
               16.999999999997794
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02618129200709518,
+          "elapsed_s": 0.029656667000381276,
           "private_true_xyz_m": [
             0.13594603588423915,
             -0.33911427357504004,
@@ -6163,9 +6307,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.0262717080040602,
+          "elapsed_s": 0.026529583003139123,
           "private_true_xyz_m": [
             0.1944668330749096,
             -0.17914777588098027,
@@ -6206,9 +6351,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026118041991139762,
+          "elapsed_s": 0.027582082999288104,
           "private_true_xyz_m": [
             0.1942166987473713,
             -0.17921730443068687,
@@ -6244,9 +6390,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.022118791996035725,
+          "elapsed_s": 0.022103916009655222,
           "private_true_xyz_m": [
             0.11844282995866096,
             -0.36138610047325403,
@@ -6286,9 +6433,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02623937498719897,
+          "elapsed_s": 0.02655945799779147,
           "private_true_xyz_m": [
             0.16205444869809377,
             -0.35856025594847496,
@@ -6329,9 +6477,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.025988374996813945,
+          "elapsed_s": 0.026204207999398932,
           "private_true_xyz_m": [
             0.13594668125161144,
             -0.33911539230214677,
@@ -6382,9 +6531,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0110312500037253,
+          "elapsed_s": 3.0304573330067797,
           "private_true_xyz_m": [
             0.13594603588423915,
             -0.33911427357504004,
@@ -6424,9 +6574,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026654750006855465,
+          "elapsed_s": 0.028465541996411048,
           "private_true_xyz_m": [
             0.1944668330749096,
             -0.17914777588098027,
@@ -6467,9 +6618,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02615029200387653,
+          "elapsed_s": 0.026755749990115874,
           "private_true_xyz_m": [
             0.1942166987473713,
             -0.17921730443068687,
@@ -6520,9 +6672,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0961617919965647,
+          "elapsed_s": 3.1117885830026353,
           "private_true_xyz_m": [
             0.11844282995866096,
             -0.36138610047325403,
@@ -6562,9 +6715,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.0266704590030713,
+          "elapsed_s": 0.026417916000355035,
           "private_true_xyz_m": [
             0.16205444869809377,
             -0.35856025594847496,
@@ -6605,9 +6759,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.025957000005291775,
+          "elapsed_s": 0.026547667002887465,
           "private_true_xyz_m": [
             0.13594668125161144,
             -0.33911539230214677,
@@ -6658,9 +6813,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.009905541999615,
+          "elapsed_s": 3.0303214580053464,
           "private_true_xyz_m": [
             0.13594603588423915,
             -0.33911427357504004,
@@ -6700,9 +6856,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027334917002008297,
+          "elapsed_s": 0.026401957991765812,
           "private_true_xyz_m": [
             0.20318704676634644,
             -0.18780940280978164,
@@ -6743,9 +6900,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026162166002904996,
+          "elapsed_s": 0.025909916003001854,
           "private_true_xyz_m": [
             0.20393590060068856,
             -0.189029676069245,
@@ -6796,9 +6954,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.3697168750077253,
+          "elapsed_s": 2.3957424169930164,
           "private_true_xyz_m": [
             0.15413244823396582,
             -0.35940373122281283,
@@ -6838,9 +6997,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026998708010069095,
+          "elapsed_s": 0.0265369999979157,
           "private_true_xyz_m": [
             0.17801173829049802,
             -0.3595461936586063,
@@ -6881,9 +7041,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026071750005939975,
+          "elapsed_s": 0.026059833995532244,
           "private_true_xyz_m": [
             0.1526980858909681,
             -0.37605950248170017,
@@ -6934,9 +7095,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.7899601660028566,
+          "elapsed_s": 2.8034659169934457,
           "private_true_xyz_m": [
             0.152657854782807,
             -0.3758567055298232,
@@ -6976,9 +7138,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026418541005114093,
+          "elapsed_s": 0.026396707995445468,
           "private_true_xyz_m": [
             0.20318704676634644,
             -0.18780940280978164,
@@ -7019,9 +7182,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026063041004817933,
+          "elapsed_s": 0.02589487499790266,
           "private_true_xyz_m": [
             0.20393590060068856,
             -0.189029676069245,
@@ -7057,9 +7221,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.023441083991201594,
+          "elapsed_s": 0.021200707997195423,
           "private_true_xyz_m": [
             0.15413244823396582,
             -0.35940373122281283,
@@ -7099,9 +7264,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02657758299028501,
+          "elapsed_s": 0.026118042005691677,
           "private_true_xyz_m": [
             0.17801173829049802,
             -0.3595461936586063,
@@ -7142,9 +7308,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02591079199919477,
+          "elapsed_s": 0.025909167001373135,
           "private_true_xyz_m": [
             0.1526980858909681,
             -0.37605950248170017,
@@ -7195,9 +7362,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.806836999996449,
+          "elapsed_s": 2.843990166002186,
           "private_true_xyz_m": [
             0.152657854782807,
             -0.3758567055298232,
@@ -7237,9 +7405,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02761479199398309,
+          "elapsed_s": 0.02658966700255405,
           "private_true_xyz_m": [
             0.20318704676634644,
             -0.18780940280978164,
@@ -7280,9 +7449,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026668874997994862,
+          "elapsed_s": 0.026012583999545313,
           "private_true_xyz_m": [
             0.20393590060068856,
             -0.189029676069245,
@@ -7333,9 +7503,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.9401721249887487,
+          "elapsed_s": 2.958407584010274,
           "private_true_xyz_m": [
             0.15413244823396582,
             -0.35940373122281283,
@@ -7375,9 +7546,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026714334002463147,
+          "elapsed_s": 0.02693725000426639,
           "private_true_xyz_m": [
             0.17801173829049802,
             -0.3595461936586063,
@@ -7418,9 +7590,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026963500000420026,
+          "elapsed_s": 0.02639958300278522,
           "private_true_xyz_m": [
             0.1526980858909681,
             -0.37605950248170017,
@@ -7471,9 +7644,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.782919874996878,
+          "elapsed_s": 2.7985233749932377,
           "private_true_xyz_m": [
             0.152657854782807,
             -0.3758567055298232,
@@ -7513,9 +7687,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02812133400584571,
+          "elapsed_s": 0.026692665996961296,
           "private_true_xyz_m": [
             0.18291497465256623,
             -0.19829164761045032,
@@ -7556,9 +7731,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026262041996233165,
+          "elapsed_s": 0.026191333003225736,
           "private_true_xyz_m": [
             0.18260354835374953,
             -0.1983086933214395,
@@ -7612,9 +7788,10 @@
               0.21387518348008414
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.004525829017903555,
           "within_20mm": true,
-          "elapsed_s": 2.4355922499962617,
+          "elapsed_s": 2.453044709007372,
           "private_true_xyz_m": [
             0.11575627604984513,
             -0.36584500801655456,
@@ -7668,9 +7845,10 @@
               0.23190995153801983
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.006239874786058036,
           "within_20mm": true,
-          "elapsed_s": 1.8881314169993857,
+          "elapsed_s": 1.9044948329974432,
           "private_true_xyz_m": [
             0.15935403262380926,
             -0.3579317488007162,
@@ -7721,9 +7899,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.2419506250007544,
+          "elapsed_s": 3.24196691699035,
           "private_true_xyz_m": [
             0.15105248545589608,
             -0.3689172500983314,
@@ -7763,9 +7942,10 @@
               16.999999999997794
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02660904200456571,
+          "elapsed_s": 0.030298166995635256,
           "private_true_xyz_m": [
             0.14657510237850677,
             -0.3691806174439425,
@@ -7805,9 +7985,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026101291005034,
+          "elapsed_s": 0.029297417000634596,
           "private_true_xyz_m": [
             0.18291497465256623,
             -0.19829164761045032,
@@ -7848,9 +8029,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02604820899432525,
+          "elapsed_s": 0.031106916998396628,
           "private_true_xyz_m": [
             0.18260354835374953,
             -0.1983086933214395,
@@ -7886,9 +8068,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.0217759160004789,
+          "elapsed_s": 0.022304625003016554,
           "private_true_xyz_m": [
             0.11575627604984513,
             -0.36584500801655456,
@@ -7928,9 +8111,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026036334005766548,
+          "elapsed_s": 0.026486542003112845,
           "private_true_xyz_m": [
             0.15935403262380926,
             -0.3579317488007162,
@@ -7971,9 +8155,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026090166007634252,
+          "elapsed_s": 0.026350165993790142,
           "private_true_xyz_m": [
             0.15105248545589608,
             -0.3689172500983314,
@@ -8024,9 +8209,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.178765917007695,
+          "elapsed_s": 3.1321489170077257,
           "private_true_xyz_m": [
             0.14657510237850677,
             -0.3691806174439425,
@@ -8066,9 +8252,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02746320799633395,
+          "elapsed_s": 0.028858792007667944,
           "private_true_xyz_m": [
             0.18291497465256623,
             -0.19829164761045032,
@@ -8109,9 +8296,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027589791992795654,
+          "elapsed_s": 0.028275624994421378,
           "private_true_xyz_m": [
             0.18260354835374953,
             -0.1983086933214395,
@@ -8162,9 +8350,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0923748750064988,
+          "elapsed_s": 3.062051667002379,
           "private_true_xyz_m": [
             0.11575627604984513,
             -0.36584500801655456,
@@ -8204,9 +8393,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028834708995418623,
+          "elapsed_s": 0.026284208011929877,
           "private_true_xyz_m": [
             0.15935403262380926,
             -0.3579317488007162,
@@ -8247,9 +8437,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028878249999252148,
+          "elapsed_s": 0.02593308400537353,
           "private_true_xyz_m": [
             0.15105248545589608,
             -0.3689172500983314,
@@ -8300,9 +8491,10 @@
             ],
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1696841250086436,
+          "elapsed_s": 3.1372927500051446,
           "private_true_xyz_m": [
             0.14657510237850677,
             -0.3691806174439425,
@@ -8325,12 +8517,16 @@
           "missing_responses": 0,
           "missing_or_error_details": [],
           "accepted": 17,
+          "scored_responses": 17,
+          "unscored_accepted": 0,
+          "missing_or_invalid_truth": 0,
           "within_20mm": 16,
           "accepted_over_20mm": 1,
           "accepted_mean_error_m": 0.004744306708801234,
           "accepted_max_error_m": 0.021936674228044354,
           "post_warmup_targets": 20,
           "post_warmup_accepted": 17,
+          "post_warmup_scored": 17,
           "post_warmup_within_20mm": 16,
           "post_warmup_missing_or_refused": 3,
           "release_or_retract_accepted": 0,
@@ -8345,12 +8541,16 @@
           "missing_responses": 0,
           "missing_or_error_details": [],
           "accepted": 0,
+          "scored_responses": 0,
+          "unscored_accepted": 0,
+          "missing_or_invalid_truth": 0,
           "within_20mm": 0,
           "accepted_over_20mm": 0,
           "accepted_mean_error_m": null,
           "accepted_max_error_m": null,
           "post_warmup_targets": 20,
           "post_warmup_accepted": 0,
+          "post_warmup_scored": 0,
           "post_warmup_within_20mm": 0,
           "post_warmup_missing_or_refused": 20,
           "release_or_retract_accepted": 0,
@@ -8366,12 +8566,16 @@
           "missing_responses": 0,
           "missing_or_error_details": [],
           "accepted": 0,
+          "scored_responses": 0,
+          "unscored_accepted": 0,
+          "missing_or_invalid_truth": 0,
           "within_20mm": 0,
           "accepted_over_20mm": 0,
           "accepted_mean_error_m": null,
           "accepted_max_error_m": null,
           "post_warmup_targets": 20,
           "post_warmup_accepted": 0,
+          "post_warmup_scored": 0,
           "post_warmup_within_20mm": 0,
           "post_warmup_missing_or_refused": 20,
           "release_or_retract_accepted": 0,
@@ -8409,9 +8613,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027840750000905246,
+          "elapsed_s": 0.026685917007853277,
           "private_true_xyz_m": [
             0.22233659747451992,
             -0.17711785641802286,
@@ -8452,9 +8657,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026168625001446344,
+          "elapsed_s": 0.02591904200380668,
           "private_true_xyz_m": [
             0.22306362707915064,
             -0.17766271204825324,
@@ -8506,9 +8712,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.1152029579970986,
+          "elapsed_s": 2.083437875000527,
           "private_true_xyz_m": [
             0.15153734001728375,
             -0.3617144939805493,
@@ -8560,9 +8767,10 @@
               0.5042131848772909
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.021936674228044354,
           "within_20mm": false,
-          "elapsed_s": 1.9458436660061125,
+          "elapsed_s": 1.9175828750012442,
           "private_true_xyz_m": [
             0.179622286939489,
             -0.3588678855497586,
@@ -8614,9 +8822,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.3412946669996018,
+          "elapsed_s": 2.339134500012733,
           "private_true_xyz_m": [
             0.15255290880506764,
             -0.37569523365360963,
@@ -8659,9 +8868,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 1.8115905420127092,
+          "elapsed_s": 1.790318291998119,
           "private_true_xyz_m": [
             0.15255290884237604,
             -0.3756952336851387,
@@ -8701,9 +8911,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026538125006482005,
+          "elapsed_s": 0.026455208004335873,
           "private_true_xyz_m": [
             0.22233659747451992,
             -0.17711785641802286,
@@ -8744,9 +8955,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026116708002518862,
+          "elapsed_s": 0.028939875002834015,
           "private_true_xyz_m": [
             0.22306362707915064,
             -0.17766271204825324,
@@ -8782,9 +8994,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.021273750011459924,
+          "elapsed_s": 0.0210393750021467,
           "private_true_xyz_m": [
             0.15153734001728375,
             -0.3617144939805493,
@@ -8824,9 +9037,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.0267249169992283,
+          "elapsed_s": 0.026484334011911415,
           "private_true_xyz_m": [
             0.179622286939489,
             -0.3588678855497586,
@@ -8867,9 +9081,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027999999991152436,
+          "elapsed_s": 0.026234125005430542,
           "private_true_xyz_m": [
             0.15255290880506764,
             -0.37569523365360963,
@@ -8921,9 +9136,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.885257250003633,
+          "elapsed_s": 2.8404966249945574,
           "private_true_xyz_m": [
             0.15255290884237604,
             -0.3756952336851387,
@@ -8963,9 +9179,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028118000001995824,
+          "elapsed_s": 0.026316542003769428,
           "private_true_xyz_m": [
             0.22233659747451992,
             -0.17711785641802286,
@@ -9006,9 +9223,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027769624997745268,
+          "elapsed_s": 0.025806083998759277,
           "private_true_xyz_m": [
             0.22306362707915064,
             -0.17766271204825324,
@@ -9060,9 +9278,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.023291582998354,
+          "elapsed_s": 2.97457375000522,
           "private_true_xyz_m": [
             0.15153734001728375,
             -0.3617144939805493,
@@ -9112,9 +9331,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.2857094169885386,
+          "elapsed_s": 2.278588542001671,
           "private_true_xyz_m": [
             0.179622286939489,
             -0.3588678855497586,
@@ -9155,9 +9375,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02718208299484104,
+          "elapsed_s": 0.04281316699052695,
           "private_true_xyz_m": [
             0.15255290880506764,
             -0.37569523365360963,
@@ -9209,9 +9430,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.8812157079955796,
+          "elapsed_s": 2.8685872920032125,
           "private_true_xyz_m": [
             0.15255290884237604,
             -0.3756952336851387,
@@ -9251,9 +9473,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028072750006685965,
+          "elapsed_s": 0.026760666994960047,
           "private_true_xyz_m": [
             0.19553507984051552,
             -0.18608209119639557,
@@ -9294,9 +9517,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027481333003379405,
+          "elapsed_s": 0.02627866699185688,
           "private_true_xyz_m": [
             0.1953166047055955,
             -0.18612076956137566,
@@ -9350,9 +9574,10 @@
               0.17303639859964998
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.001568508299256288,
           "within_20mm": true,
-          "elapsed_s": 2.5761508750001667,
+          "elapsed_s": 2.534293249991606,
           "private_true_xyz_m": [
             0.11728905863761253,
             -0.3627333097830655,
@@ -9406,9 +9631,10 @@
               0.24696098978889328
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0041984233939624666,
           "within_20mm": true,
-          "elapsed_s": 2.369854791992111,
+          "elapsed_s": 2.3425964579946594,
           "private_true_xyz_m": [
             0.16115544542409577,
             -0.3582422344583082,
@@ -9460,9 +9686,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.076258582994342,
+          "elapsed_s": 3.042880541004706,
           "private_true_xyz_m": [
             0.16000878332746832,
             -0.3645313011269213,
@@ -9512,9 +9739,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.3543311660032487,
+          "elapsed_s": 2.331462375004776,
           "private_true_xyz_m": [
             0.15829206713646066,
             -0.3646750814177765,
@@ -9554,9 +9782,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027037583000492305,
+          "elapsed_s": 0.026753500002087094,
           "private_true_xyz_m": [
             0.19553507984051552,
             -0.18608209119639557,
@@ -9597,9 +9826,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026173333011684008,
+          "elapsed_s": 0.026445124996826053,
           "private_true_xyz_m": [
             0.1953166047055955,
             -0.18612076956137566,
@@ -9635,9 +9865,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.021173874993110076,
+          "elapsed_s": 0.022363833006238565,
           "private_true_xyz_m": [
             0.11728905863761253,
             -0.3627333097830655,
@@ -9677,9 +9908,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026443624999956228,
+          "elapsed_s": 0.026089749997481704,
           "private_true_xyz_m": [
             0.16115544542409577,
             -0.3582422344583082,
@@ -9720,9 +9952,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02712062500359025,
+          "elapsed_s": 0.02583641700039152,
           "private_true_xyz_m": [
             0.16000878332746832,
             -0.3645313011269213,
@@ -9774,9 +10007,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1626327080011833,
+          "elapsed_s": 3.100392499996815,
           "private_true_xyz_m": [
             0.15829206713646066,
             -0.3646750814177765,
@@ -9816,9 +10050,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02706562499224674,
+          "elapsed_s": 0.027211083011934534,
           "private_true_xyz_m": [
             0.19553507984051552,
             -0.18608209119639557,
@@ -9859,9 +10094,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02691495799808763,
+          "elapsed_s": 0.026741333000245504,
           "private_true_xyz_m": [
             0.1953166047055955,
             -0.18612076956137566,
@@ -9913,9 +10149,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.136455833009677,
+          "elapsed_s": 3.0785000000032596,
           "private_true_xyz_m": [
             0.11728905863761253,
             -0.3627333097830655,
@@ -9965,9 +10202,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.203871000005165,
+          "elapsed_s": 2.1608330419985577,
           "private_true_xyz_m": [
             0.16115544542409577,
             -0.3582422344583082,
@@ -10008,9 +10246,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027281875009066425,
+          "elapsed_s": 0.026342625002143905,
           "private_true_xyz_m": [
             0.16000878332746832,
             -0.3645313011269213,
@@ -10062,9 +10301,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1610379999910947,
+          "elapsed_s": 3.1050732919975417,
           "private_true_xyz_m": [
             0.15829206713646066,
             -0.3646750814177765,
@@ -10104,9 +10344,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027466291008749977,
+          "elapsed_s": 0.029023584007518366,
           "private_true_xyz_m": [
             0.18091327817510164,
             -0.19048058223795217,
@@ -10147,9 +10388,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027860375004820526,
+          "elapsed_s": 0.02620954099984374,
           "private_true_xyz_m": [
             0.1806685979684954,
             -0.19050522387729332,
@@ -10203,9 +10445,10 @@
               0.1757350159455601
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0022700389934526464,
           "within_20mm": true,
-          "elapsed_s": 2.6815289170044707,
+          "elapsed_s": 2.6318405409983825,
           "private_true_xyz_m": [
             0.1149988300319548,
             -0.3626916689006106,
@@ -10259,9 +10502,10 @@
               0.21690172681096162
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.005002879275311008,
           "within_20mm": true,
-          "elapsed_s": 2.4583497920102673,
+          "elapsed_s": 2.415325499998289,
           "private_true_xyz_m": [
             0.158885359522929,
             -0.3581848516199885,
@@ -10313,9 +10557,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.2773057500016876,
+          "elapsed_s": 3.225699958013138,
           "private_true_xyz_m": [
             0.13999736537244928,
             -0.3516028861383227,
@@ -10365,9 +10610,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.1868891250051092,
+          "elapsed_s": 2.157129500003066,
           "private_true_xyz_m": [
             0.14058717662511588,
             -0.35171382516246036,
@@ -10407,9 +10653,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027131916998769157,
+          "elapsed_s": 0.026671500003430992,
           "private_true_xyz_m": [
             0.18091327817510164,
             -0.19048058223795217,
@@ -10450,9 +10697,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027527291007572785,
+          "elapsed_s": 0.02615374999004416,
           "private_true_xyz_m": [
             0.1806685979684954,
             -0.19050522387729332,
@@ -10488,9 +10736,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.021740583993960172,
+          "elapsed_s": 0.021707708001486026,
           "private_true_xyz_m": [
             0.1149988300319548,
             -0.3626916689006106,
@@ -10530,9 +10779,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027078875005827285,
+          "elapsed_s": 0.026079666989971884,
           "private_true_xyz_m": [
             0.158885359522929,
             -0.3581848516199885,
@@ -10573,9 +10823,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.025967416993808,
+          "elapsed_s": 0.025881708002998494,
           "private_true_xyz_m": [
             0.13999736537244928,
             -0.3516028861383227,
@@ -10627,9 +10878,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.2797704999975394,
+          "elapsed_s": 3.252257666987134,
           "private_true_xyz_m": [
             0.14058717662511588,
             -0.35171382516246036,
@@ -10669,9 +10921,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026356041998951696,
+          "elapsed_s": 0.02624187499168329,
           "private_true_xyz_m": [
             0.18091327817510164,
             -0.19048058223795217,
@@ -10712,9 +10965,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026826415996765718,
+          "elapsed_s": 0.02595395900425501,
           "private_true_xyz_m": [
             0.1806685979684954,
             -0.19050522387729332,
@@ -10766,9 +11020,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1410781669983407,
+          "elapsed_s": 3.07473312500224,
           "private_true_xyz_m": [
             0.1149988300319548,
             -0.3626916689006106,
@@ -10818,9 +11073,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.6900760409916984,
+          "elapsed_s": 2.58032666699728,
           "private_true_xyz_m": [
             0.158885359522929,
             -0.3581848516199885,
@@ -10861,9 +11117,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026353042005212046,
+          "elapsed_s": 0.026202709006611258,
           "private_true_xyz_m": [
             0.13999736537244928,
             -0.3516028861383227,
@@ -10915,9 +11172,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.294162165999296,
+          "elapsed_s": 3.2594879169919295,
           "private_true_xyz_m": [
             0.14058717662511588,
             -0.35171382516246036,
@@ -10957,9 +11215,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028384499993990175,
+          "elapsed_s": 0.027118250000057742,
           "private_true_xyz_m": [
             0.18801635316676313,
             -0.17164116997990667,
@@ -11000,9 +11259,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026829791997442953,
+          "elapsed_s": 0.026086625002790242,
           "private_true_xyz_m": [
             0.18773274356467257,
             -0.17167432364769897,
@@ -11056,9 +11316,10 @@
               0.1922337578383862
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.002889475768293624,
           "within_20mm": true,
-          "elapsed_s": 2.5188628750038333,
+          "elapsed_s": 2.4988343750010245,
           "private_true_xyz_m": [
             0.12067061267558335,
             -0.3622265186944465,
@@ -11112,9 +11373,10 @@
               0.27371101250992674
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.007420041081561838,
           "within_20mm": true,
-          "elapsed_s": 2.362306125010946,
+          "elapsed_s": 2.254775958004757,
           "private_true_xyz_m": [
             0.16437743517732117,
             -0.3582299467046409,
@@ -11166,9 +11428,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.2163928340014536,
+          "elapsed_s": 3.0760824999888428,
           "private_true_xyz_m": [
             0.16860226429792183,
             -0.3593289389112,
@@ -11218,9 +11481,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.4552718339982675,
+          "elapsed_s": 2.428153958011535,
           "private_true_xyz_m": [
             0.16860226429641317,
             -0.3593289388579477,
@@ -11260,9 +11524,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02797166700474918,
+          "elapsed_s": 0.027153624992934056,
           "private_true_xyz_m": [
             0.18801635316676313,
             -0.17164116997990667,
@@ -11303,9 +11568,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02680612499534618,
+          "elapsed_s": 0.026058165996801108,
           "private_true_xyz_m": [
             0.18773274356467257,
             -0.17167432364769897,
@@ -11341,9 +11607,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.022138582993648015,
+          "elapsed_s": 0.021148208004888147,
           "private_true_xyz_m": [
             0.12067061267558335,
             -0.3622265186944465,
@@ -11383,9 +11650,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027545958990231156,
+          "elapsed_s": 0.026393499996629544,
           "private_true_xyz_m": [
             0.16437743517732117,
             -0.3582299467046409,
@@ -11426,9 +11694,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027967500005615875,
+          "elapsed_s": 0.027110750001156703,
           "private_true_xyz_m": [
             0.16860226429792183,
             -0.3593289389112,
@@ -11480,9 +11749,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1796551669976907,
+          "elapsed_s": 3.1374344159994507,
           "private_true_xyz_m": [
             0.16860226429641317,
             -0.3593289388579477,
@@ -11522,9 +11792,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02670600000419654,
+          "elapsed_s": 0.026688917001592927,
           "private_true_xyz_m": [
             0.18801635316676313,
             -0.17164116997990667,
@@ -11565,9 +11836,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028027749998727813,
+          "elapsed_s": 0.026343791003455408,
           "private_true_xyz_m": [
             0.18773274356467257,
             -0.17167432364769897,
@@ -11619,9 +11891,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.068327083004988,
+          "elapsed_s": 3.0296034999919357,
           "private_true_xyz_m": [
             0.12067061267558335,
             -0.3622265186944465,
@@ -11671,9 +11944,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.5944483339990256,
+          "elapsed_s": 2.3085806670133024,
           "private_true_xyz_m": [
             0.16437743517732117,
             -0.3582299467046409,
@@ -11714,9 +11988,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027932917000725865,
+          "elapsed_s": 0.026648375001968816,
           "private_true_xyz_m": [
             0.16860226429792183,
             -0.3593289389112,
@@ -11768,9 +12043,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1646396669966634,
+          "elapsed_s": 3.1433321660006186,
           "private_true_xyz_m": [
             0.16860226429641317,
             -0.3593289388579477,
@@ -11810,9 +12086,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026369541010353714,
+          "elapsed_s": 0.030323750004754402,
           "private_true_xyz_m": [
             0.19323492693370767,
             -0.1889130067712887,
@@ -11853,9 +12130,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027189458007342182,
+          "elapsed_s": 0.026069750005262904,
           "private_true_xyz_m": [
             0.19287129093156472,
             -0.18929461344106108,
@@ -11909,9 +12187,10 @@
               0.18238897376911045
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0039654396347066,
           "within_20mm": true,
-          "elapsed_s": 2.758284208000987,
+          "elapsed_s": 2.7306818750075763,
           "private_true_xyz_m": [
             0.12061831462108745,
             -0.3636802276433761,
@@ -11965,9 +12244,10 @@
               0.22963919553813605
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0008638597235996825,
           "within_20mm": true,
-          "elapsed_s": 2.0895962079957826,
+          "elapsed_s": 2.055437458009692,
           "private_true_xyz_m": [
             0.1642774108116628,
             -0.3585611132599709,
@@ -12019,9 +12299,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.9325277500029188,
+          "elapsed_s": 2.8951221669994993,
           "private_true_xyz_m": [
             0.1640005640384955,
             -0.36720393823205427,
@@ -12071,9 +12352,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.362865082992357,
+          "elapsed_s": 2.3386644999991404,
           "private_true_xyz_m": [
             0.16826705316766338,
             -0.367297154808098,
@@ -12113,9 +12395,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028204832997289486,
+          "elapsed_s": 0.02687641700322274,
           "private_true_xyz_m": [
             0.19323492693370767,
             -0.1889130067712887,
@@ -12156,9 +12439,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027706709006452,
+          "elapsed_s": 0.02619708400743548,
           "private_true_xyz_m": [
             0.19287129093156472,
             -0.18929461344106108,
@@ -12194,9 +12478,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02331058299751021,
+          "elapsed_s": 0.02114149999397341,
           "private_true_xyz_m": [
             0.12061831462108745,
             -0.3636802276433761,
@@ -12236,9 +12521,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027761541001382284,
+          "elapsed_s": 0.02605458299512975,
           "private_true_xyz_m": [
             0.1642774108116628,
             -0.3585611132599709,
@@ -12279,9 +12565,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02823608400649391,
+          "elapsed_s": 0.02592670799640473,
           "private_true_xyz_m": [
             0.1640005640384955,
             -0.36720393823205427,
@@ -12325,9 +12612,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.118661915999837,
+          "elapsed_s": 3.075253792005242,
           "private_true_xyz_m": [
             0.16826705316766338,
             -0.367297154808098,
@@ -12367,9 +12655,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02735124999890104,
+          "elapsed_s": 0.026937833012198098,
           "private_true_xyz_m": [
             0.19323492693370767,
             -0.1889130067712887,
@@ -12410,9 +12699,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026041082994197495,
+          "elapsed_s": 0.025954374999855645,
           "private_true_xyz_m": [
             0.19287129093156472,
             -0.18929461344106108,
@@ -12464,9 +12754,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0416726249968633,
+          "elapsed_s": 3.005557875003433,
           "private_true_xyz_m": [
             0.12061831462108745,
             -0.3636802276433761,
@@ -12509,9 +12800,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.3255128340097144,
+          "elapsed_s": 2.297671332999016,
           "private_true_xyz_m": [
             0.1642774108116628,
             -0.3585611132599709,
@@ -12552,9 +12844,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026752874997328036,
+          "elapsed_s": 0.02716154199151788,
           "private_true_xyz_m": [
             0.1640005640384955,
             -0.36720393823205427,
@@ -12598,9 +12891,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1262826250022044,
+          "elapsed_s": 3.0800084169895854,
           "private_true_xyz_m": [
             0.16826705316766338,
             -0.367297154808098,
@@ -12640,9 +12934,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028023541992297396,
+          "elapsed_s": 0.027143458995851688,
           "private_true_xyz_m": [
             0.20656236670826594,
             -0.1933753342331145,
@@ -12683,9 +12978,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027624333000858314,
+          "elapsed_s": 0.026012874994194135,
           "private_true_xyz_m": [
             0.20702776406439027,
             -0.19403185267209636,
@@ -12737,9 +13033,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.5863059169932967,
+          "elapsed_s": 2.5436362080072286,
           "private_true_xyz_m": [
             0.15297872880970484,
             -0.36174698522977544,
@@ -12791,9 +13088,10 @@
               0.2614117830128552
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.002656722862225619,
           "within_20mm": true,
-          "elapsed_s": 2.0977722920069937,
+          "elapsed_s": 2.077584416998434,
           "private_true_xyz_m": [
             0.17773939142984793,
             -0.3589064494539189,
@@ -12845,9 +13143,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.4260045000119135,
+          "elapsed_s": 2.4170527499954915,
           "private_true_xyz_m": [
             0.1559652455728174,
             -0.37349987848423233,
@@ -12897,9 +13196,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.1680959170043934,
+          "elapsed_s": 2.14367466699332,
           "private_true_xyz_m": [
             0.15596524552630833,
             -0.3734998784535823,
@@ -12939,9 +13239,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026922332996036857,
+          "elapsed_s": 0.02844566700514406,
           "private_true_xyz_m": [
             0.20656236670826594,
             -0.1933753342331145,
@@ -12982,9 +13283,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028412542000296526,
+          "elapsed_s": 0.02950362500268966,
           "private_true_xyz_m": [
             0.20702776406439027,
             -0.19403185267209636,
@@ -13020,9 +13322,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02224874999956228,
+          "elapsed_s": 0.021511540995561518,
           "private_true_xyz_m": [
             0.15297872880970484,
             -0.36174698522977544,
@@ -13062,9 +13365,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026427917007822543,
+          "elapsed_s": 0.02767366600164678,
           "private_true_xyz_m": [
             0.17773939142984793,
             -0.3589064494539189,
@@ -13105,9 +13409,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026473167003132403,
+          "elapsed_s": 0.02599320800800342,
           "private_true_xyz_m": [
             0.1559652455728174,
             -0.37349987848423233,
@@ -13159,9 +13464,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.7319938329892466,
+          "elapsed_s": 2.6988478749990463,
           "private_true_xyz_m": [
             0.15596524552630833,
             -0.3734998784535823,
@@ -13201,9 +13507,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02779537499009166,
+          "elapsed_s": 0.026172041005338542,
           "private_true_xyz_m": [
             0.20656236670826594,
             -0.1933753342331145,
@@ -13244,9 +13551,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02737475000321865,
+          "elapsed_s": 0.026088875005370937,
           "private_true_xyz_m": [
             0.20702776406439027,
             -0.19403185267209636,
@@ -13298,9 +13606,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0964052500057733,
+          "elapsed_s": 3.0491376249992754,
           "private_true_xyz_m": [
             0.15297872880970484,
             -0.36174698522977544,
@@ -13343,9 +13652,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.232280416006688,
+          "elapsed_s": 2.2058559579891153,
           "private_true_xyz_m": [
             0.17773939142984793,
             -0.3589064494539189,
@@ -13386,9 +13696,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027541417002794333,
+          "elapsed_s": 0.026430582991451956,
           "private_true_xyz_m": [
             0.1559652455728174,
             -0.37349987848423233,
@@ -13440,9 +13751,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.736256249991129,
+          "elapsed_s": 2.7076897910010302,
           "private_true_xyz_m": [
             0.15596524552630833,
             -0.3734998784535823,
@@ -13482,9 +13794,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02684666599088814,
+          "elapsed_s": 0.026521499996306375,
           "private_true_xyz_m": [
             0.18659674131528028,
             -0.17289938719032333,
@@ -13525,9 +13838,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.029125250002834946,
+          "elapsed_s": 0.02633849999983795,
           "private_true_xyz_m": [
             0.18614621065857545,
             -0.17294382225478808,
@@ -13581,9 +13895,10 @@
               0.2886104481044534
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.002358561078684618,
           "within_20mm": true,
-          "elapsed_s": 2.5364997909928206,
+          "elapsed_s": 2.493763583988766,
           "private_true_xyz_m": [
             0.12272743916743264,
             -0.3584005653098423,
@@ -13637,9 +13952,10 @@
               0.3521787485939648
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0073662208289373135,
           "within_20mm": true,
-          "elapsed_s": 2.286646834007115,
+          "elapsed_s": 2.265074334005476,
           "private_true_xyz_m": [
             0.16627411141248577,
             -0.3575317851403341,
@@ -13691,9 +14007,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0743224160105456,
+          "elapsed_s": 3.0358732089953264,
           "private_true_xyz_m": [
             0.16224308952530883,
             -0.36236999096664985,
@@ -13736,9 +14053,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.17997108300915,
+          "elapsed_s": 2.2317643749993294,
           "private_true_xyz_m": [
             0.16695728214475192,
             -0.36245258456288487,
@@ -13778,9 +14096,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02731933399627451,
+          "elapsed_s": 0.02713308300008066,
           "private_true_xyz_m": [
             0.18659674131528028,
             -0.17289938719032333,
@@ -13821,9 +14140,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026579625002341345,
+          "elapsed_s": 0.02607866600737907,
           "private_true_xyz_m": [
             0.18614621065857545,
             -0.17294382225478808,
@@ -13859,9 +14179,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.022144999995362014,
+          "elapsed_s": 0.02111858400166966,
           "private_true_xyz_m": [
             0.12272743916743264,
             -0.3584005653098423,
@@ -13901,9 +14222,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026599290999001823,
+          "elapsed_s": 0.02711408400500659,
           "private_true_xyz_m": [
             0.16627411141248577,
             -0.3575317851403341,
@@ -13944,9 +14266,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02632895800343249,
+          "elapsed_s": 0.02617958400514908,
           "private_true_xyz_m": [
             0.16224308952530883,
             -0.36236999096664985,
@@ -13998,9 +14321,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.044362375003402,
+          "elapsed_s": 3.0486862090037903,
           "private_true_xyz_m": [
             0.16695728214475192,
             -0.36245258456288487,
@@ -14040,9 +14364,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02707920898683369,
+          "elapsed_s": 0.027927374991122633,
           "private_true_xyz_m": [
             0.18659674131528028,
             -0.17289938719032333,
@@ -14083,9 +14408,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02636520899250172,
+          "elapsed_s": 0.025984832987887785,
           "private_true_xyz_m": [
             0.18614621065857545,
             -0.17294382225478808,
@@ -14137,9 +14463,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1305480419978267,
+          "elapsed_s": 3.0950847499916563,
           "private_true_xyz_m": [
             0.12272743916743264,
             -0.3584005653098423,
@@ -14182,9 +14509,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.276098708010977,
+          "elapsed_s": 2.248861415995634,
           "private_true_xyz_m": [
             0.16627411141248577,
             -0.3575317851403341,
@@ -14225,9 +14553,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028629584005102515,
+          "elapsed_s": 0.026705541007686406,
           "private_true_xyz_m": [
             0.16224308952530883,
             -0.36236999096664985,
@@ -14279,9 +14608,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.1015984999976354,
+          "elapsed_s": 3.052065166993998,
           "private_true_xyz_m": [
             0.16695728214475192,
             -0.36245258456288487,
@@ -14321,9 +14651,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.03022787500231061,
+          "elapsed_s": 0.0274274580006022,
           "private_true_xyz_m": [
             0.1944668330749096,
             -0.17914777588098027,
@@ -14364,9 +14695,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027649249997921288,
+          "elapsed_s": 0.026951500010909513,
           "private_true_xyz_m": [
             0.1942166987473713,
             -0.17921730443068687,
@@ -14420,9 +14752,10 @@
               0.18471386746651436
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0006044367789936133,
           "within_20mm": true,
-          "elapsed_s": 2.6472709579975344,
+          "elapsed_s": 2.605866125013563,
           "private_true_xyz_m": [
             0.11844282995866096,
             -0.36138610047325403,
@@ -14476,9 +14809,10 @@
               0.20436151935619096
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.001753087939751909,
           "within_20mm": true,
-          "elapsed_s": 2.1481872919976013,
+          "elapsed_s": 2.1050274159933906,
           "private_true_xyz_m": [
             0.16205444869809377,
             -0.35856025594847496,
@@ -14530,9 +14864,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.55366941599641,
+          "elapsed_s": 2.51858520800306,
           "private_true_xyz_m": [
             0.13594668125161144,
             -0.33911539230214677,
@@ -14582,9 +14917,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.118250417013769,
+          "elapsed_s": 2.0991119999962393,
           "private_true_xyz_m": [
             0.13594603588423915,
             -0.33911427357504004,
@@ -14624,9 +14960,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02771624999877531,
+          "elapsed_s": 0.026463499991223216,
           "private_true_xyz_m": [
             0.1944668330749096,
             -0.17914777588098027,
@@ -14667,9 +15004,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026412833991344087,
+          "elapsed_s": 0.026232707998133264,
           "private_true_xyz_m": [
             0.1942166987473713,
             -0.17921730443068687,
@@ -14705,9 +15043,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.021396458003437147,
+          "elapsed_s": 0.020898457994917408,
           "private_true_xyz_m": [
             0.11844282995866096,
             -0.36138610047325403,
@@ -14747,9 +15086,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.0265327080123825,
+          "elapsed_s": 0.02827275000163354,
           "private_true_xyz_m": [
             0.16205444869809377,
             -0.35856025594847496,
@@ -14790,9 +15130,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026254665994201787,
+          "elapsed_s": 0.026459125001565553,
           "private_true_xyz_m": [
             0.13594668125161144,
             -0.33911539230214677,
@@ -14844,9 +15185,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0708149159909226,
+          "elapsed_s": 3.0203880829940317,
           "private_true_xyz_m": [
             0.13594603588423915,
             -0.33911427357504004,
@@ -14886,9 +15228,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027724291998310946,
+          "elapsed_s": 0.026417125001898967,
           "private_true_xyz_m": [
             0.1944668330749096,
             -0.17914777588098027,
@@ -14929,9 +15272,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.0278414999920642,
+          "elapsed_s": 0.026939542003674433,
           "private_true_xyz_m": [
             0.1942166987473713,
             -0.17921730443068687,
@@ -14983,9 +15327,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.149690207996173,
+          "elapsed_s": 3.102270375005901,
           "private_true_xyz_m": [
             0.11844282995866096,
             -0.36138610047325403,
@@ -15035,9 +15380,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.353929416000028,
+          "elapsed_s": 2.3147445830109064,
           "private_true_xyz_m": [
             0.16205444869809377,
             -0.35856025594847496,
@@ -15078,9 +15424,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027928958006668836,
+          "elapsed_s": 0.027008874996681698,
           "private_true_xyz_m": [
             0.13594668125161144,
             -0.33911539230214677,
@@ -15132,9 +15479,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.0626432079880033,
+          "elapsed_s": 3.0177199590107193,
           "private_true_xyz_m": [
             0.13594603588423915,
             -0.33911427357504004,
@@ -15174,9 +15522,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02738475000660401,
+          "elapsed_s": 0.02630820800550282,
           "private_true_xyz_m": [
             0.20318704676634644,
             -0.18780940280978164,
@@ -15217,9 +15566,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026419625006383285,
+          "elapsed_s": 0.026384165990748443,
           "private_true_xyz_m": [
             0.20393590060068856,
             -0.189029676069245,
@@ -15271,9 +15621,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.4120603339979425,
+          "elapsed_s": 2.378268999993452,
           "private_true_xyz_m": [
             0.15413244823396582,
             -0.35940373122281283,
@@ -15325,9 +15676,10 @@
               0.38508212061409447
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.0050331403588778,
           "within_20mm": true,
-          "elapsed_s": 2.275901375003741,
+          "elapsed_s": 2.2411659589997726,
           "private_true_xyz_m": [
             0.17801173829049802,
             -0.3595461936586063,
@@ -15379,9 +15731,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.2820312080002623,
+          "elapsed_s": 2.2491057090082904,
           "private_true_xyz_m": [
             0.1526980858909681,
             -0.37605950248170017,
@@ -15431,9 +15784,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.065838458001963,
+          "elapsed_s": 2.041577915995731,
           "private_true_xyz_m": [
             0.152657854782807,
             -0.3758567055298232,
@@ -15473,9 +15827,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026834082993445918,
+          "elapsed_s": 0.02629500000330154,
           "private_true_xyz_m": [
             0.20318704676634644,
             -0.18780940280978164,
@@ -15516,9 +15871,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02618029100995045,
+          "elapsed_s": 0.02640491700731218,
           "private_true_xyz_m": [
             0.20393590060068856,
             -0.189029676069245,
@@ -15554,9 +15910,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02111429101205431,
+          "elapsed_s": 0.021244917006697506,
           "private_true_xyz_m": [
             0.15413244823396582,
             -0.35940373122281283,
@@ -15596,9 +15953,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02891424999688752,
+          "elapsed_s": 0.026242084000841714,
           "private_true_xyz_m": [
             0.17801173829049802,
             -0.3595461936586063,
@@ -15639,9 +15997,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02727829199284315,
+          "elapsed_s": 0.027092917007394135,
           "private_true_xyz_m": [
             0.1526980858909681,
             -0.37605950248170017,
@@ -15693,9 +16052,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.832298624998657,
+          "elapsed_s": 2.799668791005388,
           "private_true_xyz_m": [
             0.152657854782807,
             -0.3758567055298232,
@@ -15735,9 +16095,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02847233400098048,
+          "elapsed_s": 0.027537665999261662,
           "private_true_xyz_m": [
             0.20318704676634644,
             -0.18780940280978164,
@@ -15778,9 +16139,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02627441700315103,
+          "elapsed_s": 0.026666083998861723,
           "private_true_xyz_m": [
             0.20393590060068856,
             -0.189029676069245,
@@ -15832,9 +16194,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.991144624989829,
+          "elapsed_s": 3.0392953340051463,
           "private_true_xyz_m": [
             0.15413244823396582,
             -0.35940373122281283,
@@ -15877,9 +16240,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.3075014170026407,
+          "elapsed_s": 2.270827542000916,
           "private_true_xyz_m": [
             0.17801173829049802,
             -0.3595461936586063,
@@ -15920,9 +16284,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02769416601222474,
+          "elapsed_s": 0.02642387500964105,
           "private_true_xyz_m": [
             0.1526980858909681,
             -0.37605950248170017,
@@ -15974,9 +16339,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.8449659170000814,
+          "elapsed_s": 2.800279417002457,
           "private_true_xyz_m": [
             0.152657854782807,
             -0.3758567055298232,
@@ -16016,9 +16382,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02828512499399949,
+          "elapsed_s": 0.026933000001008622,
           "private_true_xyz_m": [
             0.18291497465256623,
             -0.19829164761045032,
@@ -16059,9 +16426,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.026372916996479034,
+          "elapsed_s": 0.026468750002095476,
           "private_true_xyz_m": [
             0.18260354835374953,
             -0.1983086933214395,
@@ -16115,9 +16483,10 @@
               0.21387518348008414
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.004525829017903555,
           "within_20mm": true,
-          "elapsed_s": 2.48077729200304,
+          "elapsed_s": 2.4578094580065226,
           "private_true_xyz_m": [
             0.11575627604984513,
             -0.36584500801655456,
@@ -16171,9 +16540,10 @@
               0.23190995153801983
             ]
           },
+          "scoring_status": "scored",
           "error_3d_m": 0.006239874786058036,
           "within_20mm": true,
-          "elapsed_s": 1.9235175409994554,
+          "elapsed_s": 1.9000740419869544,
           "private_true_xyz_m": [
             0.15935403262380926,
             -0.3579317488007162,
@@ -16225,9 +16595,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.3094537500001024,
+          "elapsed_s": 3.2106124999991152,
           "private_true_xyz_m": [
             0.15105248545589608,
             -0.3689172500983314,
@@ -16277,9 +16648,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.534684791986365,
+          "elapsed_s": 2.3954727919917786,
           "private_true_xyz_m": [
             0.14657510237850677,
             -0.3691806174439425,
@@ -16319,9 +16691,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027925166999921203,
+          "elapsed_s": 0.026932000007946044,
           "private_true_xyz_m": [
             0.18291497465256623,
             -0.19829164761045032,
@@ -16362,9 +16735,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02758545899996534,
+          "elapsed_s": 0.026366332996985875,
           "private_true_xyz_m": [
             0.18260354835374953,
             -0.1983086933214395,
@@ -16400,9 +16774,10 @@
             "boundary_pixel_count": 0,
             "reason": "insufficient_visible_boundary"
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.022198541002580896,
+          "elapsed_s": 0.021381124999606982,
           "private_true_xyz_m": [
             0.11575627604984513,
             -0.36584500801655456,
@@ -16442,9 +16817,10 @@
               12.999999999998234
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027963000000454485,
+          "elapsed_s": 0.026592667010845616,
           "private_true_xyz_m": [
             0.15935403262380926,
             -0.3579317488007162,
@@ -16485,9 +16861,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.028144624986452982,
+          "elapsed_s": 0.02658670900564175,
           "private_true_xyz_m": [
             0.15105248545589608,
             -0.3689172500983314,
@@ -16539,9 +16916,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.176868665992515,
+          "elapsed_s": 3.145353125000838,
           "private_true_xyz_m": [
             0.14657510237850677,
             -0.3691806174439425,
@@ -16581,9 +16959,10 @@
               8.500000000000728
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.029318875007447787,
+          "elapsed_s": 0.026620917007676326,
           "private_true_xyz_m": [
             0.18291497465256623,
             -0.19829164761045032,
@@ -16624,9 +17003,10 @@
               9.000000000000451
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.027475916998810135,
+          "elapsed_s": 0.026922999997623265,
           "private_true_xyz_m": [
             0.18260354835374953,
             -0.1983086933214395,
@@ -16678,9 +17058,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.09777170799498,
+          "elapsed_s": 3.048684791996493,
           "private_true_xyz_m": [
             0.11575627604984513,
             -0.36584500801655456,
@@ -16723,9 +17104,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 2.237746667000465,
+          "elapsed_s": 2.2143007920094533,
           "private_true_xyz_m": [
             0.15935403262380926,
             -0.3579317488007162,
@@ -16766,9 +17148,10 @@
               14.999999999997126
             ]
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 0.02654716699908022,
+          "elapsed_s": 0.026607290987158194,
           "private_true_xyz_m": [
             0.15105248545589608,
             -0.3689172500983314,
@@ -16820,9 +17203,10 @@
             "reacquisition_seeded": true,
             "history_cleared": true
           },
+          "scoring_status": "not_detected",
           "error_3d_m": null,
           "within_20mm": false,
-          "elapsed_s": 3.172036250005476,
+          "elapsed_s": 3.170915291993879,
           "private_true_xyz_m": [
             0.14657510237850677,
             -0.3691806174439425,

@@ -1,148 +1,104 @@
 # AGY completion — task 001
 
-Status: ready for review (revision 2 addressing Codex review R1–R4)
+Status: ready for review (revision 3 addressing Codex review R2-A and R2-B)
 Task brief: `coordination/agy/tasks/001-reacquisition.md`
 Branch: `agy/001-reacquisition`
 Starting commit: `76f8c354755d9d747dc0d4b6a639aa21144e0271`
 First handoff commit: `fceed20e86d772cb300cb4a5bf4fef722249cdc7`
+Revision 2 commit: `266c7c3d57bc6d386cfb47e1874a1314b9d76dc3`
 
 ---
 
-## 1. Response to Codex Review Findings (R1–R4)
+## 1. Response to Review Findings R2-A and R2-B (`001-review-r2.md`)
 
-### R1 (High) — Reject Invalid Calibration and Prevent Invalid Seeding
-- **Diagnosis:** `prepare_frame` validated matrix shape and finiteness, but did not check orthonormality or positive unit determinant. In invalid calibrations (such as zero, scaled, or reflection matrices), `prepare_frame` passed the geometry to downstream fitters. On fit mismatch, the recovery path seeded the invalid frame into `tracker.frames`.
+### R2-A (High) — Contain Preparation/Scoring Failures and Prevent History Leakage Across Stream Interruptions
+- **Diagnosis:** In `evaluate_stream`, stimulus preparation occurred outside the estimator `try...except` block. Corrupt observation dictionaries (e.g. missing `camera` key in `black_transport`) raised `KeyError` and crashed the evaluator instead of retaining partial accounting. Furthermore, `frozen_transport_rgb` used `previous_image` rather than requiring the declared `lift_hold` stimulus, and interruptions did not explicitly clear tracker history.
 - **Remedy:**
-  - In `humanoid_sim/temporal_pose.py:prepare_frame`: Added explicit checks verifying `np.allclose(cam_rot.T @ cam_rot, np.eye(3), atol=1e-4)` and `np.isclose(np.linalg.det(cam_rot), 1.0, atol=1e-4)`. Any non-orthonormal, scaled, reflection, or non-finite matrix raises `ValueError`.
-  - In `TemporalPose.observe`: Any exception raised in `prepare_frame` triggers `self.invalidate()`, clearing all history and preventing invalid calibration from ever seeding reacquisition.
-  - In `tests/test_humanoid_temporal_pose.py`: Added `test_invalid_camera_rotation_rejected_and_never_seeds` (exercising all-zeros, scaled, reflection, and valid calibration matrices) and `test_malformed_robot_and_calibration_inputs_after_seed_clears_history` (exercising NaN hand positions, zero quaternions, negative focal lengths, infinite camera origins, and zero rotation matrices arriving after a valid seed).
+  - In `humanoid_sim/temporal_reacquisition_evaluation.py:evaluate_stream`:
+    - Wrapped per-case stimulus preparation, observation structure checks, and post-estimation scoring in guarded blocks.
+    - Black transport validates camera geometry; missing or invalid dimensions produce a `preparation_error`, retain the grid record, and continue.
+    - Frozen transport strictly requires the declared `lift_hold` observation and its `rgb_png_base64`. If missing or invalid, it marks `status: 'stimulus_unavailable'` with a specific message, avoiding fallback to older images or leaving transport unaltered.
+    - Tracking history is explicitly invalidated (`tracker.invalidate()`) whenever a stream is interrupted by missing stages, missing/malformed observation files, stimulus preparation failures, or estimator exceptions.
+  - In `humanoid_sim/temporal_reacquisition_evaluation.py:evaluate_dataset`:
+    - Hardened capture JSON loading against malformed structures (non-list `private_records.json`, non-dict stage records, and non-dict observation files).
+  - In `tests/test_temporal_reacquisition_evaluation.py`:
+    - Added `test_corrupt_transport_metadata_retains_accounting_and_clears_history` (verifying missing camera metadata raises no uncaught exception, records `preparation_error`, and clears tracker frames).
+    - Added `test_malformed_loaded_json_structure_retains_accounting` (verifying dictionary/non-list `private_records.json` and non-dict observation files produce `incomplete` status while retaining expected grid accounting).
+    - Added `test_unavailable_frozen_image_source_marks_stimulus_unavailable` (verifying missing or empty `lift_hold` image marks `stimulus_unavailable` and clears tracker history).
 
-### R2 (High) — Complete Evaluator Grid and Denominator Accounting
-- **Diagnosis:** The initial evaluation runner derived target counts dynamically from whatever records it encountered in `private_records.json`. An empty records list or truncated episode would silently undercount expected responses or post-warmup targets, returning `status: complete`. In addition, missing observation files or tracker exceptions could abort without retaining partial accounting.
+### R2-B (High) — Count Emitted Poses Independently of Ground Truth and Mark Incomplete on Missing Truth
+- **Diagnosis:** In `compute_aggregate`, `accepted` was computed as `len(errors)`, where `errors` was the list of non-null `error_3d_m` values. When ground truth `private_true_xyz_m` was null, absent, or non-finite, emitted poses (`detected: True`) disappeared from acceptance counts, reporting 0 accepted poses despite valid estimator detections, while labeling the unscored dataset `complete`.
 - **Remedy:**
-  - In `humanoid_sim/temporal_reacquisition_evaluation.py`: Pre-builds an expected grid across `(seed, stage, variant)`.
-  - Seed validation: Materializes seed iterables once and enforces non-empty, positive integers.
-  - Denominator accounting: Nominal post-warmup target count is fixed at 2 per requested seed (20 for 10 seeds). Distinguishes `expected_responses` (60 per stream, 180 total), `evaluated_responses`, and `missing_responses`.
-  - Fault tolerance: Explicitly handles and records `missing_stage`, `missing_observation_file`, and `estimator_error` without crashing, preserving seed, stage, and variant details. If any stage is missing or errored, overall status is marked `incomplete`.
-  - In `tests/test_temporal_reacquisition_evaluation.py`: Added 5 focused unit tests covering: empty records list, early-stopped episodes, missing observation files, estimator exceptions, and invalid seed requests.
-  - Re-executed development evaluation across seeds 820–829; all 180 records per candidate evaluated with 0 missing responses and `status: complete`.
-
-### R3 (Medium) — Restore and Strengthen Regression Coverage
-- **Diagnosis:** Review identified: (1) omission of `self.assertEqual(tracker.frames, [])` in `test_reused_or_nonadvancing_frames_clear_history`; (2) self-comparison assertion in `test_reacquisition_sufficient_motion_fits_fresh_window`; (3) candidate nonadvancing test covered only duplicate IDs; (4) lack of episode reset isolation test with a fresh tracker instance; (5) lack of corrupt/truncated image tests.
-- **Remedy:**
-  - Restored `self.assertEqual(tracker.frames, [])` in `test_reused_or_nonadvancing_frames_clear_history`.
-  - Patched `fit_window` in `test_reacquisition_sufficient_motion_fits_fresh_window` to assert the fitted window contains exactly 2 frames `[seed, new_frame]` with matching timestamps, excluding the rejected old window frames.
-  - Updated `test_reacquisition_reused_or_nonadvancing_clears_seeded_history` to test duplicate IDs, equal timestamps, and regressing timestamps after reacquisition seeding.
-  - Added `test_reacquisition_episode_reset_isolation` verifying that creating a new tracker instance for a new episode accepts reset-time observations (`time_s = 0.5`) without leaking prior episode frames or transforms.
-  - Added `test_truncated_or_corrupt_image_never_seeds` (verifying corrupted base64, invalid PNG bytes, and empty black frames never seed recovery).
-  - Total test suite expanded from 84 baseline tests to 93 in first handoff, and now to 102 tests in this revision (all 102 passing).
-
-### R4 (Medium) — Correct Evidence Claims, Coordinates, and Formatting
-- **Response count correction:** Clarified that the two disruption streams contain 120 responses (60 each) across 2 streams altering only 20 transport frames in total, for 180 total responses across 3 streams.
-- **Seed 820 coordinate clarification:**
-  - World error vector: `[+1.120, -6.500, +20.922]` mm (norm = 21.937 mm).
-  - Camera-frame error vector ($R_{w\to c} \Delta x_w$): `[+1.120, -2.951, -21.708]` mm.
-  - The -21.7 mm component aligns along the camera optical axis $+Z_c$, placing the fitted center closer to the camera than ground truth.
-- **Depth ambiguity as hypothesis:** Labeled depth ambiguity as a hypothesis consistent with this camera-frame error vector, acknowledging other possible contributing factors (silhouette boundary segmentation fidelity, local optimizer convergence, subtle non-rigid finger compliance), without claiming a 3-frame history unconditionally resolves it.
-- **Runner provenance and test logs:** Documented exact runner commands, input provenance (`/Users/praveen/work/github/mujoco-llms/runtime/humanoid/temporal-P4/capture/`), reviewer 93-test log (`coordination/agy/reviews/001-tests.txt`), and revised 102-test log.
-- **Whitespace check:** Fixed trailing whitespace on lines 3–5 and 12 of `TEMPORAL_REACQUISITION_DEVELOPMENT.md`. Verified `git diff --check 76f8c35` passes with zero errors across the entire revision range.
+  - In `humanoid_sim/temporal_reacquisition_evaluation.py`:
+    - `accepted` and `post_warmup_accepted` now count all emitted detections (`estimate['detected'] is True`) regardless of whether 3D error could be computed.
+    - Added evaluator-side helper `is_valid_truth_xyz` that validates ground truth post-hoc (must be 3 finite floats) without leaking any private truth into the estimator.
+    - Records classify scoring under `scoring_status` (`scored`, `not_detected`, `unscored_missing_truth`, `unscored_invalid_truth`, `missing_or_invalid_truth`).
+    - Aggregates explicitly report `scored_responses`, `unscored_accepted`, and `missing_or_invalid_truth`.
+    - If any required ground truth is missing, null, absent, or non-finite (`missing_or_invalid_truth > 0`), the dataset status is marked `incomplete`.
+  - In `tests/test_temporal_reacquisition_evaluation.py`:
+    - Added `test_null_absent_and_nonfinite_truth_retains_acceptance_and_marks_incomplete` (verifying that null truth, absent truth keys, and NaN truth with a mock tracker emitting accepted poses preserve all 6 accepted detections, report 0 scored responses, mark overall status `incomplete`, and retain the expected grid).
 
 ---
 
-## 2. Changes Summary by File
+## 2. Response to Previous Findings (R1, R3, R4) Preserved
 
-1. **`humanoid_sim/temporal_pose.py`**:
-   - `prepare_frame`: Enforces camera rotation matrix orthonormality and positive determinant (`det(R) == +1`, `atol=1e-4`), raising `ValueError` on invalid calibration.
-   - `TemporalPose.observe`: Calls `self.invalidate()` upon any exception in `prepare_frame`.
-   - Preserves `TemporalReacquisitionPose` opt-in subclass; default `TemporalPose()` retains baseline behavior.
-   - Preserves complete disconnection from control.
-
-2. **`humanoid_sim/temporal_reacquisition_evaluation.py`**:
-   - Constructs expected `(seed, stage, variant)` grid upfront.
-   - Validates seed input (rejects empty/negative/non-integer seeds).
-   - Distinguishes expected, evaluated, and missing responses.
-   - Post-warmup targets fixed at $2 \times N_{\text{seeds}}$ (20 for 10 seeds).
-   - Retains accounting on missing stages, missing files, or estimator exceptions, setting run status to `incomplete`.
-   - Re-executed development evaluation across seeds 820–829; output saved to `experiments/humanoid-pick-place/results/temporal_reacquisition_development.json`.
-
-3. **`tests/test_temporal_reacquisition_evaluation.py`** (new):
-   - 5 unit tests validating evaluator denominator accounting and error retention:
-     - `test_empty_records_list_retains_accounting_and_marks_incomplete`
-     - `test_early_stopped_episode_retains_accounting`
-     - `test_missing_observation_file_retains_accounting`
-     - `test_estimator_exception_retains_accounting_and_details`
-     - `test_invalid_seed_requests_rejected`
-
-4. **`tests/test_humanoid_temporal_pose.py`**:
-   - Restored original `self.assertEqual(tracker.frames, [])` assertion.
-   - Fixed `test_reacquisition_sufficient_motion_fits_fresh_window` with explicit window verification.
-   - Added `test_reacquisition_episode_reset_isolation`.
-   - Added `test_invalid_camera_rotation_rejected_and_never_seeds`.
-   - Added `test_malformed_robot_and_calibration_inputs_after_seed_clears_history`.
-   - Added `test_truncated_or_corrupt_image_never_seeds`.
-   - Extended `test_reacquisition_reused_or_nonadvancing_clears_seeded_history` for duplicate IDs, equal timestamps, and regressing timestamps.
-
-5. **`experiments/humanoid-pick-place/TEMPORAL_REACQUISITION_DEVELOPMENT.md`**:
-   - Updated response counts (180 total responses across 3 streams, 20 altered transport frames).
-   - Documented Seed 820 error in both world frame `[+1.120, -6.500, +20.922]` mm and camera frame `[+1.120, -2.951, -21.708]` mm.
-   - Labeled depth ambiguity as a hypothesis.
-   - Documented exact runner invocation, input provenance, and test log references.
-   - Removed all trailing whitespace.
-
-6. **`experiments/humanoid-pick-place/protocols/P5_PROPOSAL.md`**:
-   - Updated Seed 820 error coordinates and camera optical axis signs.
-   - Labeled depth ambiguity as a hypothesis.
-   - Preserved proposed status; no fresh validation executed.
+- **R1 (Invalid Calibration):** Camera rotation orthonormality and positive determinant (`det(R) == +1`, `atol=1e-4`) enforced in `prepare_frame`. Invalid calibrations call `self.invalidate()` and clear history.
+- **R3 (Regression Coverage):** Restored baseline assertion, verified fresh-window bounds at fitting boundary, exercised duplicate/equal/regressing timestamps, verified episode reset isolation, and tested corrupt/truncated images.
+- **R4 (Evidence & Coordinates):** Documented 180 total responses across 3 streams (20 altered transport frames); stated Seed 820 error in world frame `[+1.120, -6.500, +20.922]` mm and camera frame `[+1.120, -2.951, -21.708]` mm along optical axis $+Z_c$; labeled depth ambiguity as a hypothesis; verified zero whitespace warnings across revision range.
 
 ---
 
-## 3. Validation Evidence
+## 3. Estimator and Policy Boundaries Preserved
+
+- **Estimator Untouched:** No changes to `TemporalPose` or `TemporalReacquisitionPose` fitting, thresholds, or recovery logic in `humanoid_sim/temporal_pose.py`.
+- **Disconnected from Control:** `PerceptionSession` and driving policies remain completely untouched.
+- **No Validation Leakage:** No fresh episodes on held-out seeds 840–849 executed.
+- **No Branch Merge:** Working branch `agy/001-reacquisition` remains separate from `main`.
+
+---
+
+## 4. Validation Evidence
 
 All checks executed from `/private/tmp/mujoco-llms-agy-001` using Python interpreter `/Users/praveen/work/github/mujoco-llms/.venv/bin/python`:
 
-1. **Targeted Reacquisition & Evaluator Unit Tests**:
+1. **Targeted Unit Tests (27/27 Passed):**
    ```sh
    /Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest \
      tests/test_temporal_reacquisition_evaluation.py \
      tests/test_humanoid_temporal_pose.py -v
    ```
-   **Outcome:** 23 tests ran, 23 passed in 48.844s.
+   **Outcome:** 9 evaluator tests and 18 temporal pose tests ran, all 27 passed.
 
-2. **Full Repository Test Discovery**:
+2. **Full Repository Test Discovery (106/106 Passed in 89.6s):**
    ```sh
    /Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest discover -s tests -v
    ```
-   **Outcome:** 102 tests ran, 102 passed in 90.166s. All 84 baseline tests, 9 task-001 tests, and 9 review-fix tests passed without regression.
+   **Outcome:** 106 tests ran, 106 passed without regressions.
 
-3. **Development Dataset Evaluation**:
+3. **Development Dataset Evaluation Rerun:**
    ```sh
    /Users/praveen/work/github/mujoco-llms/.venv/bin/python -m humanoid_sim.temporal_reacquisition_evaluation \
      --capture-dir /Users/praveen/work/github/mujoco-llms/runtime/humanoid/temporal-P4/capture \
      --output experiments/humanoid-pick-place/results/temporal_reacquisition_development.json
    ```
    **Outcome:** `Evaluation finished with status: complete.`
-   - Evaluated 60 responses per stream (180 total across 3 streams) with 0 missing responses.
-   - Post-warmup targets: 20 per stream.
-   - Baseline P4: 14/20 post-warmup accepted (all 14 within 20 mm; max error 7.42 mm).
-   - Reacquisition candidate: 17/20 post-warmup accepted, 16/20 within 20 mm (max error 21.94 mm on Seed 820 Lower).
+   - 60 responses evaluated per stream across 3 streams (180 total).
+   - Baseline P4: 14/20 post-warmup targets accepted (all 14 scored and within 20 mm; max error 7.42 mm).
+   - Reacquisition candidate: 17/20 post-warmup targets accepted (all 17 scored; 16 within 20 mm, 1 exceeding 20 mm: Seed 820 Lower at 21.94 mm).
    - Disruption streams: 0 accepted on black transport (0/10) and frozen transport RGB (0/10); 0 accepted on release or retract (0/20).
+   - Results file updated at `experiments/humanoid-pick-place/results/temporal_reacquisition_development.json`.
 
-4. **Revision Diff Check Against Task Base**:
+4. **Revision Diff Check Against Task Base:**
    ```sh
    git diff --check 76f8c35
    ```
-   **Outcome:** Exited with code 0; zero whitespace or formatting warnings across all modified and new files.
-
-5. **Checks Categorization**:
-   - *Executed*: Unit test suite (102 tests), offline development evaluation runner across seeds 820–829 on 3 streams.
-   - *Proposed*: Protocol P5 on held-out seeds 840–849.
-   - *Excluded*: Fresh validation execution (no seeds 840–849 consumed), merging to `main`, and active control integration.
+   **Outcome:** Exited with code 0; clean whitespace and formatting.
 
 ---
 
-## 4. Git History and Handoff
+## 5. Git History and Handoff
 
 - Working branch: `agy/001-reacquisition` (worktree at `/private/tmp/mujoco-llms-agy-001`).
-- Clean separation: Main working copy `/Users/praveen/work/github/mujoco-llms` remains untouched on `main`.
-- History preservation: Initial task handoff commit `fceed20e86d772cb300cb4a5bf4fef722249cdc7` preserved; changes committed as a clean subsequent commit.
+- Main checkout `/Users/praveen/work/github/mujoco-llms` remains clean on `main`.
+- History preservation: Initial task handoff commit `fceed20e86d772cb300cb4a5bf4fef722249cdc7` and revision 2 commit `266c7c3d57bc6d386cfb47e1874a1314b9d76dc3` preserved.
 - Status: **Ready for Codex review**.
