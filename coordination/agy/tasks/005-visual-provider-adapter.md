@@ -1,6 +1,6 @@
 # AGY task 005 — Multimodal provider adapter and pilot draft
 
-Status: **in progress**; see [launch record](../reports/005-launch.md). Branch: `agy/005-visual-provider-adapter`.
+Status: **accepted with integration fixes**; see [acceptance](../reviews/005-acceptance.md). Branch: `agy/005-visual-provider-adapter`.
 Use `/private/tmp/mujoco-llms-agy-005`, starting from the main integration containing
 this brief and Task 004 acceptance. Record its exact starting commit.
 

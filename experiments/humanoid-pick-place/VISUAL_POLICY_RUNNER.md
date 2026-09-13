@@ -218,3 +218,71 @@ Malformed results and execution exceptions stop after one attempt and increment
 simulation time is null when no trustworthy post-execution state is available.
 Stale-observation rejections retain their original rejection classification.
 Archive errors remain visible separately in `evaluator_error`.
+
+---
+
+## 8. Multimodal Responses provider adapter (Task 005)
+
+Implemented in `humanoid_sim/visual_provider_adapter.py`, this adapter connects the
+accepted visual policy loop to the OpenAI Responses wire format using an explicitly
+injected offline transport.
+
+### 8.1 Wire request construction (`build_responses_request`)
+
+The pure request builder converts the sanitized `public_payload` into the Responses format:
+- **Explicit model parameter**: `model` is strictly required with no implicit default. Other top-level parameters: `store: false`, `reasoning: {"effort": "low"}`, `max_output_tokens: 2048`, `instructions: VISUAL_PROMPT`.
+- **Structured output**: `text.format` JSON schema (`humanoid_primitive`) using `action_schema()`, enforcing strict schema validation.
+- **Multimodal input message**: Exactly one user message with two content items:
+  1. `input_text`: JSON string containing public metadata (`instruction_version`, `remaining_time_s`, `remaining_actions`, `observation`, `history`). Crucially, the base64 image string is **omitted** from this text JSON to avoid redundant token billing and payload expansion.
+  2. `input_image`: Data URL (`data:image/png;base64,...`) containing the original PNG bytes with explicitly recorded detail (`detail: high`).
+- **Pre-transport image decoding and validation**: Validates configuration, PNG magic bytes (`\x89PNG\r\n\x1a\n`), SHA-256 hash match, and forces full image raster decompression (`img.load()`) before invoking transport. Truncated or corrupted pixel data is rejected even if SHA-256 matches the bad bytes.
+
+### 8.2 Strict envelope validation (`validate_response_envelope`)
+
+Before returning an action to the visual runner, the adapter verifies the response envelope:
+- **Envelope status**: Must be `completed`. Incomplete (`status: "incomplete"`), failed (`status: "failed"`), or unrecognized envelope statuses raise `MalformedResponseError` immediately, ensuring an incomplete envelope can **never** execute an apparently valid command nested inside it.
+- **Refusal handling**: Explicit refusals at the envelope root or inside message content raise `ModelRefusalError`.
+- **Tool and content sanitization**: Tool calls (`tool_call`, `function_call`, `call`), unexpected content types, multiple action messages, or multiple `output_text` chunks raise `MalformedResponseError`.
+- **Reasoning metadata**: Reasoning items (`type: "reasoning"`) are cleanly ignored and never interpreted as commands.
+- **Command validation**: Output text is parsed with `strict_json` (rejecting duplicates and non-finite numbers) and validated with the runner's primitive validator (`move` bounds, unit quaternion norm, `hand` closure, duration limits, boolean rejection).
+
+### 8.3 Injected transport and attempt logging (`VisualProviderAdapter`)
+
+- **Explicit model and transport**: Constructor strictly requires an explicit, non-empty `model` and a callable `transport`. Omitting transport fails immediately (`ValueError`) without attempting credential lookup or default HTTP client instantiation.
+- **Honest callback accounting**: Separates adapter `invocation_count` (preparation attempts) from `transport_call_count` (`call_count` property). Preflight validation errors do not increment transport calls (`transport_call_count == 0`).
+- **Pre-transport pending record**: When `record_dir` is configured, writes a pending record (`status: "pending"`) before transport is called. If the initial record cannot be written (e.g. filesystem error), transport is **never** invoked.
+- **Failure boundary and raw evidence preservation**: Metadata extraction and envelope validation share the same failure-accounting boundary. Incomplete envelopes, empty/malformed tuples, and transport exceptions write failure records retaining raw evidence before raising controlled exceptions (`MalformedResponseError`, `ModelRefusalError`).
+- **No dollar cost fabrication**: Reported token usage is retained as reported. If missing, usage is marked `{"status": "unknown"}`. No dollar costs or invoice amounts are fabricated from offline fixtures.
+
+### 8.4 Dry request export CLI
+
+The module provides a standalone dry-export command:
+```sh
+.venv/bin/python -m humanoid_sim.visual_provider_adapter \
+  --input experiments/humanoid-pick-place/results/visual_policy_scaffold/demo_request_payload.json \
+  --output runtime/humanoid/visual-provider-export/demo_request.json \
+  --model gpt-5.6-sol \
+  --manifest runtime/humanoid/visual-provider-export/request_manifest.json
+```
+The command requires explicit model configuration, enforces distinct output and manifest paths before writing, refuses to overwrite existing files, cannot send network requests, and emits a compact manifest (`request_manifest.json`) recording source, hashes, image dimensions, and field layout without duplicating large base64 PNG strings in Git.
+
+### 8.5 Status: Adapter readiness vs live execution
+
+Task 005 establishes **adapter wire-format readiness** with offline transport. It does **not** authorize or execute live model trials. An unfrozen development pilot draft is specified in [protocols/V1_PROPOSAL.md](protocols/V1_PROPOSAL.md). Live execution requires subsequent authorization and completion of live HTTP transport, multimodal token spend reservations, total spend approval, and frozen source snapshots.
+
+### Task 005 integration clarification
+
+Transport returns one Responses envelope (dictionary or JSON string), optionally
+paired with a request ID as a two-element tuple. Lists of responses, extra tuple
+items and non-string request IDs are rejected instead of selecting one result.
+
+Pending records use `transport_invoked: null`: a process interruption between log
+persistence and dispatch cannot establish whether the callback ran. Preparation
+failures use false; known returned/failed/interrupted callbacks use true. Caught
+KeyboardInterrupt/SystemExit retain an interrupted adapter record and an interrupted
+final episode report, then propagate the interrupt without retry. No inference about
+paid cost can be drawn from an unfinished attempt. Archive failures are surfaced.
+
+The retained Task 005 request manifest remains historical dry-export evidence;
+it does not certify a live endpoint or account. Live HTTP transport, audited spend
+reservation and explicit pilot budget approval remain unfinished work.
