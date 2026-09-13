@@ -1,0 +1,27 @@
+{
+  "scene_sha256": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+  "seed": 820,
+  "randomized": true,
+  "scorer": {
+    "object": 45,
+    "geom": 105,
+    "floor": 106,
+    "site": 4,
+    "lift_dwell": 0.0,
+    "lifted": false,
+    "settled_dwell": 0.0,
+    "success": false,
+    "max_bottom": 0.7010000000000001,
+    "last_time": 3.4999999999997256,
+    "max_penetration": 0.00013093919018729132,
+    "peak_contact": {
+      "time_s": 0.01800000000000001,
+      "other_body": "world",
+      "other_geom_id": 2,
+      "normal_force_n": 0.3120617487542348,
+      "penetration_m": 0.00013093919018729132
+    },
+    "support_contact": false,
+    "hand_contact": false
+  }
+}

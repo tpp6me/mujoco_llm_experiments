@@ -1,0 +1,203 @@
+# Offline RGB-to-action visual policy runner
+
+Date: 2026-09-13.
+Status: **Scaffolding and offline verification complete (Task 004)**.
+Branch: `agy/004-visual-policy-scaffold`.
+
+This document specifies the provider-neutral offline RGB-to-action policy loop.
+It connects the visual observation boundary (`VisualSession`) to an injected policy
+callable, strictly isolates policy inputs through a public allowlist, enforces fresh
+observation capture and guarded action execution, and logs reviewable artifacts.
+
+> [!IMPORTANT]
+> **Scaffolding, not an experiment or success claim**: This module is test infrastructure.
+> No live LLM or VLA model has been invoked, no provider credentials or HTTP transport
+> are enabled, and no visual manipulation success is claimed. Scripted test stubs exercise
+> plumbing only and must never be treated as conventional comparators or learned policies.
+> Carried-object pose remains unqualified (passive P5 development mean is 5.8715 mm against
+> an unchanged 5.0 mm gate); the visual runner does not rely on temporal pose candidates,
+> private object truth, or oracle scorer feedback.
+
+---
+
+## 1. Architectural separation
+
+The visual runner strictly distinguishes three categories:
+
+| Category | Definition | Included in Task 004? |
+|---|---|---|
+| **Implementation** | Python module `humanoid_sim/visual_policy_runner.py`, narrow session adapter, allowlist builders, response validators, and unit tests | Yes |
+| **Simulation smoke check** | Deterministic local run with named scripted stub on development seed 820 to verify log structure and state persistence | Yes (retained offline demo) |
+| **Model evidence** | Scored manipulation trials driven by a live vision-language-action model | **No** (future frozen pilot) |
+
+The runner preserves the exact-state L2 runner (`humanoid_sim/llm_runner.py`), provider client,
+and historical mechanical evidence unchanged.
+
+---
+
+## 2. Public request contract
+
+The model callable receives a single provider-neutral dictionary constructed strictly
+from an **allowlist**. No environment instance, simulator state, task ground truth,
+object coordinate, private scorer, or diagnostic object is ever serialized or accessible.
+
+### 2.1 Allowlist specification
+
+```json
+{
+  "instruction": "<VISUAL_PROMPT string>",
+  "instruction_version": 1,
+  "action_schema": { ... },
+  "remaining_time_s": 24.5,
+  "remaining_actions": 20,
+  "observation": {
+    "schema_version": "humanoid-visual-v1",
+    "observation_id": "918f43c2a91645af88bdc504a2ba692e",
+    "time_s": 0.5,
+    "camera": {
+      "width": 960,
+      "height": 720,
+      "projection": "pinhole",
+      "camera_world_xyz_m": [0.24, -0.81, 2.02],
+      "world_to_camera_rotation": [[...], [...], [...]],
+      "focal_xy_px": [869.12, 869.12],
+      "principal_xy_px": [479.5, 359.5],
+      "axes": "camera X right, Y down, Z forward; world Z up; pixel centers indexed from 0"
+    },
+    "robot_state": {
+      "schema_version": "humanoid-actions-v2",
+      "instruction_version": 1,
+      "mode": "robot_state",
+      "time_s": 0.5,
+      "frame": "world",
+      "supported_body": true,
+      "robot": {
+        "joint_names": [ ... ],
+        "joint_position_rad": [ ... ],
+        "joint_velocity_rad_s": [ ... ],
+        "hand_xyz_m": [0.2385, -0.1803, 0.9332],
+        "hand_quaternion_wxyz": [0.4925, -0.4933, 0.5070, 0.5070],
+        "contact_links": []
+      }
+    },
+    "rgb_png_base64": "<base64 encoded 960x720 PNG>",
+    "rgb_sha256": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65"
+  },
+  "history": [
+    {
+      "action": {
+        "action": "hold",
+        "arguments": {"seconds": 0.5},
+        "request_id": "visual-1"
+      },
+      "response": {
+        "request_id": "visual-1",
+        "status": "completed",
+        "start_time_s": 0.5,
+        "end_time_s": 1.0,
+        "robot_state": { ... }
+      }
+    }
+  ]
+}
+```
+
+### 2.2 Instruction prompt
+
+The visual prompt (`VISUAL_PROMPT`) replaces L2's exact-state prompt:
+- States that the policy receives **visual observations (RGB image from camera)** and **robot proprioception**.
+- Explicitly notes: *No ground-truth object coordinates, basket coordinates, or oracle score feedback are provided.*
+- Removes L2's text stating that no images are supplied and removes exact basket reference coordinate claims.
+- Preserves identical robot capabilities, workspace boundaries ($X \in [0.15, 0.55]$, $Y \in [-0.60, -0.05]$, $Z \in [0.60, 1.15]$), primitive definitions (`move`, `hand`, `hold`), downward hand orientation $[0.5, -0.5, 0.5, 0.5]$, duration limits ($[0.02, 10.0]$ s), and physical settling requirements.
+
+### 2.3 Bounded history and isolation guarantees
+
+- Prior action requests and execution outcomes are sanitized through allowlists before addition to history.
+- Planted private fields (e.g. `task_state`, `score`, `secret_object_truth`, `private_diagnostics`) are stripped at the allowlist boundary and never reach the callable.
+- History is bounded to at most 20 preceding steps.
+
+---
+
+## 3. Fresh observation and guarded execution loop
+
+Each decision iteration enforces authoritative simulation freshness:
+
+1. **Pre-capture budget check**: Checks whether action call limit (20) or simulation deadline (25.0 s) is reached.
+2. **Fresh capture**: Calls `session.capture()` via `VisualPolicySession` adapter. Generates an opaque UUID `observation_id` and records the integration-state hash before and after capture.
+3. **Allowlist payload construction**: Assembles the sanitized public contract payload.
+4. **Timed stub invocation**: Calls the injected `model_callable`. Wall-clock latency is measured using an injectable clock (`clock()`), completely separate from simulated time.
+5. **Strict parsing and validation**: Parses response JSON (rejecting duplicates and non-finite numbers), checks for model refusal, extracts primitive command, and validates argument keys, finite numbers, workspace bounds, and durations.
+6. **Guarded execution**: Submits the command through `VisualSession.execute(observation_id, request)`.
+   - **Single-use constraint**: The observation ID is consumed upon first execution attempt. Any subsequent attempt with the same ID is rejected with `Stale or unknown visual observation` without advancing physics.
+   - **Collision preflight**: Kinematic collision safeguard checks the commanded arm trajectory against environment geometry; penetrations $>2$ mm are rejected before physical stepping.
+7. **No silent retries**: Any refusal, malformed response, unhandled exception, or interface rejection terminates the episode immediately without retries, replacement commands, or oracle fallback.
+
+---
+
+## 4. Pilot limits and timing
+
+- **Action attempt limit**: At most 20 model calls / action attempts per episode.
+- **Simulated deadline**: 25.0 simulated seconds including initial reset (0.5 s). Durations undergo millisecond rounding (`ceil(seconds / 0.001) * 0.001`); requests exceeding the remaining time are rejected.
+- **Paused decision time**: Simulation physics pauses while the model callable computes. Action durations consume simulated time; model wall latency is recorded separately.
+- **Injectable clocks**: Tests inject mock clocks (`MockClock`) to verify latency tracking without real-time delays or sleeping.
+
+---
+
+## 5. Offline named stubs
+
+The runner provides built-in named stubs for development and testing:
+
+| Stub name | Class | Behavior |
+|---|---|---|
+| `scripted` | `ScriptedDemoStub` | Deterministic 4-step sequence (hold $\to$ approach move $\to$ partial hand closure $\to$ hold) for plumbing verification |
+| `hold` | `HoldStub` | Command sequence of explicit `hold` primitives |
+| `refusal` | `RefusalStub` | Returns explicit refusal object; verifies refusal termination |
+| `malformed` | `MalformedStub` | Returns invalid JSON / non-existent action; verifies schema rejection |
+| `exception` | `ExceptionStub` | Raises `RuntimeError`; verifies transport exception handling |
+| `collision` | `CollisionStub` | Targets table-penetrating pose ($Z=0.70$ m); verifies collision guard rejection |
+
+---
+
+## 6. Run instructions and artifacts
+
+### 6.1 CLI invocation
+
+Run the offline visual policy runner using the primary project virtual environment:
+
+```sh
+/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m humanoid_sim.visual_policy_runner \
+  --output experiments/humanoid-pick-place/results/visual_policy_scaffold \
+  --seed 820 \
+  --stub scripted \
+  --max-calls 4
+```
+
+> [!CAUTION]
+> **Held-out seed protection**: Seeds 840–849 are strictly reserved for held-out validation.
+> The CLI validates seed arguments and immediately exits with an error if a seed in 840–849 is specified.
+
+### 6.2 Retained artifacts
+
+Each run directory contains:
+- `call_NNN.json`: Step-by-step audit trail containing `observation_id`, `time_s`, `image_sha256`, full allowlisted `request`, `raw_response`, `command`, `wall_latency_s`, `interface_request`, and `interface_response`.
+- `report.json`: Overall episode summary with controller name, seed, termination reason, error status, call/action counts, simulated time, total wall latency, image identity sequence, provenance hashes, and `placement_success_claimed: false`.
+- `evaluator_report.json`: Post-hoc simulator scorer report (`env.scorer.report()`), retained **separately** from the policy log and never returned to policy history.
+- `episode.npz`, `metadata.json`, `events.json`: Full physical simulation state and events.
+
+---
+
+## 7. Work required for live adapter and frozen pilot
+
+To advance from this offline scaffolding to a scored visual LLM pilot:
+
+1. **Provider adapter**: Build a transport adapter that translates the provider-neutral `public_payload` into vendor-specific multimodal API formats:
+   - OpenAI Responses API: multimodal message with base64 image input and JSON schema output.
+   - Anthropic Messages API: image block with base64 data and tool use.
+   - Google Gemini API: inline_data with image MIME type.
+2. **Credential and network isolation**: Secure credential handling via environment variables; ensure dry-run/offline flags prevent accidental network access.
+3. **Cost accounting and token reservations**: Adapt `Client` cost tracking to multimodal image token rates (e.g. OpenAI tile tokens, Gemini image pricing).
+4. **Frozen protocol specification**: Author and freeze a protocol document defining:
+   - Evaluated seeds (development seeds 820–829; no held-out seeds 840–849 until formal evaluation).
+   - Fixed model identifier, system prompt hash, temperature/sampling parameters.
+   - Maximum budget cap and token limits.
+5. **Matched conventional vision comparator**: Build an equivalent conventional vision baseline before evaluating LLM visual manipulation claims.
