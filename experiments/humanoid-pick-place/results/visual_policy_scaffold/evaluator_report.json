@@ -1,0 +1,17 @@
+{
+  "success": false,
+  "lifted": false,
+  "settled_dwell_s": 0.0,
+  "max_object_bottom_m": 0.7010000000000001,
+  "max_object_penetration_m": 0.00013093919018729132,
+  "peak_object_contact": {
+    "time_s": 0.01800000000000001,
+    "other_body": "world",
+    "other_geom_id": 2,
+    "normal_force_n": 0.3120617487542348,
+    "penetration_m": 0.00013093919018729132
+  },
+  "basket_floor_contact": false,
+  "hand_contact": false,
+  "supported_body": true
+}

@@ -1,0 +1,231 @@
+test_oracle_changes_do_not_change_compiled_motion (test_camera.CameraTests.test_oracle_changes_do_not_change_compiled_motion) ... ok
+test_public_observation_has_no_oracle_object_fields (test_camera.CameraTests.test_public_observation_has_no_oracle_object_fields) ... ok
+test_wrong_color_estimate_is_scored_without_correcting_command (test_camera.CameraTests.test_wrong_color_estimate_is_scored_without_correcting_command) ... ok
+test_all_colors_reach_collection_without_arm_contact (test_conveyor.ConveyorPhysicsTests.test_all_colors_reach_collection_without_arm_contact) ... ok
+test_cube_dropping_into_reject_tray_is_scored_physically (test_conveyor.ConveyorPhysicsTests.test_cube_dropping_into_reject_tray_is_scored_physically) ... ok
+test_seed_reproduces_initial_scene (test_conveyor.ConveyorPhysicsTests.test_seed_reproduces_initial_scene) ... ok
+test_short_run_accounts_for_every_cube (test_conveyor.ConveyorPhysicsTests.test_short_run_accounts_for_every_cube) ... ok
+test_stopped_surface_does_not_transport_cubes (test_conveyor.ConveyorPhysicsTests.test_stopped_surface_does_not_transport_cubes) ... ok
+test_arrival_requires_containment_contact_and_dwell (test_conveyor.ScoringTests.test_arrival_requires_containment_contact_and_dwell) ... ok
+test_color_and_destination_outcomes (test_conveyor.ScoringTests.test_color_and_destination_outcomes) ... ok
+test_cube_leaving_tray_loses_its_arrival (test_conveyor.ScoringTests.test_cube_leaving_tray_loses_its_arrival) ... ok
+test_declared_target_changes_scoring (test_conveyor.ScoringTests.test_declared_target_changes_scoring) ... ok
+test_missing_cube_and_backwards_time_are_rejected (test_conveyor.ScoringTests.test_missing_cube_and_backwards_time_are_rejected) ... ok
+test_soft_contact_tolerance_does_not_admit_outside_cubes (test_conveyor.ScoringTests.test_soft_contact_tolerance_does_not_admit_outside_cubes) ... ok
+test_stacked_cubes_require_support_chain (test_conveyor.ScoringTests.test_stacked_cubes_require_support_chain) ... ok
+test_stuck_lost_and_unresolved_are_distinct (test_conveyor.ScoringTests.test_stuck_lost_and_unresolved_are_distinct) ... ok
+test_rejection_stops_policy_without_hidden_retry (test_guarded_baseline.GuardedBaselineTests.test_rejection_stops_policy_without_hidden_retry) ... ok
+test_withdrawal_regression_via_public_interface_only (test_guarded_baseline.GuardedBaselineTests.test_withdrawal_regression_via_public_interface_only) ... ok
+test_g2_report_accounting_freeze_and_overwrite_protection (test_guarded_evaluation.GuardedEvaluationTests.test_g2_report_accounting_freeze_and_overwrite_protection) ... {"seed": 300, "success": true, "gate_success": true, "error": null}
+ok
+test_bad_action_preserves_integration_state (test_humanoid.HumanoidTests.test_bad_action_preserves_integration_state) ... ok
+test_old_episode_does_not_inherit_reset_contact_telemetry (test_humanoid.HumanoidTests.test_old_episode_does_not_inherit_reset_contact_telemetry) ... ok
+test_physical_pick_place_and_resume (test_humanoid.HumanoidTests.test_physical_pick_place_and_resume) ... ok
+test_release_falls_under_gravity (test_humanoid.HumanoidTests.test_release_falls_under_gravity) ... ok
+test_release_regressions (test_humanoid.HumanoidTests.test_release_regressions) ... ok
+test_scorer_requires_lift_dwell_and_revokes_arrival (test_humanoid.HumanoidTests.test_scorer_requires_lift_dwell_and_revokes_arrival) ... ok
+test_supported_model_and_free_object (test_humanoid.HumanoidTests.test_supported_model_and_free_object) ... ok
+test_bad_inputs_fail_before_fitting (test_humanoid_carried_pose.CarriedPoseTests.test_bad_inputs_fail_before_fitting) ... ok
+test_loss_and_image_boundary_truncation_refuse_without_position (test_humanoid_carried_pose.CarriedPoseTests.test_loss_and_image_boundary_truncation_refuse_without_position) ... ok
+test_saved_tilted_views_and_ambiguous_transport (test_humanoid_carried_pose.CarriedPoseTests.test_saved_tilted_views_and_ambiguous_transport) ... ok
+test_similarly_good_distant_solutions_are_not_averaged (test_humanoid_carried_pose.CarriedPoseTests.test_similarly_good_distant_solutions_are_not_averaged) ... ok
+test_cli_persistence_malformed_json_and_completed_protection (test_humanoid_interface.InterfaceTests.test_cli_persistence_malformed_json_and_completed_protection) ... ok
+test_collision_rejection_preserves_full_state (test_humanoid_interface.InterfaceTests.test_collision_rejection_preserves_full_state) ... ok
+test_duplicate_and_stale_requests_after_reload (test_humanoid_interface.InterfaceTests.test_duplicate_and_stale_requests_after_reload) ... ok
+test_event_records_are_detached_and_strict_json (test_humanoid_interface.InterfaceTests.test_event_records_are_detached_and_strict_json) ... ok
+test_explicit_orientation_tracks_and_sign_equivalence (test_humanoid_interface.InterfaceTests.test_explicit_orientation_tracks_and_sign_equivalence) ... ok
+test_invalid_requests_preserve_state_and_are_logged (test_humanoid_interface.InterfaceTests.test_invalid_requests_preserve_state_and_are_logged) ... ok
+test_robot_state_has_no_task_or_score_fields (test_humanoid_interface.InterfaceTests.test_robot_state_has_no_task_or_score_fields) ... ok
+test_v4_recipe_hits_new_guard_without_advancing_rejected_move (test_humanoid_interface.InterfaceTests.test_v4_recipe_hits_new_guard_without_advancing_rejected_move) ... ok
+test_client_logs_raw_result_usage_and_budget (test_humanoid_llm.LLMTests.test_client_logs_raw_result_usage_and_budget) ... ok
+test_deadline_rejection_does_not_advance_or_resize (test_humanoid_llm.LLMTests.test_deadline_rejection_does_not_advance_or_resize) ... ok
+test_model_action_executes_and_rejection_is_retained (test_humanoid_llm.LLMTests.test_model_action_executes_and_rejection_is_retained) ... {"seed": 300, "call": 1, "action": {"action": "hold", "arguments": {"seconds": 0.02}}, "status": "completed", "time_s": 0.5200000000000004}
+{"seed": 300, "call": 2, "action": {"action": "move", "arguments": {"xyz_m": [5, 0, 1], "quaternion_wxyz": [1, 0, 0, 0], "seconds": 2}}, "status": "rejected", "time_s": 0.5200000000000004}
+ok
+test_public_payload_contains_no_scoring_or_recipe (test_humanoid_llm.LLMTests.test_public_payload_contains_no_scoring_or_recipe) ... ok
+test_refusal_and_nonfinite_response_never_become_actions (test_humanoid_llm.LLMTests.test_refusal_and_nonfinite_response_never_become_actions) ... ok
+test_replay_labels_distinguish_llm_conventional_and_unknown (test_humanoid_llm.LLMTests.test_replay_labels_distinguish_llm_conventional_and_unknown) ... ok
+test_strict_schema_discriminators_have_explicit_types (test_humanoid_llm.LLMTests.test_strict_schema_discriminators_have_explicit_types) ... ok
+test_unknown_usage_and_timeout_keep_reserve (test_humanoid_llm.LLMTests.test_unknown_usage_and_timeout_keep_reserve) ... ok
+test_rejected_attempt_still_expires_prior (test_humanoid_perception.PerceptionTests.test_rejected_attempt_still_expires_prior) ... ok
+test_reused_or_regressing_observation_is_rejected (test_humanoid_perception.PerceptionTests.test_reused_or_regressing_observation_is_rejected) ... ok
+test_time_advancement_expires_support_without_action_notification (test_humanoid_perception.PerceptionTests.test_time_advancement_expires_support_without_action_notification) ... ok
+test_total_visibility_loss_does_not_return_old_position (test_humanoid_perception.PerceptionTests.test_total_visibility_loss_does_not_return_old_position) ... ok
+test_visible_carried_and_released_block_do_not_restore_support (test_humanoid_perception.PerceptionTests.test_visible_carried_and_released_block_do_not_restore_support) ... ok
+test_default_temporal_pose_preserves_p4_behavior (test_humanoid_temporal_pose.TemporalPoseTests.test_default_temporal_pose_preserves_p4_behavior) ... ok
+test_invalid_camera_rotation_rejected_and_never_seeds (test_humanoid_temporal_pose.TemporalPoseTests.test_invalid_camera_rotation_rejected_and_never_seeds) ... ok
+test_malformed_metadata_clears_history (test_humanoid_temporal_pose.TemporalPoseTests.test_malformed_metadata_clears_history) ... ok
+test_malformed_robot_and_calibration_inputs_after_seed_clears_history (test_humanoid_temporal_pose.TemporalPoseTests.test_malformed_robot_and_calibration_inputs_after_seed_clears_history) ... ok
+test_reacquisition_episode_reset_isolation (test_humanoid_temporal_pose.TemporalPoseTests.test_reacquisition_episode_reset_isolation) ... ok
+test_reacquisition_insufficient_motion_after_seed (test_humanoid_temporal_pose.TemporalPoseTests.test_reacquisition_insufficient_motion_after_seed) ... ok
+test_reacquisition_malformed_metadata_clears_seeded_history (test_humanoid_temporal_pose.TemporalPoseTests.test_reacquisition_malformed_metadata_clears_seeded_history) ... ok
+test_reacquisition_release_invalidation (test_humanoid_temporal_pose.TemporalPoseTests.test_reacquisition_release_invalidation) ... ok
+test_reacquisition_reused_or_nonadvancing_clears_seeded_history (test_humanoid_temporal_pose.TemporalPoseTests.test_reacquisition_reused_or_nonadvancing_clears_seeded_history) ... ok
+test_reacquisition_seeds_valid_image_without_immediate_position (test_humanoid_temporal_pose.TemporalPoseTests.test_reacquisition_seeds_valid_image_without_immediate_position) ... ok
+test_reacquisition_sufficient_motion_fits_fresh_window (test_humanoid_temporal_pose.TemporalPoseTests.test_reacquisition_sufficient_motion_fits_fresh_window) ... ok
+test_reacquisition_time_gap_clears_seeded_history (test_humanoid_temporal_pose.TemporalPoseTests.test_reacquisition_time_gap_clears_seeded_history) ... ok
+test_reacquisition_visibility_loss_clears_seeded_history (test_humanoid_temporal_pose.TemporalPoseTests.test_reacquisition_visibility_loss_clears_seeded_history) ... ok
+test_real_slipping_sequence_refuses_without_stale_position (test_humanoid_temporal_pose.TemporalPoseTests.test_real_slipping_sequence_refuses_without_stale_position) ... ok
+test_reused_or_nonadvancing_frames_clear_history (test_humanoid_temporal_pose.TemporalPoseTests.test_reused_or_nonadvancing_frames_clear_history) ... ok
+test_rigid_positive_control_recovers_center_in_optimizer (test_humanoid_temporal_pose.TemporalPoseTests.test_rigid_positive_control_recovers_center_in_optimizer) ... ok
+test_three_frame_reacquisition_fits_on_third_fresh_view (test_humanoid_temporal_pose.TemporalPoseTests.test_three_frame_reacquisition_fits_on_third_fresh_view) ... ok
+test_three_frame_reacquisition_invalidation_and_gap (test_humanoid_temporal_pose.TemporalPoseTests.test_three_frame_reacquisition_invalidation_and_gap) ... ok
+test_three_frame_reacquisition_refuses_after_only_two_views (test_humanoid_temporal_pose.TemporalPoseTests.test_three_frame_reacquisition_refuses_after_only_two_views) ... ok
+test_truncated_or_corrupt_image_never_seeds (test_humanoid_temporal_pose.TemporalPoseTests.test_truncated_or_corrupt_image_never_seeds) ... ok
+test_visibility_loss_and_time_gap_require_new_history (test_humanoid_temporal_pose.TemporalPoseTests.test_visibility_loss_and_time_gap_require_new_history) ... ok
+test_missing_object_and_wrong_calibration_size (test_humanoid_vision_pose.VisionPoseTests.test_missing_object_and_wrong_calibration_size) ... ok
+test_occluded_patch_is_rejected (test_humanoid_vision_pose.VisionPoseTests.test_occluded_patch_is_rejected) ... ok
+test_saved_rgb_cases_reduce_side_face_bias (test_humanoid_vision_pose.VisionPoseTests.test_saved_rgb_cases_reduce_side_face_bias) ... ok
+test_detector_uses_pixels_and_handles_absence (test_humanoid_visual.VisualTests.test_detector_uses_pixels_and_handles_absence) ... ok
+test_new_capture_invalidates_previous_frame (test_humanoid_visual.VisualTests.test_new_capture_invalidates_previous_frame) ... ok
+test_plane_projection_roundtrip_and_bad_rays (test_humanoid_visual.VisualTests.test_plane_projection_roundtrip_and_bad_rays) ... ok
+test_public_rgb_observation_whitelist_and_state_preservation (test_humanoid_visual.VisualTests.test_public_rgb_observation_whitelist_and_state_preservation) ... ok
+test_rejected_action_consumes_frame (test_humanoid_visual.VisualTests.test_rejected_action_consumes_frame) ... ok
+test_same_time_state_change_invalidates_frame (test_humanoid_visual.VisualTests.test_same_time_state_change_invalidates_frame) ... ok
+test_action_limit_and_deadline_budget_enforcement (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_action_limit_and_deadline_budget_enforcement) ... ok
+test_allowlist_excludes_planted_private_fields (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_allowlist_excludes_planted_private_fields) ... ok
+test_cli_rejects_held_out_seeds (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_cli_rejects_held_out_seeds) ... ok
+test_collision_rejection_terminates_without_fallback (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_collision_rejection_terminates_without_fallback) ... ok
+test_completed_actions_do_not_claim_placement_success (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_completed_actions_do_not_claim_placement_success) ... ok
+test_execution_exception_retains_unknown_movement_and_archive_error (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_execution_exception_retains_unknown_movement_and_archive_error) ... ok
+test_held_out_seed_guard_in_cli_and_smoke_check_820 (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_held_out_seed_guard_in_cli_and_smoke_check_820) ... ok
+test_injectable_clock_measures_wall_latency_separately (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_injectable_clock_measures_wall_latency_separately) ... ok
+test_invalid_result_timing_never_counts_completion (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_invalid_result_timing_never_counts_completion) ... ok
+test_malformed_response_and_json_terminates_cleanly (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_malformed_response_and_json_terminates_cleanly) ... ok
+test_model_exception_terminates_cleanly (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_model_exception_terminates_cleanly) ... ok
+test_model_refusal_terminates_cleanly_without_retries (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_model_refusal_terminates_cleanly_without_retries) ... ok
+test_no_network_and_no_credentials_access (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_no_network_and_no_credentials_access)
+Verify default/offline mode executes without network calls or credential access. ... ok
+test_nonfinite_and_out_of_bounds_primitives_rejected (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_nonfinite_and_out_of_bounds_primitives_rejected) ... ok
+test_provenance_metadata_structure_and_hashes (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_provenance_metadata_structure_and_hashes) ... ok
+test_r1_boolean_numeric_commands_rejected (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r1_boolean_numeric_commands_rejected) ... ok
+test_r1_execution_exception_handled_cleanly (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r1_execution_exception_handled_cleanly) ... ok
+test_r1_malformed_action_result_handling (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r1_malformed_action_result_handling) ... ok
+test_r1_malformed_envelope_types_handled_cleanly (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r1_malformed_envelope_types_handled_cleanly) ... ok
+test_r1_malformed_observation_handling (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r1_malformed_observation_handling) ... ok
+test_r1_nan_and_inf_inside_dict_responses_retained_in_report (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r1_nan_and_inf_inside_dict_responses_retained_in_report) ... ok
+test_r1_unserializable_callback_output (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r1_unserializable_callback_output) ... ok
+test_r2_budget_hard_caps_and_invalid_configuration (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r2_budget_hard_caps_and_invalid_configuration) ... ok
+test_r2_cli_validates_configuration_before_reset (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r2_cli_validates_configuration_before_reset) ... ok
+test_r2_pre_execution_duration_check_prevents_deadline_overshoot (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r2_pre_execution_duration_check_prevents_deadline_overshoot) ... ok
+test_r2_reduced_budgets_allowed (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r2_reduced_budgets_allowed) ... ok
+test_r2_runner_adapter_disagreement_rejected (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_r2_runner_adapter_disagreement_rejected) ... ok
+test_stale_or_invalid_id_rejected_without_movement (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_stale_or_invalid_id_rejected_without_movement) ... ok
+test_strict_json_rejects_duplicate_keys_and_nonfinite (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_strict_json_rejects_duplicate_keys_and_nonfinite) ... ok
+test_valid_command_uses_captured_id_and_single_use (test_humanoid_visual_policy_runner.VisualPolicyRunnerTests.test_valid_command_uses_captured_id_and_single_use) ... ok
+test_conventional_comparator_uses_physical_primitives (test_interactive.InteractiveTests.test_conventional_comparator_uses_physical_primitives) ... ok
+test_invalid_actions_and_early_finish_are_accounted_for (test_interactive.InteractiveTests.test_invalid_actions_and_early_finish_are_accounted_for) ... ok
+test_resume_preserves_physics_and_scorer (test_interactive.InteractiveTests.test_resume_preserves_physics_and_scorer) ... ok
+test_wrong_color_is_allowed_but_fails_independent_scoring (test_interactive.InteractiveTests.test_wrong_color_is_allowed_but_fails_independent_scoring) ... ok
+test_all_refused_results_complete_grid (test_p5_evaluation.TestP5Evaluation.test_all_refused_results_complete_grid)
+Complete grid with all-refused results must fail coverage/accuracy without exception (R1). ... ok
+test_corrupted_transport_emission_fails_gate_5 (test_p5_evaluation.TestP5Evaluation.test_corrupted_transport_emission_fails_gate_5)
+Accepted pose on corrupted transport frame must fail Gate 5. ... ok
+test_duplicate_seeds_forbidden (test_p5_evaluation.TestP5Evaluation.test_duplicate_seeds_forbidden)
+Duplicate seeds must be rejected to prevent episode count inflation (R2). ... ok
+test_fresh_capture_flag_raises_error_with_future_sketch (test_p5_evaluation.TestP5Evaluation.test_fresh_capture_flag_raises_error_with_future_sketch)
+CLI with --fresh-capture must raise RuntimeError documenting the future API sketch (R3). ... ok
+test_held_out_seeds_strictly_forbidden (test_p5_evaluation.TestP5Evaluation.test_held_out_seeds_strictly_forbidden)
+Held-out validation seeds 840-849 must be rejected immediately. ... ok
+test_incomplete_evidence_duplicate_grid_entries (test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_duplicate_grid_entries)
+Duplicate (seed, stage, variant) entries in records must return INCOMPLETE (R1). ... ok
+test_incomplete_evidence_empty_records_with_stale_passing_summary (test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_empty_records_with_stale_passing_summary)
+Empty or truncated records with stale passing summary must return INCOMPLETE (R1). ... ok
+test_incomplete_evidence_missing_or_non_finite_truth_or_error (test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_missing_or_non_finite_truth_or_error)
+Records with missing ground truth or non-finite error values must return INCOMPLETE (R1). ... ok
+test_incomplete_evidence_missing_variant_aggregates (test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_missing_variant_aggregates)
+Candidate aggregate missing required disruption variants must return INCOMPLETE (R1). ... ok
+test_incomplete_evidence_running_or_missing_status (test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_running_or_missing_status)
+Non-complete status (running, missing, incomplete) must return INCOMPLETE (R1). ... ok
+test_incomplete_evidence_summary_record_disagreement (test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_summary_record_disagreement)
+Mismatches between record data and claimed summaries must return INCOMPLETE (R1). ... ok
+test_known_development_failure_at_unchanged_gate (test_p5_evaluation.TestP5Evaluation.test_known_development_failure_at_unchanged_gate)
+Known 5.8715 mm post-warmup mean must fail the strictly preserved 5.0 mm gate. ... ok
+test_max_error_exceeding_20mm_fails_gate_3 (test_p5_evaluation.TestP5Evaluation.test_max_error_exceeding_20mm_fails_gate_3)
+Accepted nominal error exceeding 20.0 mm must fail Gate 3. ... ok
+test_midpoint_denominator_separation (test_p5_evaluation.TestP5Evaluation.test_midpoint_denominator_separation)
+Midpoint estimates must never dilute or enlarge the original-target denominator. ... ok
+test_non_development_seeds_rejected_in_executable_mode (test_p5_evaluation.TestP5Evaluation.test_non_development_seeds_rejected_in_executable_mode)
+Seeds outside 820-829 are rejected in executable development mode. ... ok
+test_non_integer_seeds_forbidden (test_p5_evaluation.TestP5Evaluation.test_non_integer_seeds_forbidden)
+Non-integer types and booleans must be rejected as invalid seeds (R2). ... ok
+test_preflight_report_generation (test_p5_evaluation.TestP5Evaluation.test_preflight_report_generation)
+Preflight report must document dependency hashes, git provenance, and future sketch (R3). ... ok
+test_release_retract_emission_fails_gate_4 (test_p5_evaluation.TestP5Evaluation.test_release_retract_emission_fails_gate_4)
+Accepted pose on release/retract endpoint must fail Gate 4. ... ok
+test_rescore_cli_rejects_disagreeing_cli_seeds (test_p5_evaluation.TestP5Evaluation.test_rescore_cli_rejects_disagreeing_cli_seeds)
+Rescore command must reject CLI seeds that disagree with embedded artifact seeds (R2). ... ok
+test_rescore_cli_rejects_embedded_held_out_seeds_without_writing_output (test_p5_evaluation.TestP5Evaluation.test_rescore_cli_rejects_embedded_held_out_seeds_without_writing_output)
+Rescore command must reject embedded held-out seeds before scoring or writing output (R2). ... ok
+test_rescore_cli_succeeds_with_valid_artifact (test_p5_evaluation.TestP5Evaluation.test_rescore_cli_succeeds_with_valid_artifact)
+Rescore command succeeds on valid complete evidence artifact and writes report. ... ok
+test_subset_dry_run_marks_gates_not_applicable (test_p5_evaluation.TestP5Evaluation.test_subset_dry_run_marks_gates_not_applicable)
+Subset dry runs (<10 seeds) must mark gates not_applicable rather than passing/failing (R2). ... ok
+test_successful_complete_synthetic_grid_passes_all_gates (test_p5_evaluation.TestP5Evaluation.test_successful_complete_synthetic_grid_passes_all_gates)
+Complete 210-record synthetic grid meeting all criteria must result in PASS (R1). ... ok
+test_full_comparison_requires_all_conditions_and_consistent_seeds (test_p5_evaluation.TestP5IntegrationIntegrity.test_full_comparison_requires_all_conditions_and_consistent_seeds) ... ok
+test_malformed_numeric_records_and_metadata_return_incomplete (test_p5_evaluation.TestP5IntegrationIntegrity.test_malformed_numeric_records_and_metadata_return_incomplete) ... ok
+test_nested_held_out_metadata_rejected_before_scoring (test_p5_evaluation.TestP5IntegrationIntegrity.test_nested_held_out_metadata_rejected_before_scoring) ... ok
+test_rounded_summary_cannot_mask_threshold_failure (test_p5_evaluation.TestP5IntegrationIntegrity.test_rounded_summary_cannot_mask_threshold_failure) ... ok
+test_balanced_layouts_and_counting_truth (test_phase6.Phase6Tests.test_balanced_layouts_and_counting_truth) ... ok
+test_camera_geometry_and_parser (test_phase6.Phase6Tests.test_camera_geometry_and_parser) ... ok
+test_rule_scorer_counts_miss_without_promoting_third (test_phase6.Phase6Tests.test_rule_scorer_counts_miss_without_promoting_third) ... ok
+test_switch_cancels_pending_and_rejects_stale_observation (test_phase6.Phase6Tests.test_switch_cancels_pending_and_rejects_stale_observation) ... ok
+test_consecutive_targets_at_supported_spacing (test_pushing.PushingTests.test_consecutive_targets_at_supported_spacing) ... ok
+test_ik_failure_before_motion_preserves_live_state (test_pushing.PushingTests.test_ik_failure_before_motion_preserves_live_state) ... ok
+test_neighbors_pass_without_any_unintended_contact (test_pushing.PushingTests.test_neighbors_pass_without_any_unintended_contact) ... ok
+test_overload_is_reported_as_failure (test_pushing.PushingTests.test_overload_is_reported_as_failure) ... ok
+test_stationary_and_moving_rejections_have_contact_evidence (test_pushing.PushingTests.test_stationary_and_moving_rejections_have_contact_evidence) ... ok
+test_bad_preflight_preserves_live_state (test_realtime.RealtimeTests.test_bad_preflight_preserves_live_state) ... ok
+test_clock_and_cubes_advance_without_commands (test_realtime.RealtimeTests.test_clock_and_cubes_advance_without_commands) ... ok
+test_expired_unknown_observation_and_overlap_are_rejected (test_realtime.RealtimeTests.test_expired_unknown_observation_and_overlap_are_rejected) ... ok
+test_queued_sequence_physically_rejects_selected_cube (test_realtime.RealtimeTests.test_queued_sequence_physically_rejects_selected_cube) ... ok
+test_pickup_persist_hold_and_release (test_so101.PickupTests.test_pickup_persist_hold_and_release) ... ok
+test_unreachable_pose_does_not_move_simulation (test_so101.PickupTests.test_unreachable_pose_does_not_move_simulation) ... ok
+test_cli_default_invocation_preserves_task001_path_without_comparison (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_cli_default_invocation_preserves_task001_path_without_comparison) ... ok
+test_corrupt_transport_metadata_retains_accounting_and_clears_history (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_corrupt_transport_metadata_retains_accounting_and_clears_history) ... ok
+test_derive_midpoint_schedule_production_function (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_derive_midpoint_schedule_production_function) ... ok
+test_early_stopped_episode_retains_accounting (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_early_stopped_episode_retains_accounting) ... ok
+test_empty_records_list_retains_accounting_and_marks_incomplete (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_empty_records_list_retains_accounting_and_marks_incomplete) ... ok
+test_estimator_exception_retains_accounting_and_details (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_estimator_exception_retains_accounting_and_details) ... ok
+test_evaluate_evidence_retains_provenance_manifest_in_evidence_output (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_evaluate_evidence_retains_provenance_manifest_in_evidence_output) ... ok
+test_invalid_seed_requests_rejected (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_invalid_seed_requests_rejected) ... ok
+test_is_augmented_cache_valid_production_paths (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_is_augmented_cache_valid_production_paths) ... ok
+test_malformed_loaded_json_structure_retains_accounting (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_malformed_loaded_json_structure_retains_accounting) ... ok
+test_mismatched_observation_timestamp_invalidates_and_marks_incomplete (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_mismatched_observation_timestamp_invalidates_and_marks_incomplete) ... ok
+test_missing_lower_observation_after_midpoint_retains_accounting_and_invalidates (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_missing_lower_observation_after_midpoint_retains_accounting_and_invalidates) ... ok
+test_missing_observation_file_retains_accounting (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_missing_observation_file_retains_accounting) ... ok
+test_null_absent_and_nonfinite_truth_retains_acceptance_and_marks_incomplete (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_null_absent_and_nonfinite_truth_retains_acceptance_and_marks_incomplete) ... ok
+test_render_rejects_non_empty_directory_and_cannot_certify_stale_bytes (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_render_rejects_non_empty_directory_and_cannot_certify_stale_bytes) ... ok
+test_render_source_output_overlap_rejected (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_render_source_output_overlap_rejected) ... ok
+test_three_frame_reacquisition_evaluation_accounting_original_vs_augmented (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_three_frame_reacquisition_evaluation_accounting_original_vs_augmented) ... ok
+test_unavailable_frozen_image_source_marks_stimulus_unavailable (test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_unavailable_frozen_image_source_marks_stimulus_unavailable) ... ok
+
+----------------------------------------------------------------------
+Ran 175 tests in 146.094s
+
+OK
+
+======================================================================
+P5 GATE EVALUATION REPORT: reacquisition_3frame (gate_report_rescore)
+Seeds: [820, 821, 822, 823, 824, 825, 826, 827, 828, 829] (Count: 10)
+Status: complete | Complete: True
+Provenance: Artifact rescore of: /private/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmpwhgmvror/valid_evidence.json
+----------------------------------------------------------------------
+  [PASS]           gate_1_coverage: Accepted 20/20 post-warmup targets (>=16 required)
+  [PASS]           gate_2_accuracy: Accepted original-target mean 4.0000 mm <= 5.0 mm threshold
+  [PASS]           gate_3_nominal_max_error: Maximum error 4.0000 mm <= 20.0 mm (midpoint max error: 3.5000 mm)
+  [PASS]           gate_4_relationship_loss_safety: 0/20 positions emitted on release or retract endpoints
+  [PASS]           gate_5_disruption_robustness: 0/20 positions emitted on corrupted transport frames (black_transport: 0 total, frozen_transport_rgb: 0 total)
+----------------------------------------------------------------------
+OVERALL OUTCOME: [PASS]
+Reason: All 5 continuation gates passed.
+----------------------------------------------------------------------
+Midpoint (lower_mid): accepted 10/10; mean: 3.5000 mm; max: 3.5000 mm
+All accepted (nom): count 30; mean: 3.8333 mm; max: 4.0000 mm
+======================================================================
+
+Gate report written to: /var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmpwhgmvror/out/gate_report_rescore.json
+Evaluation finished with status: complete.
+Evaluating original endpoint-only stream...
+Evaluating augmented stream (with lowering midpoint)...

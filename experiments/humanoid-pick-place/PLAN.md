@@ -72,7 +72,9 @@ individual-finger control are outside the initial scope.
 - [x] Integrate reviewed AGY task 001: 17/20 development targets accepted, 16 within 20 mm; seed 820 still fails accuracy.
 - [x] Integrate reviewed [AGY task 002](../../coordination/agy/tasks/002-reacquisition-evidence.md): [acceptance](../../coordination/agy/reviews/002-acceptance.md), 17/20 augmented original targets accepted within 20 mm; 5.872 mm mean still exceeds the proposed 5.0 mm gate.
 - [x] Integrate [AGY task 003](../../coordination/agy/tasks/003-p5-preparation.md): reviewed passive P5 proposal and gate runner; [acceptance](../../coordination/agy/reviews/003-acceptance.md), development mean gate remains unmet; no held-out execution.
-- [ ] Complete and integrate [AGY task 004](../../coordination/agy/tasks/004-visual-policy-scaffold.md): [review requests changes](../../coordination/agy/reviews/004-review.md) for whole-episode failure accounting and hard budgets; no live model calls.
+- [x] Integrate [AGY task 004](../../coordination/agy/tasks/004-visual-policy-scaffold.md): offline RGB-to-action runner, guarded fresh observations and hard budgets; [accepted with integration fixes](../../coordination/agy/reviews/004-acceptance.md) for malformed result timing and unknown execution outcomes. No live model calls.
+
+- [ ] Implement and review [AGY task 005](../../coordination/agy/tasks/005-visual-provider-adapter.md): image-capable Responses adapter using injected transport and an unfrozen first visual pilot draft; no paid execution.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -368,6 +370,7 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-13 | Reviewed AGY task 003 at `c711ff0`; 131 tests independently passed | [Review](../../coordination/agy/reviews/003-review.md): reproduced false PASS on incomplete evidence and seed guard gaps; revisions requested directly from AGY, no merge or fresh P5 run |
 
 | 2026-09-13 | Integrated task 003 with Codex gate-integrity fixes; 145-test suite verified | [Acceptance](../../coordination/agy/reviews/003-acceptance.md): full comparison grids and per-record metrics checked; known 5.8715 mm mean still fails; [task 004](../../coordination/agy/tasks/004-visual-policy-scaffold.md) starts offline visual-policy plumbing |
+| 2026-09-13 | Implemented offline visual policy runner for AGY task 004; 16 new tests pass (161 total) | [Runner guide](VISUAL_POLICY_RUNNER.md), [results](results/visual_policy_scaffold/report.json); strict allowlist excludes private data; stub smoke check retained; no live model calls or fresh P5 run |
 
 | 2026-09-13 | Reviewed task 004 at `8900642`; 161 tests independently passed | [Review](../../coordination/agy/reviews/004-review.md): offline loop and smoke evidence present; reproduced lost failure reports and budget overruns, revisions requested before integration |
 

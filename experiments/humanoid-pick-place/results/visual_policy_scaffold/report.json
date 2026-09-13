@@ -1,0 +1,89 @@
+{
+  "controller": "stub_scripted",
+  "seed": 820,
+  "termination_reason": "action_limit",
+  "error": "Action limit reached",
+  "action_attempts": 4,
+  "model_calls": 4,
+  "completed_actions": 4,
+  "refusals": 0,
+  "errors": 0,
+  "simulated_time_s": 3.4999999999997256,
+  "total_wall_latency_s": 6.591598503291607e-05,
+  "placement_success_claimed": false,
+  "image_identities": [
+    {
+      "call": 1,
+      "observation_id": "918f43c2a91645af88bdc504a2ba692e",
+      "time_s": 0.5000000000000003,
+      "image_sha256": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65"
+    },
+    {
+      "call": 2,
+      "observation_id": "1a0d88f35aca427a9b50c63806a7c816",
+      "time_s": 1.0000000000000007,
+      "image_sha256": "316ba72b8d1b7ffa3ea8de6a98ba0dc9f09087ad054f8539a73ed1b46833601e"
+    },
+    {
+      "call": 3,
+      "observation_id": "d744cc7b51ee4f80aeb1f604c759bd4d",
+      "time_s": 1.9999999999998905,
+      "image_sha256": "9d8939e100fe1e7009464910b98a3b313199069797aee3b64470b6e308095a84"
+    },
+    {
+      "call": 4,
+      "observation_id": "e07e31893f6741609c7762a4fe163c94",
+      "time_s": 2.4999999999998357,
+      "image_sha256": "8eadd33b47edb02b6235a4974ac0a98a6ccde72b49cd2f771985c6ba141fd0e2"
+    }
+  ],
+  "provenance": {
+    "protocol_id": "humanoid-visual-policy-scaffold-v1",
+    "model_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+    "mujoco": "3.12.0",
+    "numpy": "2.5.3",
+    "python": "3.13.5",
+    "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+    "source_sha256": {
+      "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+      "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+      "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+      "humanoid_sim/__main__.py": "4012b00a4d98e65c71f48835fcd6f9d8b29c011c0abb5f4275fc2780702c0237",
+      "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+      "humanoid_sim/carried_pose.py": "ff705e89afbc08643dc029576b6381d5ad990bd981852f51049a445a4af449cb",
+      "humanoid_sim/carried_pose_evaluation.py": "b91fc8293046ef6ed92c0cebc0ca5d05241e6999783922b314d0a96d75b68259",
+      "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+      "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+      "humanoid_sim/guarded_baseline.py": "38fab1b84b21e86087e860547fa28112850c30a0f30ff45e051bc47a406fc488",
+      "humanoid_sim/guarded_evaluation.py": "f5fa8c492c575779de235d0ad5de0cb0600b3ec4201d851a568c87a194e9e339",
+      "humanoid_sim/interface.py": "b9ba6c91fa2c34f248997c6ddc73957b66afcc5068fdcc8c45dbb995121e9afc",
+      "humanoid_sim/llm_runner.py": "b7fbcc7a0cf54cf1484a96ce6e395d8e984ab95890be3b81fda58516129e0f8b",
+      "humanoid_sim/p5_evaluation.py": "c43d2014e412c38ce42ec499dcf09cdc54d5facf348b91f605b043c880bf87d2",
+      "humanoid_sim/perception.py": "47457f5bac5c47d818f7dcf9f909c750f7820d10dfd7a02b6426a5ebc486caad",
+      "humanoid_sim/perception_evaluation.py": "009dbb594b5b5f80046c5cec5b4d67ba4e21482e79514d3b8b30e0582b414df2",
+      "humanoid_sim/render.py": "7c14067e1a3de6d145510353c13e0e59117ddef1321e58071f81abb2c9683e5b",
+      "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+      "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386",
+      "humanoid_sim/temporal_pose.py": "19806899e9820fffb21783e16e30788d53efb189d7c50dab50b6633b05ebf258",
+      "humanoid_sim/temporal_pose_evaluation.py": "9218d45c72a11bedbef69768a16f862ce39d18060b1654724872ccb987689b9d",
+      "humanoid_sim/temporal_reacquisition_evaluation.py": "1dd630c4ef86fd972eb3150eb9ac0d5fe0c2a65cea31ae4805dd95844e0cead3",
+      "humanoid_sim/vision_pose.py": "005911f63e4f2c63940477d2ab04983ca9218765fdf51a97297d6f5a43309108",
+      "humanoid_sim/visual.py": "8a17935f50acf412b3a5050ffc57d4cb874ccf8be08d6cf2990275bd1f97b5cb",
+      "humanoid_sim/visual_policy_runner.py": "c0f6d70978a65c4dc5f9d34bcf65f464e1ce8da2a78d4c5c69793eec188385e7",
+      "experiments/humanoid-pick-place/protocols/G2.md": "cf2b42beb075e951017df75f0d1d7039a93b3289bfd709071d195d9831f0b253",
+      "experiments/humanoid-pick-place/schemas/action-v2.schema.json": "6ad1d1f5a4b24044b1fafb29d3632ec493e865c0bd433040addf62a4bb3acbc8"
+    },
+    "policy_configuration": {
+      "release_z": 0.88,
+      "release_closure": 0.4
+    },
+    "task": "AGY-004",
+    "controller": "stub_scripted",
+    "instruction_version": 1,
+    "prompt_sha256": "d595ec2a3dace072db52c14d0f41f06d799a4e3434fd2a8cdd4fcbbbdd47383f",
+    "action_schema_sha256": "35a2ad14ad0d7c940f8e7ceaf74986efef8079520315ee0e37d4468bb54d6680",
+    "max_actions": 20,
+    "deadline_s": 25.0,
+    "offline_only": true
+  }
+}

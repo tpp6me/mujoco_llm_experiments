@@ -99,5 +99,9 @@ The proposed 5.0 mm accepted-original-target mean gate remains unmet.
 Task 003 is [accepted with integration fixes](../../coordination/agy/reviews/003-acceptance.md).
 Codex refreshed the gate reports by rescoring unchanged saved estimates and bound
 reports to their source/input hashes. Fresh P5 remains unexecuted; the 5.0 mm mean
-gate remains unmet. [Task 004](../../coordination/agy/tasks/004-visual-policy-scaffold.md)
-builds the offline RGB-to-action loop with a stub, without model-performance claims.
+gate remains unmet. [Visual policy runner scaffolding (Task 004)](../../coordination/agy/tasks/004-visual-policy-scaffold.md):
+- Implementation: `humanoid_sim/visual_policy_runner.py` with `VisualPolicySession` adapter, allowlist extraction, strict structured response validation, injectable clock timing, and single-use fresh observation enforcement.
+- Documentation: [Visual Policy Runner Guide](VISUAL_POLICY_RUNNER.md).
+- Verification: 16 focused tests in `tests/test_humanoid_visual_policy_runner.py` covering allowlist isolation (deliberately planted private fields in observations, responses, and history are stripped), single-use observation IDs, stale ID rejection, refusal/malformed/exception handling, collision guard termination without fallback, action limit / deadline budget enforcement, wall latency separation, and held-out seed rejection.
+- Retained development demo: [Seed 820 smoke check](results/visual_policy_scaffold/report.json) using scripted plumbing stub (4 calls, 4 completed actions, `placement_success_claimed: false`, separate [evaluator report](results/visual_policy_scaffold/evaluator_report.json), sample [public request payload](results/visual_policy_scaffold/demo_request_payload.json)).
+- Status: Scaffolding and offline verification complete. No live model calls, API keys, or fresh P5 runs occurred.
