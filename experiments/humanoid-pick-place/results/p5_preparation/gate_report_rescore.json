@@ -19,6 +19,19 @@
   "evaluation_status": "complete",
   "is_complete": true,
   "provenance_notes": "Artifact rescore of: /private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/temporal_reacquisition_evidence_development.json",
+  "evidence_path": "experiments/humanoid-pick-place/results/temporal_reacquisition_evidence_development.json",
+  "evidence_sha256": "7f13ddc70b3a22f80515994987d7a5972cde200aab95a98d79a8ba1b1712cd7f",
+  "source_code_snapshot": {
+    "git_head": "c711ff0152613c5175894df06c3bc701b4961108",
+    "git_dirty": true,
+    "provenance_note": "Worktree branch agy/003-p5-preparation based on commit c711ff0152613c5175894df06c3bc701b4961108 with uncommitted task modifications",
+    "p5_evaluation_sha256": "16570e6cf61f18943cccf5a0712adefb676465428255be5b0fbea360fcd9faba",
+    "temporal_reacquisition_evaluation_sha256": "1dd630c4ef86fd972eb3150eb9ac0d5fe0c2a65cea31ae4805dd95844e0cead3",
+    "temporal_pose_sha256": "19806899e9820fffb21783e16e30788d53efb189d7c50dab50b6633b05ebf258",
+    "scene_sha256": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+    "protocol_revised_sha256": "d9fb86af06f3fe3e8fbfebfd8726b664521d8225f0844dee1e9d59a979fecbe5",
+    "requirements_lock_sha256": "2494fa442b86b7a4b6ff45602a5ca7b207225bb526fc148c49e85532ea9bd732"
+  },
   "gates": {
     "gate_1_coverage": {
       "description": ">=16/20 nominal post-warmup targets accepted",

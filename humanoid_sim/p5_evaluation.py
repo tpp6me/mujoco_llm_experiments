@@ -45,21 +45,31 @@ GATE_MAX_NOMINAL_ERROR_M = 0.020  # 20.0 mm
 GATE_MAX_RELEASE_RETRACT_ACCEPTED = 0
 GATE_MAX_CORRUPTED_TRANSPORT_ACCEPTED = 0
 
-FUTURE_CAPTURE_COMMAND_TEMPLATE = (
-    "python -m humanoid_sim.perception_evaluation audit "
-    "runtime/humanoid/temporal-P5/capture 840 841 842 843 844 845 846 847 848 849 "
-    "--protocol experiments/humanoid-pick-place/protocols/P5_REVISED_PROPOSAL.md"
+FUTURE_CAPTURE_API_SKETCH = (
+    "# Future fresh execution (Python API sketch for future reviewed task; DO NOT RUN IN TASK 003):\n"
+    "# from pathlib import Path\n"
+    "# from humanoid_sim.perception_evaluation import audit\n"
+    "# audit(\n"
+    "#     output=Path('runtime/humanoid/temporal-P5/capture'),\n"
+    "#     seeds=range(840, 850),\n"
+    "#     protocol=Path('experiments/humanoid-pick-place/protocols/P5_REVISED_PROPOSAL.md'),\n"
+    "#     protocol_id='P5_capture',\n"
+    "# )"
 )
 
 
 def validate_seeds_guard(seeds, allow_non_development=False):
-    """Validate seeds, ensuring held-out seeds 840-849 are never executed in Task 003."""
+    """Validate seeds, ensuring uniqueness, integer types, and held-out protection."""
+    if not isinstance(seeds, (list, tuple, set, range)):
+        raise ValueError(f"Seeds must be a sequence, got {type(seeds).__name__}")
     seeds_list = list(seeds)
     if not seeds_list:
         raise ValueError("Seeds list must be non-empty")
     for s in seeds_list:
-        if not isinstance(s, int) or s < 0:
-            raise ValueError(f"Invalid non-negative integer seed: {s}")
+        if isinstance(s, bool) or not isinstance(s, int):
+            raise ValueError(f"Seed must be an integer, got {type(s).__name__}: {s}")
+        if s < 0:
+            raise ValueError(f"Seed must be non-negative, got {s}")
         if s in HELD_OUT_SEEDS:
             raise ValueError(
                 f"Execution on held-out seed {s} (range 840-849) is strictly forbidden in Task 003. "
@@ -67,8 +77,10 @@ def validate_seeds_guard(seeds, allow_non_development=False):
             )
         if not allow_non_development and s not in DEVELOPMENT_SEEDS:
             raise ValueError(
-                f"Seed {s} is outside authorized development seeds (820-829) for executable mode."
+                f"Seed {s} is outside authorized development seeds (820-829) for executable/rescore mode."
             )
+    if len(seeds_list) != len(set(seeds_list)):
+        raise ValueError(f"Duplicate seeds are forbidden. Received: {seeds_list}")
     return seeds_list
 
 
@@ -84,9 +96,183 @@ def get_git_commit_hash(cwd=None):
         return 'unknown'
 
 
+def get_git_status_description(cwd=None):
+    """Return git commit hash, dirty flag, and provenance note."""
+    head = get_git_commit_hash(cwd=cwd)
+    try:
+        res = subprocess.run(
+            ['git', 'status', '--porcelain'],
+            capture_output=True, text=True, check=True, cwd=cwd
+        )
+        is_dirty = bool(res.stdout.strip())
+    except Exception:
+        is_dirty = False
+    return {
+        'head_commit': head,
+        'is_dirty': is_dirty,
+        'provenance_note': (
+            f"Worktree branch agy/003-p5-preparation based on commit {head}"
+            + (" with uncommitted task modifications" if is_dirty else " (clean working tree)")
+        )
+    }
+
+
+def validate_evidence_structure(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
+                                required_seeds=None):
+    """Validate completeness, consistency, and record grid of evidence before gate scoring.
+
+    Returns (is_valid: bool, error_message: str, candidate_data: dict, seeds: list).
+    """
+    if not isinstance(evidence_or_results, dict):
+        return False, "Evidence is not a valid dictionary", None, None
+
+    # Top-level status check: must be explicitly 'complete'
+    top_status = evidence_or_results.get('status')
+    if top_status != 'complete':
+        return False, f"Evidence top-level status is '{top_status}', expected 'complete'", None, None
+
+    # Comparative envelope check
+    if 'original_stream' in evidence_or_results and 'augmented_stream' in evidence_or_results:
+        orig_stream = evidence_or_results['original_stream']
+        aug_stream = evidence_or_results['augmented_stream']
+        if not isinstance(orig_stream, dict) or orig_stream.get('status') != 'complete':
+            return False, f"Original stream status is '{orig_stream.get('status') if isinstance(orig_stream, dict) else None}', expected 'complete'", None, None
+        if not isinstance(aug_stream, dict) or aug_stream.get('status') != 'complete':
+            return False, f"Augmented stream status is '{aug_stream.get('status') if isinstance(aug_stream, dict) else None}', expected 'complete'", None, None
+    elif 'augmented_stream' in evidence_or_results:
+        aug_stream = evidence_or_results['augmented_stream']
+        if not isinstance(aug_stream, dict) or aug_stream.get('status') != 'complete':
+            return False, f"Augmented stream status is '{aug_stream.get('status') if isinstance(aug_stream, dict) else None}', expected 'complete'", None, None
+    else:
+        aug_stream = evidence_or_results
+
+    # Extract and validate seeds
+    seeds_raw = evidence_or_results.get('seeds') or aug_stream.get('seeds')
+    if seeds_raw is None:
+        return False, "Evidence missing 'seeds' declaration", None, None
+    try:
+        seeds = validate_seeds_guard(seeds_raw, allow_non_development=False)
+    except Exception as e:
+        return False, f"Seed validation failed: {e}", None, None
+
+    if required_seeds is not None:
+        try:
+            req_seeds = validate_seeds_guard(required_seeds, allow_non_development=False)
+        except Exception as e:
+            return False, f"Required seeds invalid: {e}", None, None
+        if set(seeds) != set(req_seeds):
+            return False, f"Evidence seeds {seeds} do not match required seeds {req_seeds}", None, None
+
+    # Candidate presence
+    candidates = aug_stream.get('candidates')
+    if not isinstance(candidates, dict) or candidate_name not in candidates:
+        return False, f"Candidate '{candidate_name}' not present in augmented candidates", None, None
+
+    candidate_data = candidates[candidate_name]
+    if not isinstance(candidate_data, dict):
+        return False, f"Candidate data for '{candidate_name}' is not a dict", None, None
+
+    aggregate = candidate_data.get('aggregate')
+    records = candidate_data.get('records')
+
+    if not isinstance(aggregate, dict):
+        return False, "Candidate missing 'aggregate' dictionary", None, None
+    if not isinstance(records, list) or len(records) == 0:
+        return False, "Candidate 'records' list is empty or invalid; cannot verify evidence", None, None
+
+    # Validate aggregate contains all required variants
+    for var in EXPECTED_VARIANTS:
+        if var not in aggregate:
+            return False, f"Candidate aggregate missing required disruption variant: '{var}'", None, None
+        v_agg = aggregate[var]
+        if not isinstance(v_agg, dict):
+            return False, f"Candidate aggregate for variant '{var}' is not a dict", None, None
+        if v_agg.get('missing_responses', 0) > 0:
+            return False, f"Variant '{var}' reports {v_agg.get('missing_responses')} missing responses", None, None
+        if v_agg.get('missing_or_invalid_truth', 0) > 0:
+            return False, f"Variant '{var}' reports {v_agg.get('missing_or_invalid_truth')} missing/invalid truth entries", None, None
+        if v_agg.get('unscored_accepted', 0) > 0:
+            return False, f"Variant '{var}' reports {v_agg.get('unscored_accepted')} unscored accepted poses", None, None
+
+    # Validate record grid completeness and uniqueness
+    expected_total_records = len(seeds) * len(AUGMENTED_STAGES) * len(EXPECTED_VARIANTS)
+    if len(records) != expected_total_records:
+        return False, (
+            f"Record count {len(records)} does not match expected grid count {expected_total_records} "
+            f"({len(seeds)} seeds x {len(AUGMENTED_STAGES)} stages x {len(EXPECTED_VARIANTS)} variants)"
+        ), None, None
+
+    seen_grid = set()
+    for idx, r in enumerate(records):
+        if not isinstance(r, dict):
+            return False, f"Record index {idx} is not a dict", None, None
+        r_seed = r.get('seed')
+        r_stage = r.get('stage')
+        r_var = r.get('variant')
+
+        if r_seed not in seeds:
+            return False, f"Record index {idx} has unexpected or out-of-scope seed: {r_seed}", None, None
+        if r_stage not in AUGMENTED_STAGES:
+            return False, f"Record index {idx} has unexpected stage: {r_stage}", None, None
+        if r_var not in EXPECTED_VARIANTS:
+            return False, f"Record index {idx} has unexpected variant: {r_var}", None, None
+
+        grid_key = (r_seed, r_stage, r_var)
+        if grid_key in seen_grid:
+            return False, f"Duplicate grid entry in records: {grid_key}", None, None
+        seen_grid.add(grid_key)
+
+        r_status = r.get('status')
+        if r_status != 'evaluated':
+            return False, f"Record {grid_key} has non-evaluated status '{r_status}': {r.get('error_message')}", None, None
+
+        # Inspect ground truth
+        truth_xyz = r.get('private_true_xyz_m')
+        if not is_valid_truth_xyz(truth_xyz):
+            return False, f"Record {grid_key} has invalid or missing ground truth: {truth_xyz}", None, None
+
+        # Inspect estimate and scoring
+        estimate = r.get('estimate')
+        if not isinstance(estimate, dict):
+            return False, f"Record {grid_key} has invalid estimate dict", None, None
+
+        if estimate.get('detected'):
+            err = r.get('error_3d_m')
+            if err is None or not np.isfinite(err):
+                return False, f"Record {grid_key} accepted detection but has non-finite error_3d_m: {err}", None, None
+
+    # Check that all expected grid combinations were seen
+    for s in seeds:
+        for st in AUGMENTED_STAGES:
+            for v in EXPECTED_VARIANTS:
+                if (s, st, v) not in seen_grid:
+                    return False, f"Missing expected grid entry: {(s, st, v)}", None, None
+
+    # Recompute aggregate from validated records and check agreement with candidate aggregate
+    try:
+        recomputed_agg = compute_aggregate(records, seeds, stages=AUGMENTED_STAGES, post_warmup_stages=NOMINAL_POST_WARMUP_STAGES)
+    except Exception as e:
+        return False, f"Failed to recompute aggregate from records: {e}", None, None
+
+    for v in EXPECTED_VARIANTS:
+        s_agg = aggregate[v]
+        r_agg = recomputed_agg[v]
+        for field in ['expected_responses', 'evaluated_responses', 'missing_responses', 'accepted', 'post_warmup_accepted', 'post_warmup_targets', 'release_or_retract_accepted']:
+            if s_agg.get(field) != r_agg.get(field):
+                return False, f"Summary aggregate for {v}.{field} ({s_agg.get(field)}) disagrees with records ({r_agg.get(field)})", None, None
+        if s_agg.get('post_warmup_mean_error_m') is not None and r_agg.get('post_warmup_mean_error_m') is not None:
+            if abs(s_agg['post_warmup_mean_error_m'] - r_agg['post_warmup_mean_error_m']) > 1e-6:
+                return False, f"Summary post_warmup_mean_error_m ({s_agg.get('post_warmup_mean_error_m')}) disagrees with records ({r_agg.get('post_warmup_mean_error_m')})", None, None
+        if s_agg.get('accepted_max_error_m') is not None and r_agg.get('accepted_max_error_m') is not None:
+            if abs(s_agg['accepted_max_error_m'] - r_agg['accepted_max_error_m']) > 1e-6:
+                return False, f"Summary accepted_max_error_m ({s_agg.get('accepted_max_error_m')}) disagrees with records ({r_agg.get('accepted_max_error_m')})", None, None
+
+    return True, None, candidate_data, seeds
+
+
 def build_preflight_report(source_capture_dir, augmented_capture_dir,
                            seeds=None, root_dir=None):
-    """Generate structured preflight report detailing configuration, inputs, and hashes."""
+    """Generate structured preflight report detailing configuration, inputs, dependencies, and hashes."""
     if seeds is None:
         seeds = list(range(820, 830))
     validate_seeds_guard(seeds)
@@ -95,15 +281,21 @@ def build_preflight_report(source_capture_dir, augmented_capture_dir,
     source_capture_dir = Path(source_capture_dir)
     augmented_capture_dir = Path(augmented_capture_dir)
 
-    # Hashes
     protocol_revised = root / P5_REVISED_PROPOSAL_PATH
     protocol_hist = root / P5_HISTORICAL_PROPOSAL_PATH
     evidence_task002 = root / TASK_002_EVIDENCE_PATH
+    req_lock = root / 'requirements-lock.txt'
+    req_txt = root / 'requirements.txt'
 
     code_hashes = {
         'temporal_pose.py': file_sha256(root / 'humanoid_sim' / 'temporal_pose.py'),
         'temporal_reacquisition_evaluation.py': file_sha256(root / 'humanoid_sim' / 'temporal_reacquisition_evaluation.py'),
         'p5_evaluation.py': file_sha256(root / 'humanoid_sim' / 'p5_evaluation.py'),
+    }
+
+    dependency_hashes = {
+        'requirements_lock_sha256': file_sha256(req_lock),
+        'requirements_txt_sha256': file_sha256(req_txt),
     }
 
     # Input availability
@@ -122,19 +314,22 @@ def build_preflight_report(source_capture_dir, augmented_capture_dir,
         aug_manifest_present = (augmented_capture_dir / "augmented_manifest.json").is_file()
         aug_cache_valid = is_augmented_cache_valid(source_capture_dir, augmented_capture_dir, seeds)
 
+    git_status = get_git_status_description(cwd=str(root))
+
     report = {
         'status': 'development_preparation',
         'fresh_validation_executed': False,
         'held_out_seeds_touched': False,
         'held_out_seeds_reserved': sorted(list(HELD_OUT_SEEDS)),
         'executable_development_seeds': seeds,
-        'future_capture_command': FUTURE_CAPTURE_COMMAND_TEMPLATE,
-        'git_commit': get_git_commit_hash(cwd=str(root)),
+        'future_capture_api_sketch': FUTURE_CAPTURE_API_SKETCH,
+        'git_provenance': git_status,
         'provenance_hashes': {
             'scene_sha256': get_scene_sha256(),
             'protocol_revised_sha256': file_sha256(protocol_revised),
             'protocol_historical_sha256': file_sha256(protocol_hist),
             'code_sha256': code_hashes,
+            'dependency_hashes': dependency_hashes,
         },
         'candidate_specification': {
             'primary': {
@@ -204,40 +399,93 @@ def build_preflight_report(source_capture_dir, augmented_capture_dir,
 
 
 def compute_gate_report(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
-                        is_rescore=False, provenance_notes=None):
-    """Compute structured gate report with strict evaluation of all five P5 continuation gates."""
-    # Extract augmented candidate aggregate and records
-    if 'augmented_stream' in evidence_or_results:
-        aug_stream = evidence_or_results['augmented_stream']
-        overall_status = evidence_or_results.get('status', 'complete')
-        seeds = evidence_or_results.get('seeds', [])
-    else:
-        aug_stream = evidence_or_results
-        overall_status = aug_stream.get('status', 'complete')
-        seeds = aug_stream.get('seeds', [])
+                        is_rescore=False, provenance_notes=None,
+                        required_seeds=None, evidence_path=None, root_dir=None):
+    """Compute structured gate report with strict validation of grid evidence and continuation gates."""
+    root = Path(root_dir) if root_dir else Path.cwd()
+    git_status = get_git_status_description(cwd=str(root))
 
-    candidates_dict = aug_stream.get('candidates', {})
-    if candidate_name not in candidates_dict:
-        raise ValueError(f"Candidate '{candidate_name}' not found in results. Available: {list(candidates_dict.keys())}")
+    # Validate evidence structure before gate scoring
+    is_valid, val_err, candidate_data, seeds = validate_evidence_structure(
+        evidence_or_results, candidate_name=candidate_name, required_seeds=required_seeds
+    )
 
-    candidate_data = candidates_dict[candidate_name]
-    aggregate = candidate_data.get('aggregate', {})
-    records = candidate_data.get('records', [])
+    source_snapshot = {
+        'git_head': git_status['head_commit'],
+        'git_dirty': git_status['is_dirty'],
+        'provenance_note': git_status['provenance_note'],
+        'p5_evaluation_sha256': file_sha256(root / 'humanoid_sim' / 'p5_evaluation.py'),
+        'temporal_reacquisition_evaluation_sha256': file_sha256(root / 'humanoid_sim' / 'temporal_reacquisition_evaluation.py'),
+        'temporal_pose_sha256': file_sha256(root / 'humanoid_sim' / 'temporal_pose.py'),
+        'scene_sha256': get_scene_sha256(),
+        'protocol_revised_sha256': file_sha256(root / P5_REVISED_PROPOSAL_PATH),
+        'requirements_lock_sha256': file_sha256(root / 'requirements-lock.txt'),
+    }
 
-    nominal_agg = aggregate.get('original', {})
-    black_agg = aggregate.get('black_transport', {})
-    frozen_agg = aggregate.get('frozen_transport_rgb', {})
+    if not is_valid:
+        # Build an actionable INCOMPLETE report without uncaught exceptions or PASS
+        reported_seeds = seeds if seeds is not None else (
+            evidence_or_results.get('seeds') if isinstance(evidence_or_results, dict) else []
+        )
+        return {
+            'report_type': 'gate_report_rescore' if is_rescore else 'gate_report_development',
+            'is_rescore': is_rescore,
+            'candidate': candidate_name,
+            'schedule': 'augmented_stream',
+            'seeds': reported_seeds,
+            'seed_count': len(reported_seeds) if reported_seeds else 0,
+            'evaluation_status': 'incomplete',
+            'is_complete': False,
+            'validation_error': val_err,
+            'provenance_notes': provenance_notes or ('Task 002 development evidence rescore' if is_rescore else 'Development dry run'),
+            'evidence_path': str(evidence_path) if evidence_path else None,
+            'evidence_sha256': file_sha256(evidence_path) if evidence_path else None,
+            'source_code_snapshot': source_snapshot,
+            'gates': {
+                'gate_1_coverage': {
+                    'description': f'>={GATE_MIN_COVERAGE_TARGETS}/{GATE_TOTAL_TARGETS} nominal post-warmup targets accepted',
+                    'status': 'incomplete',
+                    'reason': f"Incomplete evidence: {val_err}",
+                },
+                'gate_2_accuracy': {
+                    'description': f'<={GATE_MAX_MEAN_ERROR_M*1000:.1f} mm mean 3D center error over accepted original targets',
+                    'status': 'incomplete',
+                    'reason': f"Incomplete evidence: {val_err}",
+                },
+                'gate_3_nominal_max_error': {
+                    'description': f'<={GATE_MAX_NOMINAL_ERROR_M*1000:.1f} mm maximum center error across all accepted nominal stages',
+                    'status': 'incomplete',
+                    'reason': f"Incomplete evidence: {val_err}",
+                },
+                'gate_4_relationship_loss_safety': {
+                    'description': 'Zero accepted poses on release or retract endpoints (0/20)',
+                    'status': 'incomplete',
+                    'reason': f"Incomplete evidence: {val_err}",
+                },
+                'gate_5_disruption_robustness': {
+                    'description': 'Zero accepted poses on corrupted transport frames',
+                    'status': 'incomplete',
+                    'reason': f"Incomplete evidence: {val_err}",
+                },
+            },
+            'descriptive_metrics': {},
+            'overall_outcome': 'INCOMPLETE',
+            'overall_reason': f"Evidence is incomplete or inconsistent: {val_err}",
+        }
+
+    aggregate = candidate_data['aggregate']
+    records = candidate_data['records']
+
+    nominal_agg = aggregate['original']
+    black_agg = aggregate['black_transport']
+    frozen_agg = aggregate['frozen_transport_rgb']
 
     num_seeds = len(seeds)
-    is_full_10_seeds = (num_seeds == 10)
-    is_incomplete = (overall_status == 'incomplete') or any(
-        agg.get('missing_responses', 0) > 0 or agg.get('missing_or_invalid_truth', 0) > 0 or agg.get('unscored_accepted', 0) > 0
-        for agg in [nominal_agg, black_agg, frozen_agg] if agg
-    )
+    is_full_10_seeds = (set(seeds) == DEVELOPMENT_SEEDS)
 
     # Disaggregate midpoint from original targets in records
     mid_records = [r for r in records if r.get('variant') == 'original' and r.get('stage') == 'lower_mid']
-    mid_accepted = [r for r in mid_records if r.get('estimate') and r['estimate'].get('detected')]
+    mid_accepted = [r for r in mid_records if r.get('estimate', {}).get('detected')]
     mid_scored = [r for r in mid_accepted if r.get('error_3d_m') is not None]
     mid_errors = [r['error_3d_m'] for r in mid_scored]
 
@@ -245,11 +493,12 @@ def compute_gate_report(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
     mid_max_error_m = max(mid_errors) if mid_errors else None
 
     # Corrupted transport acceptances
-    corrupted_transport_accepted = 0
-    for r in records:
-        if r.get('stage') == 'transport' and r.get('variant') in ('black_transport', 'frozen_transport_rgb'):
-            if r.get('estimate') and r['estimate'].get('detected'):
-                corrupted_transport_accepted += 1
+    corrupted_transport_accepted = sum(
+        1 for r in records
+        if r.get('stage') == 'transport'
+        and r.get('variant') in ('black_transport', 'frozen_transport_rgb')
+        and r.get('estimate', {}).get('detected')
+    )
 
     # Gate 1: Nominal Post-Warmup Coverage
     pw_accepted = nominal_agg.get('post_warmup_accepted', 0)
@@ -259,10 +508,7 @@ def compute_gate_report(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
 
     if not is_full_10_seeds:
         gate_1_status = 'not_applicable'
-        gate_1_reason = f"Subset dry run ({num_seeds} seeds; 10 seeds required for formal gate)"
-    elif is_incomplete:
-        gate_1_status = 'incomplete'
-        gate_1_reason = f"Incomplete evidence: {nominal_agg.get('missing_responses', 0)} missing, {pw_unscored} unscored"
+        gate_1_reason = f"Subset dry run ({num_seeds} seeds; full screen requires exactly 820-829)"
     elif pw_accepted >= GATE_MIN_COVERAGE_TARGETS:
         gate_1_status = 'pass'
         gate_1_reason = f"Accepted {pw_accepted}/{pw_targets} post-warmup targets (>={GATE_MIN_COVERAGE_TARGETS} required)"
@@ -276,13 +522,10 @@ def compute_gate_report(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
 
     if not is_full_10_seeds:
         gate_2_status = 'not_applicable'
-        gate_2_reason = f"Subset dry run ({num_seeds} seeds; 10 seeds required for formal gate)"
-    elif is_incomplete:
-        gate_2_status = 'incomplete'
-        gate_2_reason = "Incomplete evidence; cannot score accuracy gate"
+        gate_2_reason = f"Subset dry run ({num_seeds} seeds; full screen requires exactly 820-829)"
     elif pw_mean_m is None or pw_accepted == 0:
         gate_2_status = 'fail'
-        gate_2_reason = "Zero accepted post-warmup targets"
+        gate_2_reason = "Zero accepted post-warmup targets (accuracy cannot be verified)"
     elif pw_mean_m <= GATE_MAX_MEAN_ERROR_M:
         gate_2_status = 'pass'
         gate_2_reason = f"Accepted original-target mean {pw_mean_mm:.4f} mm <= {GATE_MAX_MEAN_ERROR_M*1000:.1f} mm threshold"
@@ -297,12 +540,9 @@ def compute_gate_report(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
     nom_max_m = nominal_agg.get('accepted_max_error_m')
     nom_max_mm = (nom_max_m * 1000.0) if nom_max_m is not None else None
 
-    if is_incomplete:
-        gate_3_status = 'incomplete'
-        gate_3_reason = "Incomplete evidence; cannot certify maximum error gate"
-    elif nom_max_m is None or nominal_agg.get('accepted', 0) == 0:
+    if nom_max_m is None or nominal_agg.get('accepted', 0) == 0:
         gate_3_status = 'fail'
-        gate_3_reason = "Zero accepted nominal responses"
+        gate_3_reason = "Zero accepted nominal responses (containment cannot be verified)"
     elif nom_max_m <= GATE_MAX_NOMINAL_ERROR_M:
         gate_3_status = 'pass'
         mid_desc = f"{mid_max_error_m*1000.0:.4f} mm" if mid_max_error_m is not None else "none"
@@ -318,10 +558,7 @@ def compute_gate_report(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
     rel_ret_accepted = nominal_agg.get('release_or_retract_accepted', 0)
     rel_ret_denom = num_seeds * 2
 
-    if is_incomplete:
-        gate_4_status = 'incomplete'
-        gate_4_reason = "Incomplete evidence; release/retract containment unverified"
-    elif rel_ret_accepted == GATE_MAX_RELEASE_RETRACT_ACCEPTED:
+    if rel_ret_accepted == GATE_MAX_RELEASE_RETRACT_ACCEPTED:
         gate_4_status = 'pass'
         gate_4_reason = f"0/{rel_ret_denom} positions emitted on release or retract endpoints"
     else:
@@ -332,10 +569,7 @@ def compute_gate_report(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
     black_acc = black_agg.get('accepted', 0)
     frozen_acc = frozen_agg.get('accepted', 0)
 
-    if is_incomplete:
-        gate_5_status = 'incomplete'
-        gate_5_reason = "Incomplete evidence; sensor disruption containment unverified"
-    elif corrupted_transport_accepted == GATE_MAX_CORRUPTED_TRANSPORT_ACCEPTED:
+    if corrupted_transport_accepted == GATE_MAX_CORRUPTED_TRANSPORT_ACCEPTED:
         gate_5_status = 'pass'
         gate_5_reason = (
             f"0/{num_seeds*2} positions emitted on corrupted transport frames "
@@ -347,10 +581,7 @@ def compute_gate_report(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
 
     # Overall outcome
     all_gates = [gate_1_status, gate_2_status, gate_3_status, gate_4_status, gate_5_status]
-    if any(g == 'incomplete' for g in all_gates) or is_incomplete:
-        overall_outcome = 'INCOMPLETE'
-        overall_reason = "Evidence is incomplete; incomplete is never a pass."
-    elif any(g == 'fail' for g in all_gates):
+    if any(g == 'fail' for g in all_gates):
         overall_outcome = 'FAIL'
         failed_reasons = []
         if gate_1_status == 'fail':
@@ -372,7 +603,7 @@ def compute_gate_report(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
         overall_reason = f"Gate criteria failed on: {', '.join(failed_reasons)}."
     elif any(g == 'not_applicable' for g in all_gates):
         overall_outcome = 'NOT_APPLICABLE_SUBSET'
-        overall_reason = f"Subset dry run on {num_seeds} seeds; formal gate evaluation requires all 10 seeds."
+        overall_reason = f"Subset dry run on {num_seeds} seeds; formal gate evaluation requires all 10 seeds (820-829)."
     else:
         overall_outcome = 'PASS'
         overall_reason = "All 5 continuation gates passed."
@@ -384,9 +615,12 @@ def compute_gate_report(evidence_or_results, candidate_name=PRIMARY_CANDIDATE,
         'schedule': 'augmented_stream',
         'seeds': seeds,
         'seed_count': num_seeds,
-        'evaluation_status': overall_status,
-        'is_complete': not is_incomplete,
+        'evaluation_status': 'complete',
+        'is_complete': True,
         'provenance_notes': provenance_notes or ('Task 002 development evidence rescore' if is_rescore else 'Development dry run'),
+        'evidence_path': str(evidence_path) if evidence_path else None,
+        'evidence_sha256': file_sha256(evidence_path) if evidence_path else None,
+        'source_code_snapshot': source_snapshot,
         'gates': {
             'gate_1_coverage': {
                 'description': f'>={GATE_MIN_COVERAGE_TARGETS}/{GATE_TOTAL_TARGETS} nominal post-warmup targets accepted',
@@ -468,16 +702,17 @@ def print_gate_report_summary(report):
     print("-" * 70)
     print(f"OVERALL OUTCOME: [{report['overall_outcome']}]")
     print(f"Reason: {report['overall_reason']}")
-    desc = report['descriptive_metrics']
-    mid = desc['midpoint_metrics']
-    all_m = desc['all_accepted_metrics']
-    print("-" * 70)
-    mid_mean_str = f"{mid['midpoint_mean_error_mm']:.4f} mm" if mid.get('midpoint_mean_error_mm') is not None else "N/A"
-    mid_max_str = f"{mid['midpoint_max_error_mm']:.4f} mm" if mid.get('midpoint_max_error_mm') is not None else "N/A"
-    all_mean_str = f"{all_m['all_accepted_mean_error_mm']:.4f} mm" if all_m.get('all_accepted_mean_error_mm') is not None else "N/A"
-    all_max_str = f"{all_m['all_accepted_max_error_mm']:.4f} mm" if all_m.get('all_accepted_max_error_mm') is not None else "N/A"
-    print(f"Midpoint (lower_mid): accepted {mid['midpoint_accepted']}/{mid['midpoint_expected']}; mean: {mid_mean_str}; max: {mid_max_str}")
-    print(f"All accepted (nom): count {all_m['all_accepted_count']}; mean: {all_mean_str}; max: {all_max_str}")
+    desc = report.get('descriptive_metrics', {})
+    if desc:
+        mid = desc.get('midpoint_metrics', {})
+        all_m = desc.get('all_accepted_metrics', {})
+        print("-" * 70)
+        mid_mean_str = f"{mid['midpoint_mean_error_mm']:.4f} mm" if mid.get('midpoint_mean_error_mm') is not None else "N/A"
+        mid_max_str = f"{mid['midpoint_max_error_mm']:.4f} mm" if mid.get('midpoint_max_error_mm') is not None else "N/A"
+        all_mean_str = f"{all_m['all_accepted_mean_error_mm']:.4f} mm" if all_m.get('all_accepted_mean_error_mm') is not None else "N/A"
+        all_max_str = f"{all_m['all_accepted_max_error_mm']:.4f} mm" if all_m.get('all_accepted_max_error_mm') is not None else "N/A"
+        print(f"Midpoint (lower_mid): accepted {mid.get('midpoint_accepted')}/{mid.get('midpoint_expected')}; mean: {mid_mean_str}; max: {mid_max_str}")
+        print(f"All accepted (nom): count {all_m.get('all_accepted_count')}; mean: {all_mean_str}; max: {all_max_str}")
     print("=" * 70 + "\n")
 
 
@@ -495,8 +730,9 @@ def run_preflight_command(args):
     write_json(report_file, report)
     print(f"Preflight report written to: {report_file}")
     print(f"Status: {report['status']} | Fresh validation executed: {report['fresh_validation_executed']}")
-    print(f"Git commit: {report['git_commit']}")
+    print(f"Git commit: {report['git_provenance']['head_commit']} (dirty: {report['git_provenance']['is_dirty']})")
     print(f"Scene SHA-256: {report['provenance_hashes']['scene_sha256']}")
+    print(f"Requirements lock SHA-256: {report['provenance_hashes']['dependency_hashes']['requirements_lock_sha256']}")
     print(f"Augmented cache valid: {report['input_availability']['augmented_cache_valid']}")
     return report
 
@@ -508,11 +744,32 @@ def run_rescore_command(args):
         raise FileNotFoundError(f"Evidence file not found: {evidence_path}")
 
     evidence = json.loads(evidence_path.read_text())
+
+    # Validate embedded seeds in artifact (R2)
+    embedded_seeds = evidence.get('seeds') or evidence.get('augmented_stream', {}).get('seeds')
+    if embedded_seeds is None:
+        raise ValueError(f"Evidence artifact at '{evidence_path}' does not declare 'seeds'.")
+
+    # This will reject held-out seeds (840-849), duplicate seeds, and out-of-scope seeds:
+    validated_embedded_seeds = validate_seeds_guard(embedded_seeds, allow_non_development=False)
+
+    # If CLI seeds were explicitly supplied, verify they match embedded seeds
+    if getattr(args, 'seeds_explicitly_set', False):
+        cli_validated = validate_seeds_guard(args.seeds, allow_non_development=False)
+        if set(cli_validated) != set(validated_embedded_seeds):
+            raise ValueError(
+                f"Supplied CLI seeds {cli_validated} do not match evidence artifact seeds {validated_embedded_seeds}"
+            )
+    else:
+        args.seeds = validated_embedded_seeds
+
     report = compute_gate_report(
         evidence,
         candidate_name=args.candidate,
         is_rescore=True,
-        provenance_notes=f"Artifact rescore of: {evidence_path.resolve()}"
+        provenance_notes=f"Artifact rescore of: {evidence_path.resolve()}",
+        evidence_path=evidence_path,
+        root_dir=args.root_dir
     )
 
     out_dir = Path(args.output_dir)
@@ -527,18 +784,19 @@ def run_rescore_command(args):
 
 def run_dry_run_command(args):
     """Execute development dry run on existing development inputs."""
-    validate_seeds_guard(args.seeds)
+    validate_seeds_guard(args.seeds, allow_non_development=False)
     source_capture_dir = Path(args.capture_dir)
     augmented_capture_dir = Path(args.augmented_dir)
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Running development dry run on seeds {args.seeds}...")
+    evidence_file = out_dir / "p5_development_evidence.json"
     evidence = evaluate_evidence(
         source_capture_dir=source_capture_dir,
         augmented_capture_dir=augmented_capture_dir,
         seeds=args.seeds,
-        output_file=out_dir / "p5_development_evidence.json",
+        output_file=evidence_file,
         render_if_missing=False  # Reuses validated cache read-only
     )
 
@@ -546,28 +804,38 @@ def run_dry_run_command(args):
         evidence,
         candidate_name=args.candidate,
         is_rescore=False,
-        provenance_notes=f"Development dry run on seeds {args.seeds}; cache read-only from {augmented_capture_dir.resolve()}"
+        provenance_notes=f"Development dry run on seeds {args.seeds}; cache read-only from {augmented_capture_dir.resolve()}",
+        evidence_path=evidence_file,
+        root_dir=args.root_dir
     )
 
     report_file = out_dir / "gate_report_development.json"
     write_json(report_file, report)
     print_gate_report_summary(report)
-    print(f"Development evidence written to: {out_dir / 'p5_development_evidence.json'}")
+    print(f"Development evidence written to: {evidence_file}")
     print(f"Development gate report written to: {report_file}")
 
     # Write task manifest
+    root = Path(args.root_dir) if args.root_dir else Path.cwd()
+    git_status = get_git_status_description(cwd=str(root))
     manifest = {
         'manifest_version': 1,
         'generator': 'humanoid_sim.p5_evaluation.dry_run',
         'generated_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
-        'git_commit': get_git_commit_hash(),
+        'git_provenance': git_status,
         'seeds': args.seeds,
         'candidate': args.candidate,
         'source_capture_dir': str(source_capture_dir.resolve()),
         'augmented_capture_dir': str(augmented_capture_dir.resolve()),
         'artifacts': {
-            'evidence': str((out_dir / "p5_development_evidence.json").resolve()),
-            'gate_report': str(report_file.resolve()),
+            'evidence': {
+                'path': str(evidence_file.resolve()),
+                'sha256': file_sha256(evidence_file),
+            },
+            'gate_report': {
+                'path': str(report_file.resolve()),
+                'sha256': file_sha256(report_file),
+            },
         },
         'overall_outcome': report['overall_outcome'],
     }
@@ -587,7 +855,17 @@ def main():
 
     default_output_dir = Path('experiments/humanoid-pick-place/results/p5_preparation')
 
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+        description="P5 preparation and evaluation wrapper for passive temporal reacquisition.",
+        epilog=(
+            "Supported modes:\n"
+            "  --preflight: Run preflight checks and output preflight_report.json\n"
+            "  --rescore <path>: Rescore an existing evidence JSON artifact\n"
+            "  --dry-run: Run development dry run on existing development inputs\n\n"
+            f"{FUTURE_CAPTURE_API_SKETCH}\n"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     parser.add_argument('--preflight', action='store_true', default=False,
                         help='Run preflight checks and output preflight report')
     parser.add_argument('--rescore', type=Path, default=None,
@@ -607,38 +885,46 @@ def main():
                         help='Output directory for P5 preparation artifacts')
     parser.add_argument('--root-dir', type=Path, default=None,
                         help='Root directory of the repository')
-    parser.add_argument('--start-seed', type=int, default=820,
+    parser.add_argument('--start-seed', type=int, default=None,
                         help='Start seed (default: 820)')
-    parser.add_argument('--count', type=int, default=10,
+    parser.add_argument('--count', type=int, default=None,
                         help='Seed count (default: 10)')
     parser.add_argument('--seeds', type=int, nargs='+', default=None,
                         help='Explicit seed list (e.g. --seeds 820 821)')
     parser.add_argument('--fresh-capture', action='store_true', default=False,
-                        help='Attempt fresh capture (FORBIDDEN in Task 003; documents command)')
+                        help='Attempt fresh capture (FORBIDDEN in Task 003; documents Python API sketch)')
 
     args = parser.parse_args()
 
     if args.fresh_capture:
         raise RuntimeError(
             "Fresh capture is disabled in Task 003. Future fresh execution under a separately reviewed "
-            f"and frozen P5 protocol must be authorized and run via:\n  {FUTURE_CAPTURE_COMMAND_TEMPLATE}"
+            f"and frozen P5 protocol must be authorized and run via Python API:\n\n{FUTURE_CAPTURE_API_SKETCH}"
         )
 
-    if args.seeds is None:
-        args.seeds = list(range(args.start_seed, args.start_seed + args.count))
-
-    # Guard seeds against held-out set
-    validate_seeds_guard(args.seeds)
+    cli_seeds_specified = (args.seeds is not None or args.start_seed is not None or args.count is not None)
+    args.seeds_explicitly_set = cli_seeds_specified
+    if args.seeds is not None:
+        args.seeds = args.seeds
+    elif args.start_seed is not None or args.count is not None:
+        start = args.start_seed if args.start_seed is not None else 820
+        cnt = args.count if args.count is not None else 10
+        args.seeds = list(range(start, start + cnt))
+    else:
+        args.seeds = list(range(820, 830))
 
     if args.preflight:
+        validate_seeds_guard(args.seeds, allow_non_development=False)
         run_preflight_command(args)
     elif args.rescore:
         run_rescore_command(args)
     elif args.dry_run:
+        validate_seeds_guard(args.seeds, allow_non_development=False)
         run_dry_run_command(args)
     else:
         # Default behavior: run preflight and print usage
         print("No mode specified (--preflight, --rescore, or --dry-run). Running preflight by default:")
+        validate_seeds_guard(args.seeds, allow_non_development=False)
         run_preflight_command(args)
 
 

@@ -26,16 +26,24 @@
     828,
     829
   ],
-  "future_capture_command": "python -m humanoid_sim.perception_evaluation audit runtime/humanoid/temporal-P5/capture 840 841 842 843 844 845 846 847 848 849 --protocol experiments/humanoid-pick-place/protocols/P5_REVISED_PROPOSAL.md",
-  "git_commit": "55479a189af716316d133a9ca543f09934889726",
+  "future_capture_api_sketch": "# Future fresh execution (Python API sketch for future reviewed task; DO NOT RUN IN TASK 003):\n# from pathlib import Path\n# from humanoid_sim.perception_evaluation import audit\n# audit(\n#     output=Path('runtime/humanoid/temporal-P5/capture'),\n#     seeds=range(840, 850),\n#     protocol=Path('experiments/humanoid-pick-place/protocols/P5_REVISED_PROPOSAL.md'),\n#     protocol_id='P5_capture',\n# )",
+  "git_provenance": {
+    "head_commit": "c711ff0152613c5175894df06c3bc701b4961108",
+    "is_dirty": true,
+    "provenance_note": "Worktree branch agy/003-p5-preparation based on commit c711ff0152613c5175894df06c3bc701b4961108 with uncommitted task modifications"
+  },
   "provenance_hashes": {
     "scene_sha256": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
-    "protocol_revised_sha256": "bcc741171977d6086a0544a52ea0f4793dd63294a3f390f0c32b2f458eca3d60",
+    "protocol_revised_sha256": "d9fb86af06f3fe3e8fbfebfd8726b664521d8225f0844dee1e9d59a979fecbe5",
     "protocol_historical_sha256": "e070f25d65b307eddc3356e7d5dc25497a3460517b5ba8ba0da6fa2a4c7f1edd",
     "code_sha256": {
       "temporal_pose.py": "19806899e9820fffb21783e16e30788d53efb189d7c50dab50b6633b05ebf258",
       "temporal_reacquisition_evaluation.py": "1dd630c4ef86fd972eb3150eb9ac0d5fe0c2a65cea31ae4805dd95844e0cead3",
-      "p5_evaluation.py": "61bb5c4876642f9d40600b9cff80d0ff4cf903b1a59934b3e55be2fa164ceeb4"
+      "p5_evaluation.py": "16570e6cf61f18943cccf5a0712adefb676465428255be5b0fbea360fcd9faba"
+    },
+    "dependency_hashes": {
+      "requirements_lock_sha256": "2494fa442b86b7a4b6ff45602a5ca7b207225bb526fc148c49e85532ea9bd732",
+      "requirements_txt_sha256": "5511b002c6ef3659bf7ed9213fb4b0ad3aef0565c8fe5817da13ff792f2582b9"
     }
   },
   "candidate_specification": {

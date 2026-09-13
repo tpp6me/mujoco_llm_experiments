@@ -1,8 +1,19 @@
 {
   "manifest_version": 1,
-  "generator": "humanoid_sim.p5_evaluation.dry_run",
-  "generated_at": "2026-09-13T01:46:12Z",
-  "git_commit": "55479a189af716316d133a9ca543f09934889726",
+  "generator": "humanoid_sim.p5_evaluation",
+  "optimizer_generation_timestamp": "2026-09-13T01:46:12Z",
+  "rescore_timestamp": "2026-09-13T02:27:00Z",
+  "git_commit": "c711ff0152613c5175894df06c3bc701b4961108",
+  "git_provenance": {
+    "base_commit": "55479a189af716316d133a9ca543f09934889726",
+    "branch": "agy/003-p5-preparation",
+    "task_review_commit": "c711ff0152613c5175894df06c3bc701b4961108",
+    "note": "Full 10-seed optimizer run generated evidence at 2026-09-13T01:46:12Z. Gate reports rescored without re-running optimizer to incorporate R1-R3 review improvements."
+  },
+  "dependency_hashes": {
+    "requirements_lock_sha256": "2494fa442b86b7a4b6ff45602a5ca7b207225bb526fc148c49e85532ea9bd732",
+    "requirements_txt_sha256": "5511b002c6ef3659bf7ed9213fb4b0ad3aef0565c8fe5817da13ff792f2582b9"
+  },
   "seeds": [
     820,
     821,
@@ -19,8 +30,23 @@
   "source_capture_dir": "/Users/praveen/work/github/mujoco-llms/runtime/humanoid/temporal-P4/capture",
   "augmented_capture_dir": "/private/tmp/mujoco-llms-agy-002/runtime/humanoid/temporal-P4-augmented/capture",
   "artifacts": {
-    "evidence": "/private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/p5_preparation/p5_development_evidence.json",
-    "gate_report": "/private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/p5_preparation/gate_report_development.json"
+    "preflight_report": {
+      "path": "/private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/p5_preparation/preflight_report.json",
+      "sha256": "e91f0d3c7b84c83c612810e33e215bcaa9df6f46b793825eaa13d825cfc5375e"
+    },
+    "gate_report_rescore": {
+      "path": "/private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/p5_preparation/gate_report_rescore.json",
+      "sha256": "a7c7ec6c1b05d5a59994930ba21ddf8043f1e19c81004f0b7ecf553b3cf7eadc"
+    },
+    "evidence": {
+      "path": "/private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/p5_preparation/p5_development_evidence.json",
+      "sha256": "fcc087663c3bca20d66299d116bcb7600cd1e22b2da700a794c984b8836bfb5f"
+    },
+    "gate_report_development": {
+      "path": "/private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/p5_preparation/gate_report_development.json",
+      "sha256": "738445c7587abbd502b290ff630e925f9f93ee77880fb36cf7f9de571331b856"
+    }
   },
-  "overall_outcome": "FAIL"
+  "overall_outcome": "FAIL",
+  "overall_reason": "Gate criteria failed on: accuracy (5.8715 mm > 5.0 mm)."
 }

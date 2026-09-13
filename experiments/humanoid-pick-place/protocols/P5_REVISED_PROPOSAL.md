@@ -128,8 +128,31 @@ To qualify for consideration in a future active visual control loop, the primary
 Before executing this protocol on seeds 840–849 in a subsequent reviewed task:
 1. **Source and Scene Integrity:** Git commit SHA, scene XML SHA-256 (`get_scene_sha256()`), dependency environment, and protocol file SHA-256 must be computed and recorded in a preflight report.
 2. **Provenance Binding:** Public input hashes (`source_observations_sha256`) and augmented cache manifests (`augmented_manifest.json`) must be validated.
-3. **Execution Command:** Fresh capture will be executed via the reviewed runner:
-   ```sh
-   python -m humanoid_sim.perception_evaluation audit runtime/humanoid/temporal-P5/capture 840 841 842 843 844 845 846 847 848 849 --protocol experiments/humanoid-pick-place/protocols/P5_REVISED_PROPOSAL.md
+3. **Future Execution Sketch (Non-Executable Python API Sketch):**
+   Fresh trajectory capture and observation generation would be invoked via the `audit` API in a future reviewed task (DO NOT RUN IN TASK 003):
+   ```python
+   # Python API sketch for future fresh capture (separate reviewed task):
+   from pathlib import Path
+   from humanoid_sim.perception_evaluation import audit
+
+   audit(
+       output=Path('runtime/humanoid/temporal-P5/capture'),
+       seeds=range(840, 850),
+       protocol=Path('experiments/humanoid-pick-place/protocols/P5_REVISED_PROPOSAL.md'),
+       protocol_id='P5_capture',
+   )
    ```
-4. **Current Status:** **PROPOSED ONLY. DO NOT EXECUTE ON SEEDS 840–849.**
+4. **Currently Supported Development Commands (Task 003):**
+   - Preflight inspection:
+     ```sh
+     python -m humanoid_sim.p5_evaluation --preflight
+     ```
+   - Artifact rescore on existing evidence:
+     ```sh
+     python -m humanoid_sim.p5_evaluation --rescore experiments/humanoid-pick-place/results/temporal_reacquisition_evidence_development.json
+     ```
+   - Development dry run on existing captures (seeds 820–829):
+     ```sh
+     python -m humanoid_sim.p5_evaluation --dry-run --seeds 820 821 822 823 824 825 826 827 828 829
+     ```
+5. **Current Status:** **PROPOSED ONLY. DO NOT EXECUTE ON SEEDS 840–849.**

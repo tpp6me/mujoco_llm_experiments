@@ -1,17 +1,126 @@
 """Unit tests for P5 preparation, preflight wrapper, and gate evaluation logic."""
+import argparse
+import copy
 import json
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
 
+from humanoid_sim.temporal_reacquisition_evaluation import (
+    AUGMENTED_STAGES, EXPECTED_VARIANTS, NOMINAL_POST_WARMUP_STAGES, compute_aggregate
+)
 from humanoid_sim.p5_evaluation import (
     HELD_OUT_SEEDS, DEVELOPMENT_SEEDS, PRIMARY_CANDIDATE,
     GATE_MIN_COVERAGE_TARGETS, GATE_TOTAL_TARGETS,
     GATE_MAX_MEAN_ERROR_M, GATE_MAX_NOMINAL_ERROR_M,
     validate_seeds_guard, build_preflight_report,
-    compute_gate_report, TASK_002_EVIDENCE_PATH
+    compute_gate_report, run_rescore_command, main,
+    TASK_002_EVIDENCE_PATH, FUTURE_CAPTURE_API_SKETCH
 )
+
+
+def make_synthetic_evidence(
+    seeds=None,
+    candidate_name=PRIMARY_CANDIDATE,
+    nominal_detections=None,
+    corrupted_transport_accepted=0,
+    release_retract_accepted=0,
+    status='complete',
+    records_override=None,
+    aggregate_override=None,
+    omit_disruption_aggregates=False,
+    duplicate_grid_entry=False,
+    non_finite_error=False,
+    missing_truth=False,
+):
+    """Build a complete, mathematically consistent synthetic evidence dictionary.
+
+    Default configuration produces a fully complete, valid grid (len(seeds) x 7 stages x 3 variants)
+    that passes all 5 evaluation gates.
+    """
+    if seeds is None:
+        seeds = list(range(820, 830))
+    else:
+        seeds = list(seeds)
+
+    if nominal_detections is None:
+        nominal_detections = {
+            'transport': (True, 0.0040),
+            'lower': (True, 0.0040),
+            'lower_mid': (True, 0.0035),
+        }
+
+    corrupt_rem = corrupted_transport_accepted
+    rel_ret_rem = release_retract_accepted
+    records = []
+
+    for s in seeds:
+        for st in AUGMENTED_STAGES:
+            for v in EXPECTED_VARIANTS:
+                truth = [0.1, 0.2, 0.3]
+                if v == 'original':
+                    if st in ('release', 'retract') and rel_ret_rem > 0:
+                        detected = True
+                        err = 0.010
+                        rel_ret_rem -= 1
+                    else:
+                        detected, err = nominal_detections.get(st, (False, None))
+                else:
+                    if st == 'transport' and corrupt_rem > 0:
+                        detected = True
+                        err = 0.050
+                        corrupt_rem -= 1
+                    else:
+                        detected = False
+                        err = None
+
+                if missing_truth and s == seeds[0] and st == 'lower' and v == 'original':
+                    truth = None
+                if non_finite_error and s == seeds[0] and st == 'lower' and v == 'original':
+                    err = float('nan')
+
+                rec = {
+                    'seed': s,
+                    'stage': st,
+                    'variant': v,
+                    'status': 'evaluated',
+                    'private_true_xyz_m': truth,
+                    'estimate': {
+                        'detected': detected,
+                        'pose_xyz_m': [0.1, 0.2, 0.3] if detected else None,
+                        'reason': 'insufficient_motion_history' if not detected else None,
+                    },
+                    'error_3d_m': err,
+                }
+                records.append(rec)
+                if duplicate_grid_entry and s == seeds[0] and st == 'lower' and v == 'original':
+                    records.append(dict(rec))
+
+    if records_override is not None:
+        records = records_override
+
+    if aggregate_override is not None:
+        agg = aggregate_override
+    else:
+        agg = compute_aggregate(records, seeds, stages=AUGMENTED_STAGES, post_warmup_stages=NOMINAL_POST_WARMUP_STAGES)
+        if omit_disruption_aggregates:
+            agg = {'original': agg['original']}
+
+    return {
+        'status': status,
+        'seeds': seeds,
+        'augmented_stream': {
+            'status': status,
+            'seeds': seeds,
+            'candidates': {
+                candidate_name: {
+                    'aggregate': agg,
+                    'records': records,
+                }
+            }
+        }
+    }
 
 
 class TestP5Evaluation(unittest.TestCase):
@@ -23,6 +132,19 @@ class TestP5Evaluation(unittest.TestCase):
                 validate_seeds_guard([seed])
         with self.assertRaisesRegex(ValueError, "held-out seed.*strictly forbidden"):
             validate_seeds_guard(range(840, 850))
+
+    def test_duplicate_seeds_forbidden(self):
+        """Duplicate seeds must be rejected to prevent episode count inflation (R2)."""
+        with self.assertRaisesRegex(ValueError, "Duplicate seeds are forbidden"):
+            validate_seeds_guard([820, 820])
+        with self.assertRaisesRegex(ValueError, "Duplicate seeds are forbidden"):
+            validate_seeds_guard([820] * 10)
+
+    def test_non_integer_seeds_forbidden(self):
+        """Non-integer types and booleans must be rejected as invalid seeds (R2)."""
+        for bad in [[True], [False], [820.5], ['820'], [None]]:
+            with self.assertRaisesRegex(ValueError, "Seed must be an integer"):
+                validate_seeds_guard(bad)
 
     def test_non_development_seeds_rejected_in_executable_mode(self):
         """Seeds outside 820-829 are rejected in executable development mode."""
@@ -74,144 +196,98 @@ class TestP5Evaluation(unittest.TestCase):
         self.assertEqual(report['overall_outcome'], 'FAIL')
         self.assertIn("accuracy", report['overall_reason'])
 
-    def test_successful_synthetic_metrics_pass_all_gates(self):
-        """Synthetic metrics meeting all criteria must result in PASS."""
-        synthetic_evidence = {
-            'status': 'complete',
-            'seeds': list(range(820, 830)),
-            'augmented_stream': {
-                'status': 'complete',
-                'seeds': list(range(820, 830)),
-                'candidates': {
-                    PRIMARY_CANDIDATE: {
-                        'aggregate': {
-                            'original': {
-                                'expected_responses': 70,
-                                'evaluated_responses': 70,
-                                'missing_responses': 0,
-                                'accepted': 25,
-                                'scored_responses': 25,
-                                'unscored_accepted': 0,
-                                'missing_or_invalid_truth': 0,
-                                'within_20mm': 25,
-                                'accepted_over_20mm': 0,
-                                'accepted_mean_error_m': 0.0040,
-                                'accepted_max_error_m': 0.0120,
-                                'post_warmup_targets': 20,
-                                'post_warmup_accepted': 18,
-                                'post_warmup_scored': 18,
-                                'post_warmup_within_20mm': 18,
-                                'post_warmup_mean_error_m': 0.0042,  # 4.2 mm <= 5.0 mm
-                                'post_warmup_max_error_m': 0.0120,  # 12.0 mm <= 20.0 mm
-                                'release_or_retract_accepted': 0,
-                                'refusals': {'insufficient_motion_history': 30, 'inconsistent_rigid_transform': 15},
-                            },
-                            'black_transport': {'accepted': 0, 'missing_responses': 0},
-                            'frozen_transport_rgb': {'accepted': 0, 'missing_responses': 0},
-                        },
-                        'records': [
-                            {'variant': 'original', 'stage': 'lower_mid', 'estimate': {'detected': True}, 'error_3d_m': 0.0035},
-                            {'variant': 'original', 'stage': 'transport', 'estimate': {'detected': True}, 'error_3d_m': 0.0040},
-                            {'variant': 'original', 'stage': 'lower', 'estimate': {'detected': True}, 'error_3d_m': 0.0044},
-                            {'variant': 'original', 'stage': 'release', 'estimate': {'detected': False}, 'error_3d_m': None},
-                            {'variant': 'original', 'stage': 'retract', 'estimate': {'detected': False}, 'error_3d_m': None},
-                            {'variant': 'black_transport', 'stage': 'transport', 'estimate': {'detected': False}, 'error_3d_m': None},
-                            {'variant': 'frozen_transport_rgb', 'stage': 'transport', 'estimate': {'detected': False}, 'error_3d_m': None},
-                        ],
-                    }
-                }
-            }
-        }
+    def test_successful_complete_synthetic_grid_passes_all_gates(self):
+        """Complete 210-record synthetic grid meeting all criteria must result in PASS (R1)."""
+        synthetic_evidence = make_synthetic_evidence()
         report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
+
+        self.assertTrue(report['is_complete'])
+        self.assertEqual(report['overall_outcome'], 'PASS')
         self.assertEqual(report['gates']['gate_1_coverage']['status'], 'pass')
         self.assertEqual(report['gates']['gate_2_accuracy']['status'], 'pass')
         self.assertEqual(report['gates']['gate_3_nominal_max_error']['status'], 'pass')
         self.assertEqual(report['gates']['gate_4_relationship_loss_safety']['status'], 'pass')
         self.assertEqual(report['gates']['gate_5_disruption_robustness']['status'], 'pass')
-        self.assertEqual(report['overall_outcome'], 'PASS')
 
-    def test_missing_truth_and_unscored_acceptances_never_pass(self):
-        """Missing truth or unscored acceptances must render evidence incomplete, never pass."""
-        base_agg = {
-            'expected_responses': 70,
-            'evaluated_responses': 70,
-            'missing_responses': 0,
-            'accepted': 20,
-            'scored_responses': 18,
-            'unscored_accepted': 2,  # 2 emitted poses unscored due to invalid/missing truth
-            'missing_or_invalid_truth': 2,
-            'post_warmup_targets': 20,
-            'post_warmup_accepted': 18,
-            'post_warmup_scored': 16,
-            'post_warmup_mean_error_m': 0.0030,
-            'post_warmup_max_error_m': 0.0100,
-            'accepted_max_error_m': 0.0100,
-            'release_or_retract_accepted': 0,
-        }
-        synthetic_evidence = {
-            'status': 'incomplete',
-            'seeds': list(range(820, 830)),
-            'augmented_stream': {
-                'status': 'incomplete',
-                'seeds': list(range(820, 830)),
-                'candidates': {
-                    PRIMARY_CANDIDATE: {
-                        'aggregate': {
-                            'original': base_agg,
-                            'black_transport': {'accepted': 0},
-                            'frozen_transport_rgb': {'accepted': 0},
-                        },
-                        'records': [],
-                    }
-                }
-            }
-        }
+    def test_incomplete_evidence_empty_records_with_stale_passing_summary(self):
+        """Empty or truncated records with stale passing summary must return INCOMPLETE (R1)."""
+        synthetic_evidence = make_synthetic_evidence(records_override=[])
         report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
+
         self.assertFalse(report['is_complete'])
         self.assertEqual(report['overall_outcome'], 'INCOMPLETE')
-        self.assertIn('incomplete is never a pass', report['overall_reason'].lower())
+        self.assertIn("Candidate 'records' list is empty or invalid", report['overall_reason'])
+        for gate_name, gate in report['gates'].items():
+            self.assertEqual(gate['status'], 'incomplete')
 
-    def test_all_refused_results(self):
-        """All-refused results must fail coverage, accuracy, and overall outcome."""
-        all_refused_agg = {
-            'expected_responses': 70,
-            'evaluated_responses': 70,
-            'missing_responses': 0,
-            'accepted': 0,
-            'scored_responses': 0,
-            'unscored_accepted': 0,
-            'missing_or_invalid_truth': 0,
-            'post_warmup_targets': 20,
-            'post_warmup_accepted': 0,
-            'post_warmup_scored': 0,
-            'post_warmup_mean_error_m': None,
-            'post_warmup_max_error_m': None,
-            'accepted_max_error_m': None,
-            'release_or_retract_accepted': 0,
-            'refusals': {'insufficient_motion_history': 50, 'inconsistent_rigid_transform': 20},
-        }
-        synthetic_evidence = {
-            'status': 'complete',
-            'seeds': list(range(820, 830)),
-            'augmented_stream': {
-                'status': 'complete',
-                'seeds': list(range(820, 830)),
-                'candidates': {
-                    PRIMARY_CANDIDATE: {
-                        'aggregate': {
-                            'original': all_refused_agg,
-                            'black_transport': {'accepted': 0},
-                            'frozen_transport_rgb': {'accepted': 0},
-                        },
-                        'records': [],
-                    }
-                }
-            }
-        }
+    def test_incomplete_evidence_missing_variant_aggregates(self):
+        """Candidate aggregate missing required disruption variants must return INCOMPLETE (R1)."""
+        synthetic_evidence = make_synthetic_evidence(omit_disruption_aggregates=True)
         report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
+
+        self.assertFalse(report['is_complete'])
+        self.assertEqual(report['overall_outcome'], 'INCOMPLETE')
+        self.assertIn("missing required disruption variant", report['overall_reason'])
+
+    def test_incomplete_evidence_running_or_missing_status(self):
+        """Non-complete status (running, missing, incomplete) must return INCOMPLETE (R1)."""
+        for bad_status in ['running', 'incomplete', None, 'pending']:
+            synthetic_evidence = make_synthetic_evidence(status=bad_status)
+            report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
+
+            self.assertFalse(report['is_complete'])
+            self.assertEqual(report['overall_outcome'], 'INCOMPLETE')
+            self.assertIn("expected 'complete'", report['overall_reason'])
+
+    def test_incomplete_evidence_duplicate_grid_entries(self):
+        """Duplicate (seed, stage, variant) entries in records must return INCOMPLETE (R1)."""
+        synthetic_evidence = make_synthetic_evidence(duplicate_grid_entry=True)
+        report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
+
+        self.assertFalse(report['is_complete'])
+        self.assertEqual(report['overall_outcome'], 'INCOMPLETE')
+        self.assertIn("does not match expected grid count", report['overall_reason'])
+
+    def test_incomplete_evidence_missing_or_non_finite_truth_or_error(self):
+        """Records with missing ground truth or non-finite error values must return INCOMPLETE (R1)."""
+        # Non-finite error
+        ev_nan = make_synthetic_evidence(non_finite_error=True)
+        rep_nan = compute_gate_report(ev_nan, candidate_name=PRIMARY_CANDIDATE)
+        self.assertFalse(rep_nan['is_complete'])
+        self.assertEqual(rep_nan['overall_outcome'], 'INCOMPLETE')
+        self.assertIn("non-finite error_3d_m", rep_nan['overall_reason'])
+
+        # Missing ground truth
+        ev_truth = make_synthetic_evidence(missing_truth=True)
+        rep_truth = compute_gate_report(ev_truth, candidate_name=PRIMARY_CANDIDATE)
+        self.assertFalse(rep_truth['is_complete'])
+        self.assertEqual(rep_truth['overall_outcome'], 'INCOMPLETE')
+        self.assertIn("missing/invalid truth", rep_truth['overall_reason'])
+
+    def test_incomplete_evidence_summary_record_disagreement(self):
+        """Mismatches between record data and claimed summaries must return INCOMPLETE (R1)."""
+        ev = make_synthetic_evidence()
+        # Artificially alter summary aggregate to disagree with records
+        ev['augmented_stream']['candidates'][PRIMARY_CANDIDATE]['aggregate']['original']['accepted'] = 999
+        report = compute_gate_report(ev, candidate_name=PRIMARY_CANDIDATE)
+
+        self.assertFalse(report['is_complete'])
+        self.assertEqual(report['overall_outcome'], 'INCOMPLETE')
+        self.assertIn("disagrees with records", report['overall_reason'])
+
+    def test_all_refused_results_complete_grid(self):
+        """Complete grid with all-refused results must fail coverage/accuracy without exception (R1)."""
+        synthetic_evidence = make_synthetic_evidence(nominal_detections={})
+        report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
+
+        self.assertTrue(report['is_complete'])
         self.assertEqual(report['gates']['gate_1_coverage']['status'], 'fail')
         self.assertEqual(report['gates']['gate_2_accuracy']['status'], 'fail')
+        self.assertEqual(report['gates']['gate_3_nominal_max_error']['status'], 'fail')
+        self.assertEqual(report['gates']['gate_4_relationship_loss_safety']['status'], 'pass')
+        self.assertEqual(report['gates']['gate_5_disruption_robustness']['status'], 'pass')
         self.assertEqual(report['overall_outcome'], 'FAIL')
+        self.assertIn("accuracy (zero accepted post-warmup targets)", report['overall_reason'])
 
     def test_midpoint_denominator_separation(self):
         """Midpoint estimates must never dilute or enlarge the original-target denominator."""
@@ -238,49 +314,43 @@ class TestP5Evaluation(unittest.TestCase):
         self.assertAlmostEqual(mid['midpoint_max_error_mm'], 5.113997, places=4)
 
     def test_subset_dry_run_marks_gates_not_applicable(self):
-        """Subset dry runs (<10 seeds) must mark gates not_applicable rather than falsely passing/failing."""
-        single_seed_evidence = {
-            'status': 'complete',
-            'seeds': [820],
-            'augmented_stream': {
-                'status': 'complete',
-                'seeds': [820],
-                'candidates': {
-                    PRIMARY_CANDIDATE: {
-                        'aggregate': {
-                            'original': {
-                                'expected_responses': 7,
-                                'evaluated_responses': 7,
-                                'missing_responses': 0,
-                                'accepted': 1,
-                                'scored_responses': 1,
-                                'unscored_accepted': 0,
-                                'missing_or_invalid_truth': 0,
-                                'post_warmup_targets': 2,
-                                'post_warmup_accepted': 1,
-                                'post_warmup_scored': 1,
-                                'post_warmup_mean_error_m': 0.0148,
-                                'post_warmup_max_error_m': 0.0148,
-                                'accepted_max_error_m': 0.0148,
-                                'release_or_retract_accepted': 0,
-                            },
-                            'black_transport': {'accepted': 0},
-                            'frozen_transport_rgb': {'accepted': 0},
-                        },
-                        'records': [
-                            {'variant': 'original', 'stage': 'lower', 'estimate': {'detected': True}, 'error_3d_m': 0.0148},
-                        ],
-                    }
-                }
-            }
-        }
+        """Subset dry runs (<10 seeds) must mark gates not_applicable rather than passing/failing (R2)."""
+        single_seed_evidence = make_synthetic_evidence(seeds=[820])
         report = compute_gate_report(single_seed_evidence, candidate_name=PRIMARY_CANDIDATE)
+
+        self.assertEqual(report['seed_count'], 1)
         self.assertEqual(report['gates']['gate_1_coverage']['status'], 'not_applicable')
         self.assertEqual(report['gates']['gate_2_accuracy']['status'], 'not_applicable')
         self.assertEqual(report['overall_outcome'], 'NOT_APPLICABLE_SUBSET')
 
+    def test_corrupted_transport_emission_fails_gate_5(self):
+        """Accepted pose on corrupted transport frame must fail Gate 5."""
+        synthetic_evidence = make_synthetic_evidence(corrupted_transport_accepted=1)
+        report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
+
+        self.assertEqual(report['gates']['gate_5_disruption_robustness']['status'], 'fail')
+        self.assertEqual(report['overall_outcome'], 'FAIL')
+
+    def test_release_retract_emission_fails_gate_4(self):
+        """Accepted pose on release/retract endpoint must fail Gate 4."""
+        synthetic_evidence = make_synthetic_evidence(release_retract_accepted=1)
+        report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
+
+        self.assertEqual(report['gates']['gate_4_relationship_loss_safety']['status'], 'fail')
+        self.assertEqual(report['overall_outcome'], 'FAIL')
+
+    def test_max_error_exceeding_20mm_fails_gate_3(self):
+        """Accepted nominal error exceeding 20.0 mm must fail Gate 3."""
+        synthetic_evidence = make_synthetic_evidence(
+            nominal_detections={'transport': (True, 0.0250), 'lower': (True, 0.0040), 'lower_mid': (True, 0.0035)}
+        )
+        report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
+
+        self.assertEqual(report['gates']['gate_3_nominal_max_error']['status'], 'fail')
+        self.assertEqual(report['overall_outcome'], 'FAIL')
+
     def test_preflight_report_generation(self):
-        """Preflight report must document hashes, configurations, and unexecuted status."""
+        """Preflight report must document dependency hashes, git provenance, and future sketch (R3)."""
         report = build_preflight_report(
             source_capture_dir='/Users/praveen/work/github/mujoco-llms/runtime/humanoid/temporal-P4/capture',
             augmented_capture_dir='/private/tmp/mujoco-llms-agy-002/runtime/humanoid/temporal-P4-augmented/capture',
@@ -289,8 +359,19 @@ class TestP5Evaluation(unittest.TestCase):
         self.assertEqual(report['status'], 'development_preparation')
         self.assertFalse(report['fresh_validation_executed'])
         self.assertFalse(report['held_out_seeds_touched'])
-        self.assertEqual(report['held_out_seeds_reserved'], list(range(840, 850)))
-        self.assertIn('python -m humanoid_sim.perception_evaluation audit', report['future_capture_command'])
+        self.assertIn('audit(', report['future_capture_api_sketch'])
+        self.assertIn('DO NOT RUN IN TASK 003', report['future_capture_api_sketch'])
+
+        # Dependency lock hash check
+        dep_hashes = report['provenance_hashes']['dependency_hashes']
+        self.assertIn('requirements_lock_sha256', dep_hashes)
+        self.assertIn('requirements_txt_sha256', dep_hashes)
+
+        # Git provenance check
+        git_prov = report['git_provenance']
+        self.assertIn('head_commit', git_prov)
+        self.assertIn('is_dirty', git_prov)
+        self.assertIn('provenance_note', git_prov)
 
         hashes = report['provenance_hashes']
         self.assertIsNotNone(hashes['scene_sha256'])
@@ -299,128 +380,82 @@ class TestP5Evaluation(unittest.TestCase):
         self.assertIn('temporal_pose.py', hashes['code_sha256'])
         self.assertIn('p5_evaluation.py', hashes['code_sha256'])
 
-    def test_corrupted_transport_emission_fails_gate_5(self):
-        """Accepted pose on corrupted transport frame must fail Gate 5."""
-        synthetic_evidence = {
-            'status': 'complete',
-            'seeds': list(range(820, 830)),
-            'augmented_stream': {
-                'status': 'complete',
-                'seeds': list(range(820, 830)),
-                'candidates': {
-                    PRIMARY_CANDIDATE: {
-                        'aggregate': {
-                            'original': {
-                                'expected_responses': 70,
-                                'evaluated_responses': 70,
-                                'missing_responses': 0,
-                                'accepted': 20,
-                                'scored_responses': 20,
-                                'unscored_accepted': 0,
-                                'missing_or_invalid_truth': 0,
-                                'post_warmup_targets': 20,
-                                'post_warmup_accepted': 17,
-                                'post_warmup_scored': 17,
-                                'post_warmup_mean_error_m': 0.0040,
-                                'post_warmup_max_error_m': 0.0100,
-                                'accepted_max_error_m': 0.0100,
-                                'release_or_retract_accepted': 0,
-                            },
-                            'black_transport': {'accepted': 1},
-                            'frozen_transport_rgb': {'accepted': 0},
-                        },
-                        'records': [
-                            {'variant': 'black_transport', 'stage': 'transport', 'estimate': {'detected': True}, 'error_3d_m': 0.050},
-                        ],
-                    }
-                }
-            }
-        }
-        report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
-        self.assertEqual(report['gates']['gate_5_disruption_robustness']['status'], 'fail')
-        self.assertEqual(report['overall_outcome'], 'FAIL')
+    def test_rescore_cli_rejects_embedded_held_out_seeds_without_writing_output(self):
+        """Rescore command must reject embedded held-out seeds before scoring or writing output (R2)."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp_path = Path(tmpdir)
+            held_out_art = tmp_path / "held_out_evidence.json"
+            held_out_art.write_text(json.dumps({'status': 'complete', 'seeds': list(range(840, 850))}))
 
-    def test_release_retract_emission_fails_gate_4(self):
-        """Accepted pose on release/retract endpoint must fail Gate 4."""
-        synthetic_evidence = {
-            'status': 'complete',
-            'seeds': list(range(820, 830)),
-            'augmented_stream': {
-                'status': 'complete',
-                'seeds': list(range(820, 830)),
-                'candidates': {
-                    PRIMARY_CANDIDATE: {
-                        'aggregate': {
-                            'original': {
-                                'expected_responses': 70,
-                                'evaluated_responses': 70,
-                                'missing_responses': 0,
-                                'accepted': 20,
-                                'scored_responses': 20,
-                                'unscored_accepted': 0,
-                                'missing_or_invalid_truth': 0,
-                                'post_warmup_targets': 20,
-                                'post_warmup_accepted': 17,
-                                'post_warmup_scored': 17,
-                                'post_warmup_mean_error_m': 0.0040,
-                                'post_warmup_max_error_m': 0.0100,
-                                'accepted_max_error_m': 0.0100,
-                                'release_or_retract_accepted': 1,  # 1 emission on release/retract
-                            },
-                            'black_transport': {'accepted': 0},
-                            'frozen_transport_rgb': {'accepted': 0},
-                        },
-                        'records': [],
-                    }
-                }
-            }
-        }
-        report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
-        self.assertEqual(report['gates']['gate_4_relationship_loss_safety']['status'], 'fail')
-        self.assertEqual(report['overall_outcome'], 'FAIL')
+            out_dir = tmp_path / "out"
+            args = argparse.Namespace(
+                rescore=held_out_art,
+                candidate=PRIMARY_CANDIDATE,
+                output_dir=out_dir,
+                report_name='gate_report_rescore.json',
+                root_dir=None,
+                seeds=None,
+                start_seed=None,
+                count=None,
+                seeds_explicitly_set=False
+            )
+            with self.assertRaisesRegex(ValueError, "held-out seed 840.*strictly forbidden"):
+                run_rescore_command(args)
 
-    def test_max_error_exceeding_20mm_fails_gate_3(self):
-        """Accepted nominal error exceeding 20.0 mm must fail Gate 3."""
-        synthetic_evidence = {
-            'status': 'complete',
-            'seeds': list(range(820, 830)),
-            'augmented_stream': {
-                'status': 'complete',
-                'seeds': list(range(820, 830)),
-                'candidates': {
-                    PRIMARY_CANDIDATE: {
-                        'aggregate': {
-                            'original': {
-                                'expected_responses': 70,
-                                'evaluated_responses': 70,
-                                'missing_responses': 0,
-                                'accepted': 20,
-                                'scored_responses': 20,
-                                'unscored_accepted': 0,
-                                'missing_or_invalid_truth': 0,
-                                'post_warmup_targets': 20,
-                                'post_warmup_accepted': 17,
-                                'post_warmup_scored': 17,
-                                'post_warmup_mean_error_m': 0.0040,
-                                'post_warmup_max_error_m': 0.0250,  # 25 mm > 20 mm
-                                'accepted_max_error_m': 0.0250,
-                                'release_or_retract_accepted': 0,
-                            },
-                            'black_transport': {'accepted': 0},
-                            'frozen_transport_rgb': {'accepted': 0},
-                        },
-                        'records': [],
-                    }
-                }
-            }
-        }
-        report = compute_gate_report(synthetic_evidence, candidate_name=PRIMARY_CANDIDATE)
-        self.assertEqual(report['gates']['gate_3_nominal_max_error']['status'], 'fail')
-        self.assertEqual(report['overall_outcome'], 'FAIL')
+            self.assertFalse((out_dir / "gate_report_rescore.json").exists())
 
-    def test_fresh_capture_flag_raises_error_with_future_command(self):
-        """CLI with --fresh-capture must raise RuntimeError documenting the future command."""
-        from humanoid_sim.p5_evaluation import main
+    def test_rescore_cli_rejects_disagreeing_cli_seeds(self):
+        """Rescore command must reject CLI seeds that disagree with embedded artifact seeds (R2)."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp_path = Path(tmpdir)
+            valid_art = tmp_path / "valid_evidence.json"
+            valid_art.write_text(json.dumps({'status': 'complete', 'seeds': list(range(820, 830))}))
+
+            out_dir = tmp_path / "out"
+            args = argparse.Namespace(
+                rescore=valid_art,
+                candidate=PRIMARY_CANDIDATE,
+                output_dir=out_dir,
+                report_name='gate_report_rescore.json',
+                root_dir=None,
+                seeds=[820, 821],
+                start_seed=None,
+                count=None,
+                seeds_explicitly_set=True
+            )
+            with self.assertRaisesRegex(ValueError, "Supplied CLI seeds.*do not match evidence artifact seeds"):
+                run_rescore_command(args)
+
+            self.assertFalse((out_dir / "gate_report_rescore.json").exists())
+
+    def test_rescore_cli_succeeds_with_valid_artifact(self):
+        """Rescore command succeeds on valid complete evidence artifact and writes report."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp_path = Path(tmpdir)
+            valid_art = tmp_path / "valid_evidence.json"
+            ev = make_synthetic_evidence(seeds=range(820, 830))
+            valid_art.write_text(json.dumps(ev))
+
+            out_dir = tmp_path / "out"
+            args = argparse.Namespace(
+                rescore=valid_art,
+                candidate=PRIMARY_CANDIDATE,
+                output_dir=out_dir,
+                report_name='gate_report_rescore.json',
+                root_dir=None,
+                seeds=None,
+                start_seed=None,
+                count=None,
+                seeds_explicitly_set=False
+            )
+            rep = run_rescore_command(args)
+
+            report_file = out_dir / "gate_report_rescore.json"
+            self.assertTrue(report_file.is_file())
+            self.assertEqual(rep['overall_outcome'], 'PASS')
+
+    def test_fresh_capture_flag_raises_error_with_future_sketch(self):
+        """CLI with --fresh-capture must raise RuntimeError documenting the future API sketch (R3)."""
         import sys
         with patch.object(sys, 'argv', ['p5_evaluation', '--fresh-capture']):
             with self.assertRaisesRegex(RuntimeError, "Fresh capture is disabled in Task 003"):
