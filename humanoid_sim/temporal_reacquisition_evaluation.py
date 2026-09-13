@@ -1,17 +1,19 @@
-"""Development evaluation comparing baseline P4 and reacquisition candidate.
+"""Development evaluation comparing baseline P4, 2-frame, and 3-frame reacquisition candidates.
 
 Evaluates offline on development captures (seeds 820-829).
 All ground-truth poses and private drift measurements are computed post-hoc
-after the estimator returns and are never provided to either tracker.
+after the estimator returns and are never provided to any tracker.
 
 Maintains explicit grid accounting: expected, observed, evaluated, and missing counts.
-Nominal post-warmup denominator is fixed at 2 per requested seed.
+Nominal post-warmup denominator is fixed at 2 per requested seed (transport and lower).
 """
 import argparse
 import base64
 import copy
+import hashlib
 import io
 import json
+import shutil
 from collections import Counter
 from pathlib import Path
 import time
@@ -21,12 +23,46 @@ from PIL import Image
 
 from .perception_evaluation import write_json
 from .temporal_pose import (
-    TemporalPose, TemporalReacquisitionPose, quaternion_matrix
+    TemporalPose, TemporalReacquisitionPose, TemporalThreeFrameReacquisitionPose,
+    quaternion_matrix
 )
 
 EXPECTED_STAGES = ['lift', 'lift_hold', 'transport', 'lower', 'release', 'retract']
+AUGMENTED_STAGES = ['lift', 'lift_hold', 'transport', 'lower_mid', 'lower', 'release', 'retract']
 NOMINAL_POST_WARMUP_STAGES = {'transport', 'lower'}
 EXPECTED_VARIANTS = ['original', 'black_transport', 'frozen_transport_rgb']
+
+AUGMENTED_MANIFEST_VERSION = 1
+AUGMENTED_GENERATION_REVISION = 'humanoid_sim.temporal_reacquisition_evaluation.render_augmented_dataset.v2'
+AUGMENTED_SCHEDULE_RULE = 't_mid = (t_transport + t_lower) / 2.0'
+AUGMENTED_REPLAY_MODE = 'qpos_kinematic_replay'
+AUGMENTED_CAMERA_CONFIG = {
+    'camera_name': 'fixed',
+    'lookat': [0.24, -0.24, 0.8],
+    'distance': 1.35,
+    'azimuth': 90.0,
+    'elevation': -65.0,
+    'width': 960,
+    'height': 720,
+}
+
+
+def get_scene_sha256():
+    """Compute sha256 hash of the task scene definition."""
+    from .scene import SCENE
+    return file_sha256(SCENE)
+
+
+def file_sha256(path):
+    """Compute sha256 hash of a file if it exists, else None."""
+    p = Path(path)
+    if not p.is_file():
+        return None
+    h = hashlib.sha256()
+    with open(p, 'rb') as f:
+        while chunk := f.read(65536):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 def is_valid_truth_xyz(xyz):
@@ -42,12 +78,14 @@ def is_valid_truth_xyz(xyz):
         return False
 
 
-def evaluate_stream(tracker_factory, seed, stage_observations, variant):
+def evaluate_stream(tracker_factory, seed, stage_observations, variant, stages=None):
+    if stages is None:
+        stages = EXPECTED_STAGES
     tracker = tracker_factory()
     records = []
     offsets = {}
 
-    for stage in EXPECTED_STAGES:
+    for stage in stages:
         stage_data = stage_observations.get(stage) if isinstance(stage_observations, dict) else None
         if stage_data is None:
             if hasattr(tracker, 'invalidate'):
@@ -143,6 +181,43 @@ def evaluate_stream(tracker_factory, seed, stage_observations, variant):
                 'error_message': 'Observation JSON must be a dict',
                 'estimate': None,
                 'scoring_status': 'missing_truth' if not is_valid_truth_xyz(private_true_xyz) else 'valid_truth_unobserved',
+                'error_3d_m': None,
+                'within_20mm': False,
+                'elapsed_s': 0.0,
+                'private_true_xyz_m': private_true_xyz,
+                'private_object_to_hand_offset_m': None,
+                'private_window_center_drift_m': 0.0,
+            })
+            continue
+
+        # Check observation / record identity and timestamp consistency (R1)
+        rec_time = frame_info.get('time_s')
+        obs_time = original.get('time_s')
+        obs_id = original.get('observation_id')
+        rec_obs_id = frame_info.get('perception', {}).get('observation_id') if isinstance(frame_info.get('perception'), dict) else None
+
+        mismatch_err = None
+        if rec_time is not None and obs_time is not None:
+            try:
+                if abs(float(rec_time) - float(obs_time)) > 1e-3:
+                    mismatch_err = f"Observation timestamp {obs_time} does not match record timestamp {rec_time}"
+            except (ValueError, TypeError):
+                mismatch_err = "Invalid timestamp types for consistency check"
+        if mismatch_err is None and rec_obs_id is not None and obs_id is not None:
+            if rec_obs_id != obs_id:
+                mismatch_err = f"Observation ID {obs_id} does not match record perception ID {rec_obs_id}"
+
+        if mismatch_err is not None:
+            if hasattr(tracker, 'invalidate'):
+                tracker.invalidate()
+            records.append({
+                'seed': seed,
+                'stage': stage,
+                'variant': variant,
+                'status': 'mismatched_observation',
+                'error_message': mismatch_err,
+                'estimate': None,
+                'scoring_status': 'missing_truth' if not is_valid_truth_xyz(private_true_xyz) else 'unscored_mismatched_observation',
                 'error_3d_m': None,
                 'within_20mm': False,
                 'elapsed_s': 0.0,
@@ -313,11 +388,15 @@ def evaluate_stream(tracker_factory, seed, stage_observations, variant):
     return records
 
 
-def compute_aggregate(records, seeds):
+def compute_aggregate(records, seeds, stages=None, post_warmup_stages=None):
+    if stages is None:
+        stages = EXPECTED_STAGES
+    if post_warmup_stages is None:
+        post_warmup_stages = NOMINAL_POST_WARMUP_STAGES
     aggregate = {}
     num_seeds = len(seeds)
-    expected_per_stream = num_seeds * len(EXPECTED_STAGES)
-    expected_post_warmup = num_seeds * len(NOMINAL_POST_WARMUP_STAGES)
+    expected_per_stream = num_seeds * len(stages)
+    expected_post_warmup = num_seeds * len(post_warmup_stages)
 
     for variant in EXPECTED_VARIANTS:
         v_records = [r for r in records if r['variant'] == variant]
@@ -343,7 +422,7 @@ def compute_aggregate(records, seeds):
             or not is_valid_truth_xyz(r.get('private_true_xyz_m'))
         )
 
-        post_warmup_records = [r for r in evaluated if r['stage'] in NOMINAL_POST_WARMUP_STAGES]
+        post_warmup_records = [r for r in evaluated if r['stage'] in post_warmup_stages]
         post_warmup_accepted = sum(1 for r in post_warmup_records
                                    if r.get('estimate') and r['estimate'].get('detected'))
         post_warmup_scored = [r for r in post_warmup_records if r.get('error_3d_m') is not None]
@@ -375,6 +454,8 @@ def compute_aggregate(records, seeds):
             'post_warmup_scored': len(post_warmup_scored),
             'post_warmup_within_20mm': sum(r.get('within_20mm', False) for r in post_warmup_records),
             'post_warmup_missing_or_refused': expected_post_warmup - post_warmup_accepted,
+            'post_warmup_mean_error_m': float(np.mean(post_warmup_errors)) if post_warmup_errors else None,
+            'post_warmup_max_error_m': max(post_warmup_errors) if post_warmup_errors else None,
             'release_or_retract_accepted': sum(
                 1 for r in evaluated
                 if r['stage'] in ('release', 'retract')
@@ -388,7 +469,18 @@ def compute_aggregate(records, seeds):
     return aggregate
 
 
-def evaluate_dataset(capture_dir, seeds, output_file=None):
+def evaluate_dataset(capture_dir, seeds, output_file=None, stages=None,
+                     post_warmup_stages=None, dataset_label='temporal-P4-capture',
+                     candidate_configs=None):
+    if stages is None:
+        stages = EXPECTED_STAGES
+    if post_warmup_stages is None:
+        post_warmup_stages = NOMINAL_POST_WARMUP_STAGES
+    if candidate_configs is None:
+        candidate_configs = [
+            ('baseline_p4', lambda: TemporalPose(reacquisition=False)),
+            ('reacquisition_candidate', lambda: TemporalReacquisitionPose()),
+        ]
     seeds = list(seeds)
     if not seeds or any(not isinstance(s, int) or s < 0 for s in seeds):
         raise ValueError('Seeds must be a non-empty list of non-negative integers')
@@ -397,10 +489,11 @@ def evaluate_dataset(capture_dir, seeds, output_file=None):
     results = {
         'status': 'complete',
         'development_only': True,
-        'dataset': 'temporal-P4-capture',
+        'dataset': dataset_label,
         'seeds': seeds,
         'expected_episodes': len(seeds),
-        'expected_stages_per_episode': EXPECTED_STAGES,
+        'expected_stages_per_episode': stages,
+        'nominal_post_warmup_stages': sorted(list(post_warmup_stages)),
         'candidates': {},
     }
 
@@ -409,33 +502,49 @@ def evaluate_dataset(capture_dir, seeds, output_file=None):
     for seed in seeds:
         folder = capture_dir / f"seed-{seed}"
         if not folder.is_dir():
-            seed_data[seed] = {s: None for s in EXPECTED_STAGES}
+            seed_data[seed] = {s: None for s in stages}
             continue
 
         records_file = folder / "private_records.json"
         if not records_file.is_file():
-            seed_data[seed] = {s: None for s in EXPECTED_STAGES}
+            seed_data[seed] = {s: None for s in stages}
             continue
 
         try:
             private_records = json.loads(records_file.read_text())
         except Exception:
-            seed_data[seed] = {s: None for s in EXPECTED_STAGES}
+            seed_data[seed] = {s: None for s in stages}
             continue
 
         if not isinstance(private_records, list):
-            seed_data[seed] = {s: None for s in EXPECTED_STAGES}
+            seed_data[seed] = {s: None for s in stages}
             continue
 
         stage_obs = {}
-        for stage in EXPECTED_STAGES:
+        for stage in stages:
             rec = next((r for r in private_records if isinstance(r, dict) and r.get('stage') == stage), None)
             if rec is None:
                 stage_obs[stage] = None
                 continue
-            idx = private_records.index(rec)
-            obs_file = folder / f"{idx:02d}-observation.json"
-            if not obs_file.is_file():
+            obs_file = None
+            if isinstance(rec, dict) and 'image' in rec and isinstance(rec['image'], str):
+                prefix = rec['image'].split('-')[0]
+                cand_file = folder / f"{prefix}-observation.json"
+                if cand_file.is_file():
+                    obs_file = cand_file
+                # Explicit image file reference is authoritative: do NOT fall back to numeric index if missing!
+            else:
+                # Records without an explicit 'image' mapping (legacy/synthetic test fixtures)
+                if stage == 'lower_mid':
+                    cand_mid = folder / "06b-observation.json"
+                    if cand_mid.is_file():
+                        obs_file = cand_mid
+                if obs_file is None:
+                    idx = private_records.index(rec)
+                    cand_idx = folder / f"{idx:02d}-observation.json"
+                    if cand_idx.is_file():
+                        obs_file = cand_idx
+            if obs_file is None or not obs_file.is_file():
                 stage_obs[stage] = (rec, None)
                 continue
             try:
@@ -447,20 +556,15 @@ def evaluate_dataset(capture_dir, seeds, output_file=None):
                 stage_obs[stage] = (rec, None)
         seed_data[seed] = stage_obs
 
-    configurations = [
-        ('baseline_p4', lambda: TemporalPose(reacquisition=False)),
-        ('reacquisition_candidate', lambda: TemporalReacquisitionPose()),
-    ]
-
     has_incomplete = False
-    for candidate_name, factory in configurations:
+    for candidate_name, factory in candidate_configs:
         candidate_records = []
         for seed in seeds:
             for variant in EXPECTED_VARIANTS:
-                stream_records = evaluate_stream(factory, seed, seed_data[seed], variant)
+                stream_records = evaluate_stream(factory, seed, seed_data[seed], variant, stages=stages)
                 candidate_records.extend(stream_records)
 
-        aggregate = compute_aggregate(candidate_records, seeds)
+        aggregate = compute_aggregate(candidate_records, seeds, stages=stages, post_warmup_stages=post_warmup_stages)
         if any(agg['missing_responses'] > 0 or agg.get('missing_or_invalid_truth', 0) > 0 for agg in aggregate.values()):
             has_incomplete = True
 
@@ -480,26 +584,403 @@ def evaluate_dataset(capture_dir, seeds, output_file=None):
     return results
 
 
+def derive_midpoint_schedule(records, time_arr):
+    """Derive dynamic lowering midpoint target and select nearest discrete sample.
+
+    Target rule: t_mid_target = (t_transport + t_lower) / 2.0.
+    Validates that the selected discrete sample satisfies:
+        t_transport < t_mid_actual < t_lower.
+    Returns a dict with:
+        'requested_time_s': float,
+        'actual_time_s': float,
+        'episode_step_index': int,
+    """
+    transport_rec = next((r for r in records if isinstance(r, dict) and r.get('stage') == 'transport'), None)
+    lower_rec = next((r for r in records if isinstance(r, dict) and r.get('stage') == 'lower'), None)
+    if transport_rec is None or lower_rec is None:
+        raise ValueError("Records missing transport or lower stage record for midpoint calculation")
+    t_transport = float(transport_rec['time_s'])
+    t_lower = float(lower_rec['time_s'])
+    if t_lower <= t_transport:
+        raise ValueError(f"Lower timestamp {t_lower}s must be strictly greater than transport timestamp {t_transport}s")
+    t_mid_target = (t_transport + t_lower) / 2.0
+
+    time_arr = np.asarray(time_arr, dtype=float)
+    if time_arr.size == 0:
+        raise ValueError("Episode time array must not be empty")
+
+    idx_mid = int(np.argmin(np.abs(time_arr - t_mid_target)))
+    t_mid_actual = float(time_arr[idx_mid])
+    if not (t_transport < t_mid_actual < t_lower):
+        raise ValueError(f"Selected sample time {t_mid_actual}s does not lie strictly within ({t_transport}s, {t_lower}s)")
+
+    return {
+        'requested_time_s': t_mid_target,
+        'actual_time_s': t_mid_actual,
+        'episode_step_index': idx_mid,
+    }
+
+
+def is_augmented_cache_valid(source_capture_dir, output_capture_dir, seeds):
+    """Validate that cached augmented captures match current code provenance and source data."""
+    source_capture_dir = Path(source_capture_dir).resolve()
+    output_capture_dir = Path(output_capture_dir).resolve()
+    manifest_file = output_capture_dir / "augmented_manifest.json"
+    if not manifest_file.is_file():
+        return False
+    try:
+        manifest = json.loads(manifest_file.read_text())
+    except Exception:
+        return False
+    if not isinstance(manifest, dict):
+        return False
+
+    # 1. Manifest version and identifiers
+    if manifest.get('manifest_version') != AUGMENTED_MANIFEST_VERSION:
+        return False
+    if manifest.get('generation_revision') != AUGMENTED_GENERATION_REVISION:
+        return False
+    if manifest.get('schedule_rule') != AUGMENTED_SCHEDULE_RULE:
+        return False
+    if manifest.get('replay_mode') != AUGMENTED_REPLAY_MODE:
+        return False
+
+    # 2. Camera configuration
+    if manifest.get('camera_config') != AUGMENTED_CAMERA_CONFIG:
+        return False
+
+    # 3. Scene digest
+    try:
+        expected_scene_sha = get_scene_sha256()
+    except Exception:
+        expected_scene_sha = None
+    manifest_scene_sha = manifest.get('scene_sha256')
+    if not isinstance(manifest_scene_sha, str) or len(manifest_scene_sha) != 64:
+        return False
+    if expected_scene_sha is not None and manifest_scene_sha != expected_scene_sha:
+        return False
+
+    # 4. Seeds validation
+    manifest_seeds = manifest.get('seeds')
+    if not isinstance(manifest_seeds, dict):
+        return False
+
+    for seed in seeds:
+        seed_str = str(seed)
+        if seed_str not in manifest_seeds:
+            return False
+        entry = manifest_seeds[seed_str]
+        if not isinstance(entry, dict):
+            return False
+
+        # Validate required hash fields presence and non-null string format
+        src_rec_hash = entry.get('source_records_sha256')
+        src_npz_hash = entry.get('source_episode_npz_sha256')
+        if not isinstance(src_rec_hash, str) or len(src_rec_hash) != 64:
+            return False
+        if not isinstance(src_npz_hash, str) or len(src_npz_hash) != 64:
+            return False
+
+        # Check schedule fields
+        if not isinstance(entry.get('requested_time_s'), (int, float)):
+            return False
+        if not isinstance(entry.get('actual_time_s'), (int, float)):
+            return False
+        if not isinstance(entry.get('episode_step_index'), int):
+            return False
+
+        src_seed = source_capture_dir / f"seed-{seed}"
+        out_seed = output_capture_dir / f"seed-{seed}"
+        if not src_seed.is_dir() or not out_seed.is_dir():
+            return False
+
+        # Check required generated midpoint observation files exist
+        if not (out_seed / "06b-observation.json").is_file():
+            return False
+        if not (out_seed / "06b-lower_mid.png").is_file():
+            return False
+        if not (out_seed / "private_records.json").is_file():
+            return False
+
+        # Verify source file hashes match manifest
+        src_records_path = src_seed / "private_records.json"
+        src_npz_path = src_seed / "episode" / "episode.npz"
+        if not src_records_path.is_file() or not src_npz_path.is_file():
+            return False
+        if file_sha256(src_records_path) != src_rec_hash:
+            return False
+        if file_sha256(src_npz_path) != src_npz_hash:
+            return False
+
+        # Bind copied public observations to their source:
+        src_obs_hashes = entry.get('source_observations_sha256')
+        if not isinstance(src_obs_hashes, dict) or not src_obs_hashes:
+            return False
+        for obs_filename, expected_obs_hash in src_obs_hashes.items():
+            if not isinstance(expected_obs_hash, str) or len(expected_obs_hash) != 64:
+                return False
+            src_obs_file = src_seed / obs_filename
+            out_obs_file = out_seed / obs_filename
+            if not src_obs_file.is_file() or not out_obs_file.is_file():
+                return False
+            if file_sha256(src_obs_file) != expected_obs_hash:
+                return False
+            if file_sha256(out_obs_file) != expected_obs_hash:
+                return False
+
+    return True
+
+
+def render_augmented_dataset(source_capture_dir, output_capture_dir, seeds):
+    """Render deterministic lowering midpoint observations via qpos-based kinematic replay.
+
+    Lowering midpoint schedule is derived dynamically: t_mid = (t_transport + t_lower) / 2.0.
+    Renders visual observations and kinematics from saved episode/episode.npz into an isolated,
+    empty output directory without modifying the read-only source capture directory. Dynamic velocity
+    fields are marked unavailable since saved history contains qpos/time rather than full
+    integration velocity states.
+    """
+    import mujoco
+    from .environment import Environment
+    from .visual import RGBRenderer, VisualSession
+
+    source_capture_dir = Path(source_capture_dir).resolve()
+    output_capture_dir = Path(output_capture_dir).resolve()
+    if (source_capture_dir == output_capture_dir or
+        output_capture_dir in source_capture_dir.parents or
+        source_capture_dir in output_capture_dir.parents):
+        raise ValueError(f"Source capture dir {source_capture_dir} and output dir {output_capture_dir} must not overlap or be subdirectories")
+
+    if output_capture_dir.exists() and any(output_capture_dir.iterdir()):
+        raise ValueError(
+            f"Output directory '{output_capture_dir}' exists and is not empty. "
+            "Rendering requires a new or empty directory to ensure evidence provenance and prevent certifying stale outputs."
+        )
+
+    output_capture_dir.mkdir(parents=True, exist_ok=True)
+
+    env = Environment()
+    renderer = RGBRenderer(env)
+    session = VisualSession(env, renderer)
+
+    manifest = {
+        'manifest_version': AUGMENTED_MANIFEST_VERSION,
+        'generation_revision': AUGMENTED_GENERATION_REVISION,
+        'schedule_rule': AUGMENTED_SCHEDULE_RULE,
+        'replay_mode': AUGMENTED_REPLAY_MODE,
+        'camera_config': AUGMENTED_CAMERA_CONFIG,
+        'scene_sha256': get_scene_sha256(),
+        'seeds': {},
+    }
+
+    try:
+        for seed in seeds:
+            src_seed = source_capture_dir / f"seed-{seed}"
+            out_seed = output_capture_dir / f"seed-{seed}"
+            out_seed.mkdir(parents=True, exist_ok=True)
+
+            # Copy all files from src_seed into out_seed
+            for item in src_seed.iterdir():
+                dest = out_seed / item.name
+                if item.is_dir():
+                    shutil.copytree(item, dest)
+                else:
+                    shutil.copy2(item, dest)
+
+            records_file = out_seed / "private_records.json"
+            records = json.loads(records_file.read_text())
+            if any(r.get('stage') == 'lower_mid' for r in records):
+                raise ValueError(f"Seed {seed} source records already contain 'lower_mid' stage; cannot augment an already-augmented dataset")
+
+            # Collect source observation hashes to bind copied public observations
+            src_obs_hashes = {}
+            for obs_file in sorted(src_seed.glob("*-observation.json")):
+                src_obs_hashes[obs_file.name] = file_sha256(obs_file)
+            if not src_obs_hashes:
+                raise ValueError(f"Seed {seed} source contains no public observation files (*-observation.json)")
+
+            # Load saved episode history
+            episode_folder = out_seed / "episode"
+            env.load(episode_folder)
+            npz = np.load(episode_folder / "episode.npz")
+            qpos_arr = npz['qpos']
+            time_arr = npz['time']
+
+            # Derive requested midpoint schedule dynamically
+            sched = derive_midpoint_schedule(records, time_arr)
+            t_mid_target = sched['requested_time_s']
+            t_mid_actual = sched['actual_time_s']
+            idx_mid = sched['episode_step_index']
+
+            # Set exact physical state for kinematics and visual rendering
+            env.data.qpos[:] = qpos_arr[idx_mid]
+            env.data.time = float(time_arr[idx_mid])
+            mujoco.mj_forward(env.model, env.data)
+
+            # Capture visual observation
+            obs = session.capture()
+            png_bytes = base64.b64decode(obs['rgb_png_base64'])
+
+            # Ground truth object pose
+            truth_xyz = env.data.xpos[env.object_id].copy().tolist()
+            truth_rot = env.data.xmat[env.object_id].reshape(3, 3).copy().tolist()
+
+            # Mark dynamic fields as unavailable during qpos-based kinematic replay
+            if 'robot_state' in obs and isinstance(obs['robot_state'], dict):
+                robot = obs['robot_state'].get('robot')
+                if isinstance(robot, dict):
+                    robot['joint_velocity_rad_s'] = None
+                    robot['dynamic_fields_available'] = False
+                    robot['replay_mode'] = 'qpos_kinematic_replay'
+
+            # Save observation files
+            mid_obs_file = out_seed / "06b-observation.json"
+            mid_img_file = out_seed / "06b-lower_mid.png"
+            write_json(mid_obs_file, obs)
+            mid_img_file.write_bytes(png_bytes)
+
+            # Build record with explicit requested/actual times and kinematic replay label
+            mid_record = {
+                'stage': 'lower_mid',
+                'time_s': obs['time_s'],
+                'image': '06b-lower_mid.png',
+                'request': None,
+                'action_status': 'midpoint_observation',
+                'perception': {
+                    'observation_id': obs['observation_id'],
+                    'time_s': obs['time_s'],
+                },
+                'requested_time_s': t_mid_target,
+                'actual_time_s': t_mid_actual,
+                'episode_step_index': idx_mid,
+                'state_preserved': True,
+                'replay_mode': 'qpos_kinematic_replay',
+                'private_true_xyz_m': truth_xyz,
+                'private_true_rotation': truth_rot,
+            }
+
+            # Insert mid_record right before 'lower' stage
+            lower_idx = next(i for i, r in enumerate(records) if r.get('stage') == 'lower')
+            records.insert(lower_idx, mid_record)
+            write_json(records_file, records)
+
+            manifest['seeds'][str(seed)] = {
+                'source_records_sha256': file_sha256(src_seed / "private_records.json"),
+                'source_episode_npz_sha256': file_sha256(src_seed / "episode" / "episode.npz"),
+                'source_observations_sha256': src_obs_hashes,
+                'requested_time_s': t_mid_target,
+                'actual_time_s': t_mid_actual,
+                'episode_step_index': idx_mid,
+            }
+
+        write_json(output_capture_dir / "augmented_manifest.json", manifest)
+    finally:
+        renderer.close()
+
+
+def evaluate_evidence(source_capture_dir, augmented_capture_dir, seeds,
+                      output_file=None, render_if_missing=True):
+    """Run comparative evaluation of Task 002: original vs augmented lowering streams."""
+    source_capture_dir = Path(source_capture_dir)
+    augmented_capture_dir = Path(augmented_capture_dir)
+    seeds = list(seeds)
+
+    if not is_augmented_cache_valid(source_capture_dir, augmented_capture_dir, seeds):
+        if not render_if_missing:
+            raise ValueError(f"Augmented cache at {augmented_capture_dir} is invalid or missing, and render_if_missing=False")
+        if augmented_capture_dir.exists() and any(augmented_capture_dir.iterdir()):
+            raise ValueError(
+                f"Augmented cache directory '{augmented_capture_dir}' is invalid or stale, but is not empty. "
+                "To protect evidence provenance and prevent certifying stale outputs, provide a new empty output directory or clean the target path."
+            )
+        print(f"Augmented cache invalid or missing for seeds {seeds}; rendering into {augmented_capture_dir}...")
+        render_augmented_dataset(source_capture_dir, augmented_capture_dir, seeds)
+
+    manifest_file = augmented_capture_dir / "augmented_manifest.json"
+    cache_manifest = json.loads(manifest_file.read_text()) if manifest_file.is_file() else None
+
+    comparison_configs = [
+        ('baseline_p4', lambda: TemporalPose(reacquisition=False)),
+        ('reacquisition_2frame', lambda: TemporalReacquisitionPose(min_reacquisition_frames=2)),
+        ('reacquisition_3frame', lambda: TemporalThreeFrameReacquisitionPose()),
+    ]
+
+    print("Evaluating original endpoint-only stream...")
+    orig_results = evaluate_dataset(source_capture_dir, seeds, stages=EXPECTED_STAGES,
+                                    dataset_label='temporal-P4-capture-original',
+                                    candidate_configs=comparison_configs)
+
+    print("Evaluating augmented stream (with lowering midpoint)...")
+    aug_results = evaluate_dataset(augmented_capture_dir, seeds, stages=AUGMENTED_STAGES,
+                                    dataset_label='temporal-P4-capture-augmented',
+                                    candidate_configs=comparison_configs)
+
+    evidence = {
+        'status': 'complete' if orig_results['status'] == 'complete' and aug_results['status'] == 'complete' else 'incomplete',
+        'development_only': True,
+        'seeds': seeds,
+        'lowering_schedule': 'midpoint: t_mid = (t_transport + t_lower) / 2.0',
+        'replay_mode': 'qpos_kinematic_replay',
+        'source_provenance': str(source_capture_dir),
+        'augmented_provenance': str(augmented_capture_dir),
+        'cache_manifest': cache_manifest,
+        'original_stream': orig_results,
+        'augmented_stream': aug_results,
+    }
+
+    if output_file is not None:
+        output_file = Path(output_file)
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        write_json(output_file, evidence)
+
+    return evidence
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    default_capture_dir = Path('runtime/humanoid/temporal-P4/capture')
+    if not default_capture_dir.is_dir():
+        default_capture_dir = Path('/Users/praveen/work/github/mujoco-llms/runtime/humanoid/temporal-P4/capture')
     parser.add_argument('--capture-dir', type=Path,
-                        default=Path('/Users/praveen/work/github/mujoco-llms/runtime/humanoid/temporal-P4/capture'))
+                        default=default_capture_dir)
+    parser.add_argument('--augmented-dir', type=Path,
+                        default=Path('runtime/humanoid/temporal-P4-augmented/capture'))
     parser.add_argument('--output', type=Path,
                         default=Path('experiments/humanoid-pick-place/results/temporal_reacquisition_development.json'))
+    parser.add_argument('--output-evidence', type=Path,
+                        default=Path('experiments/humanoid-pick-place/results/temporal_reacquisition_evidence_development.json'))
     parser.add_argument('--start-seed', type=int, default=820)
     parser.add_argument('--count', type=int, default=10)
+    parser.add_argument('--compare', action='store_true', default=False)
     args = parser.parse_args()
 
     if args.count < 1:
         parser.error('--count must be positive')
 
-    seeds = range(args.start_seed, args.start_seed + args.count)
-    results = evaluate_dataset(args.capture_dir, seeds, args.output)
+    seeds = list(range(args.start_seed, args.start_seed + args.count))
 
-    print(f"Evaluation finished with status: {results['status']}.")
-    for name, data in results['candidates'].items():
-        print(f"\n--- {name} ---")
-        print(json.dumps(data['aggregate'], indent=2))
+    if args.compare:
+        evidence = evaluate_evidence(args.capture_dir, args.augmented_dir, seeds,
+                                     output_file=args.output_evidence)
+        print(f"\nTask 002 Evidence Evaluation finished with status: {evidence['status']}.")
+        for stream_name, res in [('Original Stream (Endpoint-Only)', evidence['original_stream']),
+                                 ('Augmented Stream (With Lowering Midpoint)', evidence['augmented_stream'])]:
+            print(f"\n==================== {stream_name} ====================")
+            for cand in ['baseline_p4', 'reacquisition_2frame', 'reacquisition_3frame']:
+                print(f"\n--- {cand} (nominal original) ---")
+                agg = res['candidates'][cand]['aggregate']['original']
+                print(f"Accepted (all stages): {agg['accepted']}/{agg['expected_responses']}")
+                print(f"Mean error (all accepted): {agg['accepted_mean_error_m']}")
+                print(f"Max error (all accepted): {agg['accepted_max_error_m']}")
+                print(f"Post-warmup targets: {agg['post_warmup_accepted']}/{agg['post_warmup_targets']}")
+                print(f"Post-warmup mean error: {agg['post_warmup_mean_error_m']}")
+                print(f"Post-warmup max error: {agg['post_warmup_max_error_m']}")
+                print(f"Post-warmup within 20mm: {agg['post_warmup_within_20mm']}")
+                print(f"Accepted over 20mm: {agg['accepted_over_20mm']}")
+                print(f"Release/retract accepted: {agg['release_or_retract_accepted']}")
+    else:
+        results = evaluate_dataset(args.capture_dir, seeds, args.output)
+        print(f"Evaluation finished with status: {results['status']}.")
 
 
 if __name__ == '__main__':

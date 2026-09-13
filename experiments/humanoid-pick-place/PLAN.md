@@ -70,7 +70,8 @@ individual-finger control are outside the initial scope.
 ## Next actions
 
 - [x] Integrate reviewed AGY task 001: 17/20 development targets accepted, 16 within 20 mm; seed 820 still fails accuracy.
-- [ ] Complete and integrate [AGY task 002](../../coordination/agy/tasks/002-reacquisition-evidence.md): [revision review requests cache fixes](../../coordination/agy/reviews/002-review-r2.md); observation matching, historical evidence and target reporting corrected; no P5 validation.
+- [x] Integrate reviewed [AGY task 002](../../coordination/agy/tasks/002-reacquisition-evidence.md): [acceptance](../../coordination/agy/reviews/002-acceptance.md), 17/20 augmented original targets accepted within 20 mm; 5.872 mm mean still exceeds the proposed 5.0 mm gate.
+- [ ] Execute [AGY task 003](../../coordination/agy/tasks/003-p5-preparation.md): prepare revised passive P5 protocol and runner using existing development inputs; no held-out execution.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -79,7 +80,7 @@ individual-finger control are outside the initial scope.
 - [x] Validate initial upright block position from RGB and declared priors: [P1](POSE_RESULTS.md), 20/20 fresh images within 5 mm.
 - [x] Audit RGB visibility across manipulation endpoints and expire the table-support prior after interaction; see [P2](PERCEPTION_RESULTS.md).
 - [x] Implement and evaluate a monocular carried-center candidate on fresh trajectories and sensor corruptions; [P3](CARRIED_POSE_RESULTS.md) failed and remains disabled.
-- [ ] Add explicit reacquisition after model mismatch/loss and evaluate fresh motion evidence on new trajectories, counting added actions against the task budget. Implementation and development complete via [AGY task 001](../../coordination/agy/tasks/001-reacquisition.md); see [development report](TEMPORAL_REACQUISITION_DEVELOPMENT.md) and proposed protocol [P5](protocols/P5_PROPOSAL.md); task 001 is accepted for development-only integration, and task 002 precedes any fresh validation.
+- [ ] Add explicit reacquisition after model mismatch/loss and evaluate fresh motion evidence on new trajectories, counting added actions against the task budget. Implementation and development complete via [AGY task 001](../../coordination/agy/tasks/001-reacquisition.md); see [development report](TEMPORAL_REACQUISITION_DEVELOPMENT.md) and proposed protocol [P5](protocols/P5_PROPOSAL.md); tasks 001 and 002 are accepted for development-only integration; task 003 prepares the next protocol before any fresh validation.
 - [ ] Validate carried-object pose and occlusion handling without private truth inputs.
 - [ ] Build a matched conventional vision comparator and freeze larger evaluations on unused seeds.
 
@@ -87,7 +88,7 @@ The live exact-state L2 development pilot is complete: **LLM 0/3 placements,
 1/3 sustained lifts; conventional 3/3 placements and 2/3 strict passes**.
 All 18 L2 API calls completed. L1's three request-schema errors remain separately
 archived. See [pilot results](LLM_RESULTS.md) and the [runner guide](LLM_RUNNER.md).
-All 106 automated tests pass. These three cases do not establish a general model
+All 118 automated tests pass. These three cases do not establish a general model
 comparison; no visual policy, balance controller or walking policy has been evaluated.
 
 ## Phase 1 — Select the robot and build the supported scene
@@ -356,10 +357,11 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-12 | Added temporal RGB/hand-motion candidate and post-audit metadata hardening; current suite 84 tests | [P4](TEMPORAL_POSE_RESULTS.md): 14/20 post-warmup targets, mean 3.645 mm / max 7.420 mm; 16/20 coverage gate failed; release and corrupted transport views withheld |
 | 2026-09-12 | Implemented temporal reacquisition candidate, verified input hardening, evaluated on seeds 820–829; 93 tests passed | [Development report](TEMPORAL_REACQUISITION_DEVELOPMENT.md): post-warmup coverage 17/20 accepted, 16/20 within 20 mm; seed 820 depth error 21.94 mm; proposed [P5](protocols/P5_PROPOSAL.md); disconnected from control |
 | 2026-09-12 | Accepted AGY task 001 after three reviews; 106 tests independently passed | [Acceptance](../../coordination/agy/reviews/001-acceptance.md): evaluator failures retain accounting; known 21.94 mm error remains; task 002 ready, no fresh P5 run |
-
+| 2026-09-12 | Evaluated 3-frame reacquisition evidence for AGY task 002; 116 tests passed | [Evidence](TEMPORAL_REACQUISITION_EVIDENCE.md): 3-frame condition on augmented lowering stream recovers 17/20 post-warmup targets with 100% <=20 mm (accepted target mean 5.87 mm, all-accepted mean 5.07 mm); seed 820 error drops from 21.94 mm to 14.85 mm; zero false acceptances; disconnected from control |
 | 2026-09-12 | Reviewed AGY task 002 at `6f4fb31`; 110 tests independently passed; changes requested | [Review](../../coordination/agy/reviews/002-review.md): midpoint improves seed 820 for both candidates; original-target mean 5.872 mm, missing-image mapping and evidence provenance need correction; no merge or P5 run |
-
 | 2026-09-12 | Reviewed task 002 revision `c781a50`; 116 tests independently passed | [Revision review](../../coordination/agy/reviews/002-review-r2.md): R1/R2 and target reporting corrected; reproduced stale cache recertification, R3 remains open; no merge or P5 run |
+
+| 2026-09-13 | Accepted task 002 tip `a351053`; 118 tests independently passed | [Acceptance](../../coordination/agy/reviews/002-acceptance.md): stale caches rejected, manifest retained; [task 003](../../coordination/agy/tasks/003-p5-preparation.md) prepares P5 protocol/runner, 5.0 mm mean gate remains unmet, no held-out run |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.
