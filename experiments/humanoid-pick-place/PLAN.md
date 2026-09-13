@@ -76,6 +76,8 @@ individual-finger control are outside the initial scope.
 
 - [x] Integrate [AGY task 005](../../coordination/agy/tasks/005-visual-provider-adapter.md): image-capable Responses adapter with injected transport and an unfrozen first visual pilot draft; [accepted with integration fixes](../../coordination/agy/reviews/005-acceptance.md) for ambiguous transport containers and interruption accounting. No paid execution.
 
+- [ ] Implement and review [AGY task 006](../../coordination/agy/tasks/006-visual-live-transport.md): HTTPS transport, persistent conservative spend reservations and pilot command/preflight; tests use fake HTTP, with paid V1 approval and execution still pending.
+
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
 - [x] Implement timestamped camera observations paired with robot-state-only inputs; see [visual boundary](VISUAL.md).
