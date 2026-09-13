@@ -1,6 +1,6 @@
 # Humanoid VLA experiment — implementation checklist
 
-Started: 2026-09-11. Last updated: 2026-09-12.
+Started: 2026-09-11. Last updated: 2026-09-13.
 
 Robot: Unitree G1 with hands, simulated in MuJoCo.
 
@@ -76,7 +76,8 @@ individual-finger control are outside the initial scope.
 
 - [x] Integrate [AGY task 005](../../coordination/agy/tasks/005-visual-provider-adapter.md): image-capable Responses adapter with injected transport and an unfrozen first visual pilot draft; [accepted with integration fixes](../../coordination/agy/reviews/005-acceptance.md) for ambiguous transport containers and interruption accounting. No paid execution.
 
-- [ ] Implement and review [AGY task 006](../../coordination/agy/tasks/006-visual-live-transport.md): HTTPS transport, persistent conservative spend reservations and pilot command/preflight; tests use fake HTTP, with paid V1 approval and execution still pending.
+- [x] Cancel [AGY task 006](../../coordination/agy/tasks/006-visual-live-transport.md) before implementation per user direction: Codex works directly; no OpenAI API integration or calls. See [execution policy](../../coordination/EXECUTION_POLICY.md).
+- [ ] Confirm the Codex-based controller execution method and implement it through the existing public visual runner, without API keys or direct OpenAI API integration.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -93,7 +94,7 @@ The live exact-state L2 development pilot is complete: **LLM 0/3 placements,
 1/3 sustained lifts; conventional 3/3 placements and 2/3 strict passes**.
 All 18 L2 API calls completed. L1's three request-schema errors remain separately
 archived. See [pilot results](LLM_RESULTS.md) and the [runner guide](LLM_RUNNER.md).
-All 145 automated tests pass. These three cases do not establish a general model
+The latest integrated code passed 203 automated tests. These three cases do not establish a general model
 comparison; no visual policy, balance controller or walking policy has been evaluated.
 
 ## Phase 1 — Select the robot and build the supported scene

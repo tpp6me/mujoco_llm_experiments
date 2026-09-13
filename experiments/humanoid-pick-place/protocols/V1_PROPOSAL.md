@@ -1,6 +1,10 @@
 # Proposed Successor Protocol V1 — First Visual LLM Development Pilot Draft
 
 **STATUS: HISTORICAL PLANNING PROPOSAL — NOT FROZEN, NOT EXECUTED.**
+
+**Superseded by user direction on 2026-09-13:** do not implement or run this OpenAI
+API condition. Codex is the requested tool; see [current execution policy](../../../coordination/EXECUTION_POLICY.md).
+A Codex-based controller requires its own declared execution condition.
 *This proposal specifies the protocol for a future first live visual LLM manipulation trial under the humanoid experiment. No live API transport or spend is authorized or executed under AGY Task 005. Offline stubs and mocked fixture runs establish adapter and scaffolding readiness only; they do not demonstrate model manipulation performance, model availability, or actual cost.*
 
 ---

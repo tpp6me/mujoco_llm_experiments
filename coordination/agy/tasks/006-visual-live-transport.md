@@ -1,6 +1,6 @@
 # AGY task 006 — Live transport, spending controls and pilot readiness
 
-Status: **ready**. Branch: `agy/006-visual-live-transport`.
+Status: **cancelled by user before implementation**. Historical proposed branch: `agy/006-visual-live-transport`.
 Use `/private/tmp/mujoco-llms-agy-006`, starting from the main commit containing
 this brief. Record the exact starting commit. Prerequisite: Task 005 accepted at
 integration `f92c741eec97905e2bd52ebff533438581a2d06b` (203 passing tests).
@@ -10,7 +10,13 @@ Read `coordination/agy/WORKFLOW.md`, `coordination/agy/reviews/005-acceptance.md
 `protocols/V1_PROPOSAL.md`, `humanoid_sim/visual_provider_adapter.py`,
 `visual_policy_runner.py`, `llm_runner.py`, and relevant tests.
 
-## Objective and boundaries
+## Cancellation — 2026-09-13
+
+The user instructed Codex to work directly and not use OpenAI APIs. This brief is
+retained as a historical proposal and must not be executed. No AGY Task 006 process
+or worktree was created. See [current execution direction](../../EXECUTION_POLICY.md).
+
+## Historical objective and boundaries
 
 Implement the remaining software needed for one future visual LLM pilot: an
 explicitly enabled HTTPS transport, persistent conservative spend reservations,

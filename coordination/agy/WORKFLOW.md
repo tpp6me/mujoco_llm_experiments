@@ -1,5 +1,9 @@
 # Antigravity implementation and Codex review
 
+**Current direction (2026-09-13): Codex works directly; further AGY handoffs and
+the OpenAI API transport plan are cancelled.** The workflow below records the
+earlier arrangement. See [execution policy](../EXECUTION_POLICY.md).
+
 Antigravity (AGY), using the user's Gemini 3.8 Flash configuration, executes bounded
 repository tasks. Codex writes the briefs, reviews the code and evidence, and
 integrates accepted changes. Codex can launch the installed `agy` CLI directly
@@ -67,7 +71,7 @@ inputs. It must not mistake missing local artifacts for missing committed code.
 | [003](tasks/003-p5-preparation.md) | [Accepted with integration fixes](reviews/003-acceptance.md) | `agy/003-p5-preparation` | Prepare revised passive P5 protocol and runner on existing development inputs; no held-out execution |
 | [004](tasks/004-visual-policy-scaffold.md) | [Accepted with integration fixes](reviews/004-acceptance.md) | `agy/004-visual-policy-scaffold` | Offline RGB-to-action loop with injected stub; no live provider or fresh P5 run |
 | [005](tasks/005-visual-provider-adapter.md) | [Accepted with integration fixes](reviews/005-acceptance.md) | `agy/005-visual-provider-adapter` | Responses image adapter with injected offline transport and unfrozen pilot draft |
-| [006](tasks/006-visual-live-transport.md) | Ready | `agy/006-visual-live-transport` | HTTPS transport, persistent spending controls and pilot preflight; mocked execution only |
+| [006](tasks/006-visual-live-transport.md) | Cancelled by user before implementation | `agy/006-visual-live-transport` | HTTPS transport, persistent spending controls and pilot preflight; mocked execution only |
 
 Use the [completion template](reports/TEMPLATE.md) and [review template](reviews/TEMPLATE.md).
 The experiment's [living checklist](../../experiments/humanoid-pick-place/PLAN.md)
