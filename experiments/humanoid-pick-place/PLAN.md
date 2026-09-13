@@ -71,7 +71,7 @@ individual-finger control are outside the initial scope.
 
 - [x] Integrate reviewed AGY task 001: 17/20 development targets accepted, 16 within 20 mm; seed 820 still fails accuracy.
 - [x] Integrate reviewed [AGY task 002](../../coordination/agy/tasks/002-reacquisition-evidence.md): [acceptance](../../coordination/agy/reviews/002-acceptance.md), 17/20 augmented original targets accepted within 20 mm; 5.872 mm mean still exceeds the proposed 5.0 mm gate.
-- [ ] Execute [AGY task 003](../../coordination/agy/tasks/003-p5-preparation.md): prepare revised passive P5 protocol and runner using existing development inputs; no held-out execution.
+- [ ] Complete and integrate [AGY task 003](../../coordination/agy/tasks/003-p5-preparation.md): [review requests changes](../../coordination/agy/reviews/003-review.md) for incomplete-evidence gates, seed validation and reproducibility; no held-out execution.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -362,6 +362,8 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-12 | Reviewed task 002 revision `c781a50`; 116 tests independently passed | [Revision review](../../coordination/agy/reviews/002-review-r2.md): R1/R2 and target reporting corrected; reproduced stale cache recertification, R3 remains open; no merge or P5 run |
 
 | 2026-09-13 | Accepted task 002 tip `a351053`; 118 tests independently passed | [Acceptance](../../coordination/agy/reviews/002-acceptance.md): stale caches rejected, manifest retained; [task 003](../../coordination/agy/tasks/003-p5-preparation.md) prepares P5 protocol/runner, 5.0 mm mean gate remains unmet, no held-out run |
+
+| 2026-09-13 | Reviewed AGY task 003 at `c711ff0`; 131 tests independently passed | [Review](../../coordination/agy/reviews/003-review.md): reproduced false PASS on incomplete evidence and seed guard gaps; revisions requested directly from AGY, no merge or fresh P5 run |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.
