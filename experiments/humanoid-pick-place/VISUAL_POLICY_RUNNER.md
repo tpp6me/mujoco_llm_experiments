@@ -230,12 +230,12 @@ injected offline transport.
 ### 8.1 Wire request construction (`build_responses_request`)
 
 The pure request builder converts the sanitized `public_payload` into the Responses format:
-- **Top-level parameters**: `model` (`gpt-5.6-sol`), `store: false`, `reasoning: {"effort": "low"}`, `max_output_tokens: 2048`, `instructions: VISUAL_PROMPT`.
+- **Explicit model parameter**: `model` is strictly required with no implicit default. Other top-level parameters: `store: false`, `reasoning: {"effort": "low"}`, `max_output_tokens: 2048`, `instructions: VISUAL_PROMPT`.
 - **Structured output**: `text.format` JSON schema (`humanoid_primitive`) using `action_schema()`, enforcing strict schema validation.
 - **Multimodal input message**: Exactly one user message with two content items:
   1. `input_text`: JSON string containing public metadata (`instruction_version`, `remaining_time_s`, `remaining_actions`, `observation`, `history`). Crucially, the base64 image string is **omitted** from this text JSON to avoid redundant token billing and payload expansion.
   2. `input_image`: Data URL (`data:image/png;base64,...`) containing the original PNG bytes with explicitly recorded detail (`detail: high`).
-- **Pre-transport validation**: Validates configuration, PNG magic bytes (`\x89PNG\r\n\x1a\n`), and SHA-256 hash match before invoking transport. Corrupted base64 or mismatched hashes fail immediately without network or transport involvement.
+- **Pre-transport image decoding and validation**: Validates configuration, PNG magic bytes (`\x89PNG\r\n\x1a\n`), SHA-256 hash match, and forces full image raster decompression (`img.load()`) before invoking transport. Truncated or corrupted pixel data is rejected even if SHA-256 matches the bad bytes.
 
 ### 8.2 Strict envelope validation (`validate_response_envelope`)
 
@@ -248,11 +248,11 @@ Before returning an action to the visual runner, the adapter verifies the respon
 
 ### 8.3 Injected transport and attempt logging (`VisualProviderAdapter`)
 
-- **No network or credentials**: Omitting the transport callable fails immediately (`ValueError`) without attempting credential lookup or default HTTP client instantiation.
-- **Separate attempt records**: When `record_dir` is configured, each call writes `provider_call_NNN.json` containing the wire request, raw response, provider status, response ID, returned model, reported token usage, wall latency, and classified outcome.
-- **Honest accounting and no overwrites**: Callback call counts are maintained honestly; attempting to overwrite an existing record raises `ValueError`.
+- **Explicit model and transport**: Constructor strictly requires an explicit, non-empty `model` and a callable `transport`. Omitting transport fails immediately (`ValueError`) without attempting credential lookup or default HTTP client instantiation.
+- **Honest callback accounting**: Separates adapter `invocation_count` (preparation attempts) from `transport_call_count` (`call_count` property). Preflight validation errors do not increment transport calls (`transport_call_count == 0`).
+- **Pre-transport pending record**: When `record_dir` is configured, writes a pending record (`status: "pending"`) before transport is called. If the initial record cannot be written (e.g. filesystem error), transport is **never** invoked.
+- **Failure boundary and raw evidence preservation**: Metadata extraction and envelope validation share the same failure-accounting boundary. Incomplete envelopes, empty/malformed tuples, and transport exceptions write failure records retaining raw evidence before raising controlled exceptions (`MalformedResponseError`, `ModelRefusalError`).
 - **No dollar cost fabrication**: Reported token usage is retained as reported. If missing, usage is marked `{"status": "unknown"}`. No dollar costs or invoice amounts are fabricated from offline fixtures.
-- **Raw failure preservation**: Raw responses are preserved in the attempt records on failures, passing only a validated command or refusal outcome to the visual loop.
 
 ### 8.4 Dry request export CLI
 
@@ -260,11 +260,11 @@ The module provides a standalone dry-export command:
 ```sh
 .venv/bin/python -m humanoid_sim.visual_provider_adapter \
   --input experiments/humanoid-pick-place/results/visual_policy_scaffold/demo_request_payload.json \
-  --output runtime/exported_request.json \
+  --output runtime/humanoid/visual-provider-export/demo_request.json \
   --model gpt-5.6-sol \
-  --manifest experiments/humanoid-pick-place/results/visual_provider_adapter/request_manifest.json
+  --manifest runtime/humanoid/visual-provider-export/request_manifest.json
 ```
-The command requires explicit model configuration, refuses to overwrite existing files, cannot send network requests, and emits a compact manifest (`request_manifest.json`) recording source, hashes, image dimensions, and field layout without duplicating large base64 PNG strings in Git.
+The command requires explicit model configuration, enforces distinct output and manifest paths before writing, refuses to overwrite existing files, cannot send network requests, and emits a compact manifest (`request_manifest.json`) recording source, hashes, image dimensions, and field layout without duplicating large base64 PNG strings in Git.
 
 ### 8.5 Status: Adapter readiness vs live execution
 

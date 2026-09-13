@@ -18,7 +18,7 @@ To preserve continuity and comparability with the exact-state development pilot 
 - **Action Schema**: Strict JSON Schema Structured Output (`humanoid_primitive`)
 - **System Prompt**: `VISUAL_PROMPT` (adapted from L2 exact-state prompt to specify RGB camera observations and exclude exact object/basket coordinate truth)
 
-Reusing L2's model configuration ensures that performance differences can be attributed to perceptual and observational differences (visual RGB vs exact ground-truth coordinates) rather than an unannounced model migration.
+Reusing L2's model family and configuration preserves continuity with earlier exact-state exploration and avoids confounding observations with an unannounced model migration. It does not establish causal attribution between visual and exact-state conditions, as existing L2 trials and a single seed-820 pilot are not matched randomized trials.
 
 ### 1.2 Boundary Clarifications
 
@@ -88,7 +88,8 @@ An episode terminates immediately upon any of the following conditions:
 5. **Interface Guard Rejection**: Commanded pose fails kinematic reachability or preflight collision safeguard (trajectory penetration $> 2\text{ mm}$ against environment geometry).
 6. **Observation Expiry**: Attempting to execute an action against a stale or already consumed `observation_id`.
 7. **Budget Exhaustion**: Reaching 20 model calls or reaching 25.0 simulated seconds.
-8. **Task Success**: Object successfully placed and settled, meeting all evaluator criteria.
+
+Termination is governed strictly by public control, error, interface safeguard, and budget limits. The visual runner does not consult private evaluator task success during the loop; task success is scored strictly post-hoc (Section 5).
 
 ### 4.2 Zero Retries and Denial of Hidden Recovery
 
@@ -114,9 +115,9 @@ Task scoring is conducted post-hoc via the simulation evaluator (`env.scorer.rep
 Before Protocol V1 can be frozen or executed with live network calls and provider spend, the following concrete prerequisites must be completed and reviewed:
 
 - [ ] **Live HTTP/TLS Transport**: Implement an isolated, auditable HTTPS transport client utilizing standard secure libraries, explicit timeouts, and strict error translation.
-- [ ] **Multimodal Spend Reservation Model**: Adapt the L2 token reservation logic for multimodal inputs. A $960 \times 720$ image submitted at `detail: high` consumes 4 tiles ($768$ tokens) plus $85$ base tokens = $853$ image tokens per call, plus $\sim 1500$ text tokens. A 20-call episode worst-case upper bound must be accurately calculated and reserved before initiating any call.
+- [ ] **Multimodal Spend Reservation Model**: Adapt the L2 token reservation logic for multimodal inputs. Under current official OpenAI guidance ([Images and vision, checked 2026-09-13](https://developers.openai.com/api/docs/guides/images-vision)), vision token calculations for `gpt-5.6-sol` use 32-pixel patches with a 1.2 multiplier ($\lceil 30 \times 23 \times 1.2 \rceil = 828$ estimated image tokens for an unresized $960 \times 720$ image at `detail: high`, within the 2,500-patch limit). This provides an image token estimate, not a complete request reservation or invoice guarantee. Text, history, structured schema, and output token costs and uncertainties must be bounded and reserved in the later spend task before initiating any call.
 - [ ] **Explicit Total Spend Approval**: Obtain explicit budget authorization from the project owner before executing live paid API requests.
-- [ ] **API Access Verification**: Verify provider account access, quota tier, and model availability for `gpt-5.6-sol` via a zero-cost pre-flight check without embedding secrets in repo code.
+- [ ] **API Access Verification**: Verify provider account access, quota tier, and model availability for `gpt-5.6-sol` using an approved, verified method without embedding secrets in repo code and without making unverified assumptions about zero-cost preflight endpoints.
 - [ ] **Protocol Freeze and Source Hashes**: Record exact Git commit SHA, prompt SHA-256, and schema SHA-256 in a frozen `V1.md` protocol document.
 
 ---

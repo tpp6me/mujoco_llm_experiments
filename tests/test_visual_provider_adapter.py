@@ -29,7 +29,6 @@ from humanoid_sim.visual_policy_runner import (
     action_schema
 )
 from humanoid_sim.visual_provider_adapter import (
-    DEFAULT_MODEL,
     DEFAULT_DETAIL,
     DEFAULT_MAX_OUTPUT,
     VisualProviderAdapter,
@@ -222,7 +221,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
         payload = make_test_public_payload(obs=obs, history=history)
         payload['private_root_field'] = 'secret'
 
-        req = build_responses_request(payload)
+        req = build_responses_request(payload, model='gpt-5.6-sol')
         req_json_str = json.dumps(req)
 
         forbidden_keys = [
@@ -254,7 +253,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
             for i in range(25)
         ]
         payload = make_test_public_payload(history=long_history)
-        req = build_responses_request(payload)
+        req = build_responses_request(payload, model='gpt-5.6-sol')
         text_part = req['input'][0]['content'][0]['text']
         parsed_text = json.loads(text_part)
         self.assertEqual(len(parsed_text['history']), 20)
@@ -265,19 +264,19 @@ class VisualProviderAdapterTests(unittest.TestCase):
         # Malformed base64
         obs['rgb_png_base64'] = 'not-valid-base64!!@@##'
         with self.assertRaises(ValueError):
-            build_responses_request(make_test_public_payload(obs=obs))
+            build_responses_request(make_test_public_payload(obs=obs), model='gpt-5.6-sol')
 
         # Valid base64 but not PNG (e.g. plain text)
         obs['rgb_png_base64'] = base64.b64encode(b'Hello world plain text').decode('ascii')
         with self.assertRaises(ValueError):
-            build_responses_request(make_test_public_payload(obs=obs))
+            build_responses_request(make_test_public_payload(obs=obs), model='gpt-5.6-sol')
 
         # Hash mismatch
         good_png = make_test_png()
         obs['rgb_png_base64'] = base64.b64encode(good_png).decode('ascii')
         obs['rgb_sha256'] = '0000000000000000000000000000000000000000000000000000000000000000'
         with self.assertRaises(ValueError):
-            build_responses_request(make_test_public_payload(obs=obs))
+            build_responses_request(make_test_public_payload(obs=obs), model='gpt-5.6-sol')
 
         # Empty model
         obs = make_test_observation()
@@ -286,16 +285,16 @@ class VisualProviderAdapterTests(unittest.TestCase):
 
         # Invalid detail
         with self.assertRaises(ValueError):
-            build_responses_request(make_test_public_payload(obs=obs), detail='ultra_hd')
+            build_responses_request(make_test_public_payload(obs=obs), model='gpt-5.6-sol', detail='ultra_hd')
 
         # Invalid max output tokens
         with self.assertRaises(ValueError):
-            build_responses_request(make_test_public_payload(obs=obs), max_output_tokens=0)
+            build_responses_request(make_test_public_payload(obs=obs), model='gpt-5.6-sol', max_output_tokens=0)
 
     def test_adapter_omitting_transport_fails_without_credentials_or_network(self):
         for bad_transport in (None, 'not_callable', 12345):
             with self.assertRaises(ValueError):
-                VisualProviderAdapter(transport=bad_transport)
+                VisualProviderAdapter(transport=bad_transport, model='gpt-5.6-sol')
 
     def test_adapter_injected_transport_success(self):
         hold_cmd = {'action': 'hold', 'arguments': {'seconds': 0.5}}
@@ -307,7 +306,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
             return raw_env, 'req-id-123'
 
         with tempfile.TemporaryDirectory() as tmpdir:
-            adapter = VisualProviderAdapter(transport=mock_transport, record_dir=tmpdir)
+            adapter = VisualProviderAdapter(transport=mock_transport, model='gpt-5.6-sol', record_dir=tmpdir)
             payload = make_test_public_payload()
             result = adapter(payload)
 
@@ -344,14 +343,14 @@ class VisualProviderAdapterTests(unittest.TestCase):
             ],
             'usage': {'input_tokens': 1000, 'output_tokens': 50, 'total_tokens': 1050}
         }
-        adapter = VisualProviderAdapter(transport=lambda _: raw_env)
+        adapter = VisualProviderAdapter(transport=lambda _: raw_env, model='gpt-5.6-sol')
         result = adapter(make_test_public_payload())
         self.assertEqual(result, {'command': hold_cmd})
 
     def test_adapter_refusal_at_root_and_message_level(self):
         # 1. Refusal at root status
         env1 = {'status': 'refusal', 'error': 'Refused by safety filter'}
-        adapter1 = VisualProviderAdapter(transport=lambda _: env1)
+        adapter1 = VisualProviderAdapter(transport=lambda _: env1, model='gpt-5.6-sol')
         with self.assertRaises(ModelRefusalError):
             adapter1(make_test_public_payload())
 
@@ -366,7 +365,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
                 }
             ]
         }
-        adapter2 = VisualProviderAdapter(transport=lambda _: env2)
+        adapter2 = VisualProviderAdapter(transport=lambda _: env2, model='gpt-5.6-sol')
         with self.assertRaises(ModelRefusalError):
             adapter2(make_test_public_payload())
 
@@ -374,19 +373,19 @@ class VisualProviderAdapterTests(unittest.TestCase):
         valid_cmd = {'action': 'hold', 'arguments': {'seconds': 0.5}}
         # Status 'incomplete' with valid embedded action inside output
         env_incomplete = make_mock_responses_envelope(valid_cmd, status='incomplete')
-        adapter_inc = VisualProviderAdapter(transport=lambda _: env_incomplete)
+        adapter_inc = VisualProviderAdapter(transport=lambda _: env_incomplete, model='gpt-5.6-sol')
         with self.assertRaises(MalformedResponseError):
             adapter_inc(make_test_public_payload())
 
         # Status 'failed' with valid embedded action inside output
         env_failed = make_mock_responses_envelope(valid_cmd, status='failed')
-        adapter_fail = VisualProviderAdapter(transport=lambda _: env_failed)
+        adapter_fail = VisualProviderAdapter(transport=lambda _: env_failed, model='gpt-5.6-sol')
         with self.assertRaises(MalformedResponseError):
             adapter_fail(make_test_public_payload())
 
         # Missing or None status
         env_nostatus = make_mock_responses_envelope(valid_cmd, status=None)
-        adapter_nostatus = VisualProviderAdapter(transport=lambda _: env_nostatus)
+        adapter_nostatus = VisualProviderAdapter(transport=lambda _: env_nostatus, model='gpt-5.6-sol')
         with self.assertRaises(MalformedResponseError):
             adapter_nostatus(make_test_public_payload())
 
@@ -404,7 +403,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
                 }
             ]
         }
-        adapter = VisualProviderAdapter(transport=lambda _: env_tool)
+        adapter = VisualProviderAdapter(transport=lambda _: env_tool, model='gpt-5.6-sol')
         with self.assertRaises(MalformedResponseError):
             adapter(make_test_public_payload())
 
@@ -418,7 +417,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
                 {'type': 'message', 'role': 'assistant', 'content': [{'type': 'output_text', 'text': json.dumps({'command': valid_cmd})}]}
             ]
         }
-        adapter1 = VisualProviderAdapter(transport=lambda _: env_multi_msg)
+        adapter1 = VisualProviderAdapter(transport=lambda _: env_multi_msg, model='gpt-5.6-sol')
         with self.assertRaises(MalformedResponseError):
             adapter1(make_test_public_payload())
 
@@ -436,7 +435,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
                 }
             ]
         }
-        adapter2 = VisualProviderAdapter(transport=lambda _: env_multi_text)
+        adapter2 = VisualProviderAdapter(transport=lambda _: env_multi_text, model='gpt-5.6-sol')
         with self.assertRaises(MalformedResponseError):
             adapter2(make_test_public_payload())
 
@@ -461,7 +460,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
                     }
                 ]
             }
-            adapter = VisualProviderAdapter(transport=lambda _: env)
+            adapter = VisualProviderAdapter(transport=lambda _: env, model='gpt-5.6-sol')
             with self.assertRaises(MalformedResponseError):
                 adapter(make_test_public_payload())
 
@@ -470,7 +469,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
             raise ConnectionResetError('Simulated transport disconnection')
 
         with tempfile.TemporaryDirectory() as tmpdir:
-            adapter = VisualProviderAdapter(transport=crashing_transport, record_dir=tmpdir)
+            adapter = VisualProviderAdapter(transport=crashing_transport, model='gpt-5.6-sol', record_dir=tmpdir)
             with self.assertRaises(ConnectionResetError):
                 adapter(make_test_public_payload())
 
@@ -485,7 +484,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
         valid_cmd = {'action': 'hold', 'arguments': {'seconds': 0.5}}
         env = make_mock_responses_envelope(valid_cmd, usage=None)
         with tempfile.TemporaryDirectory() as tmpdir:
-            adapter = VisualProviderAdapter(transport=lambda _: env, record_dir=tmpdir)
+            adapter = VisualProviderAdapter(transport=lambda _: env, model='gpt-5.6-sol', record_dir=tmpdir)
             result = adapter(make_test_public_payload())
             self.assertEqual(result, {'command': valid_cmd})
             rec = json.loads((Path(tmpdir) / 'provider_call_001.json').read_text())
@@ -497,7 +496,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
         valid_cmd = {'action': 'hold', 'arguments': {'seconds': 0.5}}
         env = make_mock_responses_envelope(valid_cmd)
         with tempfile.TemporaryDirectory() as tmpdir:
-            adapter = VisualProviderAdapter(transport=lambda _: env, record_dir=tmpdir)
+            adapter = VisualProviderAdapter(transport=lambda _: env, model='gpt-5.6-sol', record_dir=tmpdir)
             payload = make_test_public_payload()
             adapter(payload)
             adapter(payload)
@@ -514,8 +513,8 @@ class VisualProviderAdapterTests(unittest.TestCase):
             self.assertEqual(json.loads(p2.read_text())['call'], 2)
             self.assertEqual(json.loads(p3.read_text())['call'], 3)
 
-            # Manually reset counter to 1 and verify overwrite attempt raises ValueError
-            adapter.call_count = 0
+            # Manually reset invocation counter and verify overwrite attempt raises ValueError
+            adapter.invocation_count = 0
             with self.assertRaises(ValueError):
                 adapter(payload)
 
@@ -539,7 +538,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmpdir:
             out_folder = Path(tmpdir) / 'test_episode'
             adapter_dir = out_folder / 'adapter'
-            adapter = VisualProviderAdapter(transport=mock_transport, record_dir=adapter_dir)
+            adapter = VisualProviderAdapter(transport=mock_transport, model='gpt-5.6-sol', record_dir=adapter_dir)
 
             report = run_visual_episode(
                 folder=out_folder,
@@ -582,7 +581,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmpdir:
             out_folder = Path(tmpdir) / 'fail_episode'
             adapter_dir = out_folder / 'adapter'
-            adapter = VisualProviderAdapter(transport=incomplete_transport, record_dir=adapter_dir)
+            adapter = VisualProviderAdapter(transport=incomplete_transport, model='gpt-5.6-sol', record_dir=adapter_dir)
 
             report = run_visual_episode(
                 folder=out_folder,
@@ -657,11 +656,11 @@ class VisualProviderAdapterTests(unittest.TestCase):
 
             # 1. Constructor without transport fails
             with self.assertRaises(ValueError):
-                VisualProviderAdapter(transport=None)
+                VisualProviderAdapter(transport=None, model='gpt-5.6-sol')
 
             # 2. Builder works offline
             payload = make_test_public_payload()
-            req = build_responses_request(payload)
+            req = build_responses_request(payload, model='gpt-5.6-sol')
             self.assertIn('input', req)
 
             # 3. Dry export works offline
@@ -674,7 +673,7 @@ class VisualProviderAdapterTests(unittest.TestCase):
 
             # 4. Adapter call with mock transport works offline
             mock_env = make_mock_responses_envelope({'action': 'hold', 'arguments': {'seconds': 0.1}})
-            adapter = VisualProviderAdapter(transport=lambda _: mock_env)
+            adapter = VisualProviderAdapter(transport=lambda _: mock_env, model='gpt-5.6-sol')
             res = adapter(payload)
             self.assertEqual(res['command']['action'], 'hold')
 
@@ -685,6 +684,175 @@ class VisualProviderAdapterTests(unittest.TestCase):
                 os.environ['OPENAI_API_KEY'] = old_key
             else:
                 os.environ.pop('OPENAI_API_KEY', None)
+
+    def test_pending_record_persisted_before_transport(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            rec_dir = Path(tmpdir)
+            saw_pending = []
+
+            def transport(body):
+                pending_file = rec_dir / 'provider_call_001.json'
+                if pending_file.exists():
+                    data = json.loads(pending_file.read_text())
+                    saw_pending.append(data)
+                return make_mock_responses_envelope({'action': 'hold', 'arguments': {'seconds': 0.5}})
+
+            adapter = VisualProviderAdapter(transport=transport, model='gpt-5.6-sol', record_dir=rec_dir)
+            adapter(make_test_public_payload())
+
+            self.assertEqual(len(saw_pending), 1)
+            self.assertEqual(saw_pending[0]['status'], 'pending')
+            self.assertFalse(saw_pending[0]['transport_invoked'])
+            self.assertEqual(saw_pending[0]['model'], 'gpt-5.6-sol')
+            self.assertIn('input', saw_pending[0]['request'])
+
+            # After transport completes, record is updated to completed
+            final_data = json.loads((rec_dir / 'provider_call_001.json').read_text())
+            self.assertEqual(final_data['status'], 'completed')
+            self.assertTrue(final_data['transport_invoked'])
+
+    def test_preflight_error_has_zero_transport_calls_and_retains_evidence(self):
+        calls = []
+        with tempfile.TemporaryDirectory() as tmpdir:
+            rec_dir = Path(tmpdir)
+            adapter = VisualProviderAdapter(
+                transport=lambda b: calls.append(b),
+                model='gpt-5.6-sol',
+                record_dir=rec_dir
+            )
+            bad_payload = make_test_public_payload()
+            bad_payload['observation']['rgb_png_base64'] = 'not-valid-base64!'
+
+            with self.assertRaises(ValueError):
+                adapter(bad_payload)
+
+            self.assertEqual(adapter.call_count, 0)
+            self.assertEqual(len(calls), 0)
+            self.assertEqual(adapter.invocation_count, 1)
+
+            rec_file = rec_dir / 'provider_call_001.json'
+            self.assertTrue(rec_file.exists())
+            rec = json.loads(rec_file.read_text())
+            self.assertEqual(rec['status'], 'preparation_error')
+            self.assertEqual(rec['call'], 0)
+            self.assertFalse(rec['transport_invoked'])
+            self.assertIn('ValueError', rec['error'])
+
+    def test_pre_transport_filesystem_error_prevents_callback(self):
+        calls = []
+        with tempfile.TemporaryDirectory() as tmpdir:
+            blocked_file = Path(tmpdir) / 'blocked_file'
+            blocked_file.write_text('I am a file, not a directory')
+
+            adapter = VisualProviderAdapter(
+                transport=lambda b: calls.append(b),
+                model='gpt-5.6-sol',
+                record_dir=blocked_file
+            )
+            with self.assertRaises((OSError, NotADirectoryError, FileExistsError)):
+                adapter(make_test_public_payload())
+
+            self.assertEqual(adapter.call_count, 0)
+            self.assertEqual(len(calls), 0)
+
+    def test_malformed_tuple_list_scalar_results_retain_evidence(self):
+        cases = [
+            ((), 'empty tuple'),
+            ([], 'empty list'),
+            ('non-json-string-scalar', 'scalar string'),
+            (12345, 'integer scalar'),
+        ]
+        for bad_result, label in cases:
+            with tempfile.TemporaryDirectory() as tmpdir:
+                rec_dir = Path(tmpdir)
+                adapter = VisualProviderAdapter(
+                    transport=lambda _: bad_result,
+                    model='gpt-5.6-sol',
+                    record_dir=rec_dir
+                )
+                with self.assertRaises(MalformedResponseError, msg=f'Failed for {label}'):
+                    adapter(make_test_public_payload())
+
+                self.assertEqual(adapter.call_count, 1)
+                rec_file = rec_dir / 'provider_call_001.json'
+                self.assertTrue(rec_file.exists(), msg=f'Record missing for {label}')
+                rec = json.loads(rec_file.read_text())
+                self.assertEqual(rec['status'], 'malformed_envelope')
+                self.assertIsNotNone(rec['error'])
+
+    def test_truncated_png_raster_data_rejected(self):
+        good_png = make_test_png(960, 720)
+        truncated_png = good_png[:100]  # Valid header, truncated IDAT raster
+        truncated_sha = hashlib.sha256(truncated_png).hexdigest()
+        truncated_b64 = base64.b64encode(truncated_png).decode('ascii')
+
+        obs = make_test_observation()
+        obs['rgb_png_base64'] = truncated_b64
+        obs['rgb_sha256'] = truncated_sha
+        payload = make_test_public_payload(obs=obs)
+
+        with self.assertRaises(ValueError) as ctx:
+            build_responses_request(payload, model='gpt-5.6-sol')
+        self.assertIn('truncated', str(ctx.exception).lower())
+
+    def test_export_request_rejects_same_output_and_manifest_path(self):
+        obs = make_test_observation()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            obs_file = Path(tmpdir) / 'input_obs.json'
+            obs_file.write_text(json.dumps(obs))
+            target_path = Path(tmpdir) / 'same_target.json'
+
+            # 1. Exactly identical path
+            with self.assertRaises(ValueError):
+                export_request(
+                    source_path=obs_file,
+                    output_path=target_path,
+                    manifest_path=target_path,
+                    model='gpt-5.6-sol'
+                )
+            self.assertFalse(target_path.exists())
+
+            # 2. Resolved alias / relative path pointing to same file
+            rel_alias = Path(tmpdir) / '.' / 'same_target.json'
+            with self.assertRaises(ValueError):
+                export_request(
+                    source_path=obs_file,
+                    output_path=target_path,
+                    manifest_path=rel_alias,
+                    model='gpt-5.6-sol'
+                )
+            self.assertFalse(target_path.exists())
+
+    def test_explicit_model_required_at_all_entrypoints(self):
+        payload = make_test_public_payload()
+
+        # build_responses_request requires model
+        with self.assertRaises(TypeError):
+            build_responses_request(payload)  # omitted
+        with self.assertRaises(ValueError):
+            build_responses_request(payload, model='')
+        with self.assertRaises(ValueError):
+            build_responses_request(payload, model='   ')
+
+        # VisualProviderAdapter requires model
+        with self.assertRaises(TypeError):
+            VisualProviderAdapter(transport=lambda _: {})  # omitted
+        with self.assertRaises(ValueError):
+            VisualProviderAdapter(transport=lambda _: {}, model='')
+        with self.assertRaises(ValueError):
+            VisualProviderAdapter(transport=lambda _: {}, model='   ')
+
+        # export_request requires model
+        with tempfile.TemporaryDirectory() as tmpdir:
+            obs_file = Path(tmpdir) / 'obs.json'
+            obs_file.write_text(json.dumps(make_test_observation()))
+            out_file = Path(tmpdir) / 'out.json'
+            with self.assertRaises(TypeError):
+                export_request(obs_file, out_file)  # omitted
+            with self.assertRaises(ValueError):
+                export_request(obs_file, out_file, model='')
+            with self.assertRaises(ValueError):
+                export_request(obs_file, out_file, model='  ')
 
 
 if __name__ == '__main__':

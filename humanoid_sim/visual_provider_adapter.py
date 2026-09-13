@@ -39,7 +39,6 @@ from .visual_policy_runner import (
     build_public_payload
 )
 
-DEFAULT_MODEL = 'gpt-5.6-sol'
 DEFAULT_MAX_OUTPUT = 2048
 DEFAULT_DETAIL = 'high'
 DEFAULT_REASONING_EFFORT = 'low'
@@ -63,10 +62,11 @@ class ProviderRefusalError(ModelRefusalError):
 
 
 def validate_png_base64(b64_png, expected_sha256=None):
-    """Validate base64 string and underlying PNG bytes.
+    """Validate base64 string and decode/verify complete PNG image data.
 
     Returns (raw_bytes, sha256_hex, (width, height)).
-    Raises ValueError on invalid base64, non-PNG data, or hash mismatch.
+    Raises ValueError on invalid base64, non-PNG magic, hash mismatch,
+    or truncated/corrupted raster image data.
     """
     if not isinstance(b64_png, str) or not b64_png:
         raise ValueError('b64_png must be a non-empty string')
@@ -82,34 +82,36 @@ def validate_png_base64(b64_png, expected_sha256=None):
     if expected_sha256 is not None and str(expected_sha256).lower() != sha256_hex.lower():
         raise ValueError(f'Image SHA-256 mismatch: expected {expected_sha256}, got {sha256_hex}')
 
+    # Fully verify and load/decode the raster data to catch truncated or corrupted pixel chunks
     try:
         with Image.open(io.BytesIO(raw_bytes)) as img:
             if img.format != 'PNG':
                 raise ValueError(f'Image format is not PNG, got {img.format}')
+            img.load()  # Force decompression and decoding of all pixel chunks
             size = (img.width, img.height)
     except Exception as exc:
-        raise ValueError(f'Failed to decode PNG image: {exc}')
+        raise ValueError(f'Corrupted or truncated PNG image data: {exc}')
 
     return raw_bytes, sha256_hex, size
 
 
 def build_responses_request(
     public_payload,
-    model=DEFAULT_MODEL,
+    model,
     detail=DEFAULT_DETAIL,
     max_output_tokens=DEFAULT_MAX_OUTPUT,
     reasoning_effort=DEFAULT_REASONING_EFFORT
 ):
     """Pure public-payload-to-request builder for OpenAI Responses wire format.
 
-    Sanitizes public payload against allowlists, excludes planted private fields,
-    encodes the image as an input_image item (data URL), encodes observation text
-    without the base64 image, and attaches strict structured output schema.
+    Requires an explicit model identifier. Sanitizes public payload against allowlists,
+    excludes planted private fields, encodes the image as an input_image item (data URL),
+    encodes observation text without the base64 image, and attaches strict structured output schema.
     """
     if not isinstance(public_payload, dict):
         raise ValueError(f'public_payload must be a dict, got {type(public_payload).__name__}')
     if not isinstance(model, str) or not model.strip():
-        raise ValueError(f'model must be a non-empty string, got {model!r}')
+        raise ValueError(f'Explicit non-empty model identifier is required, got {model!r}')
     if detail not in ALLOWED_DETAILS:
         raise ValueError(f'detail must be one of {ALLOWED_DETAILS}, got {detail!r}')
     max_output_tokens = _validate_int(max_output_tokens, 'max_output_tokens')
@@ -173,7 +175,7 @@ def build_responses_request(
     instruction_text = str(public_payload.get('instruction', VISUAL_PROMPT))
 
     request_body = {
-        'model': model,
+        'model': model.strip(),
         'store': False,
         'max_output_tokens': max_output_tokens,
         'instructions': instruction_text,
@@ -218,7 +220,7 @@ def validate_response_envelope(raw_response):
     Rejects refusals, missing/multiple messages, and unexpected tool outputs.
     Ignores reasoning metadata. Reuses primitive validator.
     """
-    if isinstance(raw_response, tuple) and len(raw_response) >= 1:
+    if isinstance(raw_response, (tuple, list)) and len(raw_response) >= 1:
         raw_response = raw_response[0]
     if isinstance(raw_response, str):
         try:
@@ -314,7 +316,7 @@ class VisualProviderAdapter:
     def __init__(
         self,
         transport,
-        model=DEFAULT_MODEL,
+        model,
         max_output_tokens=DEFAULT_MAX_OUTPUT,
         detail=DEFAULT_DETAIL,
         reasoning_effort=DEFAULT_REASONING_EFFORT,
@@ -324,49 +326,106 @@ class VisualProviderAdapter:
         if transport is None or not callable(transport):
             raise ValueError('Explicit callable transport required; network access is disabled in offline mode')
         if not isinstance(model, str) or not model.strip():
-            raise ValueError(f'model must be a non-empty string, got {model!r}')
+            raise ValueError(f'Explicit non-empty model identifier is required, got {model!r}')
         if detail not in ALLOWED_DETAILS:
             raise ValueError(f'detail must be one of {ALLOWED_DETAILS}, got {detail!r}')
 
         self.transport = transport
-        self.model = str(model)
+        self.model = str(model).strip()
         self.max_output_tokens = _validate_int(max_output_tokens, 'max_output_tokens')
         self.detail = detail
         self.reasoning_effort = str(reasoning_effort) if reasoning_effort else None
         self.record_dir = Path(record_dir) if record_dir is not None else None
         self.clock = clock
-        self.call_count = 0
+        self.invocation_count = 0
+        self.transport_call_count = 0
+
+    @property
+    def call_count(self):
+        """Number of actual transport calls executed."""
+        return self.transport_call_count
 
     def __call__(self, public_payload):
-        self.call_count += 1
-        call_num = self.call_count
+        self.invocation_count += 1
+        inv_num = self.invocation_count
 
         record_file = None
         if self.record_dir is not None:
             self.record_dir.mkdir(parents=True, exist_ok=True)
-            record_file = self.record_dir / f'provider_call_{call_num:03}.json'
+            record_file = self.record_dir / f'provider_call_{inv_num:03}.json'
             if record_file.exists():
                 raise ValueError(f'Adapter attempt record already exists: {record_file}')
 
-        # Build request: validates PNG, hashes, allowlist, and budget bounds before invoking transport
-        request_body = build_responses_request(
-            public_payload,
-            model=self.model,
-            detail=self.detail,
-            max_output_tokens=self.max_output_tokens,
-            reasoning_effort=self.reasoning_effort
-        )
+        # 1. Preflight preparation & request building
+        try:
+            request_body = build_responses_request(
+                public_payload,
+                model=self.model,
+                detail=self.detail,
+                max_output_tokens=self.max_output_tokens,
+                reasoning_effort=self.reasoning_effort
+            )
+        except Exception as exc:
+            # Retain preparation failures without pretending a callback occurred
+            if record_file is not None:
+                prep_record = {
+                    'invocation': inv_num,
+                    'call': 0,
+                    'status': 'preparation_error',
+                    'offline_evidence': True,
+                    'injected_transport': False,
+                    'transport_invoked': False,
+                    'model': self.model,
+                    'detail': self.detail,
+                    'error': f'{type(exc).__name__}: {exc}',
+                    'request': None,
+                    'raw_response': None,
+                    'wall_latency_s': 0.0,
+                    'usage': {'status': 'unknown'}
+                }
+                try:
+                    write_json(record_file, prep_record)
+                except Exception:
+                    pass
+            raise
 
         obs = public_payload.get('observation', {})
         image_sha256 = obs.get('rgb_sha256')
         req_bytes = json.dumps(request_body, sort_keys=True, allow_nan=False).encode('utf-8')
         request_sha256 = hashlib.sha256(req_bytes).hexdigest()
 
+        # 2. Persist pending request record before invoking transport
+        # Note: If record cannot be written, transport MUST NOT be invoked!
+        if record_file is not None:
+            pending_record = {
+                'invocation': inv_num,
+                'call': self.transport_call_count + 1,
+                'status': 'pending',
+                'offline_evidence': True,
+                'injected_transport': True,
+                'transport_invoked': False,
+                'model': self.model,
+                'detail': self.detail,
+                'image_sha256': image_sha256,
+                'request_sha256': request_sha256,
+                'request': request_body,
+                'raw_response': None,
+                'wall_latency_s': 0.0,
+                'usage': {'status': 'unknown'}
+            }
+            write_json(record_file, pending_record)
+
+        # 3. Invoke transport
+        self.transport_call_count += 1
+        call_num = self.transport_call_count
+
         attempt_record = {
+            'invocation': inv_num,
             'call': call_num,
             'status': 'pending',
             'offline_evidence': True,
             'injected_transport': True,
+            'transport_invoked': True,
             'model': self.model,
             'detail': self.detail,
             'image_sha256': image_sha256,
@@ -377,7 +436,6 @@ class VisualProviderAdapter:
             'usage': {'status': 'unknown'}
         }
 
-        # Invoke injected transport with wall-clock timing
         start_wall = self.clock()
         try:
             raw_response = self.transport(request_body)
@@ -393,10 +451,26 @@ class VisualProviderAdapter:
                 write_json(record_file, attempt_record)
             raise
 
-        # Extract envelope metadata
-        raw_dict = raw_response[0] if isinstance(raw_response, tuple) else raw_response
-        req_id = raw_response[1] if isinstance(raw_response, tuple) and len(raw_response) > 1 else None
-        if isinstance(raw_dict, dict):
+        # 4. Enclose metadata extraction and envelope validation in the same failure-accounting boundary
+        try:
+            if isinstance(raw_response, (tuple, list)):
+                if len(raw_response) == 0:
+                    raise MalformedResponseError('Transport returned empty tuple or list')
+                raw_dict = raw_response[0]
+                req_id = raw_response[1] if len(raw_response) > 1 else None
+            else:
+                raw_dict = raw_response
+                req_id = None
+
+            if isinstance(raw_dict, str):
+                try:
+                    raw_dict = strict_json(raw_dict)
+                except ValueError as exc:
+                    raise MalformedResponseError(f'Invalid JSON in provider envelope: {exc}')
+
+            if not isinstance(raw_dict, dict):
+                raise MalformedResponseError(f'Provider response must be dict, got {type(raw_dict).__name__}')
+
             attempt_record['response_id'] = raw_dict.get('id')
             if req_id is not None:
                 attempt_record['request_id'] = req_id
@@ -408,17 +482,14 @@ class VisualProviderAdapter:
                 attempt_record['usage'] = usage
             else:
                 attempt_record['usage'] = {'status': 'unknown'}
-        else:
-            attempt_record['usage'] = {'status': 'unknown'}
 
-        # Validate envelope and extract command
-        try:
             command = validate_response_envelope(raw_dict)
             attempt_record['status'] = 'completed'
             attempt_record['command'] = command
             if record_file is not None:
                 write_json(record_file, attempt_record)
             return {'command': command}
+
         except ModelRefusalError as exc:
             attempt_record['status'] = 'refusal'
             attempt_record['error'] = str(exc)
@@ -432,17 +503,17 @@ class VisualProviderAdapter:
                 write_json(record_file, attempt_record)
             raise
         except Exception as exc:
-            attempt_record['status'] = 'unexpected_error'
+            attempt_record['status'] = 'malformed_envelope'
             attempt_record['error'] = f'{type(exc).__name__}: {exc}'
             if record_file is not None:
                 write_json(record_file, attempt_record)
-            raise
+            raise MalformedResponseError(f'Failed to process response envelope: {exc}') from exc
 
 
 def export_request(
     source_path,
     output_path,
-    model=DEFAULT_MODEL,
+    model,
     manifest_path=None,
     detail=DEFAULT_DETAIL,
     max_output_tokens=DEFAULT_MAX_OUTPUT,
@@ -454,13 +525,21 @@ def export_request(
     Optionally emits compact manifest describing hashes, field layout, source, and image size.
     """
     if not isinstance(model, str) or not model.strip():
-        raise ValueError('Explicit model configuration is required')
-    source_path = Path(source_path)
-    output_path = Path(output_path)
+        raise ValueError('Explicit non-empty model configuration is required')
+    source_path = Path(source_path).resolve()
+    output_path = Path(output_path).resolve()
+
     if output_path.exists():
         raise FileExistsError(f'Output path already exists: {output_path}')
+    if output_path == source_path:
+        raise ValueError(f'Output path cannot overwrite source path: {output_path}')
+
     if manifest_path is not None:
-        manifest_path = Path(manifest_path)
+        manifest_path = Path(manifest_path).resolve()
+        if manifest_path == output_path:
+            raise ValueError(f'Output path and manifest path must be distinct, got {output_path}')
+        if manifest_path == source_path:
+            raise ValueError(f'Manifest path cannot overwrite source path: {manifest_path}')
         if manifest_path.exists():
             raise FileExistsError(f'Manifest path already exists: {manifest_path}')
 
@@ -495,7 +574,7 @@ def export_request(
         'task': 'AGY-005',
         'offline_evidence': True,
         'fixture_source': str(source_path.relative_to(ROOT)) if ROOT in source_path.parents or source_path == ROOT else str(source_path),
-        'model': model,
+        'model': model.strip(),
         'detail': detail,
         'max_output_tokens': max_output_tokens,
         'store': False,
@@ -530,7 +609,7 @@ def export_request(
     return manifest
 
 
-def provenance(model=DEFAULT_MODEL, detail=DEFAULT_DETAIL):
+def provenance(model='gpt-5.6-sol', detail=DEFAULT_DETAIL):
     """Provenance metadata for visual provider adapter."""
     from .visual_policy_runner import provenance as runner_provenance
     result = runner_provenance(controller_name='visual_provider_adapter')

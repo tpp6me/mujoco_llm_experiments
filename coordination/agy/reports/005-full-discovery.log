@@ -214,14 +214,21 @@ test_adapter_unknown_usage_labeled_without_cost_fabrication (test_visual_provide
 test_dry_export_request_and_manifest (test_visual_provider_adapter.VisualProviderAdapterTests.test_dry_export_request_and_manifest) ... ok
 test_end_to_end_failure_termination_before_execution (test_visual_provider_adapter.VisualProviderAdapterTests.test_end_to_end_failure_termination_before_execution) ... ok
 test_end_to_end_run_visual_episode_with_adapter (test_visual_provider_adapter.VisualProviderAdapterTests.test_end_to_end_run_visual_episode_with_adapter) ... ok
+test_explicit_model_required_at_all_entrypoints (test_visual_provider_adapter.VisualProviderAdapterTests.test_explicit_model_required_at_all_entrypoints) ... ok
+test_export_request_rejects_same_output_and_manifest_path (test_visual_provider_adapter.VisualProviderAdapterTests.test_export_request_rejects_same_output_and_manifest_path) ... ok
+test_malformed_tuple_list_scalar_results_retain_evidence (test_visual_provider_adapter.VisualProviderAdapterTests.test_malformed_tuple_list_scalar_results_retain_evidence) ... ok
+test_pending_record_persisted_before_transport (test_visual_provider_adapter.VisualProviderAdapterTests.test_pending_record_persisted_before_transport) ... ok
+test_pre_transport_filesystem_error_prevents_callback (test_visual_provider_adapter.VisualProviderAdapterTests.test_pre_transport_filesystem_error_prevents_callback) ... ok
+test_preflight_error_has_zero_transport_calls_and_retains_evidence (test_visual_provider_adapter.VisualProviderAdapterTests.test_preflight_error_has_zero_transport_calls_and_retains_evidence) ... ok
 test_request_builder_bounds_history_to_20 (test_visual_provider_adapter.VisualProviderAdapterTests.test_request_builder_bounds_history_to_20) ... ok
 test_request_builder_excludes_planted_private_fields (test_visual_provider_adapter.VisualProviderAdapterTests.test_request_builder_excludes_planted_private_fields) ... ok
 test_request_builder_image_item_hash_and_single_image (test_visual_provider_adapter.VisualProviderAdapterTests.test_request_builder_image_item_hash_and_single_image) ... ok
 test_request_builder_validates_malformed_png_and_base64 (test_visual_provider_adapter.VisualProviderAdapterTests.test_request_builder_validates_malformed_png_and_base64) ... ok
+test_truncated_png_raster_data_rejected (test_visual_provider_adapter.VisualProviderAdapterTests.test_truncated_png_raster_data_rejected) ... ok
 test_zero_network_and_credential_access_boundary (test_visual_provider_adapter.VisualProviderAdapterTests.test_zero_network_and_credential_access_boundary) ... ok
 
 ----------------------------------------------------------------------
-Ran 194 tests in 146.911s
+Ran 201 tests in 147.020s
 
 OK
 
@@ -229,7 +236,7 @@ OK
 P5 GATE EVALUATION REPORT: reacquisition_3frame (gate_report_rescore)
 Seeds: [820, 821, 822, 823, 824, 825, 826, 827, 828, 829] (Count: 10)
 Status: complete | Complete: True
-Provenance: Artifact rescore of: /private/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmp86f_urvd/valid_evidence.json
+Provenance: Artifact rescore of: /private/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmprey69e9r/valid_evidence.json
 ----------------------------------------------------------------------
   [PASS]           gate_1_coverage: Accepted 20/20 post-warmup targets (>=16 required)
   [PASS]           gate_2_accuracy: Accepted original-target mean 4.0000 mm <= 5.0 mm threshold
@@ -244,7 +251,7 @@ Midpoint (lower_mid): accepted 10/10; mean: 3.5000 mm; max: 3.5000 mm
 All accepted (nom): count 30; mean: 3.8333 mm; max: 4.0000 mm
 ======================================================================
 
-Gate report written to: /var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmp86f_urvd/out/gate_report_rescore.json
+Gate report written to: /var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmprey69e9r/out/gate_report_rescore.json
 Evaluation finished with status: complete.
 Evaluating original endpoint-only stream...
 Evaluating augmented stream (with lowering midpoint)...

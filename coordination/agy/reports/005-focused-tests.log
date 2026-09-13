@@ -43,13 +43,20 @@ test_adapter_unknown_usage_labeled_without_cost_fabrication (tests.test_visual_p
 test_dry_export_request_and_manifest (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_dry_export_request_and_manifest) ... ok
 test_end_to_end_failure_termination_before_execution (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_end_to_end_failure_termination_before_execution) ... ok
 test_end_to_end_run_visual_episode_with_adapter (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_end_to_end_run_visual_episode_with_adapter) ... ok
+test_explicit_model_required_at_all_entrypoints (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_explicit_model_required_at_all_entrypoints) ... ok
+test_export_request_rejects_same_output_and_manifest_path (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_export_request_rejects_same_output_and_manifest_path) ... ok
+test_malformed_tuple_list_scalar_results_retain_evidence (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_malformed_tuple_list_scalar_results_retain_evidence) ... ok
+test_pending_record_persisted_before_transport (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_pending_record_persisted_before_transport) ... ok
+test_pre_transport_filesystem_error_prevents_callback (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_pre_transport_filesystem_error_prevents_callback) ... ok
+test_preflight_error_has_zero_transport_calls_and_retains_evidence (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_preflight_error_has_zero_transport_calls_and_retains_evidence) ... ok
 test_request_builder_bounds_history_to_20 (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_request_builder_bounds_history_to_20) ... ok
 test_request_builder_excludes_planted_private_fields (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_request_builder_excludes_planted_private_fields) ... ok
 test_request_builder_image_item_hash_and_single_image (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_request_builder_image_item_hash_and_single_image) ... ok
 test_request_builder_validates_malformed_png_and_base64 (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_request_builder_validates_malformed_png_and_base64) ... ok
+test_truncated_png_raster_data_rejected (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_truncated_png_raster_data_rejected) ... ok
 test_zero_network_and_credential_access_boundary (tests.test_visual_provider_adapter.VisualProviderAdapterTests.test_zero_network_and_credential_access_boundary) ... ok
 
 ----------------------------------------------------------------------
-Ran 49 tests in 7.760s
+Ran 56 tests in 7.560s
 
 OK
