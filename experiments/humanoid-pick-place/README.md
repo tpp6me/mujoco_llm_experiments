@@ -3,11 +3,15 @@
 This milestone implements conventional contact-based manipulation in MuJoCo.
 The pelvis is fixed and the arm starts above the block. The [live LLM pilot](LLM_RESULTS.md)
 now compares individual exact-state actions through the shared interface.
+The [C1 visual pilot](CODEX_C1_RESULTS.md) uses signed-in Codex CLI decisions with
+no direct API integration: one development episode, no lift or placement, stopped
+by the collision guard. See the [Codex runner guide](CODEX_RUNNER.md).
 Use the [complete implementation checklist](PLAN.md) as the living reference
 for progress, phase gates, next actions, and the historical scoring protocol.
 
 [Historical V4 results](V4_RESULTS.md): 98/100 task successes, 96/100 strict passes;
-the 95/100 mechanical qualification gate is met. The V4 implementation passed 42 tests; the current suite passes 106 tests.
+the 95/100 mechanical qualification gate is met. The V4 implementation passed 42 tests;
+the Codex integration passed 212 full-suite tests and 40 final affected tests.
 
 The [versioned policy interface](INTERFACE.md) adds orientation, robot-state
 observations and a sampled collision guard. Its [G2 qualification](GUARDED_RESULTS.md) passed with **100/100 placements,

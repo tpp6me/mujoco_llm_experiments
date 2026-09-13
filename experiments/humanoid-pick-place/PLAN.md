@@ -59,7 +59,7 @@ individual-finger control are outside the initial scope.
 | 2. Physical baseline and scorer | Complete | [V4](V4_RESULTS.md): 98/100 task successes, **96/100 strict passes**; ≥95 required |
 | 3. Action/observation interface | Complete for the declared recipe | [G2](GUARDED_RESULTS.md): 100/100 placements, 97/100 strict passes, zero rejections through interface v2 |
 | 4. LLM with exact state | Development pilot complete | [L2](LLM_RESULTS.md): LLM 0/3 placements, 1/3 lifts; conventional 3/3 placements; formal comparison pending |
-| 5. Visual action control | In progress | [RGB boundary](VISUAL.md) and freshness checks implemented; [P1 initial block estimate](POSE_RESULTS.md) passes 20/20 images within 5 mm; [P2 validity guard](PERCEPTION_RESULTS.md) implemented; [P3](CARRIED_POSE_RESULTS.md) and [P4 temporal candidate](TEMPORAL_POSE_RESULTS.md) failed their coverage/accuracy screens; [reacquisition development](TEMPORAL_REACQUISITION_DEVELOPMENT.md) integrated; qualified carried pose, comparator and visual model runner pending |
+| 5. Visual action control | Development pilot complete; qualification pending | [C1 signed-in Codex](CODEX_C1_RESULTS.md): 0/1 placements, 0/1 lifts, one guard rejection; visual runner implemented. [P1](POSE_RESULTS.md) passes initial-pose screening; [P3](CARRIED_POSE_RESULTS.md), [P4](TEMPORAL_POSE_RESULTS.md) and reacquisition development have unmet gates. Qualified carried pose and matched visual comparator remain pending |
 | 6. Free-standing manipulation | Not started | Balance controller and mechanical requalification |
 | 7. Continuous-time execution | Not started | Independent physics/control loop and latency measurement |
 | 8. Robustness and recovery | Not started | Frozen challenge sets and recovery evaluation |
@@ -78,7 +78,8 @@ individual-finger control are outside the initial scope.
 
 - [x] Cancel [AGY task 006](../../coordination/agy/tasks/006-visual-live-transport.md) before implementation per user direction: Codex works directly; no OpenAI API integration or calls. See [execution policy](../../coordination/EXECUTION_POLICY.md).
 - [x] Confirm signed-in Codex CLI as the image-to-action controller and implement it through the existing public visual runner, without API keys or direct OpenAI API integration; [C1 protocol](protocols/C1.md).
-- [ ] Qualify the CLI boundary, freeze C1 and execute one seed-820 visual development episode; retain all failures and private scoring.
+- [x] Qualify the CLI boundary, freeze C1 and execute one seed-820 visual development episode; [C1 results](CODEX_C1_RESULTS.md): 3 decisions, 2 actions completed, 1 rejected, no sustained lift or placement, 6.291 mm peak penetration. All failures and private scores retained.
+- [ ] Diagnose C1's completed-approach penetration and rejected path from saved artifacts, then declare a separate successor condition before more model experiments.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -95,8 +96,11 @@ The live exact-state L2 development pilot is complete: **LLM 0/3 placements,
 1/3 sustained lifts; conventional 3/3 placements and 2/3 strict passes**.
 All 18 L2 API calls completed. L1's three request-schema errors remain separately
 archived. See [pilot results](LLM_RESULTS.md) and the [runner guide](LLM_RUNNER.md).
-The latest integrated code passed 203 automated tests. These three cases do not establish a general model
-comparison; no visual policy, balance controller or walking policy has been evaluated.
+The Codex integration passed 212 full-suite tests, followed by 40 affected tests
+after final condition-lock/provenance adjustments (including one additional test).
+[C1](CODEX_C1_RESULTS.md) adds one signed-in Codex visual-control development case:
+0/1 placements and lifts, with a guard rejection. These development cases do not
+establish a general model comparison; balance and walking remain unevaluated.
 
 ## Phase 1 — Select the robot and build the supported scene
 
@@ -377,6 +381,8 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-13 | Implemented offline visual policy runner for AGY task 004; 16 new tests pass (161 total) | [Runner guide](VISUAL_POLICY_RUNNER.md), [results](results/visual_policy_scaffold/report.json); strict allowlist excludes private data; stub smoke check retained; no live model calls or fresh P5 run |
 
 | 2026-09-13 | Reviewed task 004 at `8900642`; 161 tests independently passed | [Review](../../coordination/agy/reviews/004-review.md): offline loop and smoke evidence present; reproduced lost failure reports and budget overruns, revisions requested before integration |
+
+| 2026-09-13 | Implemented signed-in Codex CLI control directly, froze C1 at `ad73d15`, and ran seed 820 | [C1 results](CODEX_C1_RESULTS.md): 3 decisions, 2 executed actions, one guard rejection, no lift/placement, 6.291 mm peak penetration; both probes and complete episode archived. 212 full-suite tests and 40 final affected tests passed; no direct API integration or AGY |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.

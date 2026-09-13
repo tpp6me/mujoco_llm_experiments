@@ -1,8 +1,9 @@
 # Humanoid results index
 
 All results use a fixed pelvis. The mechanical matrices below use conventional
-exact-state control; the separate L2 pilot adds LLM exact-state control. No visual
-control, free-standing balance or walking has been evaluated.
+exact-state control; the separate L2 pilot adds LLM exact-state control, and C1 adds
+one signed-in Codex visual-control development case. Free-standing balance and
+walking have not been evaluated.
 
 | Configuration | Seeds | Physical success | Strict success | Gate | Evidence |
 |---|---|---|---|---|---|
@@ -39,6 +40,13 @@ in `models/g1/`. Source archives do not duplicate the model mesh assets.
 [L1 outcomes](results/llm_L1.json), [L2 outcomes](results/llm_L2.json).
 
 ## Visual infrastructure development
+
+[C1 signed-in Codex visual controller](CODEX_C1_RESULTS.md), development seed 820:
+0/1 placements, 0/1 sustained lifts, 3 CLI decisions, 2 completed actions and one
+guard rejection. Peak object penetration was 6.291 mm, above the 2 mm quality limit.
+No direct API integration or keys; all prompts/images and event logs audited.
+[Results](results/codex_C1.json), [episode archive](results/codex_C1_episode.zip),
+[retained probes](results/codex_C1_probes.zip). This is not a matched model comparison.
 
 [Five-capture checks and limitations](VISUAL.md): calibration bounds and exact
 state preservation passed; the centroid/known-plane estimate has up to 2.983 cm
