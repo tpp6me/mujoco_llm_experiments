@@ -77,7 +77,8 @@ individual-finger control are outside the initial scope.
 - [x] Integrate [AGY task 005](../../coordination/agy/tasks/005-visual-provider-adapter.md): image-capable Responses adapter with injected transport and an unfrozen first visual pilot draft; [accepted with integration fixes](../../coordination/agy/reviews/005-acceptance.md) for ambiguous transport containers and interruption accounting. No paid execution.
 
 - [x] Cancel [AGY task 006](../../coordination/agy/tasks/006-visual-live-transport.md) before implementation per user direction: Codex works directly; no OpenAI API integration or calls. See [execution policy](../../coordination/EXECUTION_POLICY.md).
-- [ ] Confirm the Codex-based controller execution method and implement it through the existing public visual runner, without API keys or direct OpenAI API integration.
+- [x] Confirm signed-in Codex CLI as the image-to-action controller and implement it through the existing public visual runner, without API keys or direct OpenAI API integration; [C1 protocol](protocols/C1.md).
+- [ ] Qualify the CLI boundary, freeze C1 and execute one seed-820 visual development episode; retain all failures and private scoring.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.

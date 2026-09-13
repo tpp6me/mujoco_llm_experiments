@@ -14,8 +14,10 @@ Updated 2026-09-13 following the user's instruction:
 - The provider-neutral visual runner, guarded action interface and simulator remain
   usable. Carry forward the 20-call/25-second limits, public RGB/proprioception
   boundary and private post-hoc scoring.
-- Clarify whether the controller itself should use the user's signed-in Codex CLI,
-  or whether Codex is only the development tool, before executing a new model trial.
-  A Codex CLI condition must be documented separately from the old API proposal.
+- The user confirmed that the controller itself should use the signed-in Codex CLI
+  to choose robot actions. Implement and run this through the existing guarded
+  visual runner. ChatGPT login is required; no direct API transport or API keys.
+  The separate [C1 development protocol](../experiments/humanoid-pick-place/protocols/C1.md)
+  declares the model, public input boundary, budgets and trial accounting.
 - Held-out seeds 840–849 remain unused. P5's 5.0 mm mean gate remains unchanged and
   unmet. Do not convert implementation tests into model-performance claims.

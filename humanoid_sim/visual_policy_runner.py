@@ -664,9 +664,10 @@ def run_visual_episode(
     max_calls=MAX_CALLS,
     deadline=DEADLINE,
     seed=None,
-    controller_name='offline_stub'
+    controller_name='offline_stub',
+    execution_metadata=None
 ):
-    """Execute the offline visual RGB-to-action policy loop.
+    """Execute the bounded visual RGB-to-action policy loop.
 
     Never passes private object coordinates, task scoring, or non-whitelisted
     data to model_callable. Stops on refusal, malformation, exception, action rejection,
@@ -674,6 +675,12 @@ def run_visual_episode(
     """
     # 1. Pre-validate configuration before directory creation or episode execution
     max_calls, deadline = _validate_budget(max_calls, deadline)
+    if execution_metadata is not None:
+        if (not isinstance(execution_metadata, dict)
+                or type(execution_metadata.get('offline_only')) is not bool
+                or not isinstance(execution_metadata.get('protocol_id'), str)):
+            raise ValueError('Execution metadata requires offline_only boolean and protocol_id string')
+        execution_metadata = copy.deepcopy(execution_metadata)
 
     if seed is not None:
         if isinstance(seed, bool) or not isinstance(seed, int):
@@ -1035,6 +1042,15 @@ def run_visual_episode(
                 sim_time_final = float(current_sim_time)
 
             prov = provenance(controller_name=controller_name, max_calls=max_calls, deadline=deadline)
+            if execution_metadata is not None:
+                prov['execution'] = copy.deepcopy(execution_metadata)
+                prov['offline_only'] = execution_metadata['offline_only']
+                prov['protocol_id'] = execution_metadata['protocol_id']
+                prov['scaffold_origin_task'] = prov['task']
+                prov['task'] = execution_metadata['protocol_id']
+                codex_py = ROOT / 'humanoid_sim/codex_policy.py'
+                if codex_py.exists():
+                    prov['source_sha256'][str(codex_py.relative_to(ROOT))] = hashlib.sha256(codex_py.read_bytes()).hexdigest()
 
             report = {
                 'controller': controller_name,
