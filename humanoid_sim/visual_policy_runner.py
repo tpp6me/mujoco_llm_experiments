@@ -366,15 +366,25 @@ def parse_and_validate_response(raw):
     elif isinstance(parsed, dict) and 'action' in parsed and 'arguments' in parsed and isinstance(parsed.get('arguments'), dict):
         command = parsed
     elif isinstance(parsed, dict) and isinstance(parsed.get('output'), list):
+        if parsed.get('status') != 'completed':
+            raise MalformedResponseError(f'Provider envelope status is not completed: {parsed.get("status")!r}')
+        tool_items = [item for item in parsed['output'] if isinstance(item, dict) and item.get('type') in ('tool_call', 'function_call', 'call', 'tool_output')]
+        if tool_items:
+            raise MalformedResponseError('Unexpected tool output in provider response')
+        messages = [item for item in parsed['output'] if isinstance(item, dict) and item.get('type') == 'message']
+        if len(messages) > 1:
+            raise MalformedResponseError(f'Multiple action messages in provider output: {len(messages)}')
         content = [
-            c for item in parsed['output']
-            if isinstance(item, dict) and item.get('type') == 'message' and isinstance(item.get('content'), list)
+            c for item in messages
+            if isinstance(item.get('content'), list)
             for c in item['content']
             if isinstance(c, dict)
         ]
         text_parts = [c['text'] for c in content if c.get('type') == 'output_text' and isinstance(c.get('text'), str)]
         if not text_parts:
             raise MalformedResponseError('No output text in response message')
+        if len(text_parts) > 1:
+            raise MalformedResponseError(f'Multiple output text parts in response message: {len(text_parts)}')
         try:
             decision = strict_json(''.join(text_parts))
             if not isinstance(decision, dict) or 'command' not in decision or not isinstance(decision['command'], dict):
@@ -624,6 +634,9 @@ def provenance(controller_name='offline_stub', max_calls=MAX_CALLS, deadline=DEA
     visual_py = ROOT / 'humanoid_sim/visual.py'
     if visual_py.exists():
         result['source_sha256'][str(visual_py.relative_to(ROOT))] = hashlib.sha256(visual_py.read_bytes()).hexdigest()
+    adapter_py = ROOT / 'humanoid_sim/visual_provider_adapter.py'
+    if adapter_py.exists():
+        result['source_sha256'][str(adapter_py.relative_to(ROOT))] = hashlib.sha256(adapter_py.read_bytes()).hexdigest()
 
     result.update(
         protocol_id=PROTOCOL_ID,
@@ -782,6 +795,28 @@ def run_visual_episode(
                 total_wall_latency_s += wall_s
                 call_record['wall_latency_s'] = wall_s
                 call_record['raw_response'] = raw_response
+            except ModelRefusalError as exc:
+                wall_s = clock() - start_wall
+                total_wall_latency_s += wall_s
+                call_record['wall_latency_s'] = wall_s
+                call_record['status'] = 'refusal'
+                call_record['error'] = str(exc)
+                write_json(call_file, call_record)
+                termination_reason = 'refusal'
+                terminal_error = str(exc)
+                refusals += 1
+                break
+            except MalformedResponseError as exc:
+                wall_s = clock() - start_wall
+                total_wall_latency_s += wall_s
+                call_record['wall_latency_s'] = wall_s
+                call_record['status'] = 'malformed_response'
+                call_record['error'] = str(exc)
+                write_json(call_file, call_record)
+                termination_reason = 'malformed_response'
+                terminal_error = str(exc)
+                errors += 1
+                break
             except Exception as exc:
                 wall_s = clock() - start_wall
                 total_wall_latency_s += wall_s

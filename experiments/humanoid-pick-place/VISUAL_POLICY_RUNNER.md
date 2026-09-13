@@ -218,3 +218,54 @@ Malformed results and execution exceptions stop after one attempt and increment
 simulation time is null when no trustworthy post-execution state is available.
 Stale-observation rejections retain their original rejection classification.
 Archive errors remain visible separately in `evaluator_error`.
+
+---
+
+## 8. Multimodal Responses provider adapter (Task 005)
+
+Implemented in `humanoid_sim/visual_provider_adapter.py`, this adapter connects the
+accepted visual policy loop to the OpenAI Responses wire format using an explicitly
+injected offline transport.
+
+### 8.1 Wire request construction (`build_responses_request`)
+
+The pure request builder converts the sanitized `public_payload` into the Responses format:
+- **Top-level parameters**: `model` (`gpt-5.6-sol`), `store: false`, `reasoning: {"effort": "low"}`, `max_output_tokens: 2048`, `instructions: VISUAL_PROMPT`.
+- **Structured output**: `text.format` JSON schema (`humanoid_primitive`) using `action_schema()`, enforcing strict schema validation.
+- **Multimodal input message**: Exactly one user message with two content items:
+  1. `input_text`: JSON string containing public metadata (`instruction_version`, `remaining_time_s`, `remaining_actions`, `observation`, `history`). Crucially, the base64 image string is **omitted** from this text JSON to avoid redundant token billing and payload expansion.
+  2. `input_image`: Data URL (`data:image/png;base64,...`) containing the original PNG bytes with explicitly recorded detail (`detail: high`).
+- **Pre-transport validation**: Validates configuration, PNG magic bytes (`\x89PNG\r\n\x1a\n`), and SHA-256 hash match before invoking transport. Corrupted base64 or mismatched hashes fail immediately without network or transport involvement.
+
+### 8.2 Strict envelope validation (`validate_response_envelope`)
+
+Before returning an action to the visual runner, the adapter verifies the response envelope:
+- **Envelope status**: Must be `completed`. Incomplete (`status: "incomplete"`), failed (`status: "failed"`), or unrecognized envelope statuses raise `MalformedResponseError` immediately, ensuring an incomplete envelope can **never** execute an apparently valid command nested inside it.
+- **Refusal handling**: Explicit refusals at the envelope root or inside message content raise `ModelRefusalError`.
+- **Tool and content sanitization**: Tool calls (`tool_call`, `function_call`, `call`), unexpected content types, multiple action messages, or multiple `output_text` chunks raise `MalformedResponseError`.
+- **Reasoning metadata**: Reasoning items (`type: "reasoning"`) are cleanly ignored and never interpreted as commands.
+- **Command validation**: Output text is parsed with `strict_json` (rejecting duplicates and non-finite numbers) and validated with the runner's primitive validator (`move` bounds, unit quaternion norm, `hand` closure, duration limits, boolean rejection).
+
+### 8.3 Injected transport and attempt logging (`VisualProviderAdapter`)
+
+- **No network or credentials**: Omitting the transport callable fails immediately (`ValueError`) without attempting credential lookup or default HTTP client instantiation.
+- **Separate attempt records**: When `record_dir` is configured, each call writes `provider_call_NNN.json` containing the wire request, raw response, provider status, response ID, returned model, reported token usage, wall latency, and classified outcome.
+- **Honest accounting and no overwrites**: Callback call counts are maintained honestly; attempting to overwrite an existing record raises `ValueError`.
+- **No dollar cost fabrication**: Reported token usage is retained as reported. If missing, usage is marked `{"status": "unknown"}`. No dollar costs or invoice amounts are fabricated from offline fixtures.
+- **Raw failure preservation**: Raw responses are preserved in the attempt records on failures, passing only a validated command or refusal outcome to the visual loop.
+
+### 8.4 Dry request export CLI
+
+The module provides a standalone dry-export command:
+```sh
+.venv/bin/python -m humanoid_sim.visual_provider_adapter \
+  --input experiments/humanoid-pick-place/results/visual_policy_scaffold/demo_request_payload.json \
+  --output runtime/exported_request.json \
+  --model gpt-5.6-sol \
+  --manifest experiments/humanoid-pick-place/results/visual_provider_adapter/request_manifest.json
+```
+The command requires explicit model configuration, refuses to overwrite existing files, cannot send network requests, and emits a compact manifest (`request_manifest.json`) recording source, hashes, image dimensions, and field layout without duplicating large base64 PNG strings in Git.
+
+### 8.5 Status: Adapter readiness vs live execution
+
+Task 005 establishes **adapter wire-format readiness** with offline transport. It does **not** authorize or execute live model trials. An unfrozen development pilot draft is specified in [protocols/V1_PROPOSAL.md](protocols/V1_PROPOSAL.md). Live execution requires subsequent authorization and completion of live HTTP transport, multimodal token spend reservations, total spend approval, and frozen source snapshots.

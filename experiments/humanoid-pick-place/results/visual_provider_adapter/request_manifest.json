@@ -1,0 +1,52 @@
+{
+  "manifest_version": 1,
+  "task": "AGY-005",
+  "offline_evidence": true,
+  "fixture_source": "experiments/humanoid-pick-place/results/visual_policy_scaffold/demo_request_payload.json",
+  "model": "gpt-5.6-sol",
+  "detail": "high",
+  "max_output_tokens": 2048,
+  "store": false,
+  "image_size": [
+    960,
+    720
+  ],
+  "image_bytes_len": 98944,
+  "image_sha256": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65",
+  "request_sha256": "55fc9bd880a47c2a8271d6b0eb3f0a61f31368b34f85ea1b36efcf7a2d6172f9",
+  "field_layout": {
+    "top_level_keys": [
+      "input",
+      "instructions",
+      "max_output_tokens",
+      "model",
+      "reasoning",
+      "store",
+      "text"
+    ],
+    "instructions_present": true,
+    "input_items": [
+      {
+        "role": "user",
+        "content_types": [
+          "input_text",
+          "input_image"
+        ],
+        "text_keys": [
+          "history",
+          "instruction_version",
+          "observation",
+          "remaining_actions",
+          "remaining_time_s"
+        ],
+        "image_data_url_prefix": "data:image/png;base64,iVBORw0K..."
+      }
+    ],
+    "text_format": {
+      "type": "json_schema",
+      "name": "humanoid_primitive",
+      "strict": true
+    }
+  },
+  "notes": "Compact dry-run manifest. Base64 image payload omitted from Git manifest to prevent redundant duplicate storage."
+}
