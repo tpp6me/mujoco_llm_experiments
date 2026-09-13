@@ -1,0 +1,26 @@
+{
+  "manifest_version": 1,
+  "generator": "humanoid_sim.p5_evaluation.dry_run",
+  "generated_at": "2026-09-13T01:46:12Z",
+  "git_commit": "55479a189af716316d133a9ca543f09934889726",
+  "seeds": [
+    820,
+    821,
+    822,
+    823,
+    824,
+    825,
+    826,
+    827,
+    828,
+    829
+  ],
+  "candidate": "reacquisition_3frame",
+  "source_capture_dir": "/Users/praveen/work/github/mujoco-llms/runtime/humanoid/temporal-P4/capture",
+  "augmented_capture_dir": "/private/tmp/mujoco-llms-agy-002/runtime/humanoid/temporal-P4-augmented/capture",
+  "artifacts": {
+    "evidence": "/private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/p5_preparation/p5_development_evidence.json",
+    "gate_report": "/private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/p5_preparation/gate_report_development.json"
+  },
+  "overall_outcome": "FAIL"
+}

@@ -1,0 +1,149 @@
+{
+  "status": "development_preparation",
+  "fresh_validation_executed": false,
+  "held_out_seeds_touched": false,
+  "held_out_seeds_reserved": [
+    840,
+    841,
+    842,
+    843,
+    844,
+    845,
+    846,
+    847,
+    848,
+    849
+  ],
+  "executable_development_seeds": [
+    820,
+    821,
+    822,
+    823,
+    824,
+    825,
+    826,
+    827,
+    828,
+    829
+  ],
+  "future_capture_command": "python -m humanoid_sim.perception_evaluation audit runtime/humanoid/temporal-P5/capture 840 841 842 843 844 845 846 847 848 849 --protocol experiments/humanoid-pick-place/protocols/P5_REVISED_PROPOSAL.md",
+  "git_commit": "55479a189af716316d133a9ca543f09934889726",
+  "provenance_hashes": {
+    "scene_sha256": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725",
+    "protocol_revised_sha256": "bcc741171977d6086a0544a52ea0f4793dd63294a3f390f0c32b2f458eca3d60",
+    "protocol_historical_sha256": "e070f25d65b307eddc3356e7d5dc25497a3460517b5ba8ba0da6fa2a4c7f1edd",
+    "code_sha256": {
+      "temporal_pose.py": "19806899e9820fffb21783e16e30788d53efb189d7c50dab50b6633b05ebf258",
+      "temporal_reacquisition_evaluation.py": "1dd630c4ef86fd972eb3150eb9ac0d5fe0c2a65cea31ae4805dd95844e0cead3",
+      "p5_evaluation.py": "61bb5c4876642f9d40600b9cff80d0ff4cf903b1a59934b3e55be2fa164ceeb4"
+    }
+  },
+  "candidate_specification": {
+    "primary": {
+      "name": "reacquisition_3frame",
+      "class": "TemporalThreeFrameReacquisitionPose",
+      "schedule": "augmented_stream (7 stages with lowering midpoint)",
+      "window_rule": "Requires 3 frames after reacquisition seed; minimum hand baseline 80 mm"
+    },
+    "prespecified_comparators": [
+      {
+        "name": "reacquisition_2frame",
+        "class": "TemporalReacquisitionPose(min_reacquisition_frames=2)",
+        "schedule": "both original and augmented streams"
+      },
+      {
+        "name": "baseline_p4",
+        "class": "TemporalPose(reacquisition=False)",
+        "schedule": "both original and augmented streams"
+      }
+    ],
+    "evaluation_rule": "All conditions and comparators prespecified; no winner selection after scoring"
+  },
+  "schedule_specification": {
+    "original": {
+      "stages": [
+        "lift",
+        "lift_hold",
+        "transport",
+        "lower",
+        "release",
+        "retract"
+      ],
+      "stage_count": 6,
+      "nominal_post_warmup_targets": [
+        "lower",
+        "transport"
+      ]
+    },
+    "augmented": {
+      "stages": [
+        "lift",
+        "lift_hold",
+        "transport",
+        "lower_mid",
+        "lower",
+        "release",
+        "retract"
+      ],
+      "stage_count": 7,
+      "midpoint_rule": "t_mid = (t_transport + t_lower) / 2.0",
+      "replay_mode": "qpos_kinematic_replay",
+      "camera_config": {
+        "camera_name": "fixed",
+        "lookat": [
+          0.24,
+          -0.24,
+          0.8
+        ],
+        "distance": 1.35,
+        "azimuth": 90.0,
+        "elevation": -65.0,
+        "width": 960,
+        "height": 720
+      }
+    }
+  },
+  "grid_configuration": {
+    "variants": [
+      "original",
+      "black_transport",
+      "frozen_transport_rgb"
+    ],
+    "expected_original_responses_per_candidate_10seeds": 180,
+    "expected_augmented_responses_per_candidate_10seeds": 210,
+    "total_expected_responses_3_candidates_10seeds": 1170,
+    "nominal_post_warmup_target_denominator_10seeds": 20,
+    "midpoint_denominator_rule": "Extra midpoint responses never enlarge original-target denominator"
+  },
+  "gates_specification": {
+    "gate_1_nominal_coverage": ">=16/20 accepted original post-warmup targets",
+    "gate_2_nominal_accuracy": "<=5.0 mm mean 3D center error over accepted original targets",
+    "gate_3_nominal_max_error": "<=20.0 mm max error across all accepted nominal stages (including midpoint)",
+    "gate_4_relationship_loss_safety": "0 accepted on release or retract",
+    "gate_5_disruption_robustness": "0 accepted on corrupted transport frames (black, frozen RGB)",
+    "completeness_requirement": "Missing stages/truth, errors, or unscored acceptances make evidence incomplete; incomplete is never a pass"
+  },
+  "input_availability": {
+    "source_capture_dir": "/Users/praveen/work/github/mujoco-llms/runtime/humanoid/temporal-P4/capture",
+    "source_exists": true,
+    "source_seeds_present": [
+      820,
+      821,
+      822,
+      823,
+      824,
+      825,
+      826,
+      827,
+      828,
+      829
+    ],
+    "augmented_capture_dir": "/private/tmp/mujoco-llms-agy-002/runtime/humanoid/temporal-P4-augmented/capture",
+    "augmented_exists": true,
+    "augmented_manifest_present": true,
+    "augmented_cache_valid": true,
+    "accepted_task_002_evidence_file": "/private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/temporal_reacquisition_evidence_development.json",
+    "accepted_task_002_evidence_present": true,
+    "accepted_task_002_evidence_sha256": "7f13ddc70b3a22f80515994987d7a5972cde200aab95a98d79a8ba1b1712cd7f"
+  }
+}

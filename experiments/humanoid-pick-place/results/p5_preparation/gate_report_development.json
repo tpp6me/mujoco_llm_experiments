@@ -1,0 +1,88 @@
+{
+  "report_type": "gate_report_rescore",
+  "is_rescore": true,
+  "candidate": "reacquisition_3frame",
+  "schedule": "augmented_stream",
+  "seeds": [
+    820,
+    821,
+    822,
+    823,
+    824,
+    825,
+    826,
+    827,
+    828,
+    829
+  ],
+  "seed_count": 10,
+  "evaluation_status": "complete",
+  "is_complete": true,
+  "provenance_notes": "Artifact rescore of: /private/tmp/mujoco-llms-agy-003/experiments/humanoid-pick-place/results/p5_preparation/p5_development_evidence.json",
+  "gates": {
+    "gate_1_coverage": {
+      "description": ">=16/20 nominal post-warmup targets accepted",
+      "status": "pass",
+      "numerator": 17,
+      "denominator": 20,
+      "scored_count": 17,
+      "unscored_count": 0,
+      "reason": "Accepted 17/20 post-warmup targets (>=16 required)"
+    },
+    "gate_2_accuracy": {
+      "description": "<=5.0 mm mean 3D center error over accepted original targets",
+      "status": "fail",
+      "metric_value_m": 0.005871509337112496,
+      "metric_value_mm": 5.871509337112497,
+      "threshold_mm": 5.0,
+      "denominator_accepted_original_targets": 17,
+      "reason": "Accepted original-target mean 5.8715 mm exceeds 5.0 mm threshold (FAIL - gate strictly preserved)"
+    },
+    "gate_3_nominal_max_error": {
+      "description": "<=20.0 mm maximum center error across all accepted nominal stages",
+      "status": "pass",
+      "metric_value_m": 0.014847912591484777,
+      "metric_value_mm": 14.847912591484777,
+      "threshold_mm": 20.0,
+      "midpoint_max_error_mm": 5.113997488787962,
+      "reason": "Maximum error 14.8479 mm <= 20.0 mm (midpoint max error: 5.1140 mm)"
+    },
+    "gate_4_relationship_loss_safety": {
+      "description": "Zero accepted poses on release or retract endpoints (0/20)",
+      "status": "pass",
+      "accepted_count": 0,
+      "denominator": 20,
+      "reason": "0/20 positions emitted on release or retract endpoints"
+    },
+    "gate_5_disruption_robustness": {
+      "description": "Zero accepted poses on corrupted transport frames",
+      "status": "pass",
+      "corrupted_transport_accepted": 0,
+      "black_transport_total_accepted": 0,
+      "frozen_transport_rgb_total_accepted": 0,
+      "reason": "0/20 positions emitted on corrupted transport frames (black_transport: 0 total, frozen_transport_rgb: 0 total)"
+    }
+  },
+  "descriptive_metrics": {
+    "midpoint_metrics": {
+      "midpoint_stage": "lower_mid",
+      "midpoint_expected": 10,
+      "midpoint_accepted": 7,
+      "midpoint_scored": 7,
+      "midpoint_mean_error_mm": 3.109311038043619,
+      "midpoint_max_error_mm": 5.113997488787962,
+      "denominator_separation_note": "Midpoint estimates are reported separately and never enlarge or dilute the 20-target original post-warmup denominator."
+    },
+    "all_accepted_metrics": {
+      "all_accepted_count": 24,
+      "all_accepted_mean_error_mm": 5.06586816655074,
+      "all_accepted_max_error_mm": 14.847912591484777
+    },
+    "refusals": {
+      "insufficient_motion_history": 33,
+      "inconsistent_rigid_transform": 13
+    }
+  },
+  "overall_outcome": "FAIL",
+  "overall_reason": "Gate criteria failed on: accuracy (5.8715 mm > 5.0 mm)."
+}
