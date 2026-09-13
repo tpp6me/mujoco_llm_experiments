@@ -4,6 +4,7 @@ Status: **ready for review**
 Task brief: `coordination/agy/tasks/004-visual-policy-scaffold.md`
 Branch: `agy/004-visual-policy-scaffold`
 Starting commit: `9c143d45625e0780206fd64a7771daf0633e7671`
+Implementation commit: `03f84e1f4a51a2da28e39db0ce42fb4d8c7acc77`
 Worktree: `/private/tmp/mujoco-llms-agy-004`
 
 ---
