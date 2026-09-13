@@ -84,4 +84,20 @@ Results: [evidence development data](results/temporal_reacquisition_evidence_dev
 
 Task 002 is [accepted for development-only integration](../../coordination/agy/reviews/002-acceptance.md).
 The proposed 5.0 mm accepted-original-target mean gate remains unmet.
-[Task 003](../../coordination/agy/tasks/003-p5-preparation.md) prepares the next protocol and runner; no fresh P5 run has occurred.
+
+[P5 protocol preparation and gate runner (Task 003)](../../coordination/agy/tasks/003-p5-preparation.md):
+- Revised proposed protocol: [P5 Revised Proposal](protocols/P5_REVISED_PROPOSAL.md) (proposed, not frozen, not executed; seeds 840–849 remain untouched; earlier [P5 Proposal](protocols/P5_PROPOSAL.md) retained as historical planning evidence).
+- Production wrapper: `humanoid_sim/p5_evaluation.py` with explicit preflight, gate evaluation, held-out seed guards (seeds 840–849 strictly forbidden in this task), and fresh capture disabled.
+- Retained development evidence and gate reports under `results/p5_preparation/`:
+  - [Preflight report](results/p5_preparation/preflight_report.json): hashes, grid specification (1,170 expected responses across 3 candidates), input availability.
+  - [Artifact rescore gate report](results/p5_preparation/gate_report_rescore.json): evaluates the 5 continuation gates against accepted Task 002 evidence.
+  - [Development dry run evidence](results/p5_preparation/p5_development_evidence.json) and [development gate report](results/p5_preparation/gate_report_development.json): exercises the production runner on saved development captures (seeds 820–829).
+  - [Task manifest](results/p5_preparation/manifest.json): records provenance, hashes, and execution status.
+- Findings: On the primary condition (`TemporalThreeFrameReacquisitionPose` on the augmented schedule), coverage passes (17/20 >= 16), max error passes (14.848 mm <= 20 mm, midpoint max error 5.114 mm), release/retract safety passes (0/20), and corrupted transport robustness passes (0/20). The 5.0 mm accuracy gate is strictly preserved and unmet: the accepted original-target mean is **5.8715 mm** and fails the gate. Midpoint estimates (mean 3.109 mm) are accounted separately and do not dilute the original post-warmup denominator.
+- Status: Prepared and ready for review; no fresh P5 execution or held-out seed evaluation has occurred.
+
+Task 003 is [accepted with integration fixes](../../coordination/agy/reviews/003-acceptance.md).
+Codex refreshed the gate reports by rescoring unchanged saved estimates and bound
+reports to their source/input hashes. Fresh P5 remains unexecuted; the 5.0 mm mean
+gate remains unmet. [Task 004](../../coordination/agy/tasks/004-visual-policy-scaffold.md)
+builds the offline RGB-to-action loop with a stub, without model-performance claims.

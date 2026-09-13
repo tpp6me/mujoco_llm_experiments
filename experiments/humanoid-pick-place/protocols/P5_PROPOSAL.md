@@ -1,7 +1,7 @@
 # Proposed Successor Protocol P5 — Temporal Reacquisition Validation
 
-**STATUS: PROPOSED ONLY — NOT FROZEN, NOT EXECUTED.**
-*This protocol is submitted for Codex review under AGY task 001. No fresh episodes or validation runs under this protocol have been executed or generated.*
+**STATUS: HISTORICAL PLANNING PROPOSAL — NOT FROZEN, NOT EXECUTED.**
+*This initial protocol was submitted under AGY Task 001 and is preserved as historical planning evidence. It has been revised and superseded by [P5_REVISED_PROPOSAL.md](P5_REVISED_PROPOSAL.md) under AGY Task 003.*
 
 ---
 

@@ -2,8 +2,10 @@
 
 Antigravity (AGY), using the user's Gemini 3.8 Flash configuration, executes bounded
 repository tasks. Codex writes the briefs, reviews the code and evidence, and
-integrates accepted changes. The user relays prompts and completion notifications;
-there is no configured direct agent-to-agent connection.
+integrates accepted changes. Codex can launch the installed `agy` CLI directly
+in dedicated worktrees, inspect its execution logs, and resume a specific
+conversation for revisions. The user has
+authorized batch runs with automatic permissions within each task brief.
 
 ## Handoff loop
 
@@ -62,7 +64,8 @@ inputs. It must not mistake missing local artifacts for missing committed code.
 |---|---|---|---|
 | [001](tasks/001-reacquisition.md) | [Accepted; integrated](reviews/001-acceptance.md) | `agy/001-reacquisition` | Implement and develop temporal reacquisition; propose fresh protocol, do not execute it |
 | [002](tasks/002-reacquisition-evidence.md) | [Accepted; integrated](reviews/002-acceptance.md) | `agy/002-reacquisition-evidence` | Test additional fresh-view evidence on development trajectories; no fresh P5 run |
-| [003](tasks/003-p5-preparation.md) | [Changes requested](reviews/003-review.md) | `agy/003-p5-preparation` | Prepare revised passive P5 protocol and runner on existing development inputs; no held-out execution |
+| [003](tasks/003-p5-preparation.md) | [Accepted with integration fixes](reviews/003-acceptance.md) | `agy/003-p5-preparation` | Prepare revised passive P5 protocol and runner on existing development inputs; no held-out execution |
+| [004](tasks/004-visual-policy-scaffold.md) | Ready | `agy/004-visual-policy-scaffold` | Offline RGB-to-action loop with injected stub; no live provider or fresh P5 run |
 
 Use the [completion template](reports/TEMPLATE.md) and [review template](reviews/TEMPLATE.md).
 The experiment's [living checklist](../../experiments/humanoid-pick-place/PLAN.md)

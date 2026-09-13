@@ -1,0 +1,93 @@
+test_all_refused_results_complete_grid (tests.test_p5_evaluation.TestP5Evaluation.test_all_refused_results_complete_grid)
+Complete grid with all-refused results must fail coverage/accuracy without exception (R1). ... ok
+test_corrupted_transport_emission_fails_gate_5 (tests.test_p5_evaluation.TestP5Evaluation.test_corrupted_transport_emission_fails_gate_5)
+Accepted pose on corrupted transport frame must fail Gate 5. ... ok
+test_duplicate_seeds_forbidden (tests.test_p5_evaluation.TestP5Evaluation.test_duplicate_seeds_forbidden)
+Duplicate seeds must be rejected to prevent episode count inflation (R2). ... ok
+test_fresh_capture_flag_raises_error_with_future_sketch (tests.test_p5_evaluation.TestP5Evaluation.test_fresh_capture_flag_raises_error_with_future_sketch)
+CLI with --fresh-capture must raise RuntimeError documenting the future API sketch (R3). ... ok
+test_held_out_seeds_strictly_forbidden (tests.test_p5_evaluation.TestP5Evaluation.test_held_out_seeds_strictly_forbidden)
+Held-out validation seeds 840-849 must be rejected immediately. ... ok
+test_incomplete_evidence_duplicate_grid_entries (tests.test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_duplicate_grid_entries)
+Duplicate (seed, stage, variant) entries in records must return INCOMPLETE (R1). ... ok
+test_incomplete_evidence_empty_records_with_stale_passing_summary (tests.test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_empty_records_with_stale_passing_summary)
+Empty or truncated records with stale passing summary must return INCOMPLETE (R1). ... ok
+test_incomplete_evidence_missing_or_non_finite_truth_or_error (tests.test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_missing_or_non_finite_truth_or_error)
+Records with missing ground truth or non-finite error values must return INCOMPLETE (R1). ... ok
+test_incomplete_evidence_missing_variant_aggregates (tests.test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_missing_variant_aggregates)
+Candidate aggregate missing required disruption variants must return INCOMPLETE (R1). ... ok
+test_incomplete_evidence_running_or_missing_status (tests.test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_running_or_missing_status)
+Non-complete status (running, missing, incomplete) must return INCOMPLETE (R1). ... ok
+test_incomplete_evidence_summary_record_disagreement (tests.test_p5_evaluation.TestP5Evaluation.test_incomplete_evidence_summary_record_disagreement)
+Mismatches between record data and claimed summaries must return INCOMPLETE (R1). ... ok
+test_known_development_failure_at_unchanged_gate (tests.test_p5_evaluation.TestP5Evaluation.test_known_development_failure_at_unchanged_gate)
+Known 5.8715 mm post-warmup mean must fail the strictly preserved 5.0 mm gate. ... ok
+test_max_error_exceeding_20mm_fails_gate_3 (tests.test_p5_evaluation.TestP5Evaluation.test_max_error_exceeding_20mm_fails_gate_3)
+Accepted nominal error exceeding 20.0 mm must fail Gate 3. ... ok
+test_midpoint_denominator_separation (tests.test_p5_evaluation.TestP5Evaluation.test_midpoint_denominator_separation)
+Midpoint estimates must never dilute or enlarge the original-target denominator. ... ok
+test_non_development_seeds_rejected_in_executable_mode (tests.test_p5_evaluation.TestP5Evaluation.test_non_development_seeds_rejected_in_executable_mode)
+Seeds outside 820-829 are rejected in executable development mode. ... ok
+test_non_integer_seeds_forbidden (tests.test_p5_evaluation.TestP5Evaluation.test_non_integer_seeds_forbidden)
+Non-integer types and booleans must be rejected as invalid seeds (R2). ... ok
+test_preflight_report_generation (tests.test_p5_evaluation.TestP5Evaluation.test_preflight_report_generation)
+Preflight report must document dependency hashes, git provenance, and future sketch (R3). ... ok
+test_release_retract_emission_fails_gate_4 (tests.test_p5_evaluation.TestP5Evaluation.test_release_retract_emission_fails_gate_4)
+Accepted pose on release/retract endpoint must fail Gate 4. ... ok
+test_rescore_cli_rejects_disagreeing_cli_seeds (tests.test_p5_evaluation.TestP5Evaluation.test_rescore_cli_rejects_disagreeing_cli_seeds)
+Rescore command must reject CLI seeds that disagree with embedded artifact seeds (R2). ... ok
+test_rescore_cli_rejects_embedded_held_out_seeds_without_writing_output (tests.test_p5_evaluation.TestP5Evaluation.test_rescore_cli_rejects_embedded_held_out_seeds_without_writing_output)
+Rescore command must reject embedded held-out seeds before scoring or writing output (R2). ... ok
+test_rescore_cli_succeeds_with_valid_artifact (tests.test_p5_evaluation.TestP5Evaluation.test_rescore_cli_succeeds_with_valid_artifact)
+Rescore command succeeds on valid complete evidence artifact and writes report. ... ok
+test_subset_dry_run_marks_gates_not_applicable (tests.test_p5_evaluation.TestP5Evaluation.test_subset_dry_run_marks_gates_not_applicable)
+Subset dry runs (<10 seeds) must mark gates not_applicable rather than passing/failing (R2). ... ok
+test_successful_complete_synthetic_grid_passes_all_gates (tests.test_p5_evaluation.TestP5Evaluation.test_successful_complete_synthetic_grid_passes_all_gates)
+Complete 210-record synthetic grid meeting all criteria must result in PASS (R1). ... ok
+test_cli_default_invocation_preserves_task001_path_without_comparison (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_cli_default_invocation_preserves_task001_path_without_comparison) ... ok
+test_corrupt_transport_metadata_retains_accounting_and_clears_history (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_corrupt_transport_metadata_retains_accounting_and_clears_history) ... ok
+test_derive_midpoint_schedule_production_function (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_derive_midpoint_schedule_production_function) ... ok
+test_early_stopped_episode_retains_accounting (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_early_stopped_episode_retains_accounting) ... ok
+test_empty_records_list_retains_accounting_and_marks_incomplete (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_empty_records_list_retains_accounting_and_marks_incomplete) ... ok
+test_estimator_exception_retains_accounting_and_details (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_estimator_exception_retains_accounting_and_details) ... ok
+test_evaluate_evidence_retains_provenance_manifest_in_evidence_output (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_evaluate_evidence_retains_provenance_manifest_in_evidence_output) ... ok
+test_invalid_seed_requests_rejected (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_invalid_seed_requests_rejected) ... ok
+test_is_augmented_cache_valid_production_paths (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_is_augmented_cache_valid_production_paths) ... ok
+test_malformed_loaded_json_structure_retains_accounting (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_malformed_loaded_json_structure_retains_accounting) ... ok
+test_mismatched_observation_timestamp_invalidates_and_marks_incomplete (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_mismatched_observation_timestamp_invalidates_and_marks_incomplete) ... ok
+test_missing_lower_observation_after_midpoint_retains_accounting_and_invalidates (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_missing_lower_observation_after_midpoint_retains_accounting_and_invalidates) ... ok
+test_missing_observation_file_retains_accounting (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_missing_observation_file_retains_accounting) ... ok
+test_null_absent_and_nonfinite_truth_retains_acceptance_and_marks_incomplete (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_null_absent_and_nonfinite_truth_retains_acceptance_and_marks_incomplete) ... ok
+test_render_rejects_non_empty_directory_and_cannot_certify_stale_bytes (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_render_rejects_non_empty_directory_and_cannot_certify_stale_bytes) ... ok
+test_render_source_output_overlap_rejected (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_render_source_output_overlap_rejected) ... ok
+test_three_frame_reacquisition_evaluation_accounting_original_vs_augmented (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_three_frame_reacquisition_evaluation_accounting_original_vs_augmented) ... ok
+test_unavailable_frozen_image_source_marks_stimulus_unavailable (tests.test_temporal_reacquisition_evaluation.TemporalReacquisitionEvaluationTests.test_unavailable_frozen_image_source_marks_stimulus_unavailable) ... ok
+
+----------------------------------------------------------------------
+Ran 41 tests in 35.762s
+
+OK
+
+======================================================================
+P5 GATE EVALUATION REPORT: reacquisition_3frame (gate_report_rescore)
+Seeds: [820, 821, 822, 823, 824, 825, 826, 827, 828, 829] (Count: 10)
+Status: complete | Complete: True
+Provenance: Artifact rescore of: /private/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmpfs_76_ti/valid_evidence.json
+----------------------------------------------------------------------
+  [PASS]           gate_1_coverage: Accepted 20/20 post-warmup targets (>=16 required)
+  [PASS]           gate_2_accuracy: Accepted original-target mean 4.0000 mm <= 5.0 mm threshold
+  [PASS]           gate_3_nominal_max_error: Maximum error 4.0000 mm <= 20.0 mm (midpoint max error: 3.5000 mm)
+  [PASS]           gate_4_relationship_loss_safety: 0/20 positions emitted on release or retract endpoints
+  [PASS]           gate_5_disruption_robustness: 0/20 positions emitted on corrupted transport frames (black_transport: 0 total, frozen_transport_rgb: 0 total)
+----------------------------------------------------------------------
+OVERALL OUTCOME: [PASS]
+Reason: All 5 continuation gates passed.
+----------------------------------------------------------------------
+Midpoint (lower_mid): accepted 10/10; mean: 3.5000 mm; max: 3.5000 mm
+All accepted (nom): count 30; mean: 3.8333 mm; max: 4.0000 mm
+======================================================================
+
+Gate report written to: /var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmpfs_76_ti/out/gate_report_rescore.json
+Evaluation finished with status: complete.
+Evaluating original endpoint-only stream...
+Evaluating augmented stream (with lowering midpoint)...
