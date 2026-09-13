@@ -66,7 +66,7 @@ inputs. It must not mistake missing local artifacts for missing committed code.
 | [002](tasks/002-reacquisition-evidence.md) | [Accepted; integrated](reviews/002-acceptance.md) | `agy/002-reacquisition-evidence` | Test additional fresh-view evidence on development trajectories; no fresh P5 run |
 | [003](tasks/003-p5-preparation.md) | [Accepted with integration fixes](reviews/003-acceptance.md) | `agy/003-p5-preparation` | Prepare revised passive P5 protocol and runner on existing development inputs; no held-out execution |
 | [004](tasks/004-visual-policy-scaffold.md) | [Accepted with integration fixes](reviews/004-acceptance.md) | `agy/004-visual-policy-scaffold` | Offline RGB-to-action loop with injected stub; no live provider or fresh P5 run |
-| [005](tasks/005-visual-provider-adapter.md) | [In progress](reports/005-launch.md) | `agy/005-visual-provider-adapter` | Responses image adapter with injected offline transport and unfrozen pilot draft |
+| [005](tasks/005-visual-provider-adapter.md) | [Changes requested](reviews/005-review.md) | `agy/005-visual-provider-adapter` | Responses image adapter with injected offline transport and unfrozen pilot draft |
 
 Use the [completion template](reports/TEMPLATE.md) and [review template](reviews/TEMPLATE.md).
 The experiment's [living checklist](../../experiments/humanoid-pick-place/PLAN.md)

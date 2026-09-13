@@ -74,7 +74,7 @@ individual-finger control are outside the initial scope.
 - [x] Integrate [AGY task 003](../../coordination/agy/tasks/003-p5-preparation.md): reviewed passive P5 proposal and gate runner; [acceptance](../../coordination/agy/reviews/003-acceptance.md), development mean gate remains unmet; no held-out execution.
 - [x] Integrate [AGY task 004](../../coordination/agy/tasks/004-visual-policy-scaffold.md): offline RGB-to-action runner, guarded fresh observations and hard budgets; [accepted with integration fixes](../../coordination/agy/reviews/004-acceptance.md) for malformed result timing and unknown execution outcomes. No live model calls.
 
-- [ ] Implement and review [AGY task 005](../../coordination/agy/tasks/005-visual-provider-adapter.md): image-capable Responses adapter using injected transport and an unfrozen first visual pilot draft; no paid execution.
+- [ ] Implement and review [AGY task 005](../../coordination/agy/tasks/005-visual-provider-adapter.md): image-capable Responses adapter using injected transport and an unfrozen first visual pilot draft; [review requests changes](../../coordination/agy/reviews/005-review.md) for attempt accounting, image/export validation and protocol accuracy; no paid execution.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
