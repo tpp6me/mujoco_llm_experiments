@@ -17,7 +17,8 @@ from .environment import Environment
 from .interface import PolicyInterface, VERSION, INSTRUCTION_VERSION
 from .visual import VisualSession, RGBRenderer, state_key, calibration
 from .scene import ROOT
-
+MAX_CALLS_CAP = 20
+DEADLINE_CAP = 25.0
 MAX_CALLS = 20
 DEADLINE = 25.0
 PROTOCOL_ID = 'humanoid-visual-policy-scaffold-v1'
@@ -73,11 +74,48 @@ def strict_json(text):
     return json.loads(text, object_pairs_hook=pairs, parse_constant=constant)
 
 
+def to_json_safe(val):
+    """Convert arbitrary nested structures to strictly JSON-compliant types.
+
+    Transforms NaN and +/-Infinity to diagnostic dicts:
+      {"__diagnostic_nonfinite__": "NaN"}
+      {"__diagnostic_nonfinite__": "Infinity"}
+      {"__diagnostic_nonfinite__": "-Infinity"}
+    Transforms non-serializable objects into diagnostic dicts.
+    """
+    if isinstance(val, bool):
+        return val
+    if isinstance(val, int):
+        return val
+    if isinstance(val, float):
+        if math.isnan(val):
+            return {'__diagnostic_nonfinite__': 'NaN'}
+        if math.isinf(val):
+            return {'__diagnostic_nonfinite__': 'Infinity' if val > 0 else '-Infinity'}
+        return val
+    if isinstance(val, str):
+        return val
+    if val is None:
+        return None
+    if isinstance(val, dict):
+        return {str(k): to_json_safe(v) for k, v in val.items()}
+    if isinstance(val, (list, tuple)):
+        return [to_json_safe(v) for v in val]
+    if isinstance(val, (bytes, bytearray)):
+        return {'__diagnostic_bytes_len__': len(val)}
+    return {'__diagnostic_unserializable__': repr(val)}
+
+
 def write_json(path, value):
     """Atomically write formatted JSON without NaN/Infinity."""
     path = Path(path)
     temp = path.with_suffix(path.suffix + '.tmp')
-    temp.write_text(json.dumps(value, indent=2, allow_nan=False) + '\n')
+    try:
+        content = json.dumps(value, indent=2, allow_nan=False) + '\n'
+    except (ValueError, TypeError):
+        safe_val = to_json_safe(value)
+        content = json.dumps(safe_val, indent=2, allow_nan=False) + '\n'
+    temp.write_text(content)
     temp.replace(path)
 
 
@@ -106,9 +144,25 @@ def action_schema():
 
 
 def _validate_finite_float(val, name):
-    if not isinstance(val, (int, float)) or not math.isfinite(val):
+    if isinstance(val, bool) or not isinstance(val, (int, float)) or not math.isfinite(val):
         raise ValueError(f'{name} must be a finite float, got {val!r}')
     return float(val)
+
+
+def _validate_int(val, name):
+    if isinstance(val, bool) or not isinstance(val, int):
+        raise ValueError(f'{name} must be an integer, got {val!r}')
+    return int(val)
+
+
+def _validate_budget(max_calls, deadline):
+    max_calls = _validate_int(max_calls, 'max_calls')
+    if not (1 <= max_calls <= MAX_CALLS_CAP):
+        raise ValueError(f'max_calls must be between 1 and {MAX_CALLS_CAP}, got {max_calls}')
+    deadline = _validate_finite_float(deadline, 'deadline')
+    if not (0.0 < deadline <= DEADLINE_CAP):
+        raise ValueError(f'deadline must be in (0.0, {DEADLINE_CAP}], got {deadline}')
+    return max_calls, deadline
 
 
 def _validate_float_list(lst, size, name):
@@ -122,8 +176,8 @@ def allowlist_camera(cam):
     if not isinstance(cam, dict):
         raise ValueError('camera must be a dictionary')
     return {
-        'width': int(cam['width']),
-        'height': int(cam['height']),
+        'width': _validate_int(cam['width'], 'width'),
+        'height': _validate_int(cam['height'], 'height'),
         'projection': str(cam['projection']),
         'camera_world_xyz_m': _validate_float_list(cam['camera_world_xyz_m'], 3, 'camera_world_xyz_m'),
         'world_to_camera_rotation': [
@@ -158,7 +212,7 @@ def allowlist_robot_state(rs):
         raise ValueError('robot_state must be a dictionary')
     return {
         'schema_version': str(rs.get('schema_version', VERSION)),
-        'instruction_version': int(rs.get('instruction_version', INSTRUCTION_VERSION)),
+        'instruction_version': _validate_int(rs.get('instruction_version', INSTRUCTION_VERSION), 'instruction_version'),
         'mode': 'robot_state',
         'time_s': _validate_finite_float(rs['time_s'], 'time_s'),
         'frame': 'world',
@@ -191,22 +245,27 @@ def sanitize_action_for_history(action_req):
         return {'action': 'invalid', 'arguments': {}, 'request_id': 'unknown'}
     action = str(action_req.get('action'))
     args = action_req.get('arguments', {})
+    if not isinstance(args, dict):
+        return {'action': action, 'arguments': {}, 'request_id': str(action_req.get('request_id', ''))}
     sanitized_args = {}
-    if action == 'move':
-        sanitized_args = {
-            'xyz_m': _validate_float_list(args.get('xyz_m', []), 3, 'xyz_m'),
-            'quaternion_wxyz': _validate_float_list(args.get('quaternion_wxyz', []), 4, 'quaternion_wxyz'),
-            'seconds': _validate_finite_float(args.get('seconds', 0), 'seconds')
-        }
-    elif action == 'hand':
-        sanitized_args = {
-            'closure': _validate_finite_float(args.get('closure', 0), 'closure'),
-            'seconds': _validate_finite_float(args.get('seconds', 0), 'seconds')
-        }
-    elif action == 'hold':
-        sanitized_args = {
-            'seconds': _validate_finite_float(args.get('seconds', 0), 'seconds')
-        }
+    try:
+        if action == 'move':
+            sanitized_args = {
+                'xyz_m': _validate_float_list(args.get('xyz_m', []), 3, 'xyz_m'),
+                'quaternion_wxyz': _validate_float_list(args.get('quaternion_wxyz', []), 4, 'quaternion_wxyz'),
+                'seconds': _validate_finite_float(args.get('seconds', 0), 'seconds')
+            }
+        elif action == 'hand':
+            sanitized_args = {
+                'closure': _validate_finite_float(args.get('closure', 0), 'closure'),
+                'seconds': _validate_finite_float(args.get('seconds', 0), 'seconds')
+            }
+        elif action == 'hold':
+            sanitized_args = {
+                'seconds': _validate_finite_float(args.get('seconds', 0), 'seconds')
+            }
+    except ValueError:
+        sanitized_args = {'error': 'invalid_arguments'}
     return {
         'action': action,
         'arguments': sanitized_args,
@@ -218,16 +277,27 @@ def sanitize_response_for_history(response):
     """Allowlist extraction for action execution outcomes in history."""
     if not isinstance(response, dict):
         return {'status': 'invalid', 'error': 'Invalid response type'}
+    try:
+        start_time = _validate_finite_float(response.get('start_time_s', 0.0), 'start_time_s')
+    except ValueError:
+        start_time = 0.0
+    try:
+        end_time = _validate_finite_float(response.get('end_time_s', 0.0), 'end_time_s')
+    except ValueError:
+        end_time = 0.0
     sanitized = {
         'request_id': str(response.get('request_id', '')),
         'status': str(response.get('status', 'unknown')),
-        'start_time_s': _validate_finite_float(response.get('start_time_s', 0.0), 'start_time_s'),
-        'end_time_s': _validate_finite_float(response.get('end_time_s', 0.0), 'end_time_s')
+        'start_time_s': start_time,
+        'end_time_s': end_time
     }
     if 'error' in response and response['error'] is not None:
         sanitized['error'] = str(response['error'])
     if 'observation' in response and isinstance(response['observation'], dict):
-        sanitized['robot_state'] = allowlist_robot_state(response['observation'])
+        try:
+            sanitized['robot_state'] = allowlist_robot_state(response['observation'])
+        except Exception:
+            pass
     return sanitized
 
 
@@ -235,6 +305,10 @@ def build_public_payload(observation, history, deadline=DEADLINE, max_calls=MAX_
     """Build the public request payload strictly from allowlist."""
     obs_clean = allowlist_observation(observation)
     time_s = obs_clean['time_s']
+    deadline = _validate_finite_float(deadline, 'deadline')
+    max_calls = _validate_int(max_calls, 'max_calls')
+    calls = _validate_int(calls, 'calls')
+    max_history = _validate_int(max_history, 'max_history')
     remaining_time = max(0.0, float(deadline - time_s))
     remaining_actions = max(0, int(max_calls - calls))
     history_slice = history[-max_history:] if max_history > 0 else []
@@ -272,34 +346,38 @@ def parse_and_validate_response(raw):
 
     # Check for refusal
     if isinstance(parsed, dict):
-        if 'refusal' in parsed and parsed['refusal']:
+        if parsed.get('refusal'):
             raise ModelRefusalError(f'Model refused: {parsed["refusal"]}')
         if parsed.get('status') == 'refusal':
             raise ModelRefusalError(f'Model status is refusal: {parsed.get("error", "refusal")}')
-        for item in parsed.get('output', []):
-            if isinstance(item, dict) and item.get('type') == 'message':
-                for c in item.get('content', []):
-                    if isinstance(c, dict) and c.get('type') == 'refusal':
-                        raise ModelRefusalError(f'Model refusal: {c.get("refusal")}')
+        raw_output = parsed.get('output')
+        if isinstance(raw_output, list):
+            for item in raw_output:
+                if isinstance(item, dict) and item.get('type') == 'message':
+                    contents = item.get('content')
+                    if isinstance(contents, list):
+                        for c in contents:
+                            if isinstance(c, dict) and c.get('type') == 'refusal':
+                                raise ModelRefusalError(f'Model refusal: {c.get("refusal")}')
 
     # Extract command
-    if isinstance(parsed, dict) and 'command' in parsed:
+    if isinstance(parsed, dict) and 'command' in parsed and isinstance(parsed['command'], dict):
         command = parsed['command']
-    elif isinstance(parsed, dict) and 'action' in parsed and 'arguments' in parsed:
+    elif isinstance(parsed, dict) and 'action' in parsed and 'arguments' in parsed and isinstance(parsed.get('arguments'), dict):
         command = parsed
-    elif isinstance(parsed, dict) and 'output' in parsed:
+    elif isinstance(parsed, dict) and isinstance(parsed.get('output'), list):
         content = [
-            c for item in parsed.get('output', [])
-            if isinstance(item, dict) and item.get('type') == 'message'
-            for c in item.get('content', [])
+            c for item in parsed['output']
+            if isinstance(item, dict) and item.get('type') == 'message' and isinstance(item.get('content'), list)
+            for c in item['content']
             if isinstance(c, dict)
         ]
-        text_parts = [c['text'] for c in content if c.get('type') == 'output_text']
+        text_parts = [c['text'] for c in content if c.get('type') == 'output_text' and isinstance(c.get('text'), str)]
         if not text_parts:
             raise MalformedResponseError('No output text in response message')
         try:
             decision = strict_json(''.join(text_parts))
-            if not isinstance(decision, dict) or 'command' not in decision:
+            if not isinstance(decision, dict) or 'command' not in decision or not isinstance(decision['command'], dict):
                 raise MalformedResponseError('Expected command wrapper in output text')
             command = decision['command']
         except ValueError as exc:
@@ -360,10 +438,12 @@ def parse_and_validate_response(raw):
 class VisualPolicySession:
     """Narrow adapter around VisualSession enforcing action limits, deadline, and isolation."""
     def __init__(self, visual_session, max_calls=MAX_CALLS, deadline=DEADLINE):
+        max_calls, deadline = _validate_budget(max_calls, deadline)
         self.session = visual_session
         self.max_calls = max_calls
         self.deadline = deadline
         self.attempts = 0
+        self.last_captured_time_s = 0.0
 
     @property
     def env(self):
@@ -373,22 +453,38 @@ class VisualPolicySession:
     def api(self):
         return getattr(self.session, 'api', None)
 
+    @property
+    def pending(self):
+        return getattr(self.session, 'pending', None)
+
+    @pending.setter
+    def pending(self, value):
+        if hasattr(self.session, 'pending'):
+            self.session.pending = value
+
     def capture(self):
-        return self.session.capture()
+        obs = self.session.capture()
+        if isinstance(obs, dict) and 'time_s' in obs and not isinstance(obs['time_s'], bool):
+            try:
+                self.last_captured_time_s = float(obs['time_s'])
+            except (ValueError, TypeError):
+                pass
+        return obs
 
     def execute(self, observation_id, request):
-        now = float(self.session.env.data.time) if hasattr(self.session, 'env') and self.session.env is not None else 0.0
+        if hasattr(self.session, 'env') and self.session.env is not None and hasattr(self.session.env, 'data'):
+            now = float(self.session.env.data.time)
+        else:
+            now = float(self.last_captured_time_s)
         self.attempts += 1
         arguments = request.get('arguments') if isinstance(request, dict) else None
         seconds = arguments.get('seconds') if isinstance(arguments, dict) else None
         error = None
-        if self.attempts > self.max_calls:
+        if isinstance(seconds, bool) or not isinstance(seconds, (int, float)) or not math.isfinite(seconds):
+            error = 'Action seconds must be a finite number'
+        elif self.attempts > self.max_calls:
             error = 'Action limit reached'
-        elif (
-            type(seconds) in (float, int)
-            and math.isfinite(seconds)
-            and math.ceil(seconds / 0.001) * 0.001 > self.deadline - now + 1e-6
-        ):
+        elif math.ceil(seconds / 0.001) * 0.001 > self.deadline - now + 1e-6:
             error = 'Action exceeds episode deadline'
 
         if error:
@@ -403,7 +499,7 @@ class VisualPolicySession:
                 'end_time_s': now,
                 'observation': self.session.api.observe() if hasattr(self.session, 'api') and self.session.api is not None else {}
             }
-            if hasattr(self.session, 'env') and self.session.env is not None:
+            if hasattr(self.session, 'env') and self.session.env is not None and hasattr(self.session.env, 'events'):
                 self.session.env.events.append({
                     'visual_observation_id': observation_id,
                     'interface_request': copy.deepcopy(request),
@@ -515,7 +611,7 @@ def get_named_stub(name):
     return stubs[name]()
 
 
-def provenance(controller_name='offline_stub'):
+def provenance(controller_name='offline_stub', max_calls=MAX_CALLS, deadline=DEADLINE):
     """Provenance metadata recording source hashes and frozen protocol limits."""
     from .guarded_evaluation import provenance as mechanical_provenance
     result = mechanical_provenance('g2')
@@ -536,8 +632,12 @@ def provenance(controller_name='offline_stub'):
         instruction_version=INSTRUCTION_VERSION,
         prompt_sha256=hashlib.sha256(VISUAL_PROMPT.encode('utf-8')).hexdigest(),
         action_schema_sha256=hashlib.sha256(json.dumps(action_schema(), sort_keys=True).encode('utf-8')).hexdigest(),
-        max_actions=MAX_CALLS,
-        deadline_s=DEADLINE,
+        max_calls_cap=MAX_CALLS_CAP,
+        deadline_cap_s=DEADLINE_CAP,
+        configured_max_calls=max_calls,
+        configured_deadline_s=deadline,
+        max_actions=max_calls,
+        deadline_s=deadline,
         offline_only=True
     )
     return result
@@ -559,8 +659,35 @@ def run_visual_episode(
     data to model_callable. Stops on refusal, malformation, exception, action rejection,
     or budget exhaustion. Does not retry or infer success.
     """
+    # 1. Pre-validate configuration before directory creation or episode execution
+    max_calls, deadline = _validate_budget(max_calls, deadline)
+
+    if seed is not None:
+        if isinstance(seed, bool) or not isinstance(seed, int):
+            raise ValueError(f'seed must be an integer, got {seed!r}')
+        if seed in range(840, 850):
+            raise ValueError(f'Seed {seed} is in held-out validation range 840-849 and strictly prohibited')
+
+    if hasattr(session, 'max_calls'):
+        sess_max_calls = getattr(session, 'max_calls')
+        if sess_max_calls != max_calls:
+            raise ValueError(
+                f'Inconsistent max_calls: runner has {max_calls} but session adapter has {sess_max_calls}'
+            )
+    if hasattr(session, 'deadline'):
+        sess_deadline = getattr(session, 'deadline')
+        try:
+            sess_dl_val = float(sess_deadline)
+        except (ValueError, TypeError):
+            raise ValueError(f'Session adapter deadline is invalid: {sess_deadline!r}')
+        if abs(sess_dl_val - deadline) > 1e-6:
+            raise ValueError(
+                f'Inconsistent deadline: runner has {deadline} but session adapter has {sess_deadline}'
+            )
+
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=False)
+
     history = []
     image_identities = []
     calls = 0
@@ -571,161 +698,286 @@ def run_visual_episode(
     total_wall_latency_s = 0.0
     termination_reason = 'deadline'
     terminal_error = None
+    current_sim_time = 0.0
+    evaluator_error = None
+    report_written = False
 
-    while True:
-        if calls >= max_calls:
-            termination_reason = 'action_limit'
-            terminal_error = 'Action limit reached'
-            break
-
-        try:
-            raw_obs = session.capture()
-        except Exception as exc:
-            termination_reason = 'capture_failure'
-            terminal_error = f'{type(exc).__name__}: {exc}'
-            errors += 1
-            break
-
-        sim_time = raw_obs['time_s']
-        if sim_time >= deadline - 1e-6:
-            termination_reason = 'deadline'
-            terminal_error = 'Simulated deadline reached'
-            break
-
-        obs_id = raw_obs['observation_id']
-        png_bytes = base64.b64decode(raw_obs['rgb_png_base64'])
-        image_sha256 = hashlib.sha256(png_bytes).hexdigest()
-        image_identities.append({
-            'call': calls + 1,
-            'observation_id': obs_id,
-            'time_s': sim_time,
-            'image_sha256': image_sha256
-        })
-
-        public_payload = build_public_payload(
-            observation=raw_obs,
-            history=history,
-            deadline=deadline,
-            max_calls=max_calls,
-            calls=calls
-        )
-
-        calls += 1
-        call_file = folder / f'call_{calls:03}.json'
-        call_record = {
-            'call': calls,
-            'observation_id': obs_id,
-            'time_s': sim_time,
-            'image_sha256': image_sha256,
-            'request': public_payload,
-            'status': 'pending'
-        }
-        write_json(call_file, call_record)
-
-        start_wall = clock()
-        try:
-            raw_response = model_callable(public_payload)
-            wall_s = clock() - start_wall
-            total_wall_latency_s += wall_s
-            call_record['wall_latency_s'] = wall_s
-            call_record['raw_response'] = raw_response
-        except Exception as exc:
-            wall_s = clock() - start_wall
-            total_wall_latency_s += wall_s
-            call_record['wall_latency_s'] = wall_s
-            call_record['status'] = 'exception'
-            call_record['error'] = f'{type(exc).__name__}: {exc}'
-            write_json(call_file, call_record)
-            termination_reason = 'exception'
-            terminal_error = call_record['error']
-            errors += 1
-            break
-
-        try:
-            command = parse_and_validate_response(raw_response)
-            call_record['command'] = command
-        except ModelRefusalError as exc:
-            call_record['status'] = 'refusal'
-            call_record['error'] = str(exc)
-            write_json(call_file, call_record)
-            termination_reason = 'refusal'
-            terminal_error = str(exc)
-            refusals += 1
-            break
-        except MalformedResponseError as exc:
-            call_record['status'] = 'malformed_response'
-            call_record['error'] = str(exc)
-            write_json(call_file, call_record)
-            termination_reason = 'malformed_response'
-            terminal_error = str(exc)
-            errors += 1
-            break
-
-        action_request = {
-            'schema_version': VERSION,
-            'instruction_version': INSTRUCTION_VERSION,
-            'request_id': f'visual-{calls}',
-            'action': command['action'],
-            'arguments': command['arguments']
-        }
-        action_attempts += 1
-        action_response = session.execute(obs_id, action_request)
-        call_record['interface_request'] = action_request
-        call_record['interface_response'] = action_response
-
-        history.append({
-            'action': sanitize_action_for_history(action_request),
-            'response': sanitize_response_for_history(action_response)
-        })
-
-        if action_response.get('status') == 'completed':
-            call_record['status'] = 'completed'
-            completed_actions += 1
-            write_json(call_file, call_record)
-            end_time = action_response.get('end_time_s', sim_time)
+    try:
+        while True:
             if calls >= max_calls:
                 termination_reason = 'action_limit'
                 terminal_error = 'Action limit reached'
                 break
-            if end_time >= deadline - 1e-6:
+
+            try:
+                raw_obs = session.capture()
+            except Exception as exc:
+                termination_reason = 'capture_failure'
+                terminal_error = f'{type(exc).__name__}: {exc}'
+                errors += 1
+                break
+
+            try:
+                if not isinstance(raw_obs, dict):
+                    raise ValueError(f'Captured observation must be a dict, got {type(raw_obs).__name__}')
+                sim_time = _validate_finite_float(raw_obs.get('time_s'), 'time_s')
+                current_sim_time = sim_time
+                obs_id = str(raw_obs.get('observation_id', ''))
+                if not obs_id:
+                    raise ValueError('Captured observation missing observation_id')
+                b64_png = str(raw_obs.get('rgb_png_base64', ''))
+                if not b64_png:
+                    raise ValueError('Captured observation missing rgb_png_base64')
+                png_bytes = base64.b64decode(b64_png)
+                image_sha256 = hashlib.sha256(png_bytes).hexdigest()
+            except Exception as exc:
+                termination_reason = 'malformed_observation'
+                terminal_error = f'{type(exc).__name__}: {exc}'
+                errors += 1
+                break
+
+            if sim_time >= deadline - 1e-6:
                 termination_reason = 'deadline'
                 terminal_error = 'Simulated deadline reached'
                 break
-        else:
-            call_record['status'] = action_response.get('status', 'rejected')
-            call_record['error'] = action_response.get('error', 'Action rejected')
+
+            image_identities.append({
+                'call': calls + 1,
+                'observation_id': obs_id,
+                'time_s': sim_time,
+                'image_sha256': image_sha256
+            })
+
+            try:
+                public_payload = build_public_payload(
+                    observation=raw_obs,
+                    history=history,
+                    deadline=deadline,
+                    max_calls=max_calls,
+                    calls=calls
+                )
+            except Exception as exc:
+                termination_reason = 'malformed_observation'
+                terminal_error = f'{type(exc).__name__}: {exc}'
+                errors += 1
+                break
+
+            calls += 1
+            call_file = folder / f'call_{calls:03}.json'
+            call_record = {
+                'call': calls,
+                'observation_id': obs_id,
+                'time_s': sim_time,
+                'image_sha256': image_sha256,
+                'request': public_payload,
+                'status': 'pending'
+            }
             write_json(call_file, call_record)
-            termination_reason = 'rejected_action' if action_response.get('status') == 'rejected' else 'failed'
-            terminal_error = call_record['error']
-            break
 
-    # Retain environment events and private evaluator report separately if environment exists
-    if hasattr(session, 'env') and session.env is not None:
-        try:
-            session.env.save(folder)
-            if hasattr(session.env, 'scorer') and session.env.scorer is not None:
-                evaluator_report = session.env.scorer.report()
-                write_json(folder / 'evaluator_report.json', evaluator_report)
-        except Exception:
-            pass
+            start_wall = clock()
+            try:
+                raw_response = model_callable(public_payload)
+                wall_s = clock() - start_wall
+                total_wall_latency_s += wall_s
+                call_record['wall_latency_s'] = wall_s
+                call_record['raw_response'] = raw_response
+            except Exception as exc:
+                wall_s = clock() - start_wall
+                total_wall_latency_s += wall_s
+                call_record['wall_latency_s'] = wall_s
+                call_record['status'] = 'exception'
+                call_record['error'] = f'{type(exc).__name__}: {exc}'
+                write_json(call_file, call_record)
+                termination_reason = 'exception'
+                terminal_error = call_record['error']
+                errors += 1
+                break
 
-    report = {
-        'controller': controller_name,
-        'seed': seed,
-        'termination_reason': termination_reason,
-        'error': terminal_error,
-        'action_attempts': action_attempts,
-        'model_calls': calls,
-        'completed_actions': completed_actions,
-        'refusals': refusals,
-        'errors': errors,
-        'simulated_time_s': float(session.env.data.time) if hasattr(session, 'env') and session.env is not None else None,
-        'total_wall_latency_s': total_wall_latency_s,
-        'placement_success_claimed': False,
-        'image_identities': image_identities,
-        'provenance': provenance(controller_name)
-    }
-    write_json(folder / 'report.json', report)
+            try:
+                command = parse_and_validate_response(raw_response)
+                call_record['command'] = command
+            except ModelRefusalError as exc:
+                call_record['status'] = 'refusal'
+                call_record['error'] = str(exc)
+                write_json(call_file, call_record)
+                termination_reason = 'refusal'
+                terminal_error = str(exc)
+                refusals += 1
+                break
+            except MalformedResponseError as exc:
+                call_record['status'] = 'malformed_response'
+                call_record['error'] = str(exc)
+                write_json(call_file, call_record)
+                termination_reason = 'malformed_response'
+                terminal_error = str(exc)
+                errors += 1
+                break
+            except Exception as exc:
+                call_record['status'] = 'malformed_response'
+                call_record['error'] = f'Unexpected parser error: {exc}'
+                write_json(call_file, call_record)
+                termination_reason = 'malformed_response'
+                terminal_error = call_record['error']
+                errors += 1
+                break
+
+            cmd_seconds = command['arguments']['seconds']
+            rounded_duration = math.ceil(cmd_seconds / 0.001) * 0.001
+
+            action_request = {
+                'schema_version': VERSION,
+                'instruction_version': INSTRUCTION_VERSION,
+                'request_id': f'visual-{calls}',
+                'action': command['action'],
+                'arguments': command['arguments']
+            }
+            call_record['interface_request'] = action_request
+            action_attempts += 1
+
+            if sim_time + rounded_duration > deadline + 1e-6:
+                # Reject proposed action before execution so physics never overshoots deadline
+                if hasattr(session, 'pending'):
+                    session.pending = None
+                elif hasattr(session, 'session') and hasattr(session.session, 'pending'):
+                    session.session.pending = None
+
+                action_response = {
+                    'schema_version': VERSION,
+                    'request_id': action_request['request_id'],
+                    'status': 'rejected',
+                    'error': 'Action exceeds episode deadline',
+                    'start_time_s': sim_time,
+                    'end_time_s': sim_time,
+                    'observation': session.api.observe() if hasattr(session, 'api') and session.api is not None else {}
+                }
+                if hasattr(session, 'env') and session.env is not None and hasattr(session.env, 'events'):
+                    session.env.events.append({
+                        'visual_observation_id': obs_id,
+                        'interface_request': copy.deepcopy(action_request),
+                        'interface_response': copy.deepcopy(action_response),
+                        'score': session.env.scorer.report() if hasattr(session.env, 'scorer') and session.env.scorer is not None else None
+                    })
+
+                call_record['interface_response'] = action_response
+                call_record['status'] = 'rejected'
+                call_record['error'] = action_response['error']
+                write_json(call_file, call_record)
+
+                history.append({
+                    'action': sanitize_action_for_history(action_request),
+                    'response': sanitize_response_for_history(action_response)
+                })
+                termination_reason = 'rejected_action'
+                terminal_error = action_response['error']
+                break
+
+            try:
+                action_response = session.execute(obs_id, action_request)
+            except Exception as exc:
+                call_record['status'] = 'execution_exception'
+                call_record['error'] = f'{type(exc).__name__}: {exc}'
+                write_json(call_file, call_record)
+                termination_reason = 'execution_exception'
+                terminal_error = call_record['error']
+                errors += 1
+                if hasattr(session, 'env') and session.env is not None and hasattr(session.env, 'data'):
+                    current_sim_time = float(session.env.data.time)
+                break
+
+            call_record['interface_response'] = action_response
+
+            try:
+                if not isinstance(action_response, dict):
+                    raise ValueError(f'Action response must be dict, got {type(action_response).__name__}')
+                sanitized_act = sanitize_action_for_history(action_request)
+                sanitized_resp = sanitize_response_for_history(action_response)
+                history.append({
+                    'action': sanitized_act,
+                    'response': sanitized_resp
+                })
+            except Exception as exc:
+                call_record['status'] = 'malformed_action_result'
+                call_record['error'] = f'Malformed action response: {exc}'
+                write_json(call_file, call_record)
+                termination_reason = 'malformed_action_result'
+                terminal_error = call_record['error']
+                errors += 1
+                break
+
+            if action_response.get('status') == 'completed':
+                call_record['status'] = 'completed'
+                completed_actions += 1
+                write_json(call_file, call_record)
+                end_time = float(action_response.get('end_time_s', sim_time))
+                current_sim_time = end_time
+                if hasattr(session, 'env') and session.env is not None and hasattr(session.env, 'data'):
+                    current_sim_time = float(session.env.data.time)
+                if calls >= max_calls:
+                    termination_reason = 'action_limit'
+                    terminal_error = 'Action limit reached'
+                    break
+                if current_sim_time >= deadline - 1e-6:
+                    termination_reason = 'deadline'
+                    terminal_error = 'Simulated deadline reached'
+                    break
+            else:
+                status = action_response.get('status', 'rejected')
+                call_record['status'] = status
+                call_record['error'] = action_response.get('error', 'Action rejected')
+                write_json(call_file, call_record)
+                termination_reason = 'rejected_action' if status == 'rejected' else 'failed'
+                terminal_error = call_record['error']
+                if hasattr(session, 'env') and session.env is not None and hasattr(session.env, 'data'):
+                    current_sim_time = float(session.env.data.time)
+                break
+
+    finally:
+        if not report_written:
+            if hasattr(session, 'env') and session.env is not None:
+                try:
+                    if hasattr(session.env, 'save') and callable(session.env.save):
+                        session.env.save(folder)
+                    if hasattr(session.env, 'scorer') and session.env.scorer is not None:
+                        evaluator_report = session.env.scorer.report()
+                        write_json(folder / 'evaluator_report.json', evaluator_report)
+                except Exception as exc:
+                    evaluator_error = f'{type(exc).__name__}: {exc}'
+
+            sim_time_final = None
+            if hasattr(session, 'env') and session.env is not None and hasattr(session.env, 'data'):
+                sim_time_final = float(session.env.data.time)
+            elif current_sim_time is not None:
+                sim_time_final = float(current_sim_time)
+
+            prov = provenance(controller_name=controller_name, max_calls=max_calls, deadline=deadline)
+
+            report = {
+                'controller': controller_name,
+                'seed': seed,
+                'termination_reason': termination_reason,
+                'error': terminal_error,
+                'action_attempts': action_attempts,
+                'model_calls': calls,
+                'completed_actions': completed_actions,
+                'refusals': refusals,
+                'errors': errors,
+                'simulated_time_s': sim_time_final,
+                'total_wall_latency_s': total_wall_latency_s,
+                'placement_success_claimed': False,
+                'image_identities': image_identities,
+                'provenance': prov
+            }
+            if evaluator_error is not None:
+                report['evaluator_error'] = evaluator_error
+
+            try:
+                write_json(folder / 'report.json', report)
+                report_written = True
+            except Exception as exc:
+                # If filesystem genuinely cannot write, record limitation and re-raise
+                report['filesystem_error'] = f'{type(exc).__name__}: {exc}'
+                raise
+
     return report
 
 
@@ -740,22 +992,37 @@ def main():
     parser.add_argument('--deadline', type=float, default=DEADLINE, help='Simulated deadline seconds (default: 25.0)')
     args = parser.parse_args()
 
+    # Scope validation: Task 004 real smoke checks are restricted strictly to seed 820 and fixed camera
     if args.seed in range(840, 850):
         parser.error(f'Seed {args.seed} is in held-out validation range 840-849 and strictly prohibited')
+    if args.seed != 820:
+        parser.error(f'Task 004 smoke check is restricted strictly to seed 820, got seed {args.seed}')
+    if args.camera != 'fixed':
+        parser.error(f'Task 004 smoke check is restricted strictly to fixed camera, got camera {args.camera}')
+
+    # Output directory validation
+    if args.output.exists():
+        parser.error(f'Output directory already exists: {args.output}')
+
+    # Pre-validate budget caps before resetting environment or rendering
+    try:
+        max_calls, deadline = _validate_budget(args.max_calls, args.deadline)
+    except ValueError as exc:
+        parser.error(str(exc))
 
     stub = get_named_stub(args.stub)
     env = Environment()
     env.reset(args.seed, randomize=True)
     renderer = RGBRenderer(env, camera=args.camera)
     vis_session = VisualSession(env, renderer)
-    session = VisualPolicySession(vis_session, max_calls=args.max_calls, deadline=args.deadline)
+    session = VisualPolicySession(vis_session, max_calls=max_calls, deadline=deadline)
     try:
         report = run_visual_episode(
             folder=args.output,
             session=session,
             model_callable=stub,
-            max_calls=args.max_calls,
-            deadline=args.deadline,
+            max_calls=max_calls,
+            deadline=deadline,
             seed=args.seed,
             controller_name=f'stub_{args.stub}'
         )

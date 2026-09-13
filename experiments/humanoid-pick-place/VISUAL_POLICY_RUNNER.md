@@ -120,24 +120,28 @@ The visual prompt (`VISUAL_PROMPT`) replaces L2's exact-state prompt:
 
 ## 3. Fresh observation and guarded execution loop
 
-Each decision iteration enforces authoritative simulation freshness:
+Each decision iteration enforces authoritative simulation freshness within a guaranteed whole-episode lifecycle:
 
-1. **Pre-capture budget check**: Checks whether action call limit (20) or simulation deadline (25.0 s) is reached.
-2. **Fresh capture**: Calls `session.capture()` via `VisualPolicySession` adapter. Generates an opaque UUID `observation_id` and records the integration-state hash before and after capture.
-3. **Allowlist payload construction**: Assembles the sanitized public contract payload.
-4. **Timed stub invocation**: Calls the injected `model_callable`. Wall-clock latency is measured using an injectable clock (`clock()`), completely separate from simulated time.
-5. **Strict parsing and validation**: Parses response JSON (rejecting duplicates and non-finite numbers), checks for model refusal, extracts primitive command, and validates argument keys, finite numbers, workspace bounds, and durations.
-6. **Guarded execution**: Submits the command through `VisualSession.execute(observation_id, request)`.
+1. **Whole-episode failure accounting**: Observation capture, validation, payload building, model execution, response parsing, pre-execution duration checking, interface execution, and outcome sanitization run inside a protected `try ... finally` block. A final `report.json` is guaranteed to be written upon any termination condition (including exceptions and malformations) with accurate stage-specific reasons and attempt counters.
+2. **Pre-capture budget check**: Checks whether action call limit (at most 20) or simulation deadline (at most 25.0 s) is reached.
+3. **Fresh capture and observation validation**: Calls `session.capture()` via `VisualPolicySession` adapter. Generates an opaque UUID `observation_id` and records the integration-state hash before and after capture. Observation fields, PNG bytes, and image SHA-256 hashes are strictly pre-validated.
+4. **Allowlist payload construction**: Assembles the sanitized public contract payload.
+5. **Timed stub invocation**: Calls the injected `model_callable`. Wall-clock latency is measured using an injectable clock (`clock()`), completely separate from simulated time.
+6. **Strict parsing, boolean rejection, and diagnostic preservation**: Parses response JSON (rejecting duplicates and non-finite constants), normalizes provider-style envelopes, checks for model refusal, extracts primitive commands, and strictly validates types. Numeric command fields strictly reject boolean values (`True`/`False`). Invalid or non-finite raw responses are preserved in log files via an explicit JSON-safe diagnostic format (`{"__diagnostic_nonfinite__": "NaN"}`) without raising serialization errors or emitting invalid JSON.
+7. **Pre-execution duration check**: Before invoking execution, the proposed action duration is rounded up to millisecond physics increments (`ceil(seconds / 0.001) * 0.001`) and checked against the captured observation time and episode deadline. Actions that would overshoot the deadline are rejected immediately without executing or stepping physics.
+8. **Guarded execution**: Submits valid commands through `VisualSession.execute(observation_id, request)`.
    - **Single-use constraint**: The observation ID is consumed upon first execution attempt. Any subsequent attempt with the same ID is rejected with `Stale or unknown visual observation` without advancing physics.
    - **Collision preflight**: Kinematic collision safeguard checks the commanded arm trajectory against environment geometry; penetrations $>2$ mm are rejected before physical stepping.
-7. **No silent retries**: Any refusal, malformed response, unhandled exception, or interface rejection terminates the episode immediately without retries, replacement commands, or oracle fallback.
+9. **No silent retries**: Any refusal, malformed response, unhandled exception, or interface rejection terminates the episode immediately without retries, replacement commands, or oracle fallback.
 
 ---
 
 ## 4. Pilot limits and timing
 
-- **Action attempt limit**: At most 20 model calls / action attempts per episode.
-- **Simulated deadline**: 25.0 simulated seconds including initial reset (0.5 s). Durations undergo millisecond rounding (`ceil(seconds / 0.001) * 0.001`); requests exceeding the remaining time are rejected.
+- **Protocol hard caps**: At most 20 actions (`MAX_CALLS_CAP = 20`) and 25.0 simulated seconds (`DEADLINE_CAP = 25.0`) per episode. Values exceeding these caps or invalid configurations (non-integer, non-finite, negative, boolean) are rejected at configuration time.
+- **Single effective budget**: The runner and session adapter enforce one consistent budget; configuration disagreements between runner and adapter are rejected immediately.
+- **Reduced smoke budgets**: Reduced limits (e.g. `max_calls=1`, `deadline=0.55`) are fully supported for fast regression testing.
+- **Simulated deadline**: Durations undergo millisecond rounding (`ceil(seconds / 0.001) * 0.001`); requests exceeding the remaining time are rejected before execution.
 - **Paused decision time**: Simulation physics pauses while the model callable computes. Action durations consume simulated time; model wall latency is recorded separately.
 - **Injectable clocks**: Tests inject mock clocks (`MockClock`) to verify latency tracking without real-time delays or sleeping.
 
@@ -173,15 +177,14 @@ Run the offline visual policy runner using the primary project virtual environme
 ```
 
 > [!CAUTION]
-> **Held-out seed protection**: Seeds 840–849 are strictly reserved for held-out validation.
-> The CLI validates seed arguments and immediately exits with an error if a seed in 840–849 is specified.
+> **Scope and seed protection**: Task 004 real simulation smoke checks are restricted strictly to authorized development seed 820 with fixed camera view. Seeds 840–849 are strictly reserved for held-out validation. The CLI validates all configuration and budget caps before simulator reset or rendering.
 
 ### 6.2 Retained artifacts
 
 Each run directory contains:
-- `call_NNN.json`: Step-by-step audit trail containing `observation_id`, `time_s`, `image_sha256`, full allowlisted `request`, `raw_response`, `command`, `wall_latency_s`, `interface_request`, and `interface_response`.
-- `report.json`: Overall episode summary with controller name, seed, termination reason, error status, call/action counts, simulated time, total wall latency, image identity sequence, provenance hashes, and `placement_success_claimed: false`.
-- `evaluator_report.json`: Post-hoc simulator scorer report (`env.scorer.report()`), retained **separately** from the policy log and never returned to policy history.
+- `call_NNN.json`: Step-by-step audit trail containing `observation_id`, `time_s`, `image_sha256`, full allowlisted `request`, `raw_response` (with JSON-safe diagnostic representation for non-finite values if needed), `command`, `wall_latency_s`, `interface_request`, and `interface_response`.
+- `report.json`: Overall episode summary with controller name, seed, termination reason, error status, call/action counts, simulated time, total wall latency, image identity sequence, provenance hashes, and `placement_success_claimed: false`. Provenance records both protocol hard caps (`max_calls_cap: 20`, `deadline_cap_s: 25.0`) and actual configured limits (`configured_max_calls`, `configured_deadline_s`).
+- `evaluator_report.json`: Post-hoc simulator scorer report (`env.scorer.report()`), retained **separately** from the policy log and never returned to policy history. Evaluator exceptions are reported under `evaluator_error` in `report.json` rather than silently suppressed.
 - `episode.npz`, `metadata.json`, `events.json`: Full physical simulation state and events.
 
 ---

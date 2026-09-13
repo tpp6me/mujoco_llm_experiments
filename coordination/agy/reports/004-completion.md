@@ -119,3 +119,41 @@ All checks were executed using the primary project virtual environment interpret
   2. Implement multimodal token cost estimation and rate limit reservations.
   3. Author and freeze a formal visual pilot protocol on development seeds before considering any held-out evaluation.
   4. Build a matched conventional vision comparator using equivalent visual inputs.
+
+---
+
+## Review resolution (R1 & R2)
+
+Date: 2026-09-13.
+Review reference: `coordination/agy/reviews/004-review.md` (`de853df` on main).
+Reviewed tip: `89006428b1a3762993cb882fbf2acc2ef533afa8`.
+
+### R1 — Whole-episode failure accounting
+- **Lifecycle protection**: `run_visual_episode` wraps the entire episode iteration (capture, observation validation, payload building, model execution, response parsing, pre-execution duration checks, guarded execution, and outcome sanitization) in a protected `try ... finally` block. A final `report.json` is guaranteed to be written upon any error or termination condition with accurate stage-specific reasons and attempt counters.
+- **Diagnostic JSON preservation**: Added `to_json_safe(val)` and updated `write_json(path, value)`. If raw responses contain non-finite floats (`NaN`, `Infinity`, `-Infinity`) or unserializable objects, they are safely converted to diagnostic representations (`{"__diagnostic_nonfinite__": "NaN"}`) and written atomically as compliant JSON without raising `ValueError` or masking errors.
+- **Strict numeric validation**: All primitive numeric fields (`seconds`, `closure`, `xyz_m`, `quaternion_wxyz`) now explicitly reject boolean types (`True`/`False`), preventing silent coercion to `1.0` or `0.0`.
+- **Robust envelope parsing**: In `parse_and_validate_response`, provider-style envelope structures (e.g. `{'output': None}`, missing arguments, non-list message content) are safely checked and normalized to `MalformedResponseError` without unhandled `TypeError`.
+- **Execution exception & evaluator handling**: Exceptions in `session.execute` are caught, logged in `call_NNN.json` as `execution_exception`, and reported without retry; simulation time reflects actual physics time reached (`session.env.data.time`). Evaluator save exceptions are captured in `report['evaluator_error']` rather than silently suppressed. Genuine filesystem write limitations are captured and reported.
+
+### R2 — Hard caps and single effective deadline before execution
+- **Hard caps**: Enforced `MAX_CALLS_CAP = 20` and `DEADLINE_CAP = 25.0`. Configuration values above these caps, or non-finite/negative/boolean configurations, are rejected with `ValueError` at initialization/entry.
+- **Reduced budgets supported**: Smaller smoke budgets (e.g. `max_calls=1`, `deadline=0.55`) are fully supported.
+- **Single effective budget**: Verified consistency between runner and `VisualPolicySession` adapter; budget disagreements (different `max_calls` or `deadline`) are explicitly rejected with `ValueError`.
+- **Pre-execution duration check**: Proposed action durations are rounded up (`ceil(seconds / 0.001) * 0.001`) and checked against the captured simulation timestamp and deadline *before* invoking `session.execute`. If the action exceeds the remaining deadline time, it is rejected immediately with `Action exceeds episode deadline` without stepping physics or overshooting time.
+- **CLI validation and seed-820 scope**: The CLI entrypoint validates all budget caps and argument types before simulator reset or rendering, and strictly restricts real simulation smoke runs to development seed 820 and fixed camera view. Held-out seeds 840–849 are strictly prohibited.
+- **Provenance metadata**: Provenance records both protocol caps (`max_calls_cap: 20`, `deadline_cap_s: 25.0`) and actual configured limits (`configured_max_calls`, `configured_deadline_s`).
+
+### Reproducer comparison (`004-repro.py`)
+| Test case | Prior behavior (tip 8900642) | Updated behavior |
+|---|---|---|
+| `NaN response` | Crashed with `ValueError` in `write_json`; report lost | Returns `malformed_response`, calls: 1, time: 0.5s; report exists with diagnostic `NaN` representation |
+| `Malformed response envelope` (`{'output': None}`) | Crashed with `TypeError` in parser; report lost | Returns `malformed_response`, calls: 1, time: 0.5s; report exists |
+| `Execution exception` | Crashed with `RuntimeError` in loop; report lost | Returns `execution_exception`, calls: 1, time: 0.5s; report exists |
+| `21 allowed calls` | Permitted 21 calls (exceeded cap) | Rejected with `ValueError` (capped at 20) |
+| `Deadline overshoot` | Executed 1.0s action from t=0.5s past deadline 1.0s to t=1.5s | Pre-execution check rejects action; returns `rejected_action`, calls: 1, time: 0.5s (never overshoots) |
+| `Boolean seconds` (`seconds: True`) | Accepted, converted to `1.0` | Rejected with `MalformedResponseError: seconds must be a finite float, got True` |
+
+### Regression test suite expansion
+- `tests/test_humanoid_visual_policy_runner.py`: expanded from 16 to 28 tests (all 28 pass in ~7.4s).
+- Full repository test discovery: **173 tests passed in 143.970s** (0 failures, 0 errors).
+- Historical smoke artifacts in `experiments/humanoid-pick-place/results/visual_policy_scaffold/` preserved unchanged.

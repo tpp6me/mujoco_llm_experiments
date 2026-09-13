@@ -535,16 +535,448 @@ class VisualPolicyRunnerTests(unittest.TestCase):
         self.assertIn('840-849', res.stderr)
 
     def test_provenance_metadata_structure_and_hashes(self):
-        prov = provenance('test_stub')
+        prov = provenance('test_stub', max_calls=20, deadline=25.0)
         self.assertEqual(prov['protocol_id'], 'humanoid-visual-policy-scaffold-v1')
         self.assertEqual(prov['task'], 'AGY-004')
         self.assertEqual(prov['max_actions'], 20)
         self.assertEqual(prov['deadline_s'], 25.0)
+        self.assertEqual(prov['max_calls_cap'], 20)
+        self.assertEqual(prov['deadline_cap_s'], 25.0)
+        self.assertEqual(prov['configured_max_calls'], 20)
+        self.assertEqual(prov['configured_deadline_s'], 25.0)
         self.assertTrue(prov['offline_only'])
         self.assertIn('prompt_sha256', prov)
         self.assertIn('action_schema_sha256', prov)
         self.assertIn('humanoid_sim/visual_policy_runner.py', prov['source_sha256'])
         self.assertIn('humanoid_sim/visual.py', prov['source_sha256'])
+
+    def test_r1_nan_and_inf_inside_dict_responses_retained_in_report(self):
+        env = Environment()
+        env.reset(820, randomize=True)
+        session = VisualPolicySession(VisualSession(env, MockRenderer()))
+
+        # NaN inside hand closure
+        with tempfile.TemporaryDirectory() as tmpdir:
+            episode_folder = Path(tmpdir) / 'episode_nan'
+            report = run_visual_episode(
+                folder=episode_folder,
+                session=session,
+                model_callable=lambda _: {'command': {'action': 'hand', 'arguments': {'closure': float('nan'), 'seconds': 1.0}}},
+                max_calls=20,
+                deadline=25.0,
+                seed=820,
+                controller_name='test_nan'
+            )
+            self.assertEqual(report['termination_reason'], 'malformed_response')
+            self.assertEqual(report['model_calls'], 1)
+            self.assertEqual(report['action_attempts'], 0)
+            self.assertEqual(report['completed_actions'], 0)
+            self.assertEqual(report['errors'], 1)
+            self.assertTrue((episode_folder / 'report.json').exists())
+            self.assertTrue((episode_folder / 'call_001.json').exists())
+            # Ensure report and call file are valid JSON
+            report_data = json.loads((episode_folder / 'report.json').read_text())
+            self.assertEqual(report_data['termination_reason'], 'malformed_response')
+            call_data = json.loads((episode_folder / 'call_001.json').read_text())
+            self.assertEqual(call_data['status'], 'malformed_response')
+            self.assertEqual(
+                call_data['raw_response']['command']['arguments']['closure'],
+                {'__diagnostic_nonfinite__': 'NaN'}
+            )
+
+        # Infinity inside move coordinates
+        env2 = Environment()
+        env2.reset(820, randomize=True)
+        session2 = VisualPolicySession(VisualSession(env2, MockRenderer()))
+        with tempfile.TemporaryDirectory() as tmpdir2:
+            episode_folder2 = Path(tmpdir2) / 'episode_inf'
+            report2 = run_visual_episode(
+                folder=episode_folder2,
+                session=session2,
+                model_callable=lambda _: {'command': {'action': 'move', 'arguments': {
+                    'xyz_m': [float('inf'), -0.18, 0.95],
+                    'quaternion_wxyz': [0.5, -0.5, 0.5, 0.5],
+                    'seconds': 1.0
+                }}},
+                max_calls=20,
+                deadline=25.0,
+                seed=820,
+                controller_name='test_inf'
+            )
+            self.assertEqual(report2['termination_reason'], 'malformed_response')
+            self.assertEqual(report2['model_calls'], 1)
+            self.assertEqual(report2['action_attempts'], 0)
+            self.assertTrue((episode_folder2 / 'report.json').exists())
+            call_data2 = json.loads((episode_folder2 / 'call_001.json').read_text())
+            self.assertEqual(
+                call_data2['raw_response']['command']['arguments']['xyz_m'][0],
+                {'__diagnostic_nonfinite__': 'Infinity'}
+            )
+
+    def test_r1_malformed_envelope_types_handled_cleanly(self):
+        env = Environment()
+        env.reset(820, randomize=True)
+        session = VisualPolicySession(VisualSession(env, MockRenderer()))
+
+        bad_envelopes = [
+            {'output': None},
+            {'output': [{'type': 'message', 'content': None}]},
+            {'output': 'not a list'},
+            {'command': None},
+            {'action': 'hold', 'arguments': None},
+            {'command': {'action': 'hold'}}
+        ]
+
+        for i, bad_env in enumerate(bad_envelopes):
+            with tempfile.TemporaryDirectory() as tmpdir:
+                episode_folder = Path(tmpdir) / f'bad_{i}'
+                report = run_visual_episode(
+                    folder=episode_folder,
+                    session=session,
+                    model_callable=lambda _, b=bad_env: b,
+                    max_calls=20,
+                    deadline=25.0,
+                    seed=820,
+                    controller_name=f'test_bad_{i}'
+                )
+                self.assertEqual(report['termination_reason'], 'malformed_response')
+                self.assertEqual(report['model_calls'], 1)
+                self.assertEqual(report['action_attempts'], 0)
+                self.assertTrue((episode_folder / 'report.json').exists())
+                self.assertTrue((episode_folder / 'call_001.json').exists())
+
+    def test_r1_unserializable_callback_output(self):
+        env = Environment()
+        env.reset(820, randomize=True)
+        session = VisualPolicySession(VisualSession(env, MockRenderer()))
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            episode_folder = Path(tmpdir) / 'unserializable'
+            report = run_visual_episode(
+                folder=episode_folder,
+                session=session,
+                model_callable=lambda _: object(),
+                max_calls=20,
+                deadline=25.0,
+                seed=820,
+                controller_name='test_unserializable'
+            )
+            self.assertEqual(report['termination_reason'], 'malformed_response')
+            self.assertEqual(report['model_calls'], 1)
+            self.assertEqual(report['action_attempts'], 0)
+            self.assertTrue((episode_folder / 'report.json').exists())
+            call_data = json.loads((episode_folder / 'call_001.json').read_text())
+            self.assertIn('__diagnostic_unserializable__', call_data['raw_response'])
+
+    def test_r1_malformed_observation_handling(self):
+        class BrokenObsSession:
+            def __init__(self, mode='corrupt'):
+                self.mode = mode
+                self.time_s = 0.5
+            def capture(self):
+                if self.mode == 'raise':
+                    raise RuntimeError('Hardware camera read fault')
+                elif self.mode == 'missing_png':
+                    return {'observation_id': 'obs-1', 'time_s': 0.5}
+                elif self.mode == 'not_dict':
+                    return 'string_observation'
+                return {'observation_id': 'obs-1', 'time_s': 0.5, 'rgb_png_base64': '!!!invalid_base64!!!'}
+
+        # Case A: capture raises exception
+        with tempfile.TemporaryDirectory() as tmpdir:
+            folder = Path(tmpdir) / 'raise'
+            report = run_visual_episode(folder, BrokenObsSession('raise'), HoldStub(0.1), max_calls=5, deadline=25.0)
+            self.assertEqual(report['termination_reason'], 'capture_failure')
+            self.assertEqual(report['model_calls'], 0)
+            self.assertEqual(report['action_attempts'], 0)
+            self.assertTrue((folder / 'report.json').exists())
+
+        # Case B: capture returns missing png
+        with tempfile.TemporaryDirectory() as tmpdir:
+            folder = Path(tmpdir) / 'missing'
+            report = run_visual_episode(folder, BrokenObsSession('missing_png'), HoldStub(0.1), max_calls=5, deadline=25.0)
+            self.assertEqual(report['termination_reason'], 'malformed_observation')
+            self.assertEqual(report['model_calls'], 0)
+            self.assertEqual(report['action_attempts'], 0)
+            self.assertTrue((folder / 'report.json').exists())
+
+        # Case C: capture returns invalid base64
+        with tempfile.TemporaryDirectory() as tmpdir:
+            folder = Path(tmpdir) / 'corrupt'
+            report = run_visual_episode(folder, BrokenObsSession('corrupt'), HoldStub(0.1), max_calls=5, deadline=25.0)
+            self.assertEqual(report['termination_reason'], 'malformed_observation')
+            self.assertEqual(report['model_calls'], 0)
+            self.assertTrue((folder / 'report.json').exists())
+
+    def test_r1_execution_exception_handled_cleanly(self):
+        sample_obs = {
+            'schema_version': 'humanoid-visual-v1',
+            'observation_id': 'obs-1',
+            'time_s': 0.5,
+            'camera': make_dummy_camera(),
+            'robot_state': {
+                'time_s': 0.5,
+                'robot': {
+                    'joint_names': ['j1'],
+                    'joint_position_rad': [0.0],
+                    'joint_velocity_rad_s': [0.0],
+                    'hand_xyz_m': [0.24, -0.18, 0.95],
+                    'hand_quaternion_wxyz': [0.5, -0.5, 0.5, 0.5],
+                    'contact_links': []
+                }
+            },
+            'rgb_png_base64': base64.b64encode(make_dummy_png()).decode('ascii')
+        }
+
+        class ExplodingSession:
+            def __init__(self):
+                self.call_count = 0
+            def capture(self):
+                self.call_count += 1
+                o = copy.deepcopy(sample_obs)
+                o['observation_id'] = f'obs-{self.call_count}'
+                return o
+            def execute(self, oid, req):
+                raise RuntimeError('Interface communication bus failure')
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            folder = Path(tmpdir) / 'explode'
+            report = run_visual_episode(folder, ExplodingSession(), HoldStub(0.1), max_calls=5, deadline=25.0)
+            self.assertEqual(report['termination_reason'], 'execution_exception')
+            self.assertEqual(report['model_calls'], 1)
+            self.assertEqual(report['action_attempts'], 1)
+            self.assertEqual(report['completed_actions'], 0)
+            self.assertEqual(report['errors'], 1)
+            self.assertIn('Interface communication bus failure', report['error'])
+            self.assertTrue((folder / 'report.json').exists())
+            call_log = json.loads((folder / 'call_001.json').read_text())
+            self.assertEqual(call_log['status'], 'execution_exception')
+
+    def test_r1_malformed_action_result_handling(self):
+        sample_obs = {
+            'schema_version': 'humanoid-visual-v1',
+            'observation_id': 'obs-1',
+            'time_s': 0.5,
+            'camera': make_dummy_camera(),
+            'robot_state': {
+                'time_s': 0.5,
+                'robot': {
+                    'joint_names': ['j1'],
+                    'joint_position_rad': [0.0],
+                    'joint_velocity_rad_s': [0.0],
+                    'hand_xyz_m': [0.24, -0.18, 0.95],
+                    'hand_quaternion_wxyz': [0.5, -0.5, 0.5, 0.5],
+                    'contact_links': []
+                }
+            },
+            'rgb_png_base64': base64.b64encode(make_dummy_png()).decode('ascii')
+        }
+
+        class CorruptResultSession:
+            def capture(self):
+                return copy.deepcopy(sample_obs)
+            def execute(self, oid, req):
+                return 'not a valid response dictionary'
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            folder = Path(tmpdir) / 'corrupt_res'
+            report = run_visual_episode(folder, CorruptResultSession(), HoldStub(0.1), max_calls=5, deadline=25.0)
+            self.assertEqual(report['termination_reason'], 'malformed_action_result')
+            self.assertEqual(report['model_calls'], 1)
+            self.assertEqual(report['action_attempts'], 1)
+            self.assertEqual(report['completed_actions'], 0)
+            self.assertTrue((folder / 'report.json').exists())
+
+    def test_r1_boolean_numeric_commands_rejected(self):
+        boolean_commands = [
+            {'command': {'action': 'hold', 'arguments': {'seconds': True}}},
+            {'command': {'action': 'hand', 'arguments': {'closure': True, 'seconds': 0.5}}},
+            {'command': {'action': 'hand', 'arguments': {'closure': False, 'seconds': 0.5}}},
+            {'command': {'action': 'move', 'arguments': {'xyz_m': [True, -0.18, 0.95], 'quaternion_wxyz': [0.5, -0.5, 0.5, 0.5], 'seconds': 1.0}}}
+        ]
+        for cmd in boolean_commands:
+            with self.assertRaises(MalformedResponseError):
+                parse_and_validate_response(cmd)
+
+        env = Environment()
+        env.reset(820, randomize=True)
+        session = VisualPolicySession(VisualSession(env, MockRenderer()))
+        with tempfile.TemporaryDirectory() as tmpdir:
+            folder = Path(tmpdir) / 'bool_run'
+            report = run_visual_episode(
+                folder=folder,
+                session=session,
+                model_callable=lambda _: {'command': {'action': 'hold', 'arguments': {'seconds': True}}},
+                max_calls=20,
+                deadline=25.0,
+                seed=820
+            )
+            self.assertEqual(report['termination_reason'], 'malformed_response')
+            self.assertEqual(report['action_attempts'], 0)
+            self.assertTrue((folder / 'report.json').exists())
+
+    def test_r2_budget_hard_caps_and_invalid_configuration(self):
+        env = Environment()
+        env.reset(820, randomize=True)
+        session = VisualPolicySession(VisualSession(env, MockRenderer()), max_calls=20, deadline=25.0)
+
+        invalid_kwargs = [
+            {'max_calls': 21},
+            {'max_calls': 0},
+            {'max_calls': -1},
+            {'max_calls': True},
+            {'deadline': 26.0},
+            {'deadline': 25.01},
+            {'deadline': 0.0},
+            {'deadline': -1.0},
+            {'deadline': float('nan')},
+            {'deadline': float('inf')},
+            {'deadline': True}
+        ]
+
+        for kw in invalid_kwargs:
+            with tempfile.TemporaryDirectory() as tmpdir:
+                folder = Path(tmpdir) / 'invalid_cfg'
+                with self.assertRaises(ValueError):
+                    run_visual_episode(folder, session, HoldStub(0.1), **kw)
+                self.assertFalse((folder / 'report.json').exists())
+
+        # Test VisualPolicySession constructor also rejects invalid values
+        with self.assertRaises(ValueError):
+            VisualPolicySession(VisualSession(env, MockRenderer()), max_calls=21)
+        with self.assertRaises(ValueError):
+            VisualPolicySession(VisualSession(env, MockRenderer()), deadline=26.0)
+        with self.assertRaises(ValueError):
+            VisualPolicySession(VisualSession(env, MockRenderer()), max_calls=True)
+
+    def test_r2_reduced_budgets_allowed(self):
+        env = Environment()
+        env.reset(820, randomize=True)
+        session = VisualPolicySession(VisualSession(env, MockRenderer()), max_calls=1, deadline=0.55)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            folder = Path(tmpdir) / 'reduced'
+            report = run_visual_episode(
+                folder=folder,
+                session=session,
+                model_callable=HoldStub(0.04),
+                max_calls=1,
+                deadline=0.55,
+                seed=820,
+                controller_name='reduced_budget'
+            )
+            self.assertEqual(report['termination_reason'], 'action_limit')
+            self.assertEqual(report['model_calls'], 1)
+            self.assertEqual(report['completed_actions'], 1)
+            prov = report['provenance']
+            self.assertEqual(prov['max_calls_cap'], 20)
+            self.assertEqual(prov['deadline_cap_s'], 25.0)
+            self.assertEqual(prov['configured_max_calls'], 1)
+            self.assertEqual(prov['configured_deadline_s'], 0.55)
+
+    def test_r2_runner_adapter_disagreement_rejected(self):
+        env = Environment()
+        env.reset(820, randomize=True)
+        session = VisualPolicySession(VisualSession(env, MockRenderer()), max_calls=20, deadline=25.0)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            folder = Path(tmpdir) / 'disagree_calls'
+            with self.assertRaises(ValueError) as cm:
+                run_visual_episode(folder, session, HoldStub(0.1), max_calls=10, deadline=25.0)
+            self.assertIn('Inconsistent max_calls', str(cm.exception))
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            folder = Path(tmpdir) / 'disagree_deadline'
+            with self.assertRaises(ValueError) as cm:
+                run_visual_episode(folder, session, HoldStub(0.1), max_calls=20, deadline=15.0)
+            self.assertIn('Inconsistent deadline', str(cm.exception))
+
+    def test_r2_pre_execution_duration_check_prevents_deadline_overshoot(self):
+        sample_obs = {
+            'schema_version': 'humanoid-visual-v1',
+            'observation_id': 'obs-1',
+            'time_s': 0.5,
+            'camera': make_dummy_camera(),
+            'robot_state': {
+                'time_s': 0.5,
+                'robot': {
+                    'joint_names': ['j1'],
+                    'joint_position_rad': [0.0],
+                    'joint_velocity_rad_s': [0.0],
+                    'hand_xyz_m': [0.24, -0.18, 0.95],
+                    'hand_quaternion_wxyz': [0.5, -0.5, 0.5, 0.5],
+                    'contact_links': []
+                }
+            },
+            'rgb_png_base64': base64.b64encode(make_dummy_png()).decode('ascii')
+        }
+
+        class FakeSessionNoOvershoot:
+            def __init__(self):
+                self.sim_time = 0.5
+                self.execute_called = False
+            def capture(self):
+                o = copy.deepcopy(sample_obs)
+                o['time_s'] = self.sim_time
+                return o
+            def execute(self, oid, req):
+                self.execute_called = True
+                self.sim_time += req['arguments']['seconds']
+                return {'status': 'completed', 'start_time_s': 0.5, 'end_time_s': self.sim_time}
+
+        fake = FakeSessionNoOvershoot()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            folder = Path(tmpdir) / 'deadline_guard'
+            report = run_visual_episode(
+                folder=folder,
+                session=fake,
+                model_callable=HoldStub(seconds=1.0),
+                max_calls=1,
+                deadline=1.0
+            )
+            self.assertEqual(report['termination_reason'], 'rejected_action')
+            self.assertIn('exceeds episode deadline', report['error'])
+            self.assertFalse(fake.execute_called)
+            self.assertEqual(report['simulated_time_s'], 0.5)
+
+    def test_r2_cli_validates_configuration_before_reset(self):
+        import subprocess
+        import sys
+        # Test non-820 seed
+        res1 = subprocess.run(
+            [sys.executable, '-m', 'humanoid_sim.visual_policy_runner', '--seed', '123', '--output', '/tmp/seed_test_dir'],
+            capture_output=True,
+            text=True
+        )
+        self.assertNotEqual(res1.returncode, 0)
+        self.assertIn('seed 820', res1.stderr)
+
+        # Test non-fixed camera
+        res2 = subprocess.run(
+            [sys.executable, '-m', 'humanoid_sim.visual_policy_runner', '--camera', 'head', '--output', '/tmp/cam_test_dir'],
+            capture_output=True,
+            text=True
+        )
+        self.assertNotEqual(res2.returncode, 0)
+        self.assertIn('fixed camera', res2.stderr)
+
+        # Test max-calls above 20
+        res3 = subprocess.run(
+            [sys.executable, '-m', 'humanoid_sim.visual_policy_runner', '--max-calls', '25', '--output', '/tmp/cap_test_dir'],
+            capture_output=True,
+            text=True
+        )
+        self.assertNotEqual(res3.returncode, 0)
+        self.assertIn('max_calls must be between 1 and 20', res3.stderr)
+
+        # Test deadline above 25.0
+        res4 = subprocess.run(
+            [sys.executable, '-m', 'humanoid_sim.visual_policy_runner', '--deadline', '30.0', '--output', '/tmp/dl_test_dir'],
+            capture_output=True,
+            text=True
+        )
+        self.assertNotEqual(res4.returncode, 0)
+        self.assertIn('deadline must be in (0.0, 25.0]', res4.stderr)
 
 
 if __name__ == '__main__':
