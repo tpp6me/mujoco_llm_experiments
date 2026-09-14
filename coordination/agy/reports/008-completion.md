@@ -1,11 +1,24 @@
-# AGY completion — task 008
+# AGY completion — task 008 (revision 1)
 
-Status: **ready for review**  
-Task brief: `coordination/agy/tasks/008-c2-execution.md`  
-Branch: `agy/008-c2-execution`  
-Starting commit (clean source freeze): `a675e5223a7966926744624561d2e4542883d17a`  
-Worktree: `/private/tmp/mujoco-llms-agy-008`  
-Python interpreter: `/Users/praveen/work/github/mujoco-llms/.venv/bin/mjpython` (and `.venv/bin/python`)  
+Status: **ready for review**
+Task brief: `coordination/agy/tasks/008-c2-execution.md`
+Branch: `agy/008-c2-execution`
+Starting commit (clean source freeze): `a675e5223a7966926744624561d2e4542883d17a`
+Initial evidence commit: `2b97232b4e8dcb991500cf70d5b507dfca1a341b`
+Worktree: `/private/tmp/mujoco-llms-agy-008`
+Python interpreter: `/Users/praveen/work/github/mujoco-llms/.venv/bin/mjpython` (and `.venv/bin/python`)
+
+---
+
+## Executive summary of revision 1
+
+Following Codex independent review of the C2 execution evidence (in which raw evidence and 73 archive hashes passed and the physical outcome was verified as failing), this revision applies documentation-only corrections without modifying simulator code, protocols, or raw evidence archives:
+
+1. **Token Accounting**: Recomputed token totals across the 9 retained decisions to 103,072 input, 5,888 cached input (subset), 4,968 output, and 4,480 reasoning output (subset), correcting earlier manual prose sums.
+2. **Contact Telemetry Attribution**: Correctly labelled 25.51 N as recorded normal force at peak penetration (recorded at t=3.795 s against `right_hand_middle_0_link`), not a separately maximized normal force. Explicitly attributed contact timing and normal force to original private scorer telemetry rather than qpos reconstruction.
+3. **Object-Bottom Kinematics**: Corrected maximum object-bottom value to 0.70946653 m (9.47 mm above the 0.70 m table surface, below the 40 mm sustained-lift criterion) rather than claiming no lift above table.
+4. **Action 9 Termination Cause**: Described the ninth stop accurately as interface IK/reachability rejection before execution (`Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m`), rather than a collision-check rejection, and removed unevidenced claims regarding intended transfer/recovery.
+5. **Formatting & Cleanliness**: Removed all trailing whitespace and preserved all frozen code, protocols, and raw archive hashes.
 
 ---
 
@@ -36,17 +49,17 @@ Before starting the episode or creating tracked files:
 | Physical placement | 1 | 0 | 0/1 placements (`success=false`) |
 | Sustained lift | 1 | 0 | 0/1 sustained lifts (`lifted=false`) |
 | Strict pass | 1 | 0 | 0/1 strict passes |
-| Max object bottom Z | — | 0.7095 m | No lift above table (0.70 m) |
+| Max object bottom Z | — | 0.70946653 m | 9.47 mm above table (0.70 m), below 40 mm sustained-lift criterion |
 | Peak object penetration | ≤ 2.0 mm | 5.185 mm | Quality limit failed (at t=3.795 s against `right_hand_middle_0_link`) |
-| Peak contact normal force | — | 25.51 N | Recorded during Decision 4 descent collision |
+| Normal force at peak penetration | — | 25.51 N | Recorded by private scorer telemetry at t=3.795 s (against `right_hand_middle_0_link`) |
 | Simulated duration | ≤ 25.0 s | 7.70 s | Deadline passed (t ≤ 25.0 s) |
 | CLI invocations | ≤ 20 | 9 | 9 invocations (ephemeral sessions) |
 | Completed actions | — | 8 | 8 actions executed |
-| Rejected actions | — | 1 | Guard rejection on Decision 9 (`Unreachable hand pose`) |
-| Budget exhaustion vs failure | — | Rejection | Stopped on guard rejection, not budget exhaustion |
+| Rejected actions | — | 1 | Rejected before execution by interface IK/reachability check (residual 0.0542 m) |
+| Budget exhaustion vs failure | — | Rejection | Stopped on interface IK/reachability rejection, not budget exhaustion |
 | Tool calls in event logs | 0 | 0 | Clean event audit; zero tool items |
 | Decision latency (wall) | ≤ 120 s | 24.99 s mean | Total 224.89 s; min 12.08 s; max 36.59 s |
-| Token usage (total) | — | 103,092 in / 5,164 out | 5,888 cached input; 4,700 reasoning output |
+| Token usage (total) | — | 103,072 in / 4,968 out | 5,888 cached input (subset); 4,480 reasoning output (subset) |
 
 Neither process exit 0 nor `placement_success_claimed=false` is treated as a task success. Physical placement, sustained lift, contact quality, and rejection criteria all failed.
 
@@ -61,16 +74,15 @@ All coordinates are world metres; downward orientation quaternion `[0.5, -0.5, 0
 3. **Decision 3** (t=2.00–3.20 s): `move` to `[0.251, -0.149, 0.84]`, 1.2 s. Completed. Hand site reached `[0.2470, -0.1492, 0.8363]`; block untouched.
 4. **Decision 4** (t=3.20–4.00 s): `move` to `[0.251, -0.173, 0.80]`, 0.8 s. Completed.
    - Hand site translated toward `[0.2467, -0.1727, 0.7966]`.
-   - At t=3.795 s, middle finger (`right_hand_middle_0_link`, geom 98) collided with the red block.
-   - Peak penetration reached 5.185 mm with 25.51 N normal force.
+   - Middle finger (`right_hand_middle_0_link`, geom 98) contacted the red block. Original private scorer telemetry recorded peak penetration of 5.185 mm with 25.51 N normal force at t=3.795 s.
    - Collision knocked block 155.21 mm total (154.27 mm in XY) toward table edge, ending at `[0.0961, -0.1940, 0.7429]`, tilted to `[-0.1601, -0.2457, -0.6630, 0.6888]`.
 5. **Decision 5** (t=4.00–5.00 s): `hand` closure 1.0, 1.0 s. Completed. Hand closed; destabilized block slid off table edge to floor at `[-0.0226, -0.3558, 0.0250]` (745.44 mm displacement).
 6. **Decision 6** (t=5.00–6.20 s): `move` to `[0.251, -0.173, 0.95]`, 1.2 s. Completed. Hand lifted to `[0.2484, -0.1735, 0.9460]`. Empty grasp; block remained on floor.
 7. **Decision 7** (t=6.20–6.70 s): `hand` closure 0.0, 0.5 s. Completed. Fingers opened at Z=0.9460.
 8. **Decision 8** (t=6.70–7.70 s): `move` to `[0.251, -0.173, 0.80]`, 1.0 s. Completed. Hand descended to `[0.2466, -0.1728, 0.7962]`.
-9. **Decision 9** (t=7.70 s): `move` to `[0.15, -0.48, 0.90]`, 1.2 s. Rejected. Commanded target was kinematically unreachable for the fixed-pelvis G1 arm with downward quaternion (`Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m`). Guard rejected action; episode halted.
+9. **Decision 9** (t=7.70 s): `move` to `[0.15, -0.48, 0.90]`, 1.2 s. Rejected before execution by interface IK reachability check (`Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m` > tolerance). Simulation halted on `rejected_action`.
 
-*Note on kinematics*: Qpos trajectory analysis is post-hoc only and represents sampled kinematic geometry; it cannot reconstruct continuous peak contact forces or exact microsecond dynamics.
+*Note on kinematics*: Qpos trajectory analysis is post-hoc only and represents sampled kinematic geometry; it cannot reconstruct continuous peak contact forces or exact microsecond dynamics. Contact timing (t=3.795 s) and normal force (25.51 N at peak penetration) are attributed to original private scorer telemetry, not qpos reconstruction.
 
 ---
 

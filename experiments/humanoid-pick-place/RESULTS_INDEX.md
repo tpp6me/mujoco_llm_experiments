@@ -56,14 +56,15 @@ executed under Task 008.
 
 [C2 signed-in Codex visual controller](CODEX_C2_RESULTS.md), development seed 820:
 0/1 placements, 0/1 sustained lifts, 9 CLI decisions, 8 completed actions and one
-guard rejection (`Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m`).
-Peak object penetration was 5.185 mm against `right_hand_middle_0_link` at t=3.795 s
-(normal force 25.51 N), exceeding the 2.0 mm quality limit. Hand collision during
-Decision 4 descent knocked the block 154.27 mm in XY and off the table to the floor;
-the subsequent lift, release, and re-approach missed the fallen object before the
-unreachability rejection halted the run at t=7.70 s. All 9 prompts/images and event
-logs audited. [Results](results/codex_C2.json), [episode archive](results/codex_C2_episode.zip).
-This is a descriptive development result, not a qualified visual controller.
+interface IK/reachability rejection before execution (`Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m`).
+Peak object penetration was 5.185 mm against `right_hand_middle_0_link` (private scorer
+telemetry recorded 25.51 N normal force at peak penetration at t=3.795 s), exceeding
+the 2.0 mm quality limit. Hand collision during Decision 4 descent knocked the block
+154.27 mm in XY and off the table to the floor; subsequent actions missed the fallen
+object before the interface IK/reachability rejection halted the run at t=7.70 s.
+All 9 prompts/images and event logs audited. [Results](results/codex_C2.json),
+[episode archive](results/codex_C2_episode.zip). This is a descriptive development result,
+not a qualified visual controller.
 
 [Five-capture checks and limitations](VISUAL.md): calibration bounds and exact
 state preservation passed; the centroid/known-plane estimate has up to 2.983 cm
