@@ -81,8 +81,10 @@ individual-finger control are outside the initial scope.
 - [x] Qualify the CLI boundary, freeze C1 and execute one seed-820 visual development episode; [C1 results](CODEX_C1_RESULTS.md): 3 decisions, 2 actions completed, 1 rejected, no sustained lift or placement, 6.291 mm peak penetration. All failures and private scores retained.
 - [x] Diagnose C1's completed-approach penetration and rejected path from saved artifacts: [diagnosis](CODEX_C1_DIAGNOSIS.md), 84.640 mm XY block displacement/topple, production rejection reproduced at sample 62/100 for fingertips against table. No physics steps or model invocations; three audit tests passed.
 - [x] Define the separate [C2 proposal](protocols/C2_PROPOSAL.md): explicit nominal hand geometry and visual reassessment; same budgets, scoring and guards; no private task coordinates or recipe.
-- [ ] AGY implements and tests C1/C2 prompt selection and robot-only geometry bounds under [task 007](../../coordination/agy/tasks/007-c2-implementation.md), then Codex reviews and freezes C2. [Review of `8938222`](../../coordination/agy/reviews/007-review.md) requests fixes for provenance, condition validation, offline/C1 behavior and evidence accuracy; AGY revision launched, no C2 performance run.
-- [ ] After review, issue a separate AGY execution/evidence task for the one declared C2 episode. AGY operates the frozen harness; signed-in Codex makes every VLA decision; Codex reviews the outcome and plans the successor.
+- [x] AGY implements C2 and addresses Task 007 findings. [Codex acceptance](../../coordination/agy/reviews/007-acceptance.md) covers tip `e336f20`; 53 independently rerun focused tests pass, AGY full discovery reports 226 passes.
+- [x] Codex freezes [C2](protocols/C2.md) and issues [AGY task 008](../../coordination/agy/tasks/008-c2-execution.md) under the user's instruction to execute all five steps.
+- [ ] AGY operates the one frozen C2 episode and packages complete evidence; signed-in Codex makes every VLA decision.
+- [ ] Codex audits C2 outcome and defines the next scientific step.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.

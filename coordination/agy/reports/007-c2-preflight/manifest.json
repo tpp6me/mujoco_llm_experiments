@@ -1,0 +1,43 @@
+{
+  "condition": "c2",
+  "condition_id": "c2",
+  "generator_command": "python -m humanoid_sim.codex_policy --condition c2 --output coordination/agy/reports/007-c2-preflight",
+  "git_status": "clean",
+  "input_provenance": "experiments/humanoid-pick-place/results/codex_C1_episode.zip:seed-820/call_001.json",
+  "is_dirty": false,
+  "isolation_verified": true,
+  "model_invocations": 0,
+  "physics_steps": 0,
+  "protocol_id": "humanoid-codex-c2-development",
+  "protocol_path": "experiments/humanoid-pick-place/protocols/C2_PROPOSAL.md",
+  "protocol_sha256": "a1a3b982fd455c9c2e220787be74c9bbad4c1c0dd6f4e32894aac9a896ced7c0",
+  "source_commit": "acbf28449049dde6f059b28bfaa8a4c4ab019def",
+  "static_instruction_sha256": "6d90729760f5458d69dfc6d90e9f433eacd7721f2552e8c24060a840e27237db",
+  "files": {
+    "geometry_evidence.json": {
+      "description": "Nominal robot-only hand geometry offsets and bounds serialized with sort_keys=True",
+      "sha256": "d05eaa296612db243fd9362d1018d7b92d63cb93006221f959422fa1712141d6",
+      "size_bytes": 2203
+    },
+    "observation.png": {
+      "description": "Archived initial observation PNG byte-for-byte identical to C1 seed-820 call 1",
+      "sha256": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65",
+      "size_bytes": 98944
+    },
+    "preflight.json": {
+      "description": "Preflight execution metadata with clean source commit, CLI/config status, and verification metrics",
+      "sha256": "53d01d5dd6c70f00981670f2b595dda97b301e6d9321f542c216ce1ab8d5284e",
+      "size_bytes": 2054
+    },
+    "prompt.txt": {
+      "description": "Full demonstration prompt containing static instructions, C2 geometry paragraph, and public observation JSON",
+      "sha256": "3afbd2e2a27444ac514fc5a35540ca9ddfa8b1482abea719b04a174241e018e4",
+      "size_bytes": 8330
+    },
+    "public_payload.json": {
+      "description": "Public observation payload extracted from archived seed-820 call 1 excluding private simulator state",
+      "sha256": "b5a82c5ac0eecfb1e1a7dc51ccf470c0845335a2ef775ffc568d7c8bf0242ab4",
+      "size_bytes": 143799
+    }
+  }
+}

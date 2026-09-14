@@ -1,6 +1,6 @@
 # AGY task 007 — C2 implementation and offline qualification
 
-Status: **ready; not launched**. Branch: `agy/007-c2-implementation`.
+Status: **ready for review**. Branch: `agy/007-c2-implementation`.
 Use a dedicated worktree `/private/tmp/mujoco-llms-agy-007`, based on the main
 commit containing this brief. Record the exact starting and final commits.
 
@@ -11,18 +11,18 @@ Task 006 remains cancelled; none of its direct-API requirements apply here.
 
 ## Objective and implementation
 
-- [ ] Implement explicit C1/C2 selection with C1 remaining the default. Preserve
+- [x] Implement explicit C1/C2 selection with C1 remaining the default. Preserve
   C1 prompt bytes, model settings, limits and historical artifacts. Use the exact
   additional C2 text in the proposal; do not tune or invent alternative instructions.
-- [ ] Keep geometry in the prompt a static, robot-only contract. Reproduce the
+- [x] Keep geometry in the prompt a static, robot-only contract. Reproduce the
   nominal bounds from the robot description and verify their rounded enclosure.
   Do not load the private C1 audit, object state or outcomes in the policy path.
-- [ ] Record condition ID, complete prompt hash, geometry evidence hash and source
+- [x] Record condition ID, complete prompt hash, geometry evidence hash and source
   revision in run provenance. Reject mismatched labels/settings before invocation.
-- [ ] Prepare a local-only preflight that demonstrates C2 configuration, public
+- [x] Prepare a local-only preflight that demonstrates C2 configuration, public
   payload construction, isolation, budgets and a new output path. It must not
   invoke a Codex decision. Keep the action/event auditing and error retention intact.
-- [ ] Update the guide and checklist to describe final behavior accurately. Prepare
+- [x] Update the guide and checklist to describe final behavior accurately. Prepare
   a concrete freeze/run command for Codex review; do not mark C2 frozen or executed.
 
 ## Permissions and boundaries
@@ -40,17 +40,17 @@ seeds 840–849. Gemini/AGY must never act as the VLA or repair a model response
 
 ## Acceptance evidence
 
-- [ ] Tests prove exact C1 prompt preservation and exact C2 paragraph inclusion.
-- [ ] Tests prove private-field exclusion and reject condition/settings mismatches
+- [x] Tests prove exact C1 prompt preservation and exact C2 paragraph inclusion.
+- [x] Tests prove private-field exclusion and reject condition/settings mismatches
   and accidental model invocation in offline preflight. Preserve existing failure,
   timeout, tool-use, budget and observation-freshness behavior.
-- [ ] Geometry checks distinguish occupied bounds from a grasp cavity or safe path;
+- [x] Geometry checks distinguish occupied bounds from a grasp cavity or safe path;
   altered object truth cannot affect the static public geometry contract.
-- [ ] Run affected tests during development, then one full discovery after final
+- [x] Run affected tests during development, then one full discovery after final
   changes. If failures require fixes, rerun the affected checks and accurately
   state which revision each retained log covers. Run `git diff --check`.
-- [ ] Verify C1 artifacts and frozen protocol are unchanged from the starting commit.
-- [ ] Submit `coordination/agy/reports/007-completion.md` with exact commits, changed
+- [x] Verify C1 artifacts and frozen protocol are unchanged from the starting commit.
+- [x] Submit `coordination/agy/reports/007-completion.md` with exact commits, changed
   files, commands, test counts/log paths, preflight artifact hashes, limitations and
   proposed frozen-run command. Clearly state zero model invocations and no C2 run.
 
