@@ -1,0 +1,513 @@
+{
+  "protocol_id": "humanoid-codex-c2-development",
+  "status": "complete",
+  "requested_trials": 1,
+  "completed_trials": 1,
+  "seeds": [
+    820
+  ],
+  "source_commit": "a675e5223a7966926744624561d2e4542883d17a",
+  "protocol_sha256": "a1a3b982fd455c9c2e220787be74c9bbad4c1c0dd6f4e32894aac9a896ced7c0",
+  "freeze_sha256": "388ed874df4271784c3255954b1efbbe34173748891b24b4ef1caae142ad7757",
+  "static_instruction_sha256": "6d90729760f5458d69dfc6d90e9f433eacd7721f2552e8c24060a840e27237db",
+  "geometry_evidence_sha256": "d05eaa296612db243fd9362d1018d7b92d63cb93006221f959422fa1712141d6",
+  "physical_successes": 0,
+  "sustained_lifts": 0,
+  "strict_successes": 0,
+  "physics_quality_pass": false,
+  "deadline_pass": true,
+  "cli_invocations": 9,
+  "completed_actions": 8,
+  "rejected_actions": 1,
+  "tool_items": 0,
+  "mean_cli_latency_s": 24.988009166664497,
+  "max_cli_latency_s": 36.591554625018034,
+  "boundary_audit": "All saved prompts and PNGs reproduce from allowlisted public call requests via public_input(..., condition='c2'); all 9 CLI event logs pass the pinned tool audit; execution source hashes match pre-run manifest.",
+  "episode_archive": "experiments/humanoid-pick-place/results/codex_C2_episode.zip",
+  "episode_archive_sha256": "940f3ef71518a15f9f171adb877c108596060142b9f1e08276146ad876bd95f8",
+  "runner_report": {
+    "action_attempts": 9,
+    "completed_actions": 8,
+    "controller": "codex_chatgpt",
+    "error": "Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m",
+    "errors": 0,
+    "execution_outcomes_unknown": 0,
+    "image_identities": [
+      {
+        "call": 1,
+        "image_sha256": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65",
+        "observation_id": "57e9a6d2496441268159f774c1d4c873",
+        "time_s": 0.5000000000000003
+      },
+      {
+        "call": 2,
+        "image_sha256": "316ba72b8d1b7ffa3ea8de6a98ba0dc9f09087ad054f8539a73ed1b46833601e",
+        "observation_id": "9cdb5a60e03a4fa2b2988b684f892430",
+        "time_s": 1.0000000000000007
+      },
+      {
+        "call": 3,
+        "image_sha256": "cad63bf0f20427f4b2329f27a1f7f82a42708e585dffe2f6dfe55fc0c7c70a39",
+        "observation_id": "a3ab85546e14496c89711d9432f067e0",
+        "time_s": 1.9999999999998905
+      },
+      {
+        "call": 4,
+        "image_sha256": "c5f58211f6c4a0f19d8c24d37d61249c33e65846de2042ffc152246e440573ad",
+        "observation_id": "90adfb8c81df41a69f590027cbf8718c",
+        "time_s": 3.1999999999997586
+      },
+      {
+        "call": 5,
+        "image_sha256": "4461921cd27bda89d43db4fda9f09e7c46c91d343be143b28c0d4ce7b15506ac",
+        "observation_id": "65f49dc8457f4800b2c68230c4e85a33",
+        "time_s": 3.9999999999996705
+      },
+      {
+        "call": 6,
+        "image_sha256": "9af8e3ad3ca8f698a78a0b955040912d4fe0911b6209bad216b6b33e1b648224",
+        "observation_id": "75fe14c960a1469b9908f0fe2cd87aab",
+        "time_s": 5.000000000000004
+      },
+      {
+        "call": 7,
+        "image_sha256": "72b19a753915c987bad6cc8f2a6f3d02976ec55beb87291d994984523778f41d",
+        "observation_id": "2f29c44f35c84615a6770bd12ea34958",
+        "time_s": 6.200000000000405
+      },
+      {
+        "call": 8,
+        "image_sha256": "1f86664cd8ce757eb07f25931a608d7dae17c6427db43c6a9059d16d0baae962",
+        "observation_id": "d5a5119120be4bb9b84fb3e0c663820a",
+        "time_s": 6.700000000000572
+      },
+      {
+        "call": 9,
+        "image_sha256": "142f1ab0e437b72c9afa05541d0fbf1389a03a6a4f5c7e573505ddf612f0662f",
+        "observation_id": "8dadc5d68f50470da7b8e92a50c1d1b5",
+        "time_s": 7.700000000000906
+      }
+    ],
+    "model_calls": 9,
+    "placement_success_claimed": false,
+    "provenance": {
+      "action_schema_sha256": "35a2ad14ad0d7c940f8e7ceaf74986efef8079520315ee0e37d4468bb54d6680",
+      "condition": "c2",
+      "condition_id": "c2",
+      "configured_deadline_s": 25.0,
+      "configured_max_calls": 20,
+      "controller": "codex_chatgpt",
+      "deadline_cap_s": 25.0,
+      "deadline_s": 25.0,
+      "execution": {
+        "cli_version": "codex-cli 0.154.0",
+        "condition": "c2",
+        "condition_id": "c2",
+        "config": {
+          "approval_policy": "never",
+          "features.skip_host_skill_discovery": true,
+          "forced_login_method": "chatgpt",
+          "mcp_servers": {},
+          "model_reasoning_effort": "low",
+          "project_doc_max_bytes": 0,
+          "suppress_unstable_features_warning": true,
+          "tools.experimental_request_user_input.enabled": false,
+          "tools.update_plan.enabled": false,
+          "web_search": "disabled"
+        },
+        "decision_timeout_s": 120.0,
+        "disabled_features": [
+          "shell_tool",
+          "unified_exec",
+          "shell_snapshot",
+          "apps",
+          "plugins",
+          "remote_plugin",
+          "hooks",
+          "memories",
+          "multi_agent",
+          "multi_agent_v2",
+          "browser_use",
+          "browser_use_external",
+          "computer_use",
+          "image_generation",
+          "view_image",
+          "skill_search",
+          "workspace_dependencies",
+          "code_mode",
+          "code_mode_host",
+          "goals",
+          "sleep_tool",
+          "tool_suggest",
+          "unbounded_connection_retries"
+        ],
+        "executable": "/Users/praveen/versions/node/v20.18.1/bin/codex",
+        "geometry_evidence_sha256": "d05eaa296612db243fd9362d1018d7b92d63cb93006221f959422fa1712141d6",
+        "git_status": "clean",
+        "is_dirty": false,
+        "login_method": "chatgpt",
+        "max_calls": 20,
+        "mode": "codex_chatgpt",
+        "model_requested": "gpt-5.6-sol",
+        "offline_only": false,
+        "protocol_id": "humanoid-codex-c2-development",
+        "protocol_path": "experiments/humanoid-pick-place/protocols/C2_PROPOSAL.md",
+        "protocol_sha256": "a1a3b982fd455c9c2e220787be74c9bbad4c1c0dd6f4e32894aac9a896ced7c0",
+        "source_commit": "a675e5223a7966926744624561d2e4542883d17a",
+        "static_files": {
+          "geometry_evidence.json": {
+            "__diagnostic_bytes_len__": 2203
+          }
+        },
+        "static_instruction_sha256": "6d90729760f5458d69dfc6d90e9f433eacd7721f2552e8c24060a840e27237db"
+      },
+      "geometry_evidence_sha256": "d05eaa296612db243fd9362d1018d7b92d63cb93006221f959422fa1712141d6",
+      "git_status": "clean",
+      "instruction_version": 1,
+      "is_dirty": false,
+      "max_actions": 20,
+      "max_calls_cap": 20,
+      "model_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+      "mujoco": "3.12.0",
+      "numpy": "2.5.3",
+      "offline_only": false,
+      "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+      "policy_configuration": {
+        "release_closure": 0.4,
+        "release_z": 0.88
+      },
+      "prompt_sha256": "6d90729760f5458d69dfc6d90e9f433eacd7721f2552e8c24060a840e27237db",
+      "protocol_id": "humanoid-codex-c2-development",
+      "protocol_path": "experiments/humanoid-pick-place/protocols/C2_PROPOSAL.md",
+      "protocol_sha256": "a1a3b982fd455c9c2e220787be74c9bbad4c1c0dd6f4e32894aac9a896ced7c0",
+      "python": "3.13.5",
+      "scaffold_origin_task": "AGY-004",
+      "source_commit": "a675e5223a7966926744624561d2e4542883d17a",
+      "source_sha256": {
+        "experiments/humanoid-pick-place/VISUAL_POLICY_RUNNER.md": "46acf384eb00038b310b060d96b7d00968814284e04b501c51524f17500f6331",
+        "experiments/humanoid-pick-place/protocols/G2.md": "cf2b42beb075e951017df75f0d1d7039a93b3289bfd709071d195d9831f0b253",
+        "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+        "experiments/humanoid-pick-place/schemas/action-v2.schema.json": "6ad1d1f5a4b24044b1fafb29d3632ec493e865c0bd433040addf62a4bb3acbc8",
+        "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+        "humanoid_sim/__main__.py": "4012b00a4d98e65c71f48835fcd6f9d8b29c011c0abb5f4275fc2780702c0237",
+        "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+        "humanoid_sim/carried_pose.py": "ff705e89afbc08643dc029576b6381d5ad990bd981852f51049a445a4af449cb",
+        "humanoid_sim/carried_pose_evaluation.py": "b91fc8293046ef6ed92c0cebc0ca5d05241e6999783922b314d0a96d75b68259",
+        "humanoid_sim/codex_policy.py": "1f11d6f5dd9ef04be0f96362d9a53983a40cd3fb593e3cfbfababe61e1a1968f",
+        "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+        "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+        "humanoid_sim/guarded_baseline.py": "38fab1b84b21e86087e860547fa28112850c30a0f30ff45e051bc47a406fc488",
+        "humanoid_sim/guarded_evaluation.py": "f5fa8c492c575779de235d0ad5de0cb0600b3ec4201d851a568c87a194e9e339",
+        "humanoid_sim/interface.py": "b9ba6c91fa2c34f248997c6ddc73957b66afcc5068fdcc8c45dbb995121e9afc",
+        "humanoid_sim/llm_runner.py": "b7fbcc7a0cf54cf1484a96ce6e395d8e984ab95890be3b81fda58516129e0f8b",
+        "humanoid_sim/p5_evaluation.py": "c43d2014e412c38ce42ec499dcf09cdc54d5facf348b91f605b043c880bf87d2",
+        "humanoid_sim/perception.py": "47457f5bac5c47d818f7dcf9f909c750f7820d10dfd7a02b6426a5ebc486caad",
+        "humanoid_sim/perception_evaluation.py": "009dbb594b5b5f80046c5cec5b4d67ba4e21482e79514d3b8b30e0582b414df2",
+        "humanoid_sim/render.py": "7c14067e1a3de6d145510353c13e0e59117ddef1321e58071f81abb2c9683e5b",
+        "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+        "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386",
+        "humanoid_sim/temporal_pose.py": "19806899e9820fffb21783e16e30788d53efb189d7c50dab50b6633b05ebf258",
+        "humanoid_sim/temporal_pose_evaluation.py": "9218d45c72a11bedbef69768a16f862ce39d18060b1654724872ccb987689b9d",
+        "humanoid_sim/temporal_reacquisition_evaluation.py": "1dd630c4ef86fd972eb3150eb9ac0d5fe0c2a65cea31ae4805dd95844e0cead3",
+        "humanoid_sim/vision_pose.py": "005911f63e4f2c63940477d2ab04983ca9218765fdf51a97297d6f5a43309108",
+        "humanoid_sim/visual.py": "8a17935f50acf412b3a5050ffc57d4cb874ccf8be08d6cf2990275bd1f97b5cb",
+        "humanoid_sim/visual_policy_runner.py": "5260dadd726d4222656bffe6962c3728d4f145f58181f8dfd6a899ec773cab81",
+        "humanoid_sim/visual_provider_adapter.py": "381e275c1bc8fa2ba690d4a40392f4fe3bcbfff92544eeeb59ced3bf5bbe9b99",
+        "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725"
+      },
+      "static_instruction_sha256": "6d90729760f5458d69dfc6d90e9f433eacd7721f2552e8c24060a840e27237db",
+      "task": "humanoid-codex-c2-development"
+    },
+    "refusals": 0,
+    "seed": 820,
+    "simulated_time_s": 7.700000000000906,
+    "termination_reason": "rejected_action",
+    "total_wall_latency_s": 224.9104824179958
+  },
+  "private_evaluator": {
+    "basket_floor_contact": false,
+    "hand_contact": false,
+    "lifted": false,
+    "max_object_bottom_m": 0.7094665301209561,
+    "max_object_penetration_m": 0.005184671623014815,
+    "peak_object_contact": {
+      "normal_force_n": 25.5065408364408,
+      "other_body": "right_hand_middle_0_link",
+      "other_geom_id": 98,
+      "penetration_m": 0.005184671623014815,
+      "time_s": 3.794999999999693
+    },
+    "settled_dwell_s": 0.0,
+    "success": false,
+    "supported_body": true
+  },
+  "decisions": [
+    {
+      "invocation": 1,
+      "status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.5
+        }
+      },
+      "wall_latency_s": 21.53906849998748,
+      "tool_items": 0,
+      "usage": {
+        "input_tokens": 11014,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 472,
+        "reasoning_output_tokens": 440
+      },
+      "execution_status": "completed",
+      "start_time_s": 0.5000000000000003,
+      "end_time_s": 1.0000000000000007
+    },
+    {
+      "invocation": 2,
+      "status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.251,
+            -0.149,
+            0.91
+          ]
+        }
+      },
+      "wall_latency_s": 25.64739312499296,
+      "tool_items": 0,
+      "usage": {
+        "input_tokens": 11113,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 480,
+        "reasoning_output_tokens": 415
+      },
+      "execution_status": "completed",
+      "start_time_s": 1.0000000000000007,
+      "end_time_s": 1.9999999999998905
+    },
+    {
+      "invocation": 3,
+      "status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.251,
+            -0.149,
+            0.84
+          ]
+        }
+      },
+      "wall_latency_s": 12.083233249984914,
+      "tool_items": 0,
+      "usage": {
+        "input_tokens": 11234,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 177,
+        "reasoning_output_tokens": 112
+      },
+      "execution_status": "completed",
+      "start_time_s": 1.9999999999998905,
+      "end_time_s": 3.1999999999997586
+    },
+    {
+      "invocation": 4,
+      "status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.251,
+            -0.173,
+            0.8
+          ]
+        }
+      },
+      "wall_latency_s": 32.01803504201234,
+      "tool_items": 0,
+      "usage": {
+        "input_tokens": 11364,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 674,
+        "reasoning_output_tokens": 609
+      },
+      "execution_status": "completed",
+      "start_time_s": 3.1999999999997586,
+      "end_time_s": 3.9999999999996705
+    },
+    {
+      "invocation": 5,
+      "status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 1.0,
+          "seconds": 1.0
+        }
+      },
+      "wall_latency_s": 13.895262125006411,
+      "tool_items": 0,
+      "usage": {
+        "input_tokens": 11465,
+        "cached_input_tokens": 5888,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 157,
+        "reasoning_output_tokens": 123
+      },
+      "execution_status": "completed",
+      "start_time_s": 3.9999999999996705,
+      "end_time_s": 5.000000000000004
+    },
+    {
+      "invocation": 6,
+      "status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.251,
+            -0.173,
+            0.95
+          ]
+        }
+      },
+      "wall_latency_s": 26.978929042001255,
+      "tool_items": 0,
+      "usage": {
+        "input_tokens": 11560,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 814,
+        "reasoning_output_tokens": 749
+      },
+      "execution_status": "completed",
+      "start_time_s": 5.000000000000004,
+      "end_time_s": 6.200000000000405
+    },
+    {
+      "invocation": 7,
+      "status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.5
+        }
+      },
+      "wall_latency_s": 21.332749291002983,
+      "tool_items": 0,
+      "usage": {
+        "input_tokens": 11663,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 393,
+        "reasoning_output_tokens": 361
+      },
+      "execution_status": "completed",
+      "start_time_s": 6.200000000000405,
+      "end_time_s": 6.700000000000572
+    },
+    {
+      "invocation": 8,
+      "status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.251,
+            -0.173,
+            0.8
+          ]
+        }
+      },
+      "wall_latency_s": 34.80585749997408,
+      "tool_items": 0,
+      "usage": {
+        "input_tokens": 11761,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 942,
+        "reasoning_output_tokens": 877
+      },
+      "execution_status": "completed",
+      "start_time_s": 6.700000000000572,
+      "end_time_s": 7.700000000000906
+    },
+    {
+      "invocation": 9,
+      "status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.15,
+            -0.48,
+            0.9
+          ]
+        }
+      },
+      "wall_latency_s": 36.591554625018034,
+      "tool_items": 0,
+      "usage": {
+        "input_tokens": 11898,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 859,
+        "reasoning_output_tokens": 794
+      },
+      "execution_status": "rejected",
+      "start_time_s": 7.700000000000906,
+      "end_time_s": 7.700000000000906
+    }
+  ]
+}

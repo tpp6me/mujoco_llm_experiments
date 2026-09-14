@@ -51,8 +51,19 @@ No direct API integration or keys; all prompts/images and event logs audited.
 [C1 post-hoc diagnosis](CODEX_C1_DIAGNOSIS.md), 2026-09-14: the approach toppled the
 block and displaced it 84.640 mm in XY. The rejected descent reproduced a table
 collision with the index/middle fingertips. No new simulation steps or model
-decisions. [C2 proposal](protocols/C2_PROPOSAL.md) is defined but not implemented or
-executed; original outcomes and thresholds are unchanged.
+decisions. [C2 proposal](protocols/C2_PROPOSAL.md) and [C2 frozen execution record](protocols/C2.md)
+executed under Task 008.
+
+[C2 signed-in Codex visual controller](CODEX_C2_RESULTS.md), development seed 820:
+0/1 placements, 0/1 sustained lifts, 9 CLI decisions, 8 completed actions and one
+guard rejection (`Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m`).
+Peak object penetration was 5.185 mm against `right_hand_middle_0_link` at t=3.795 s
+(normal force 25.51 N), exceeding the 2.0 mm quality limit. Hand collision during
+Decision 4 descent knocked the block 154.27 mm in XY and off the table to the floor;
+the subsequent lift, release, and re-approach missed the fallen object before the
+unreachability rejection halted the run at t=7.70 s. All 9 prompts/images and event
+logs audited. [Results](results/codex_C2.json), [episode archive](results/codex_C2_episode.zip).
+This is a descriptive development result, not a qualified visual controller.
 
 [Five-capture checks and limitations](VISUAL.md): calibration bounds and exact
 state preservation passed; the centroid/known-plane estimate has up to 2.983 cm

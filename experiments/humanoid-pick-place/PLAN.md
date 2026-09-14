@@ -4,7 +4,7 @@ Started: 2026-09-11. Last updated: 2026-09-14.
 
 Robot: Unitree G1 with hands, simulated in MuJoCo.
 
-Current phase: **Phase 5 — diagnose visual-control failures and prepare C2**
+Current phase: **Phase 5 — visual action control development (C1 and C2 executed)**
 
 This is the canonical, living plan for the experiment. Use it to choose the next
 work item and record progress across sessions. Keep commands in the
@@ -59,7 +59,7 @@ individual-finger control are outside the initial scope.
 | 2. Physical baseline and scorer | Complete | [V4](V4_RESULTS.md): 98/100 task successes, **96/100 strict passes**; ≥95 required |
 | 3. Action/observation interface | Complete for the declared recipe | [G2](GUARDED_RESULTS.md): 100/100 placements, 97/100 strict passes, zero rejections through interface v2 |
 | 4. LLM with exact state | Development pilot complete | [L2](LLM_RESULTS.md): LLM 0/3 placements, 1/3 lifts; conventional 3/3 placements; formal comparison pending |
-| 5. Visual action control | Development pilot complete; qualification pending | [C1 signed-in Codex](CODEX_C1_RESULTS.md): 0/1 placements, 0/1 lifts, one guard rejection; visual runner implemented. [P1](POSE_RESULTS.md) passes initial-pose screening; [P3](CARRIED_POSE_RESULTS.md), [P4](TEMPORAL_POSE_RESULTS.md) and reacquisition development have unmet gates. Qualified carried pose and matched visual comparator remain pending |
+| 5. Visual action control | Development pilot complete; qualification pending | [C1 signed-in Codex](CODEX_C1_RESULTS.md): 0/1 placements, 0/1 lifts, one guard rejection; [C2 signed-in Codex](CODEX_C2_RESULTS.md): 0/1 placements, 0/1 lifts, 8 completed actions, one guard rejection; visual runner implemented. [P1](POSE_RESULTS.md) passes initial-pose screening; [P3](CARRIED_POSE_RESULTS.md), [P4](TEMPORAL_POSE_RESULTS.md) and reacquisition development have unmet gates. Qualified carried pose and matched visual comparator remain pending |
 | 6. Free-standing manipulation | Not started | Balance controller and mechanical requalification |
 | 7. Continuous-time execution | Not started | Independent physics/control loop and latency measurement |
 | 8. Robustness and recovery | Not started | Frozen challenge sets and recovery evaluation |
@@ -83,7 +83,7 @@ individual-finger control are outside the initial scope.
 - [x] Define the separate [C2 proposal](protocols/C2_PROPOSAL.md): explicit nominal hand geometry and visual reassessment; same budgets, scoring and guards; no private task coordinates or recipe.
 - [x] AGY implements C2 and addresses Task 007 findings. [Codex acceptance](../../coordination/agy/reviews/007-acceptance.md) covers tip `e336f20`; 53 independently rerun focused tests pass, AGY full discovery reports 226 passes.
 - [x] Codex freezes [C2](protocols/C2.md) and issues [AGY task 008](../../coordination/agy/tasks/008-c2-execution.md) under the user's instruction to execute all five steps.
-- [ ] AGY operates the one frozen C2 episode and packages complete evidence; signed-in Codex makes every VLA decision.
+- [x] AGY operates the one frozen C2 episode and packages complete evidence; signed-in Codex makes every VLA decision ([C2 results](CODEX_C2_RESULTS.md), [archive](results/codex_C2_episode.zip)).
 - [ ] Codex audits C2 outcome and defines the next scientific step.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
