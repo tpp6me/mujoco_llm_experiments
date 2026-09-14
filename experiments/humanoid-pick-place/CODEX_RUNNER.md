@@ -25,18 +25,18 @@ perfect filesystem isolation; a read-only sandbox alone would not prevent reads.
 
 The runner supports two experiment conditions via `--condition {c1,c2}` (default: `c1`):
 - `c1`: The frozen C1 protocol ([protocols/C1.md](protocols/C1.md)). Preserves the exact original C1 prompt bytes without modification.
-- `c2`: The proposed C2 protocol ([protocols/C2_PROPOSAL.md](protocols/C2_PROPOSAL.md)). Preserves C1 prompt bytes and appends the exact nominal robot hand geometry enclosure paragraph before the JSON schema. Generates static robot-only geometry evidence (`geometry_evidence.json`).
+- `c2`: The proposed C2 protocol ([protocols/C2_PROPOSAL.md](protocols/C2_PROPOSAL.md)). Preserves C1 prompt bytes and appends the exact nominal robot hand geometry enclosure paragraph before the public observation JSON. Generates static robot-only geometry evidence (`geometry_evidence.json`).
 
-Both conditions record condition ID, prompt SHA-256, geometry evidence SHA-256, and source revision in provenance metadata, rejecting any mismatched configuration before execution.
+Both conditions record condition ID, prompt SHA-256, static instruction SHA-256, geometry evidence SHA-256, protocol path/hash, and source revision in provenance metadata, rejecting any mismatched configuration before execution.
 
-### Local preflight (zero model invocations, zero physics steps)
+### Local checks and offline preflight (zero model invocations, zero physics steps)
 
-Default C1 preflight:
+Default C1 local check (performs graphics-free CLI installation and login verification, writing `preflight.json` without scene loading or rendering):
 ```sh
-.venv/bin/python -m humanoid_sim.codex_policy --condition c1 --output runtime/humanoid/c1-preflight
+.venv/bin/python -m humanoid_sim.codex_policy --condition c1 --output runtime/humanoid/c1-check
 ```
 
-C2 preflight (validates C2 prompt formatting, geometry evidence, payload isolation, and zero model calls):
+C2 offline preflight (validates C2 prompt formatting, geometry evidence, public payload isolation, and zero model calls using committed archived C1 seed-820 call 1 input without graphics or physics):
 ```sh
 .venv/bin/python -m humanoid_sim.codex_policy --condition c2 --output runtime/humanoid/c2-preflight
 ```

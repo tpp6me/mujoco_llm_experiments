@@ -11,9 +11,11 @@ test_c1_prompt_preservation_and_c2_paragraph_inclusion (test_codex_policy.CodexP
 test_c1_rejects_changed_condition_before_login_or_execution (test_codex_policy.CodexPolicyTests.test_c1_rejects_changed_condition_before_login_or_execution) ... ok
 test_condition_and_settings_mismatches_rejected (test_codex_policy.CodexPolicyTests.test_condition_and_settings_mismatches_rejected) ... ok
 test_corrupt_image_and_identity_mismatch_never_launch (test_codex_policy.CodexPolicyTests.test_corrupt_image_and_identity_mismatch_never_launch) ... ok
+test_default_c1_local_check_preserves_graphics_free_behavior (test_codex_policy.CodexPolicyTests.test_default_c1_local_check_preserves_graphics_free_behavior) ... ok
 test_fresh_public_only_sessions_and_tool_configuration (test_codex_policy.CodexPolicyTests.test_fresh_public_only_sessions_and_tool_configuration) ... ok
 test_geometry_altered_object_truth_cannot_affect_contract (test_codex_policy.CodexPolicyTests.test_geometry_altered_object_truth_cannot_affect_contract) ... ok
 test_geometry_distinguishes_occupied_bounds_from_grasp_cavity_and_safe_path (test_codex_policy.CodexPolicyTests.test_geometry_distinguishes_occupied_bounds_from_grasp_cavity_and_safe_path) ... ok
+test_geometry_evidence_written_and_retained_on_interruption (test_codex_policy.CodexPolicyTests.test_geometry_evidence_written_and_retained_on_interruption) ... ok
 test_geometry_nominal_bounds_and_enclosure_verification (test_codex_policy.CodexPolicyTests.test_geometry_nominal_bounds_and_enclosure_verification) ... ok
 test_guarded_runner_records_condition_and_preserves_mock_identity (test_codex_policy.CodexPolicyTests.test_guarded_runner_records_condition_and_preserves_mock_identity) ... ok
 test_offline_preflight_zero_model_invocations_and_artifacts (test_codex_policy.CodexPolicyTests.test_offline_preflight_zero_model_invocations_and_artifacts) ... ok
@@ -251,7 +253,7 @@ test_truncated_png_raster_data_rejected (test_visual_provider_adapter.VisualProv
 test_zero_network_and_credential_access_boundary (test_visual_provider_adapter.VisualProviderAdapterTests.test_zero_network_and_credential_access_boundary) ... ok
 
 ----------------------------------------------------------------------
-Ran 224 tests in 175.289s
+Ran 226 tests in 177.447s
 
 OK
 
@@ -259,7 +261,7 @@ OK
 P5 GATE EVALUATION REPORT: reacquisition_3frame (gate_report_rescore)
 Seeds: [820, 821, 822, 823, 824, 825, 826, 827, 828, 829] (Count: 10)
 Status: complete | Complete: True
-Provenance: Artifact rescore of: /private/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmpdsfum70o/valid_evidence.json
+Provenance: Artifact rescore of: /private/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmp2ljppdi1/valid_evidence.json
 ----------------------------------------------------------------------
   [PASS]           gate_1_coverage: Accepted 20/20 post-warmup targets (>=16 required)
   [PASS]           gate_2_accuracy: Accepted original-target mean 4.0000 mm <= 5.0 mm threshold
@@ -274,7 +276,7 @@ Midpoint (lower_mid): accepted 10/10; mean: 3.5000 mm; max: 3.5000 mm
 All accepted (nom): count 30; mean: 3.8333 mm; max: 4.0000 mm
 ======================================================================
 
-Gate report written to: /var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmpdsfum70o/out/gate_report_rescore.json
+Gate report written to: /var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/tmp2ljppdi1/out/gate_report_rescore.json
 Evaluation finished with status: complete.
 Evaluating original endpoint-only stream...
 Evaluating augmented stream (with lowering midpoint)...
