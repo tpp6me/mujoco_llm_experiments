@@ -680,6 +680,14 @@ def run_visual_episode(
                 or type(execution_metadata.get('offline_only')) is not bool
                 or not isinstance(execution_metadata.get('protocol_id'), str)):
             raise ValueError('Execution metadata requires offline_only boolean and protocol_id string')
+        cond = execution_metadata.get('condition') or execution_metadata.get('condition_id')
+        prot = execution_metadata.get('protocol_id')
+        if cond == 'c1' and prot != 'humanoid-codex-c1-development':
+            raise ValueError(f'Mismatched condition and protocol_id: {cond} vs {prot}')
+        if cond == 'c2' and prot != 'humanoid-codex-c2-development':
+            raise ValueError(f'Mismatched condition and protocol_id: {cond} vs {prot}')
+        if cond and hasattr(model_callable, 'condition') and model_callable.condition != cond:
+            raise ValueError(f'Mismatched model callable condition ({model_callable.condition}) and execution metadata condition ({cond})')
         execution_metadata = copy.deepcopy(execution_metadata)
 
     if seed is not None:
@@ -1048,6 +1056,9 @@ def run_visual_episode(
                 prov['protocol_id'] = execution_metadata['protocol_id']
                 prov['scaffold_origin_task'] = prov['task']
                 prov['task'] = execution_metadata['protocol_id']
+                for key in ('condition', 'condition_id', 'source_commit', 'prompt_sha256', 'geometry_evidence_sha256'):
+                    if key in execution_metadata:
+                        prov[key] = execution_metadata[key]
                 codex_py = ROOT / 'humanoid_sim/codex_policy.py'
                 if codex_py.exists():
                     prov['source_sha256'][str(codex_py.relative_to(ROOT))] = hashlib.sha256(codex_py.read_bytes()).hexdigest()
