@@ -1,0 +1,195 @@
+{
+  "reviewed_source_commit": "a675e5223a7966926744624561d2e4542883d17a",
+  "status": "verified",
+  "model_calls": 9,
+  "completed_actions": 8,
+  "rejected_actions": 1,
+  "termination_reason": "rejected_action",
+  "physical_success": false,
+  "sustained_lift": false,
+  "strict_success": false,
+  "max_object_penetration_m": 0.005184671623014815,
+  "final_simulated_time_s": 7.700000000000906,
+  "mean_cli_latency_s": 24.988009166664497,
+  "records": [
+    {
+      "call": 1,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.5
+        }
+      },
+      "cli_latency_s": 21.53906849998748
+    },
+    {
+      "call": 2,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.251,
+            -0.149,
+            0.91
+          ]
+        }
+      },
+      "cli_latency_s": 25.64739312499296
+    },
+    {
+      "call": 3,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.251,
+            -0.149,
+            0.84
+          ]
+        }
+      },
+      "cli_latency_s": 12.083233249984914
+    },
+    {
+      "call": 4,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.251,
+            -0.173,
+            0.8
+          ]
+        }
+      },
+      "cli_latency_s": 32.01803504201234
+    },
+    {
+      "call": 5,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 1.0,
+          "seconds": 1.0
+        }
+      },
+      "cli_latency_s": 13.895262125006411
+    },
+    {
+      "call": 6,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.251,
+            -0.173,
+            0.95
+          ]
+        }
+      },
+      "cli_latency_s": 26.978929042001255
+    },
+    {
+      "call": 7,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.5
+        }
+      },
+      "cli_latency_s": 21.332749291002983
+    },
+    {
+      "call": 8,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.251,
+            -0.173,
+            0.8
+          ]
+        }
+      },
+      "cli_latency_s": 34.80585749997408
+    },
+    {
+      "call": 9,
+      "status": "rejected",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.15,
+            -0.48,
+            0.9
+          ]
+        }
+      },
+      "cli_latency_s": 36.591554625018034
+    }
+  ],
+  "archive_members_verified": 73,
+  "archive_sha256": "940f3ef71518a15f9f171adb877c108596060142b9f1e08276146ad876bd95f8"
+}

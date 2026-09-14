@@ -6,6 +6,10 @@ now compares individual exact-state actions through the shared interface.
 The [C1 visual pilot](CODEX_C1_RESULTS.md) uses signed-in Codex CLI decisions with
 no direct API integration: one development episode, no lift or placement, stopped
 by the collision guard. See the [Codex runner guide](CODEX_RUNNER.md).
+The [C2 result](CODEX_C2_RESULTS.md) adds nominal hand geometry and reassessment
+instructions: 9 decisions, 8 completed actions, no sustained lift or placement;
+the block fell to the floor and a later unreachable command stopped the run.
+The complete evidence passed [Codex review](../../coordination/agy/reviews/008-acceptance.md).
 Use the [complete implementation checklist](PLAN.md) as the living reference
 for progress, phase gates, next actions, and the historical scoring protocol.
 

@@ -81,7 +81,8 @@ inputs. It must not mistake missing local artifacts for missing committed code.
 | [005](tasks/005-visual-provider-adapter.md) | [Accepted with integration fixes](reviews/005-acceptance.md) | `agy/005-visual-provider-adapter` | Responses image adapter with injected offline transport and unfrozen pilot draft |
 | [006](tasks/006-visual-live-transport.md) | Cancelled by user before implementation | `agy/006-visual-live-transport` | HTTPS transport, persistent spending controls and pilot preflight; mocked execution only |
 | [007](tasks/007-c2-implementation.md) | [Accepted after review](reviews/007-acceptance.md) | `agy/007-c2-implementation` | Reviewed `e336f20`; C2 implementation and offline evidence accepted |
-| [008](tasks/008-c2-execution.md) | Ready for frozen execution | `agy/008-c2-execution` | AGY operates one frozen C2 episode; Codex makes every VLA decision; AGY packages evidence |
+| [008](tasks/008-c2-execution.md) | [Accepted; integrated](reviews/008-acceptance.md) | `agy/008-c2-execution` | Reviewed `5ddcd61`; C2 failed, complete evidence verified; all five stages done |
+| [009](tasks/009-c2-failure-audit.md) | Ready for delegation | `agy/009-c2-failure-audit` | Offline C2 approach/feedback audit; no new model episode; Codex owns visual interpretation and successor plan |
 
 Use the [completion template](reports/TEMPLATE.md) and [review template](reviews/TEMPLATE.md).
 The experiment's [living checklist](../../experiments/humanoid-pick-place/PLAN.md)
