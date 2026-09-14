@@ -21,3 +21,15 @@ Scope: implementation, local tests, evidence and task-branch commit/push. No VLA
 decision invocation, C2 performance episode, direct API calls or main integration.
 AGY must stop at a complete review handoff. Codex reviews material evidence at that
 milestone; no continuous Codex monitoring between turns is implied.
+
+## Review/revision checkpoint — 2026-09-14
+
+The initial task exited normally and pushed tip
+`8938222791d542640ebb0f094891e99a8751eb79`. Codex reviewed that exact tip and
+[requested changes R1–R4](../reviews/007-review.md). No integration or C2 run.
+
+Revision work resumes the same conversation and worktree with the same scoped
+automatic permissions. Logs/prompt/lifecycle record are under
+`/private/tmp/agy-007-revision-r1/`; worker PID 27319 at launch. The initial task's
+logs and preflight remain preserved separately. Revision completion must be
+established from its new committed handoff, not inferred from this launch record.

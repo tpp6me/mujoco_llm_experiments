@@ -80,7 +80,7 @@ inputs. It must not mistake missing local artifacts for missing committed code.
 | [004](tasks/004-visual-policy-scaffold.md) | [Accepted with integration fixes](reviews/004-acceptance.md) | `agy/004-visual-policy-scaffold` | Offline RGB-to-action loop with injected stub; no live provider or fresh P5 run |
 | [005](tasks/005-visual-provider-adapter.md) | [Accepted with integration fixes](reviews/005-acceptance.md) | `agy/005-visual-provider-adapter` | Responses image adapter with injected offline transport and unfrozen pilot draft |
 | [006](tasks/006-visual-live-transport.md) | Cancelled by user before implementation | `agy/006-visual-live-transport` | HTTPS transport, persistent spending controls and pilot preflight; mocked execution only |
-| [007](tasks/007-c2-implementation.md) | [Launched; awaiting handoff](reports/007-launch.md) | `agy/007-c2-implementation` | Implement C2 selection, provenance and offline checks; no model decisions or fresh performance episodes |
+| [007](tasks/007-c2-implementation.md) | [Changes requested; AGY revision launched](reviews/007-review.md) | `agy/007-c2-implementation` | Reviewed `8938222`; fix evidence hashes, configuration validation, offline/C1 behavior and inaccurate handoff; no C2 run |
 
 Use the [completion template](reports/TEMPLATE.md) and [review template](reviews/TEMPLATE.md).
 The experiment's [living checklist](../../experiments/humanoid-pick-place/PLAN.md)

@@ -1,0 +1,23 @@
+test_api_environment_not_forwarded (tests.test_codex_policy.CodexPolicyTests.test_api_environment_not_forwarded) ... ok
+test_budget_and_call_cap (tests.test_codex_policy.CodexPolicyTests.test_budget_and_call_cap) ... ok
+test_c1_artifacts_and_frozen_protocol_unchanged (tests.test_codex_policy.CodexPolicyTests.test_c1_artifacts_and_frozen_protocol_unchanged) ... ok
+test_c1_prompt_preservation_and_c2_paragraph_inclusion (tests.test_codex_policy.CodexPolicyTests.test_c1_prompt_preservation_and_c2_paragraph_inclusion) ... ok
+test_c1_rejects_changed_condition_before_login_or_execution (tests.test_codex_policy.CodexPolicyTests.test_c1_rejects_changed_condition_before_login_or_execution) ... ok
+test_condition_and_settings_mismatches_rejected (tests.test_codex_policy.CodexPolicyTests.test_condition_and_settings_mismatches_rejected) ... ok
+test_corrupt_image_and_identity_mismatch_never_launch (tests.test_codex_policy.CodexPolicyTests.test_corrupt_image_and_identity_mismatch_never_launch) ... ok
+test_fresh_public_only_sessions_and_tool_configuration (tests.test_codex_policy.CodexPolicyTests.test_fresh_public_only_sessions_and_tool_configuration) ... ok
+test_geometry_altered_object_truth_cannot_affect_contract (tests.test_codex_policy.CodexPolicyTests.test_geometry_altered_object_truth_cannot_affect_contract) ... ok
+test_geometry_distinguishes_occupied_bounds_from_grasp_cavity_and_safe_path (tests.test_codex_policy.CodexPolicyTests.test_geometry_distinguishes_occupied_bounds_from_grasp_cavity_and_safe_path) ... ok
+test_geometry_nominal_bounds_and_enclosure_verification (tests.test_codex_policy.CodexPolicyTests.test_geometry_nominal_bounds_and_enclosure_verification) ... ok
+test_guarded_runner_records_condition_and_preserves_mock_identity (tests.test_codex_policy.CodexPolicyTests.test_guarded_runner_records_condition_and_preserves_mock_identity) ... ok
+test_offline_preflight_zero_model_invocations_and_artifacts (tests.test_codex_policy.CodexPolicyTests.test_offline_preflight_zero_model_invocations_and_artifacts) ... ok
+test_only_exact_disabled_host_notice_before_turn_is_allowed (tests.test_codex_policy.CodexPolicyTests.test_only_exact_disabled_host_notice_before_turn_is_allowed) ... ok
+test_private_field_exclusion_and_payload_isolation (tests.test_codex_policy.CodexPolicyTests.test_private_field_exclusion_and_payload_isolation) ... ok
+test_requires_reviewed_cli_and_chatgpt_login (tests.test_codex_policy.CodexPolicyTests.test_requires_reviewed_cli_and_chatgpt_login) ... ok
+test_timeout_nonzero_missing_and_invalid_output_retain_failure (tests.test_codex_policy.CodexPolicyTests.test_timeout_nonzero_missing_and_invalid_output_retain_failure) ... ok
+test_tool_events_failed_turns_and_output_disagreement_stop (tests.test_codex_policy.CodexPolicyTests.test_tool_events_failed_turns_and_output_disagreement_stop) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 1.167s
+
+OK

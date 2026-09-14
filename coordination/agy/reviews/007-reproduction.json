@@ -1,0 +1,61 @@
+{
+  "all_three_c1_prompts_match_archives": true,
+  "c2_text_matches_proposal": true,
+  "geometry_digest": {
+    "recorded_by_execute": "d05eaa296612db243fd9362d1018d7b92d63cb93006221f959422fa1712141d6",
+    "actual_written_file": "a62640267f80dd24d91cb0319a4a37711a7ecd38025175830e517c49ae619cb9",
+    "matches": false
+  },
+  "actual_geometry": {
+    "source": "robot model, closure=0 joint targets, downward IK at nominal site [.24,-.18,.94]; no episode state",
+    "world_offset_min_m": [
+      -0.07355185900082623,
+      -0.04160017704683794,
+      -0.0769602209585496
+    ],
+    "world_offset_max_m": [
+      0.05720106964327992,
+      0.04139976336228118,
+      0.08474807814493945
+    ],
+    "geom_count": 7
+  },
+  "metadata_cases": [
+    {
+      "metadata": {
+        "condition": "c2",
+        "condition_id": "c1",
+        "protocol_id": "humanoid-codex-c2-development"
+      },
+      "callable_reached": true,
+      "rejected_before_capture": false,
+      "termination": "exception"
+    },
+    {
+      "metadata": {
+        "protocol_id": "humanoid-codex-c1-development"
+      },
+      "callable_reached": true,
+      "rejected_before_capture": false,
+      "termination": "exception"
+    },
+    {
+      "metadata": {
+        "condition": "c2",
+        "condition_id": "c2",
+        "protocol_id": "humanoid-codex-c2-development",
+        "model_requested": "gpt-5.6-sol"
+      },
+      "callable_reached": true,
+      "rejected_before_capture": false,
+      "termination": "exception"
+    }
+  ],
+  "mocked_preflight": {
+    "status": "complete",
+    "source_commit": "8938222791d542640ebb0f094891e99a8751eb79",
+    "model_invocations": 0,
+    "physics_steps": 0
+  },
+  "offline_preflight_requires_real_login_by_default": "Codex CLI/login unavailable"
+}
