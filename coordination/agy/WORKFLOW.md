@@ -1,8 +1,8 @@
 # Antigravity implementation and Codex review
 
-**Current direction (2026-09-13): Codex works directly; further AGY handoffs and
-the OpenAI API transport plan are cancelled.** The workflow below records the
-earlier arrangement. See [execution policy](../EXECUTION_POLICY.md).
+**Current direction (2026-09-14): AGY handles implementation and operations;
+Codex handles planning, review and all VLA decisions.** AGY delegation is restored.
+Direct OpenAI API transport remains cancelled. See [execution policy](../EXECUTION_POLICY.md).
 
 Antigravity (AGY), using the user's Gemini 3.8 Flash configuration, executes bounded
 repository tasks. Codex writes the briefs, reviews the code and evidence, and
@@ -31,6 +31,14 @@ authorized batch runs with automatic permissions within each task brief.
 Only one AGY task is active initially. Keep implementation review separate from
 fresh-validation review. Failed experiments are valid deliverables when the
 protocol and complete evidence are retained.
+
+To minimise Codex development usage, AGY should complete its own debugging and
+required checks before handoff, submit concise evidence with exact paths/hashes,
+and address review findings on the same branch. Codex reviews substantive
+milestones rather than every edit. AGY can monitor long-running jobs and prepare
+reports; a later explicit task may authorize operating the frozen Codex VLA harness.
+The VLA decision sessions remain fresh, public-input-only Codex sessions; AGY must
+never make or repair model decisions. Codex chooses scientific next steps after review.
 
 ## Workspace and permissions
 
@@ -72,6 +80,7 @@ inputs. It must not mistake missing local artifacts for missing committed code.
 | [004](tasks/004-visual-policy-scaffold.md) | [Accepted with integration fixes](reviews/004-acceptance.md) | `agy/004-visual-policy-scaffold` | Offline RGB-to-action loop with injected stub; no live provider or fresh P5 run |
 | [005](tasks/005-visual-provider-adapter.md) | [Accepted with integration fixes](reviews/005-acceptance.md) | `agy/005-visual-provider-adapter` | Responses image adapter with injected offline transport and unfrozen pilot draft |
 | [006](tasks/006-visual-live-transport.md) | Cancelled by user before implementation | `agy/006-visual-live-transport` | HTTPS transport, persistent spending controls and pilot preflight; mocked execution only |
+| [007](tasks/007-c2-implementation.md) | Ready; not launched | `agy/007-c2-implementation` | Implement C2 selection, provenance and offline checks; no model decisions or fresh performance episodes |
 
 Use the [completion template](reports/TEMPLATE.md) and [review template](reviews/TEMPLATE.md).
 The experiment's [living checklist](../../experiments/humanoid-pick-place/PLAN.md)
