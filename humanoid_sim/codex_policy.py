@@ -15,6 +15,7 @@ import signal
 import subprocess
 import tempfile
 import time
+import zipfile
 
 import copy
 import itertools
@@ -245,14 +246,31 @@ def generate_geometry_evidence(geometry=None):
     }
 
 
-def git_source_commit():
-    """Return current git commit hash of the worktree or repository."""
+def serialize_geometry_evidence(geom_evidence):
+    """Deterministic serialization of geometry evidence with sorted keys and trailing newline."""
+    return json.dumps(geom_evidence, indent=2, sort_keys=True).encode('utf-8') + b'\n'
+
+
+def git_source_info():
+    """Return git commit hash and dirty status of the worktree or repository."""
+    info = {'commit': 'unknown', 'is_dirty': False, 'status': 'unknown'}
     try:
         res = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True,
                              capture_output=True, timeout=5, check=True)
-        return res.stdout.strip()
-    except Exception:
-        return 'unknown'
+        info['commit'] = res.stdout.strip()
+        status_res = subprocess.run(['git', 'status', '--porcelain'], cwd=ROOT, text=True,
+                                    capture_output=True, timeout=5, check=True)
+        dirty_lines = [l for l in status_res.stdout.splitlines() if not l.startswith('?? runtime/')]
+        info['is_dirty'] = len(dirty_lines) > 0
+        info['status'] = 'dirty' if info['is_dirty'] else 'clean'
+    except Exception as exc:
+        info['error'] = str(exc)
+    return info
+
+
+def git_source_commit():
+    """Return current git commit hash of the worktree or repository."""
+    return git_source_info()['commit']
 
 
 def child_environment():
@@ -300,6 +318,15 @@ def public_input(payload, condition=DEFAULT_CONDITION):
     else:
         raise ValueError(f'Unsupported condition: {condition}')
     return png, prompt
+
+
+def static_instruction(condition=DEFAULT_CONDITION):
+    """Return the complete static instruction text preceding the dynamic observation JSON."""
+    if condition == 'c1':
+        return VISUAL_PROMPT + DECISION_INSTRUCTION
+    elif condition == 'c2':
+        return VISUAL_PROMPT + DECISION_INSTRUCTION + C2_INSTRUCTION
+    raise ValueError(f'Unsupported condition: {condition}')
 
 
 def cli_command(executable, directory, model):
@@ -465,76 +492,52 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
         raise ValueError(f'{condition.upper()} fixes the requested model and 20-call cap; declare a successor before changing them')
     _validate_budget(max_calls, 25.0)
 
-    if info is None:
-        info = check_install(executable=executable)
+    cli_info = None
+    if info is not None:
+        cli_info = info
+    else:
+        try:
+            cli_info = check_install(executable=executable)
+        except Exception as exc:
+            cli_info = {
+                'cli_version': 'unverified (offline preflight)',
+                'login_method': 'unverified',
+                'executable': shutil.which(executable) or executable,
+                'status': f'offline_unverified: {exc}',
+                'config': CONFIG,
+                'disabled_features': DISABLED_FEATURES,
+            }
 
     protocol_path = PROTOCOL_PATHS[condition]
     protocol_id = PROTOCOL_IDS[condition]
     protocol_sha256 = hashlib.sha256(protocol_path.read_bytes()).hexdigest()
-    source_commit = git_source_commit()
+    git_info = git_source_info()
 
     # 1. Geometry evidence & enclosure verification
-    geom_evidence = generate_geometry_evidence()
-    geom_evidence_bytes = json.dumps(geom_evidence, indent=2, sort_keys=True).encode('utf-8') + b'\n'
-    geom_evidence_sha256 = hashlib.sha256(geom_evidence_bytes).hexdigest()
+    geom_evidence = None
+    geom_evidence_bytes = None
+    geom_evidence_sha256 = None
+    if condition == 'c2':
+        geom_evidence = generate_geometry_evidence()
+        geom_evidence_bytes = serialize_geometry_evidence(geom_evidence)
+        geom_evidence_sha256 = hashlib.sha256(geom_evidence_bytes).hexdigest()
 
-    # 2. Public payload construction & isolation verification
-    # Generate initial observation with static kinematics and zero physics steps
-    import math
-    import uuid
-    from .interface import PolicyInterface
-    from .visual import RGBRenderer
-    from .visual_policy_runner import build_public_payload
-
-    mj_model = mujoco.MjModel.from_xml_path(str(SCENE))
-    data = mujoco.MjData(mj_model)
-    for side in ['left', 'right']:
-        for name, val in [('shoulder_pitch', .2), ('shoulder_roll', .2 if side == 'left' else -.2), ('elbow', 1.28)]:
-            data.qpos[mj_model.joint(f'{side}_{name}_joint').qposadr] = val
-    joints = np.array([mj_model.joint(name).id for name in ARM_NAMES])
-    arm_q = mj_model.jnt_qposadr[joints]
-    arm_v = mj_model.jnt_dofadr[joints]
-    hand_joints = np.array([mj_model.joint(name).id for name in HAND_NAMES])
-    env = SimpleNamespace(model=mj_model, data=data, arm_joints=joints, arm_q=arm_q, arm_v=arm_v,
-                          arm_a=np.array([mj_model.actuator(name).id for name in ARM_NAMES]),
-                          site=mj_model.site('right_grasp').id)
-    data.qpos[mj_model.jnt_qposadr[hand_joints]] = Environment.hand_targets(env, 0)
-    data.qpos[arm_q] = Environment.solve(env, [.24, -.18, .94])
-    rng = np.random.default_rng(820)
-    q = mj_model.joint('object_free').qposadr[0]
-    data.qpos[q:q+2] += rng.uniform(-.015, .015, 2)
-    angle = rng.uniform(-.15, .15)
-    data.qpos[q+3:q+7] = [math.cos(angle/2), 0, 0, math.sin(angle/2)]
-    mujoco.mj_forward(mj_model, data)
-
-    renderer = RGBRenderer(env, camera='fixed')
-    try:
-        png, camera = renderer.capture()
-    finally:
-        renderer.close()
-
-    api = PolicyInterface(env, 'robot_state')
-    robot_state = api.observe()
-    raw_obs = {
-        'schema_version': 1,
-        'observation_id': uuid.uuid4().hex,
-        'time_s': 0.0,
-        'camera': camera,
-        'robot_state': robot_state,
-        'rgb_png_base64': base64.b64encode(png).decode('ascii'),
-        'rgb_sha256': hashlib.sha256(png).hexdigest(),
-    }
+    # 2. Public payload from committed archive & isolation verification
+    archive_path = ROOT / 'experiments/humanoid-pick-place/results/codex_C1_episode.zip'
+    input_provenance = 'experiments/humanoid-pick-place/results/codex_C1_episode.zip:seed-820/call_001.json'
+    with zipfile.ZipFile(archive_path) as z:
+        c1_call1 = json.loads(z.read('seed-820/call_001.json'))
+    payload = c1_call1['request']
 
     # Test payload construction with private fields injected to verify exclusion
-    payload = build_public_payload(raw_obs, history=[], deadline=25.0, max_calls=max_calls, calls=0)
     test_payload = copy.deepcopy(payload)
     test_payload['observation']['ground_truth_object_pos'] = [0.25, -0.18, 0.76]
     test_payload['private_oracle_score'] = {'penetration': 0.005}
 
-    png, prompt = public_input(test_payload, condition=condition)
+    _, test_prompt = public_input(test_payload, condition=condition)
 
     # Verify isolation
-    if 'ground_truth_object_pos' in prompt or 'private_oracle_score' in prompt:
+    if 'ground_truth_object_pos' in test_prompt or 'private_oracle_score' in test_prompt:
         raise RuntimeError('Private fields leaked into public prompt')
 
     child_env = child_environment()
@@ -542,13 +545,17 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
         if secret_key in child_env:
             raise RuntimeError(f'Secret key {secret_key} present in child environment')
 
-    prompt_sha256 = hashlib.sha256(prompt.encode('utf-8')).hexdigest()
+    png_clean, prompt_clean = public_input(payload, condition=condition)
+    prompt_sha256 = hashlib.sha256(prompt_clean.encode('utf-8')).hexdigest()
+    static_inst = static_instruction(condition)
+    static_instruction_sha256 = hashlib.sha256(static_inst.encode('utf-8')).hexdigest()
 
     output.mkdir(parents=True)
-    (output / 'geometry_evidence.json').write_bytes(geom_evidence_bytes)
+    if geom_evidence_bytes is not None:
+        (output / 'geometry_evidence.json').write_bytes(geom_evidence_bytes)
     write_json(output / 'public_payload.json', payload)
-    (output / 'prompt.txt').write_text(prompt)
-    (output / 'observation.png').write_bytes(png)
+    (output / 'prompt.txt').write_text(prompt_clean)
+    (output / 'observation.png').write_bytes(png_clean)
 
     preflight_record = {
         'status': 'complete',
@@ -557,21 +564,26 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
         'protocol_id': protocol_id,
         'protocol_path': str(protocol_path.relative_to(ROOT)),
         'protocol_sha256': protocol_sha256,
-        'source_commit': source_commit,
-        'cli_version': info['cli_version'],
-        'login_method': info['login_method'],
-        'executable': info['executable'],
+        'source_commit': git_info['commit'],
+        'git_status': git_info['status'],
+        'is_dirty': git_info['is_dirty'],
+        'cli_version': cli_info.get('cli_version'),
+        'login_method': cli_info.get('login_method'),
+        'executable': cli_info.get('executable'),
+        'cli_status': cli_info.get('status', 'verified'),
         'model_requested': model,
         'max_actions': max_calls,
         'deadline_s': 25.0,
         'decision_timeout_s': 120.0,
         'demonstration_prompt_sha256': prompt_sha256,
+        'static_instruction_sha256': static_instruction_sha256,
         'geometry_evidence_sha256': geom_evidence_sha256,
+        'input_provenance': input_provenance,
         'isolation_verified': True,
         'model_invocations': 0,
         'physics_steps': 0,
-        'config': info.get('config', CONFIG),
-        'disabled_features': list(info.get('disabled_features', DISABLED_FEATURES)),
+        'config': cli_info.get('config', CONFIG),
+        'disabled_features': list(cli_info.get('disabled_features', DISABLED_FEATURES)),
     }
     write_json(output / 'preflight.json', preflight_record)
     return preflight_record
@@ -592,18 +604,25 @@ def main():
         parser.error('Use a new output directory')
     if args.execute and args.probe:
         parser.error('Choose episode or archived-image probe')
-    if (args.execute or not args.probe) and (args.model != MODEL or args.max_calls != 20):
-        parser.error(f'{args.condition.upper()} fixes the requested model and 20-call cap; declare a successor before changing them')
+    if args.condition in ('c1', 'c2') and (args.model != MODEL or args.max_calls != 20):
+        parser.error(f'{args.condition.upper()} fixes the requested model ({MODEL}) and 20-call cap; declare a successor before changing them')
     _validate_budget(args.max_calls, 25.)
-    info = check_install(executable=args.executable)
 
     if not args.execute and not args.probe:
-        preflight_record = run_preflight(args.output, condition=args.condition,
-                                         model=args.model, max_calls=args.max_calls,
-                                         executable=args.executable, info=info)
-        print(json.dumps(preflight_record, indent=2))
-        return
+        if args.condition == 'c1':
+            info = check_install(executable=args.executable)
+            args.output.mkdir(parents=True)
+            write_json(args.output / 'preflight.json', info)
+            print(json.dumps(info, indent=2))
+            return
+        else:
+            preflight_record = run_preflight(args.output, condition='c2',
+                                             model=args.model, max_calls=args.max_calls,
+                                             executable=args.executable)
+            print(json.dumps(preflight_record, indent=2))
+            return
 
+    info = check_install(executable=args.executable)
     policy = CodexPolicy(args.output / 'codex', model=args.model, executable=args.executable,
                          condition=args.condition)
     if args.probe:
@@ -611,9 +630,10 @@ def main():
         write_json(args.output / 'preflight.json', info)
         if args.condition == 'c2':
             geom_ev = generate_geometry_evidence()
-            write_json(args.output / 'geometry_evidence.json', geom_ev)
+            geom_ev_bytes = serialize_geometry_evidence(geom_ev)
+            (args.output / 'geometry_evidence.json').write_bytes(geom_ev_bytes)
         decision = policy(strict_json(args.probe.read_text()))
-        write_json(args.output / 'probe.json', {'decision': decision, 'actions_executed': 0, 'condition': args.condition})
+        write_json(args.output / 'probe.json', {'decision': decision, 'actions_executed': 0, 'condition': args.condition, 'model': args.model})
         print(json.dumps(decision))
         return
 
@@ -622,27 +642,48 @@ def main():
     from .visual_policy_runner import VisualPolicySession, run_visual_episode
     protocol = PROTOCOL_PATHS[args.condition]
     protocol_sha256 = hashlib.sha256(protocol.read_bytes()).hexdigest()
-    source_commit = git_source_commit()
-    geom_evidence = generate_geometry_evidence()
-    geom_evidence_bytes = json.dumps(geom_evidence, indent=2, sort_keys=True).encode('utf-8') + b'\n'
-    geom_evidence_sha256 = hashlib.sha256(geom_evidence_bytes).hexdigest()
+    git_info = git_source_info()
+    source_commit = git_info['commit']
+
+    geom_evidence_bytes = None
+    geom_evidence_sha256 = None
+    static_files = {}
+    if args.condition == 'c2':
+        geom_evidence = generate_geometry_evidence()
+        geom_evidence_bytes = serialize_geometry_evidence(geom_evidence)
+        geom_evidence_sha256 = hashlib.sha256(geom_evidence_bytes).hexdigest()
+        static_files['geometry_evidence.json'] = geom_evidence_bytes
+
+    static_inst = static_instruction(args.condition)
+    static_instruction_sha256 = hashlib.sha256(static_inst.encode('utf-8')).hexdigest()
 
     env = Environment()
     env.reset(820, randomize=True)
     renderer = RGBRenderer(env, camera='fixed')
     session = VisualPolicySession(VisualSession(env, renderer), max_calls=args.max_calls)
+    execution_metadata = {
+        'mode': 'codex_chatgpt',
+        'offline_only': False,
+        'condition': args.condition,
+        'condition_id': args.condition,
+        'protocol_id': PROTOCOL_IDS[args.condition],
+        'protocol_path': str(protocol.relative_to(ROOT)),
+        'protocol_sha256': protocol_sha256,
+        'source_commit': source_commit,
+        'git_status': git_info['status'],
+        'is_dirty': git_info['is_dirty'],
+        'model_requested': args.model,
+        'max_calls': args.max_calls,
+        'decision_timeout_s': 120.0,
+        'static_instruction_sha256': static_instruction_sha256,
+        'geometry_evidence_sha256': geom_evidence_sha256,
+        'static_files': static_files,
+        **info,
+    }
     try:
         report = run_visual_episode(args.output, session, policy, max_calls=args.max_calls,
                                     seed=820, controller_name='codex_chatgpt',
-                                    execution_metadata={'mode': 'codex_chatgpt', 'offline_only': False,
-                                                        'condition': args.condition,
-                                                        'condition_id': args.condition,
-                                                        'protocol_id': PROTOCOL_IDS[args.condition],
-                                                        'protocol_sha256': protocol_sha256,
-                                                        'source_commit': source_commit,
-                                                        'geometry_evidence_sha256': geom_evidence_sha256,
-                                                        'model_requested': args.model, **info})
-        write_json(args.output / 'geometry_evidence.json', geom_evidence)
+                                    execution_metadata=execution_metadata)
         print(json.dumps(report, indent=2))
     finally:
         renderer.close()

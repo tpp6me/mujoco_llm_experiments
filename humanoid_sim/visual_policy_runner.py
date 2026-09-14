@@ -106,15 +106,15 @@ def to_json_safe(val):
     return {'__diagnostic_unserializable__': repr(val)}
 
 
-def write_json(path, value):
+def write_json(path, value, sort_keys=True):
     """Atomically write formatted JSON without NaN/Infinity."""
     path = Path(path)
     temp = path.with_suffix(path.suffix + '.tmp')
     try:
-        content = json.dumps(value, indent=2, allow_nan=False) + '\n'
+        content = json.dumps(value, indent=2, sort_keys=sort_keys, allow_nan=False) + '\n'
     except (ValueError, TypeError):
         safe_val = to_json_safe(value)
-        content = json.dumps(safe_val, indent=2, allow_nan=False) + '\n'
+        content = json.dumps(safe_val, indent=2, sort_keys=sort_keys, allow_nan=False) + '\n'
     temp.write_text(content)
     temp.replace(path)
 
@@ -680,14 +680,41 @@ def run_visual_episode(
                 or type(execution_metadata.get('offline_only')) is not bool
                 or not isinstance(execution_metadata.get('protocol_id'), str)):
             raise ValueError('Execution metadata requires offline_only boolean and protocol_id string')
-        cond = execution_metadata.get('condition') or execution_metadata.get('condition_id')
+
+        # Validate condition aliases and reject conflicting condition labels
+        cond = execution_metadata.get('condition')
+        cond_id = execution_metadata.get('condition_id')
+        if cond is not None and cond_id is not None and cond != cond_id:
+            raise ValueError(f'Conflicting condition ({cond}) and condition_id ({cond_id})')
+        effective_cond = cond if cond is not None else cond_id
+
+        if effective_cond is not None and effective_cond not in ('c1', 'c2'):
+            raise ValueError(f'Unknown condition: {effective_cond}')
+
         prot = execution_metadata.get('protocol_id')
-        if cond == 'c1' and prot != 'humanoid-codex-c1-development':
-            raise ValueError(f'Mismatched condition and protocol_id: {cond} vs {prot}')
-        if cond == 'c2' and prot != 'humanoid-codex-c2-development':
-            raise ValueError(f'Mismatched condition and protocol_id: {cond} vs {prot}')
-        if cond and hasattr(model_callable, 'condition') and model_callable.condition != cond:
-            raise ValueError(f'Mismatched model callable condition ({model_callable.condition}) and execution metadata condition ({cond})')
+        if prot == 'humanoid-codex-c1-development':
+            if effective_cond is not None and effective_cond != 'c1':
+                raise ValueError(f'Mismatched condition and protocol_id: {effective_cond} vs {prot}')
+            effective_cond = 'c1'
+        elif prot == 'humanoid-codex-c2-development':
+            if effective_cond is not None and effective_cond != 'c2':
+                raise ValueError(f'Mismatched condition and protocol_id: {effective_cond} vs {prot}')
+            effective_cond = 'c2'
+        elif effective_cond is not None:
+            raise ValueError(f'Mismatched condition and protocol_id: {effective_cond} vs {prot}')
+
+        if effective_cond and hasattr(model_callable, 'condition') and model_callable.condition != effective_cond:
+            raise ValueError(f'Mismatched model callable condition ({model_callable.condition}) and execution metadata condition ({effective_cond})')
+
+        # Validate model callable configuration against declared metadata for C1/C2 conditions
+        if effective_cond in ('c1', 'c2'):
+            declared_model = execution_metadata.get('model') or execution_metadata.get('model_requested') or 'gpt-5.6-sol'
+            if hasattr(model_callable, 'model') and model_callable.model != declared_model:
+                raise ValueError(f'Mismatched model callable model ({model_callable.model}) and expected model ({declared_model})')
+            declared_timeout = execution_metadata.get('decision_timeout_s') or execution_metadata.get('timeout') or 120.0
+            if hasattr(model_callable, 'timeout') and abs(float(model_callable.timeout) - float(declared_timeout)) > 1e-6:
+                raise ValueError(f'Mismatched model callable timeout ({model_callable.timeout}) and expected timeout ({declared_timeout})')
+
         execution_metadata = copy.deepcopy(execution_metadata)
 
     if seed is not None:
@@ -712,6 +739,15 @@ def run_visual_episode(
 
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=False)
+
+    # Persist static files immediately before any decisions or interruption can occur
+    if execution_metadata and 'static_files' in execution_metadata:
+        for fname, content in execution_metadata['static_files'].items():
+            fpath = folder / fname
+            if isinstance(content, bytes):
+                fpath.write_bytes(content)
+            else:
+                fpath.write_text(content)
 
     history = []
     image_identities = []
@@ -1056,9 +1092,13 @@ def run_visual_episode(
                 prov['protocol_id'] = execution_metadata['protocol_id']
                 prov['scaffold_origin_task'] = prov['task']
                 prov['task'] = execution_metadata['protocol_id']
-                for key in ('condition', 'condition_id', 'source_commit', 'prompt_sha256', 'geometry_evidence_sha256'):
+                for key in ('condition', 'condition_id', 'source_commit', 'prompt_sha256',
+                            'static_instruction_sha256', 'geometry_evidence_sha256',
+                            'protocol_path', 'protocol_sha256', 'git_status', 'is_dirty'):
                     if key in execution_metadata:
                         prov[key] = execution_metadata[key]
+                if 'static_instruction_sha256' in execution_metadata and 'prompt_sha256' not in execution_metadata:
+                    prov['prompt_sha256'] = execution_metadata['static_instruction_sha256']
                 codex_py = ROOT / 'humanoid_sim/codex_policy.py'
                 if codex_py.exists():
                     prov['source_sha256'][str(codex_py.relative_to(ROOT))] = hashlib.sha256(codex_py.read_bytes()).hexdigest()

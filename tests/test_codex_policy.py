@@ -14,7 +14,7 @@ import zipfile
 from humanoid_sim.codex_policy import (
     CodexPolicy, CodexPolicyError, child_environment, check_install, public_input,
     SUPPORTED_VERSION, DISABLED_CODE_MODE_NOTICE, main,
-    C2_INSTRUCTION, CONDITIONS, DEFAULT_CONDITION,
+    C2_INSTRUCTION, CONDITIONS, DEFAULT_CONDITION, MODEL, serialize_geometry_evidence,
     nominal_open_hand_geometry, verify_nominal_bounds_enclosure, generate_geometry_evidence,
     run_preflight, PROTOCOL_PATHS, PROTOCOL_IDS, ROOT,
 )
@@ -316,6 +316,13 @@ class CodexPolicyTests(unittest.TestCase):
                                execution_metadata={'offline_only': True, 'condition': 'c2',
                                                    'protocol_id': 'humanoid-codex-c1-development'})
 
+        # run_visual_episode rejects conflicting condition and condition_id
+        with self.assertRaisesRegex(ValueError, 'Conflicting condition'):
+            run_visual_episode(self.root / 'ep_conflict', session, policy, max_calls=1, seed=820,
+                               controller_name='mock_codex',
+                               execution_metadata={'offline_only': True, 'condition': 'c2', 'condition_id': 'c1',
+                                                   'protocol_id': 'humanoid-codex-c2-development'})
+
         # run_visual_episode rejects mismatch between policy condition and metadata condition
         policy_c2 = CodexPolicy(self.root / 'codex_c2', condition='c2')
         with self.assertRaisesRegex(ValueError, 'Mismatched model callable condition'):
@@ -323,6 +330,56 @@ class CodexPolicyTests(unittest.TestCase):
                                controller_name='mock_codex',
                                execution_metadata={'offline_only': True, 'condition': 'c1',
                                                    'protocol_id': 'humanoid-codex-c1-development'})
+
+        # Protocol with no condition field rejects callable with mismatched condition
+        with self.assertRaisesRegex(ValueError, 'Mismatched model callable condition'):
+            run_visual_episode(self.root / 'ep_proto_only', session, policy_c2, max_calls=1, seed=820,
+                               controller_name='mock_codex',
+                               execution_metadata={'offline_only': True,
+                                                   'protocol_id': 'humanoid-codex-c1-development'})
+
+        # Model and timeout mismatches rejected before capture
+        class MismatchedStub:
+            condition = 'c2'
+            model = 'other-model'
+            timeout = 180.0
+            def __call__(self, p):
+                raise AssertionError('Callable reached despite setting mismatch')
+
+        with self.assertRaisesRegex(ValueError, 'Mismatched model callable model'):
+            run_visual_episode(self.root / 'ep_model_mismatch', session, MismatchedStub(), max_calls=1, seed=820,
+                               controller_name='mock_codex',
+                               execution_metadata={'offline_only': True, 'condition': 'c2', 'condition_id': 'c2',
+                                                   'protocol_id': 'humanoid-codex-c2-development',
+                                                   'model_requested': 'gpt-5.6-sol'})
+
+        class TimeoutStub:
+            condition = 'c2'
+            model = 'gpt-5.6-sol'
+            timeout = 180.0
+            def __call__(self, p):
+                raise AssertionError('Callable reached despite timeout mismatch')
+
+        with self.assertRaisesRegex(ValueError, 'Mismatched model callable timeout'):
+            run_visual_episode(self.root / 'ep_timeout_mismatch', session, TimeoutStub(), max_calls=1, seed=820,
+                               controller_name='mock_codex',
+                               execution_metadata={'offline_only': True, 'condition': 'c2', 'condition_id': 'c2',
+                                                   'protocol_id': 'humanoid-codex-c2-development',
+                                                   'model_requested': 'gpt-5.6-sol'})
+
+        # CLI probe path rejects altered model for both c1 and c2
+        dummy_probe = self.root / 'dummy_probe.json'
+        dummy_probe.write_text('{}')
+        for cond in ('c1', 'c2'):
+            with patch.object(sys, 'argv', ['codex_policy', '--probe', str(dummy_probe),
+                                            '--condition', cond, '--output', str(self.root / f'probe_{cond}'),
+                                            '--model', 'different-model']), \
+                 patch('humanoid_sim.codex_policy.check_install') as check, \
+                 contextlib.redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit):
+                    main()
+                check.assert_not_called()
+                self.assertFalse((self.root / f'probe_{cond}').exists())
 
     def test_geometry_nominal_bounds_and_enclosure_verification(self):
         geom = nominal_open_hand_geometry()
@@ -440,8 +497,11 @@ class CodexPolicyTests(unittest.TestCase):
             return orig_popen(cmd, *args, **kwargs)
 
         preflight_dir = self.root / 'c2_preflight'
+        # Offline preflight must succeed even when Codex CLI login is unavailable and without graphics
         with patch('humanoid_sim.codex_policy.CodexPolicy.__call__', side_effect=AssertionError('No model invocation allowed')), \
              patch('humanoid_sim.codex_policy.run_process', side_effect=AssertionError('No process execution allowed')), \
+             patch('humanoid_sim.codex_policy.check_install', side_effect=RuntimeError('Codex CLI login unavailable')), \
+             patch('humanoid_sim.visual.RGBRenderer', side_effect=AssertionError('No renderer invocation allowed')), \
              patch('subprocess.Popen', side_effect=safe_popen), \
              patch('mujoco.mj_step', side_effect=AssertionError('No physics step allowed')):
             record = run_preflight(preflight_dir, condition='c2')
@@ -460,6 +520,10 @@ class CodexPolicyTests(unittest.TestCase):
             self.assertTrue(p.is_file(), f'Missing preflight artifact: {fname}')
             self.assertGreater(p.stat().st_size, 0)
 
+        # Verify geometry evidence file hash matches record hash
+        written_geom_hash = hashlib.sha256((preflight_dir / 'geometry_evidence.json').read_bytes()).hexdigest()
+        self.assertEqual(written_geom_hash, record['geometry_evidence_sha256'])
+
         # Verify prompt contains C2 instruction and excludes private fields
         prompt_text = (preflight_dir / 'prompt.txt').read_text()
         self.assertIn(C2_INSTRUCTION, prompt_text)
@@ -468,6 +532,60 @@ class CodexPolicyTests(unittest.TestCase):
         # Refusal on existing directory
         with self.assertRaisesRegex(ValueError, 'must be new'):
             run_preflight(preflight_dir, condition='c2')
+
+    def test_default_c1_local_check_preserves_graphics_free_behavior(self):
+        fake_info = {'cli_version': SUPPORTED_VERSION, 'login_method': 'chatgpt',
+                     'executable': 'mock-codex', 'config': {}, 'disabled_features': []}
+        c1_dir = self.root / 'c1_check'
+        with patch.object(sys, 'argv', ['codex_policy', '--condition', 'c1', '--output', str(c1_dir)]), \
+             patch('humanoid_sim.codex_policy.check_install', return_value=fake_info), \
+             patch('humanoid_sim.visual.RGBRenderer', side_effect=AssertionError('No graphics permitted in local check')), \
+             patch('humanoid_sim.codex_policy.run_preflight', side_effect=AssertionError('C1 must not run synthesized preflight')), \
+             contextlib.redirect_stdout(io.StringIO()):
+            main()
+
+        self.assertTrue((c1_dir / 'preflight.json').is_file())
+        written = json.loads((c1_dir / 'preflight.json').read_text())
+        self.assertEqual(written['cli_version'], SUPPORTED_VERSION)
+
+    def test_geometry_evidence_written_and_retained_on_interruption(self):
+        class InterruptStub:
+            condition = 'c2'
+            model = MODEL
+            timeout = 120.0
+            def __call__(self, p):
+                raise KeyboardInterrupt('Simulated user interruption during episode')
+
+        env = Environment()
+        env.reset(820, randomize=True)
+        session = VisualPolicySession(VisualSession(env, MockRenderer()), max_calls=2)
+        ep_dir = self.root / 'interrupted_ep'
+        geom_ev = generate_geometry_evidence()
+        geom_bytes = serialize_geometry_evidence(geom_ev)
+        geom_hash = hashlib.sha256(geom_bytes).hexdigest()
+
+        with self.assertRaises(KeyboardInterrupt):
+            run_visual_episode(ep_dir, session, InterruptStub(), max_calls=2, seed=820,
+                               controller_name='mock_codex',
+                               execution_metadata={
+                                   'offline_only': True, 'condition': 'c2', 'condition_id': 'c2',
+                                   'protocol_id': 'humanoid-codex-c2-development',
+                                   'protocol_path': 'experiments/humanoid-pick-place/protocols/C2_PROPOSAL.md',
+                                   'model_requested': MODEL,
+                                   'decision_timeout_s': 120.0,
+                                   'geometry_evidence_sha256': geom_hash,
+                                   'static_files': {'geometry_evidence.json': geom_bytes},
+                               })
+
+        # geometry_evidence.json must exist despite interruption and match hash
+        self.assertTrue((ep_dir / 'geometry_evidence.json').is_file())
+        file_hash = hashlib.sha256((ep_dir / 'geometry_evidence.json').read_bytes()).hexdigest()
+        self.assertEqual(file_hash, geom_hash)
+
+        # report.json must be written by finally block with matching provenance
+        self.assertTrue((ep_dir / 'report.json').is_file())
+        report = json.loads((ep_dir / 'report.json').read_text())
+        self.assertEqual(report['provenance']['geometry_evidence_sha256'], geom_hash)
 
     def test_c1_artifacts_and_frozen_protocol_unchanged(self):
         expected_hashes = {
