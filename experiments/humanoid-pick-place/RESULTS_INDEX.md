@@ -48,6 +48,12 @@ No direct API integration or keys; all prompts/images and event logs audited.
 [Results](results/codex_C1.json), [episode archive](results/codex_C1_episode.zip),
 [retained probes](results/codex_C1_probes.zip). This is not a matched model comparison.
 
+[C1 post-hoc diagnosis](CODEX_C1_DIAGNOSIS.md), 2026-09-14: the approach toppled the
+block and displaced it 84.640 mm in XY. The rejected descent reproduced a table
+collision with the index/middle fingertips. No new simulation steps or model
+decisions. [C2 proposal](protocols/C2_PROPOSAL.md) is defined but not implemented or
+executed; original outcomes and thresholds are unchanged.
+
 [Five-capture checks and limitations](VISUAL.md): calibration bounds and exact
 state preservation passed; the centroid/known-plane estimate has up to 2.983 cm
 XY error. The head view crops the task. These are infrastructure checks, not

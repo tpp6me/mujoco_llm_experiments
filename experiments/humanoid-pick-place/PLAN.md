@@ -1,10 +1,10 @@
 # Humanoid VLA experiment — implementation checklist
 
-Started: 2026-09-11. Last updated: 2026-09-13.
+Started: 2026-09-11. Last updated: 2026-09-14.
 
 Robot: Unitree G1 with hands, simulated in MuJoCo.
 
-Current phase: **Phase 5 — develop and validate RGB perception**
+Current phase: **Phase 5 — diagnose visual-control failures and prepare C2**
 
 This is the canonical, living plan for the experiment. Use it to choose the next
 work item and record progress across sessions. Keep commands in the
@@ -79,7 +79,9 @@ individual-finger control are outside the initial scope.
 - [x] Cancel [AGY task 006](../../coordination/agy/tasks/006-visual-live-transport.md) before implementation per user direction: Codex works directly; no OpenAI API integration or calls. See [execution policy](../../coordination/EXECUTION_POLICY.md).
 - [x] Confirm signed-in Codex CLI as the image-to-action controller and implement it through the existing public visual runner, without API keys or direct OpenAI API integration; [C1 protocol](protocols/C1.md).
 - [x] Qualify the CLI boundary, freeze C1 and execute one seed-820 visual development episode; [C1 results](CODEX_C1_RESULTS.md): 3 decisions, 2 actions completed, 1 rejected, no sustained lift or placement, 6.291 mm peak penetration. All failures and private scores retained.
-- [ ] Diagnose C1's completed-approach penetration and rejected path from saved artifacts, then declare a separate successor condition before more model experiments.
+- [x] Diagnose C1's completed-approach penetration and rejected path from saved artifacts: [diagnosis](CODEX_C1_DIAGNOSIS.md), 84.640 mm XY block displacement/topple, production rejection reproduced at sample 62/100 for fingertips against table. No physics steps or model invocations; three audit tests passed.
+- [x] Define the separate [C2 proposal](protocols/C2_PROPOSAL.md): explicit nominal hand geometry and visual reassessment; same budgets, scoring and guards; no private task coordinates or recipe.
+- [ ] Implement and test explicit C1/C2 prompt selection, verify the robot-only geometry bounds, freeze C2, then run its one declared development episode. C2 is not yet implemented or executed.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -383,6 +385,7 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-13 | Reviewed task 004 at `8900642`; 161 tests independently passed | [Review](../../coordination/agy/reviews/004-review.md): offline loop and smoke evidence present; reproduced lost failure reports and budget overruns, revisions requested before integration |
 
 | 2026-09-13 | Implemented signed-in Codex CLI control directly, froze C1 at `ad73d15`, and ran seed 820 | [C1 results](CODEX_C1_RESULTS.md): 3 decisions, 2 executed actions, one guard rejection, no lift/placement, 6.291 mm peak penetration; both probes and complete episode archived. 212 full-suite tests and 40 final affected tests passed; no direct API integration or AGY |
+| 2026-09-14 | Audited C1's preserved trajectory and reproduced rejected preflight; defined C2 | [Diagnosis](CODEX_C1_DIAGNOSIS.md): approach toppled/displaced block; fingertips extend below site and collide with table on rejected path. [C2 proposal](protocols/C2_PROPOSAL.md) supplies robot geometry and reassessment instructions; unexecuted. Three focused audit tests passed; original evidence unchanged |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.

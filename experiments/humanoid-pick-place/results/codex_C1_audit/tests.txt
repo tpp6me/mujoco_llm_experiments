@@ -1,0 +1,8 @@
+test_modified_evidence_is_rejected_before_output (tests.test_codex_c1_audit.C1AuditTests.test_modified_evidence_is_rejected_before_output) ... ok
+test_overlap_and_existing_output_are_rejected (tests.test_codex_c1_audit.C1AuditTests.test_overlap_and_existing_output_are_rejected) ... ok
+test_saved_failure_reproduces_with_physics_disabled (tests.test_codex_c1_audit.C1AuditTests.test_saved_failure_reproduces_with_physics_disabled) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.503s
+
+OK
