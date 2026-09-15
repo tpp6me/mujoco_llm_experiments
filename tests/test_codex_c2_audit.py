@@ -154,9 +154,11 @@ class C2AuditTests(unittest.TestCase):
         self.assertEqual(sampled_geom['nearest_to_scorer_peak_sample_index'], 118)
         self.assertAlmostEqual(sampled_geom['nearest_sample_penetration_m'], 0.005184672, places=6)
 
-        # First contact sample is 117 with ~0.274 mm penetration
+        # First sampled contact sample is 117 with ~0.274 mm penetration
         self.assertEqual(sampled_geom['first_contact_sample_index'], 117)
         self.assertAlmostEqual(sampled_geom['first_contact_penetration_m'], 0.000274117, places=6)
+        self.assertEqual(sampled_geom['first_sampled_contact_sample_index'], 117)
+        self.assertAlmostEqual(sampled_geom['first_sampled_contact_penetration_m'], 0.000274117, places=6)
 
         # Verify they are distinct values
         self.assertNotEqual(

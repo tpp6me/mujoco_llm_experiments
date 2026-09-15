@@ -1,4 +1,4 @@
-# AGY completion — task 009 (revision 1)
+# AGY completion — task 009 (revision 2)
 
 Status: **ready for review**
 Task brief: `coordination/agy/tasks/009-c2-failure-audit.md`
@@ -6,6 +6,14 @@ Branch: `agy/009-c2-failure-audit`
 Starting commit: `d125d74be4324dad9b938adcd4ef4ded84a2d636`
 Worktree: `/private/tmp/mujoco-llms-agy-009`
 Python interpreter: `/Users/praveen/work/github/mujoco-llms/.venv/bin/python`
+
+---
+
+## Executive summary of revision 2 (final provenance & wording correction)
+
+Following Codex verification of substantive evidence:
+1. Replaced all assertions claiming physical contact "begins" at sample 117 with "first sampled contact": 30 Hz snapshots cannot identify exact collision onset.
+2. Verified that `audit.json`'s embedded `audit_source_sha256` exactly equals the SHA-256 byte digest of the final committed script `scripts/audit_codex_c2.py`.
 
 ---
 
@@ -28,15 +36,15 @@ resets, model calls, or modifications to historical C1/C2 evidence archives:
 2. **R2 — Penetration and sample derivation (medium)**:
    - Nearest sample to scorer peak (t=3.795 s) is dynamically derived as sample 118 (t=3.794 s) with
      `nearest_sample_penetration_m = 0.005184672 m` (5.185 mm), correcting earlier attribution to first contact.
-   - First contact (sample 117, t=3.761 s, 0.000274 m) and max penetration sample (sample 118, 0.005185 m)
+   - First sampled contact (sample 117, t=3.761 s, 0.000274 m) and max penetration sample (sample 118, 0.005185 m)
      are derived dynamically from trajectory arrays rather than hard-coded.
    - Derived IK residual from the reproduced error string with four-decimal precision (`0.0542 m`).
 3. **R3 — Geometry and comparison overclaims (high)**:
    - Removed necessity/universal claims ("necessarily caused collision", "97 mm finger sweep through block")
      and solid-fill interpretations of bounding boxes.
    - Physical collision is established by the actual empirical contact pairs and recorded trajectory:
-     contact begins at sample 117 between `right_hand_middle_0_link` (geom 98) and `object` (geom 105)
-     at 0.274 mm penetration, reaching 5.185 mm penetration at sample 118.
+     first sampled contact is recorded at sample 117 between `right_hand_middle_0_link` (geom 98) and `object` (geom 105)
+     (30 Hz snapshots cannot identify exact collision onset), reaching 5.185 mm penetration at sample 118.
    - Retained per-sample hand bounds across all 26 samples of Action 4; measured lower Z extends to -0.0778 m
      pre-approach (0.8 mm beyond prompt nominal -0.077 m); recorded joint deflections under contact
      (middle finger joint reaches 0.112 rad). Explained applicability as approximate with measured limits.

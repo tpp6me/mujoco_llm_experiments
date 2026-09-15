@@ -673,6 +673,9 @@ def audit(episode, output):
                 'nearest_to_scorer_peak_sample_index': nearest_sample_idx,
                 'nearest_sample_time_s': nearest_sample_time_s,
                 'nearest_sample_penetration_m': nearest_sample_penetration_m,
+                'first_sampled_contact_sample_index': first_contact_sample_idx,
+                'first_sampled_contact_time_s': first_sampled_contact['time_s'] if first_sampled_contact else None,
+                'first_sampled_contact_penetration_m': first_contact_penetration_m,
                 'first_contact_sample_index': first_contact_sample_idx,
                 'first_contact_time_s': first_sampled_contact['time_s'] if first_sampled_contact else None,
                 'first_contact_penetration_m': first_contact_penetration_m,
@@ -680,7 +683,7 @@ def audit(episode, output):
                 'max_sampled_penetration_m': max_penetration_m,
                 'note': (
                     'Qpos trajectory analysis is post-hoc geometric reconstruction only (dt ~ 0.033 s). '
-                    'It cannot reconstruct continuous contact forces or exact microsecond collision dynamics.'
+                    '30 Hz snapshots cannot identify exact collision onset or continuous contact forces.'
                 ),
             },
         },
@@ -708,9 +711,9 @@ def audit(episode, output):
                 'extended to -0.0778 m, slightly beyond the prompt lower bound of -0.077 m, and finger articulation '
                 'under dynamic contact further altered geometry. Furthermore, bounding boxes enclose solid geometry '
                 'rather than certifying a safe swept volume or free cavity. Along the actual recorded trajectory, '
-                'physical collision occurred at sample 117 (t=3.761 s) between right_hand_middle_0_link and the object, '
-                'reaching 5.185 mm penetration at sample 118. The empirical contact pairs and path, not box overlap '
-                'alone, establish physical collision.'
+                'first sampled contact occurred at sample 117 (t=3.761 s) between right_hand_middle_0_link and the object '
+                '(30 Hz snapshots cannot identify exact collision onset), reaching 5.185 mm penetration at sample 118. '
+                'The empirical contact pairs and path, not box overlap alone, establish physical collision.'
             ),
         },
         'action_9_rejection': {

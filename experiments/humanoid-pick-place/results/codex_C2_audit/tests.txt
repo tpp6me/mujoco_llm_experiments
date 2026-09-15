@@ -11,6 +11,6 @@ test_overlap_and_existing_output_are_rejected (tests.test_codex_c1_audit.C1Audit
 test_saved_failure_reproduces_with_physics_disabled (tests.test_codex_c1_audit.C1AuditTests.test_saved_failure_reproduces_with_physics_disabled) ... ok
 
 ----------------------------------------------------------------------
-Ran 11 tests in 1.921s
+Ran 11 tests in 1.842s
 
 OK

@@ -114,7 +114,7 @@
     "humanoid_sim/visual_provider_adapter.py": "381e275c1bc8fa2ba690d4a40392f4fe3bcbfff92544eeeb59ced3bf5bbe9b99",
     "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725"
   },
-  "audit_source_sha256": "bf08442f985113e342efd55cc7c335360b0c22ec60ef4fe68fd7fd45e49d3627",
+  "audit_source_sha256": "fa05101f4833aefe545211acaa0a8d4b6d81765a552b5244f9dc50334e5a6e4e",
   "mujoco_version": "3.12.0",
   "action_4_analysis": {
     "call_index": 4,
@@ -352,12 +352,15 @@
       "nearest_to_scorer_peak_sample_index": 118,
       "nearest_sample_time_s": 3.793999999999693,
       "nearest_sample_penetration_m": 0.005184671623014815,
+      "first_sampled_contact_sample_index": 117,
+      "first_sampled_contact_time_s": 3.760999999999697,
+      "first_sampled_contact_penetration_m": 0.0002741165378328769,
       "first_contact_sample_index": 117,
       "first_contact_time_s": 3.760999999999697,
       "first_contact_penetration_m": 0.0002741165378328769,
       "max_contact_sample_index": 118,
       "max_sampled_penetration_m": 0.005184671623014815,
-      "note": "Qpos trajectory analysis is post-hoc geometric reconstruction only (dt ~ 0.033 s). It cannot reconstruct continuous contact forces or exact microsecond collision dynamics."
+      "note": "Qpos trajectory analysis is post-hoc geometric reconstruction only (dt ~ 0.033 s). 30 Hz snapshots cannot identify exact collision onset or continuous contact forces."
     }
   },
   "finger_geometry_vs_nominal_bounds": {
@@ -1622,7 +1625,7 @@
         }
       ]
     },
-    "geometric_applicability_finding": "The prompt supplied approximate posture-specific bounds. Measured pre-approach lower Z bounds extended to -0.0778 m, slightly beyond the prompt lower bound of -0.077 m, and finger articulation under dynamic contact further altered geometry. Furthermore, bounding boxes enclose solid geometry rather than certifying a safe swept volume or free cavity. Along the actual recorded trajectory, physical collision occurred at sample 117 (t=3.761 s) between right_hand_middle_0_link and the object, reaching 5.185 mm penetration at sample 118. The empirical contact pairs and path, not box overlap alone, establish physical collision."
+    "geometric_applicability_finding": "The prompt supplied approximate posture-specific bounds. Measured pre-approach lower Z bounds extended to -0.0778 m, slightly beyond the prompt lower bound of -0.077 m, and finger articulation under dynamic contact further altered geometry. Furthermore, bounding boxes enclose solid geometry rather than certifying a safe swept volume or free cavity. Along the actual recorded trajectory, first sampled contact occurred at sample 117 (t=3.761 s) between right_hand_middle_0_link and the object (30 Hz snapshots cannot identify exact collision onset), reaching 5.185 mm penetration at sample 118. The empirical contact pairs and path, not box overlap alone, establish physical collision."
   },
   "action_9_rejection": {
     "call_index": 9,

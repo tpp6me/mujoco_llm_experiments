@@ -89,7 +89,7 @@ Actual collision geometry along the Action 4 path was evaluated per sample from 
   - World offset min: `[-0.0725, -0.0417, -0.0778]` m
   - World offset max: `[+0.0572, +0.0414, +0.0847]` m
   - Measured site orientation: quaternion `[0.495277, -0.496792, 0.504349, 0.503519]` (diff norm from `[0.5, -0.5, 0.5, 0.5]`: 0.007993)
-- First contact bounds (t=3.761 s, sample 117):
+- First sampled contact bounds (t=3.761 s, sample 117):
   - World offset min: `[-0.0729, -0.0414, -0.0774]` m
   - World offset max: `[+0.0573, +0.0416, +0.0847]` m
 - Peak contact bounds (t=3.794 s, sample 118):
@@ -108,8 +108,9 @@ The prompt bounds supplied approximate bounds for an ideal nominal posture. In a
    Joint articulation under contact further deflects finger links (e.g. middle finger joint reaches 0.112 rad at sample 118).
 2. Overlapping bounding boxes alone do not prove mesh collision, nor does an envelope describe a solid volume.
 3. The empirical evidence for collision in this episode is the recorded kinematic path and contact pairs:
-   physical contact begins at sample 117 (t=3.761 s) between `right_hand_middle_0_link` (geom 98) and `object` (geom 105)
-   with 0.274 mm penetration, deepening to 5.185 mm penetration at sample 118 (t=3.794 s), accompanied by block toppling
+   first sampled contact occurs at sample 117 (t=3.761 s) between `right_hand_middle_0_link` (geom 98) and `object` (geom 105)
+   with 0.274 mm penetration (note: 30 Hz snapshots cannot identify exact collision onset), deepening to 5.185 mm penetration
+   at sample 118 (t=3.794 s, nearest to authoritative scorer peak at t=3.795 s), accompanied by block toppling
    and 154.269 mm horizontal displacement.
 
 ---
