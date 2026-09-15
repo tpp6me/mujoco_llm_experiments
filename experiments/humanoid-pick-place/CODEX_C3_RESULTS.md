@@ -2,7 +2,7 @@
 
 2026-09-15. **0/1 placement, 0/1 sustained lift, 0/1 strict pass.** One frozen
 seed-820 episode completed without retries. C3 collected valid visual assessments
-but did not achieve a grasp or placement.
+but did not achieve sustained lift or placement.
 
 ## Execution and evidence
 
