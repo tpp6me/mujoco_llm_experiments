@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "c3_static_instruction_sha256": "de0525e07f9470be60f9e01c4d720ad4f65260fd54b08065708e4096ce6313d0",
+  "preserved_archived_decisions": [
+    {
+      "condition": "c1",
+      "call": 1
+    },
+    {
+      "condition": "c1",
+      "call": 2
+    },
+    {
+      "condition": "c1",
+      "call": 3
+    },
+    {
+      "condition": "c2",
+      "call": 1
+    },
+    {
+      "condition": "c2",
+      "call": 2
+    },
+    {
+      "condition": "c2",
+      "call": 3
+    },
+    {
+      "condition": "c2",
+      "call": 4
+    },
+    {
+      "condition": "c2",
+      "call": 5
+    },
+    {
+      "condition": "c2",
+      "call": 6
+    },
+    {
+      "condition": "c2",
+      "call": 7
+    },
+    {
+      "condition": "c2",
+      "call": 8
+    },
+    {
+      "condition": "c2",
+      "call": 9
+    }
+  ],
+  "c3_public_suffix_matches_c2": true,
+  "c3_schema_matches_proposal": true,
+  "model_invocations": 0,
+  "physics_steps": 0
+}

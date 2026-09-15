@@ -1,6 +1,6 @@
 # AGY completion — task 010 (C3 offline preparation, revision 2)
 
-Status: **ready for review**
+Status: **accepted and integrated**; see [Codex acceptance](../reviews/010-acceptance.md).
 Task brief: `coordination/agy/tasks/010-c3-offline-preparation.md`
 Reviews addressed: `coordination/agy/reviews/010-review.md` and Codex review R2 (tip `109c6c3cd00f9b99b1212c1df63adaf157600c3c`)
 Branch: `agy/010-c3-offline-preparation`
@@ -155,7 +155,7 @@ The bundle contains 10 files:
 6. `schema.json` (SHA-256 `79afc9c1...`, 3,590 bytes)
 7. `synthetic_decision.json` (SHA-256 `d82f9771...`, 200 bytes)
 8. `synthetic_events.jsonl` (SHA-256 `fb9ed217...`, 438 bytes)
-9. `synthetic_record.json` (SHA-256 `bbdacee1...`, 3,113 bytes)
+9. `synthetic_record.json` (SHA-256 `df615be4...`, 3,113 bytes)
 10. `manifest.json` (SHA-256 of bundle entries, size bytes, and implementation file digests)
 
 ---
@@ -182,4 +182,4 @@ In `scripts/audit_codex_c2.py`, verification of `scenes/g1_pick_place.xml` check
 - All historical evidence files in `experiments/humanoid-pick-place/results/` remain byte-for-byte unmodified.
 - Condition C3 is prepared offline only; it is not frozen and not authorized for live execution.
 
-Branch `agy/010-c3-offline-preparation` is ready for final Codex review.
+Accepted tip: `9d9e087bd4cf06164435ef9c1761080a490d00a2`; integrated after Codex review.

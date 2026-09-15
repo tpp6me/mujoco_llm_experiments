@@ -4,7 +4,7 @@ Started: 2026-09-11. Last updated: 2026-09-15.
 
 Robot: Unitree G1 with hands, simulated in MuJoCo.
 
-Current phase: **Phase 5 — C3 offline preparation complete; awaiting Codex review and freeze**
+Current phase: **Phase 5 — C3 offline preparation accepted; protocol freeze is next**
 
 This is the canonical, living plan for the experiment. Use it to choose the next
 work item and record progress across sessions. Keep commands in the
@@ -87,7 +87,8 @@ individual-finger control are outside the initial scope.
 - [x] Codex audits C2 outcome and defines the next scientific step: [acceptance](../../coordination/agy/reviews/008-acceptance.md). All five requested stages complete; 0/1 placement/lift/strict pass, 9 decisions, 8 actions, one IK rejection, 5.185 mm peak penetration. All 73 runtime files and nine public decisions independently verified.
 - [x] AGY executes [Task 009](../../coordination/agy/tasks/009-c2-failure-audit.md), an offline audit of the damaging approach and retained feedback; [C2 diagnosis](CODEX_C2_DIAGNOSIS.md), [audit numeric data](results/codex_C2_audit/audit.json), [contact sheet](results/codex_C2_audit/contact_sheet.png), [test log](results/codex_C2_audit/tests.txt). Zero physics steps or model calls; 11 audit tests passed (8 C2 + 3 C1). [Codex acceptance](../../coordination/agy/reviews/009-acceptance.md): all artifacts reproduced, seven public image/state records verified, final script provenance corrected.
 - [x] Define [C3](protocols/C3_PROPOSAL.md): explicit visual-state report plus command in one Codex response, with existing geometry, guards and scoring unchanged. Proposed only; no new model call or episode.
-- [x] AGY implements and qualifies C3 offline under [Task 010](../../coordination/agy/tasks/010-c3-offline-preparation.md); Codex reviews before any separate freeze and execution brief. Offline preparation complete; initial batch physics tests halted and replaced with test doubles; final suite verified with 45 guarded zero-physics/zero-reset tests and zero VLA episode decisions.
+- [x] Accept and integrate C3 offline preparation under [Task 010](../../coordination/agy/tasks/010-c3-offline-preparation.md); [Codex acceptance](../../coordination/agy/reviews/010-acceptance.md): 45 guarded tests passed, all 12 historical prompts/images preserved, implementation and artifact hashes verified. Initial physics-backed tests were stopped and replaced with doubles; no C3 VLA episode.
+- [ ] Codex freezes the separate C3 development protocol and issues a bounded execution brief; then AGY operates the harness with signed-in Codex making all VLA decisions, and Codex reviews every assessment/action pair.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -398,6 +399,8 @@ trace every reported result to its configuration, observations, actions, and sco
 
 | 2026-09-15 | Codex accepted Task 009 after evidence/provenance corrections; 11 tests and independent artifact reproduction passed | [Acceptance](../../coordination/agy/reviews/009-acceptance.md): observed visual feedback inconsistency remains distinct from inferred model beliefs. [C3 proposal](protocols/C3_PROPOSAL.md) and [Task 010](../../coordination/agy/tasks/010-c3-offline-preparation.md) ready; no new experiment executed |
 | 2026-09-15 | Executed AGY Task 010 (C3 offline preparation); addressed review items R1–R4 and R2 review; 45 guarded offline tests passed | [Completion report](../../coordination/agy/reports/010-completion.md), [preflight bundle](../../coordination/agy/reports/010-c3-preflight/preflight.json), [manifest](../../coordination/agy/reports/010-c3-preflight/manifest.json), [focused test log](../../coordination/agy/reports/010-focused-tests.log); schema, static instructions (SHA-256 de0525e07f9470be60f9e01c4d720ad4f65260fd54b08065708e4096ce6313d0), visual assessment accounting, default runner fixes, historical audit provenance distinction, and checked-in test runner verified with zero physics/resets via test doubles; disclosed initial batch physics test run and halted state; zero VLA model episode decisions |
+
+| 2026-09-15 | Codex accepted and integrated Task 010 at `9d9e087` | [Acceptance](../../coordination/agy/reviews/010-acceptance.md): 45 independently passed guarded tests, nine artifact and eight source hashes verified, all 12 C1/C2 prompts/images preserved. C3 protocol freeze is next; no new model trial |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.

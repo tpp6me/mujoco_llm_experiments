@@ -1,0 +1,64 @@
+{
+  "scope": "Initial AGY Task010 batch only; superseded by guarded revision checks",
+  "base_commit": "9445fbef35e2944165314d306b4b214ef7d4bd9c",
+  "conversation_id": "92e23a3a-9261-4f25-a71e-36dcb7e584e3",
+  "log_path": "/private/tmp/agy-010-execution/output.jsonl",
+  "initial_batch_status": {
+    "state": "exited",
+    "worker_pid": 86998,
+    "started_utc": "2026-09-15T02:31:42.123670+00:00",
+    "worktree": "/private/tmp/mujoco-llms-agy-010",
+    "branch": "agy/010-c3-offline-preparation",
+    "base_commit": "9445fbef35e2944165314d306b4b214ef7d4bd9c",
+    "agy_pid": 86999,
+    "exit_code": 1,
+    "ended_utc": "2026-09-15T02:48:33.131051+00:00"
+  },
+  "finding": "Selected test modules instantiated Environment, reset and advanced synthetic physics; exact reset and step totals were not instrumented. This was contrary to the task brief. No C3 VLA trial resulted from these tests.",
+  "selected_completed_test_commands": [
+    {
+      "step_index": 86,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests/test_codex_policy.py"
+    },
+    {
+      "step_index": 88,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests/test_humanoid_visual_policy_runner.py"
+    },
+    {
+      "step_index": 168,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests/test_codex_policy.py"
+    },
+    {
+      "step_index": 235,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests/test_codex_policy.py"
+    },
+    {
+      "step_index": 275,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests/test_codex_policy.py"
+    },
+    {
+      "step_index": 277,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests.test_codex_policy.CodexPolicyTests.test_c3_malformed_response_failure_accounting tests.test_codex_policy.CodexPolicyTests.test_c3_offline_preflight_synthetic_software_check"
+    },
+    {
+      "step_index": 279,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests.test_codex_policy.CodexPolicyTests.test_c3_malformed_response_failure_accounting"
+    },
+    {
+      "step_index": 281,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests.test_codex_policy.CodexPolicyTests.test_c3_malformed_response_failure_accounting 2>&1 | cat"
+    },
+    {
+      "step_index": 299,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests/test_codex_policy.py"
+    },
+    {
+      "step_index": 311,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests/test_codex_policy.py"
+    },
+    {
+      "step_index": 313,
+      "command": "/Users/praveen/work/github/mujoco-llms/.venv/bin/python -m unittest tests/test_codex_policy.py tests/test_humanoid_visual_policy_runner.py tests/test_codex_c1_audit.py tests/test_codex_c2_audit.py"
+    }
+  ]
+}
