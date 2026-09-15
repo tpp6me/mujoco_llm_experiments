@@ -4,7 +4,7 @@ Started: 2026-09-11. Last updated: 2026-09-15.
 
 Robot: Unitree G1 with hands, simulated in MuJoCo.
 
-Current phase: **Phase 5 — C3 offline preparation accepted; protocol freeze is next**
+Current phase: **Phase 5 — C3 frozen; one development episode authorized**
 
 This is the canonical, living plan for the experiment. Use it to choose the next
 work item and record progress across sessions. Keep commands in the
@@ -88,7 +88,8 @@ individual-finger control are outside the initial scope.
 - [x] AGY executes [Task 009](../../coordination/agy/tasks/009-c2-failure-audit.md), an offline audit of the damaging approach and retained feedback; [C2 diagnosis](CODEX_C2_DIAGNOSIS.md), [audit numeric data](results/codex_C2_audit/audit.json), [contact sheet](results/codex_C2_audit/contact_sheet.png), [test log](results/codex_C2_audit/tests.txt). Zero physics steps or model calls; 11 audit tests passed (8 C2 + 3 C1). [Codex acceptance](../../coordination/agy/reviews/009-acceptance.md): all artifacts reproduced, seven public image/state records verified, final script provenance corrected.
 - [x] Define [C3](protocols/C3_PROPOSAL.md): explicit visual-state report plus command in one Codex response, with existing geometry, guards and scoring unchanged. Proposed only; no new model call or episode.
 - [x] Accept and integrate C3 offline preparation under [Task 010](../../coordination/agy/tasks/010-c3-offline-preparation.md); [Codex acceptance](../../coordination/agy/reviews/010-acceptance.md): 45 guarded tests passed, all 12 historical prompts/images preserved, implementation and artifact hashes verified. Initial physics-backed tests were stopped and replaced with doubles; no C3 VLA episode.
-- [ ] Codex freezes the separate C3 development protocol and issues a bounded execution brief; then AGY operates the harness with signed-in Codex making all VLA decisions, and Codex reviews every assessment/action pair.
+- [x] Freeze [C3](protocols/C3.md) with exact [source hashes](protocols/C3_FREEZE.json) and issue [Task011](../../coordination/agy/tasks/011-c3-execution.md).
+- [ ] Execute the single C3 seed-820 episode; Codex labels saved images before reading model assessments/outcomes, then reviews all accounting and physical results.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
