@@ -1,0 +1,65 @@
+{
+  "condition": "c3",
+  "condition_id": "c3",
+  "files": {
+    "geometry_evidence.json": {
+      "description": "Nominal robot-only hand geometry offsets and bounds serialized with sort_keys=True",
+      "sha256": "d05eaa296612db243fd9362d1018d7b92d63cb93006221f959422fa1712141d6",
+      "size_bytes": 2203
+    },
+    "observation.png": {
+      "description": "Archived initial observation PNG byte-for-byte identical to C1 seed-820 call 1",
+      "sha256": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65",
+      "size_bytes": 98944
+    },
+    "preflight.json": {
+      "description": "Preflight execution metadata with base source commit, CLI/config status, and verification metrics",
+      "sha256": "eeeaa0116c99ce36655fda9d47a5120694b89a3970ba690ce4e1674639d84277",
+      "size_bytes": 2374
+    },
+    "prompt.txt": {
+      "description": "Full demonstration prompt containing static instructions, C2 geometry paragraph, C3 visual assessment contract, and public observation JSON",
+      "sha256": "6780e6c97153238a5ee9a52fc6368fdd83641f875a406a7fc613c3e660a2071c",
+      "size_bytes": 9232
+    },
+    "public_payload.json": {
+      "description": "Public observation payload extracted from archived seed-820 call 1 excluding private simulator state",
+      "sha256": "b5a82c5ac0eecfb1e1a7dc51ccf470c0845335a2ef775ffc568d7c8bf0242ab4",
+      "size_bytes": 143799
+    },
+    "schema.json": {
+      "description": "Deterministic C3 structured response schema defining required visual_assessment and command properties",
+      "sha256": "79afc9c195908ce3e268e50193db8d188e579d451c0467365a64fb2297fb0dff",
+      "size_bytes": 3590
+    },
+    "synthetic_decision.json": {
+      "description": "Offline synthetic decision fixture adhering to C3 schema for zero-model verification",
+      "sha256": "d82f9771de4ce246c1893089580ddb95e54117037dfec58f8f7cfd620429f980",
+      "size_bytes": 200
+    },
+    "synthetic_events.jsonl": {
+      "description": "Offline synthetic Codex CLI events stream fixture corresponding to synthetic_decision",
+      "sha256": "fb9ed217b9c95ab33f9a4ed932f1fe41a274a71053ab29b9ce8ced93d72c74df",
+      "size_bytes": 438
+    },
+    "synthetic_record.json": {
+      "description": "Offline synthetic decision record verifying output agreement and assessment retention",
+      "sha256": "691512816748780bf2bb1f6c7c4aaaf1b90d361a1bbce6287a663e68ff667c44",
+      "size_bytes": 3113
+    }
+  },
+  "generator_command": "python -m humanoid_sim.codex_policy --condition c3 --output coordination/agy/reports/010-c3-preflight",
+  "geometry_evidence_sha256": "d05eaa296612db243fd9362d1018d7b92d63cb93006221f959422fa1712141d6",
+  "git_status": "dirty",
+  "input_provenance": "experiments/humanoid-pick-place/results/codex_C1_episode.zip:seed-820/call_001.json",
+  "is_dirty": true,
+  "isolation_verified": true,
+  "model_invocations": 0,
+  "physics_steps": 0,
+  "protocol_id": "humanoid-codex-c3-development",
+  "protocol_path": "experiments/humanoid-pick-place/protocols/C3_PROPOSAL.md",
+  "protocol_sha256": "caf0febc1493033a03702195e338d9212d411381dac647e06af3acceb417f6c6",
+  "schema_sha256": "79afc9c195908ce3e268e50193db8d188e579d451c0467365a64fb2297fb0dff",
+  "source_commit": "9445fbef35e2944165314d306b4b214ef7d4bd9c",
+  "static_instruction_sha256": "de0525e07f9470be60f9e01c4d720ad4f65260fd54b08065708e4096ce6313d0"
+}

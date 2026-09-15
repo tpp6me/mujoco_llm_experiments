@@ -1,0 +1,57 @@
+======================================================================
+Task 010 Offline Software Verification Suite
+Label: offline_synthetic_software_check (Zero-Physics / Zero-Reset / Zero-Model)
+======================================================================
+test_api_environment_not_forwarded (tests.test_codex_policy.CodexPolicyTests.test_api_environment_not_forwarded) ... ok
+test_budget_and_call_cap (tests.test_codex_policy.CodexPolicyTests.test_budget_and_call_cap) ... ok
+test_c1_and_c2_artifacts_and_frozen_protocols_unchanged (tests.test_codex_policy.CodexPolicyTests.test_c1_and_c2_artifacts_and_frozen_protocols_unchanged) ... ok
+test_c1_prompt_preservation_and_c2_paragraph_inclusion (tests.test_codex_policy.CodexPolicyTests.test_c1_prompt_preservation_and_c2_paragraph_inclusion) ... ok
+test_c1_rejects_changed_condition_before_login_or_execution (tests.test_codex_policy.CodexPolicyTests.test_c1_rejects_changed_condition_before_login_or_execution) ... ok
+test_c3_interruption_evidence_and_static_file_retention (tests.test_codex_policy.CodexPolicyTests.test_c3_interruption_evidence_and_static_file_retention) ... ok
+test_c3_malformed_response_failure_accounting (tests.test_codex_policy.CodexPolicyTests.test_c3_malformed_response_failure_accounting) ... ok
+test_c3_no_extra_calls_and_no_assessment_leakage_into_history (tests.test_codex_policy.CodexPolicyTests.test_c3_no_extra_calls_and_no_assessment_leakage_into_history) ... ok
+test_c3_offline_preflight_synthetic_software_check (tests.test_codex_policy.CodexPolicyTests.test_c3_offline_preflight_synthetic_software_check) ... ok
+test_c3_prompt_preservation_and_exact_proposed_replacements (tests.test_codex_policy.CodexPolicyTests.test_c3_prompt_preservation_and_exact_proposed_replacements) ... ok
+test_c3_strict_response_schema_definition (tests.test_codex_policy.CodexPolicyTests.test_c3_strict_response_schema_definition) ... ok
+test_c3_string_response_parsing (tests.test_codex_policy.CodexPolicyTests.test_c3_string_response_parsing) ... ok
+test_c3_timeout_and_interruption_accounting (tests.test_codex_policy.CodexPolicyTests.test_c3_timeout_and_interruption_accounting) ... ok
+test_c3_valid_assessment_retention_and_unchanged_command_forwarding (tests.test_codex_policy.CodexPolicyTests.test_c3_valid_assessment_retention_and_unchanged_command_forwarding) ... ok
+test_c3_valid_then_malformed_response_accounting (tests.test_codex_policy.CodexPolicyTests.test_c3_valid_then_malformed_response_accounting) ... ok
+test_condition_and_settings_mismatches_rejected (tests.test_codex_policy.CodexPolicyTests.test_condition_and_settings_mismatches_rejected) ... ok
+test_corrupt_image_and_identity_mismatch_never_launch (tests.test_codex_policy.CodexPolicyTests.test_corrupt_image_and_identity_mismatch_never_launch) ... ok
+test_default_c1_local_check_preserves_graphics_free_behavior (tests.test_codex_policy.CodexPolicyTests.test_default_c1_local_check_preserves_graphics_free_behavior) ... ok
+test_default_runner_failure_and_interruption_retains_report (tests.test_codex_policy.CodexPolicyTests.test_default_runner_failure_and_interruption_retains_report) ... ok
+test_default_runner_operation_and_report_retention (tests.test_codex_policy.CodexPolicyTests.test_default_runner_operation_and_report_retention) ... ok
+test_fresh_public_only_sessions_and_tool_configuration (tests.test_codex_policy.CodexPolicyTests.test_fresh_public_only_sessions_and_tool_configuration) ... ok
+test_geometry_altered_object_truth_cannot_affect_contract (tests.test_codex_policy.CodexPolicyTests.test_geometry_altered_object_truth_cannot_affect_contract) ... ok
+test_geometry_distinguishes_occupied_bounds_from_grasp_cavity_and_safe_path (tests.test_codex_policy.CodexPolicyTests.test_geometry_distinguishes_occupied_bounds_from_grasp_cavity_and_safe_path) ... ok
+test_geometry_evidence_written_and_retained_on_interruption (tests.test_codex_policy.CodexPolicyTests.test_geometry_evidence_written_and_retained_on_interruption) ... ok
+test_geometry_nominal_bounds_and_enclosure_verification (tests.test_codex_policy.CodexPolicyTests.test_geometry_nominal_bounds_and_enclosure_verification) ... ok
+test_guarded_runner_records_condition_and_preserves_mock_identity (tests.test_codex_policy.CodexPolicyTests.test_guarded_runner_records_condition_and_preserves_mock_identity) ... ok
+test_offline_preflight_zero_model_invocations_and_artifacts (tests.test_codex_policy.CodexPolicyTests.test_offline_preflight_zero_model_invocations_and_artifacts) ... ok
+test_only_exact_disabled_host_notice_before_turn_is_allowed (tests.test_codex_policy.CodexPolicyTests.test_only_exact_disabled_host_notice_before_turn_is_allowed) ... ok
+test_private_field_exclusion_and_payload_isolation (tests.test_codex_policy.CodexPolicyTests.test_private_field_exclusion_and_payload_isolation) ... ok
+test_requires_reviewed_cli_and_chatgpt_login (tests.test_codex_policy.CodexPolicyTests.test_requires_reviewed_cli_and_chatgpt_login) ... ok
+test_timeout_nonzero_missing_and_invalid_output_retain_failure (tests.test_codex_policy.CodexPolicyTests.test_timeout_nonzero_missing_and_invalid_output_retain_failure) ... ok
+test_tool_events_failed_turns_and_output_disagreement_stop (tests.test_codex_policy.CodexPolicyTests.test_tool_events_failed_turns_and_output_disagreement_stop) ... ok
+test_modified_evidence_is_rejected_before_output (tests.test_codex_c1_audit.C1AuditTests.test_modified_evidence_is_rejected_before_output) ... ok
+test_overlap_and_existing_output_are_rejected (tests.test_codex_c1_audit.C1AuditTests.test_overlap_and_existing_output_are_rejected) ... ok
+test_saved_failure_reproduces_with_physics_disabled (tests.test_codex_c1_audit.C1AuditTests.test_saved_failure_reproduces_with_physics_disabled) ... ok
+test_archive_digest_mismatch_is_rejected_before_output (tests.test_codex_c2_audit.C2AuditTests.test_archive_digest_mismatch_is_rejected_before_output) ... ok
+test_modified_evidence_is_rejected_before_output (tests.test_codex_c2_audit.C2AuditTests.test_modified_evidence_is_rejected_before_output) ... ok
+test_overlap_and_existing_output_are_rejected (tests.test_codex_c2_audit.C2AuditTests.test_overlap_and_existing_output_are_rejected) ... ok
+test_r1_public_proprioception_matches_archived_requests_and_rejects_missing (tests.test_codex_c2_audit.C2AuditTests.test_r1_public_proprioception_matches_archived_requests_and_rejects_missing) ... ok
+test_r2_penetration_and_samples_distinct_and_derived (tests.test_codex_c2_audit.C2AuditTests.test_r2_penetration_and_samples_distinct_and_derived) ... ok
+test_saved_c2_failure_reproduces_with_physics_and_model_disabled (tests.test_codex_c2_audit.C2AuditTests.test_saved_c2_failure_reproduces_with_physics_and_model_disabled) ... ok
+test_scene_mismatch_is_rejected_before_output (tests.test_codex_c2_audit.C2AuditTests.test_scene_mismatch_is_rejected_before_output) ... ok
+test_source_mismatch_is_rejected_before_output (tests.test_codex_c2_audit.C2AuditTests.test_source_mismatch_is_rejected_before_output) ... ok
+test_unrelated_controller_edits_allowed (tests.test_codex_c2_audit.C2AuditTests.test_unrelated_controller_edits_allowed) ... ok
+
+----------------------------------------------------------------------
+Ran 44 tests in 5.362s
+
+OK
+
+======================================================================
+Summary: ran 44 tests, 0 failures, 0 errors
+======================================================================

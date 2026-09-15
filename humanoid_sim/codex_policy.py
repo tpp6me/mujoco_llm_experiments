@@ -29,23 +29,27 @@ from .environment import Environment, ARM_NAMES, HAND_NAMES
 from .scene import ROOT, SCENE
 from .visual_policy_runner import (
     VISUAL_PROMPT, MalformedResponseError, VisualPolicyError, action_schema,
+    c3_response_schema, parse_and_validate_c3_response, validate_visual_assessment,
+    serialize_schema,
     allowlist_observation, sanitize_action_for_history, sanitize_response_for_history,
     parse_and_validate_response, strict_json, write_json, _validate_budget,
 )
 
 MODEL = 'gpt-5.6-sol'
 SUPPORTED_VERSION = 'codex-cli 0.154.0'
-CONDITIONS = ('c1', 'c2')
+CONDITIONS = ('c1', 'c2', 'c3')
 DEFAULT_CONDITION = 'c1'
 
 PROTOCOL_PATHS = {
     'c1': ROOT / 'experiments/humanoid-pick-place/protocols/C1.md',
     'c2': ROOT / 'experiments/humanoid-pick-place/protocols/C2_PROPOSAL.md',
+    'c3': ROOT / 'experiments/humanoid-pick-place/protocols/C3_PROPOSAL.md',
 }
 
 PROTOCOL_IDS = {
     'c1': 'humanoid-codex-c1-development',
     'c2': 'humanoid-codex-c2-development',
+    'c3': 'humanoid-codex-c3-development',
 }
 
 C2_NOMINAL_BOUNDS_ENCLOSURE = {
@@ -98,6 +102,28 @@ C2_INSTRUCTION = (
     'position and orientation. If it moved or toppled, do not keep descending toward\n'
     'its former position or assume that it remains upright. A completed motion is not\n'
     'evidence of a grasp. Replan using the new visual observation and public hand state.\n'
+)
+C3_VISUAL_PROMPT = VISUAL_PROMPT.replace(
+    'Return only the structured action. Do not claim success in prose.',
+    'Return only the structured C3 response specified below. Do not claim task success.'
+)
+C3_DECISION_INSTRUCTION = DECISION_INSTRUCTION.replace(
+    'Return exactly one JSON command matching the supplied output schema.',
+    'Return exactly one JSON object matching the supplied C3 output schema.'
+)
+C3_INSTRUCTION = (
+    'C3 visual assessment contract:\n'
+    'Report the current visible state of the red block before selecting the next action.\n'
+    'Return visual_assessment and command in the supplied JSON schema.\n'
+    'For block_visibility, use visible when the block is clearly visible, partly_visible\n'
+    'when part is hidden, not_visible when it cannot be seen, and uncertain when unsure.\n'
+    'For block_relative_to_fingers, use between when the image clearly places the block\n'
+    'between the fingers, separate when it is visibly separate from them, and uncertain\n'
+    'when the image does not establish this relation. Apparent alignment in an image\n'
+    'alone does not establish a physical grasp. Use the current image and public robot\n'
+    'state rather than assuming the previous command achieved its purpose. Choose the\n'
+    'next command consistently with this assessment. Do not report private coordinates,\n'
+    'scorer values or additional explanations.\n'
 )
 
 
@@ -311,12 +337,7 @@ def public_input(payload, condition=DEFAULT_CONDITION):
     _validate_budget(remaining, seconds)
     text = {'observation': obs, 'history': clean_history,
             'remaining_actions': remaining, 'remaining_time_s': seconds}
-    if condition == 'c1':
-        prompt = VISUAL_PROMPT + DECISION_INSTRUCTION + json.dumps(text, sort_keys=True, allow_nan=False)
-    elif condition == 'c2':
-        prompt = VISUAL_PROMPT + DECISION_INSTRUCTION + C2_INSTRUCTION + json.dumps(text, sort_keys=True, allow_nan=False)
-    else:
-        raise ValueError(f'Unsupported condition: {condition}')
+    prompt = static_instruction(condition) + json.dumps(text, sort_keys=True, allow_nan=False)
     return png, prompt
 
 
@@ -326,6 +347,17 @@ def static_instruction(condition=DEFAULT_CONDITION):
         return VISUAL_PROMPT + DECISION_INSTRUCTION
     elif condition == 'c2':
         return VISUAL_PROMPT + DECISION_INSTRUCTION + C2_INSTRUCTION
+    elif condition == 'c3':
+        return C3_VISUAL_PROMPT + C3_DECISION_INSTRUCTION + C2_INSTRUCTION + C3_INSTRUCTION
+    raise ValueError(f'Unsupported condition: {condition}')
+
+
+def output_schema(condition=DEFAULT_CONDITION):
+    """Return JSON schema dict for the requested condition."""
+    if condition in ('c1', 'c2'):
+        return action_schema()
+    elif condition == 'c3':
+        return c3_response_schema()
     raise ValueError(f'Unsupported condition: {condition}')
 
 
@@ -404,6 +436,8 @@ class CodexPolicy:
         self.model, self.timeout, self.executable = model, timeout, executable
         self.record_dir = Path(record_dir)
         self.process_runner, self.calls = process_runner, 0
+        self.assessments = []
+        self.last_assessment = None
 
     def __call__(self, payload):
         if self.calls >= 20:
@@ -420,14 +454,33 @@ class CodexPolicy:
         started = time.monotonic()
         try:
             png, prompt = public_input(payload, condition=self.condition)
-            record.update(image_sha256=hashlib.sha256(png).hexdigest(),
-                          prompt_sha256=hashlib.sha256(prompt.encode()).hexdigest())
+            static_inst = static_instruction(self.condition)
+            static_instruction_sha256 = hashlib.sha256(static_inst.encode('utf-8')).hexdigest()
+            prompt_sha256 = hashlib.sha256(prompt.encode('utf-8')).hexdigest()
+            schema = output_schema(self.condition)
+            schema_bytes = serialize_schema(schema)
+            schema_sha256 = hashlib.sha256(schema_bytes).hexdigest()
+            source_info = git_source_info()
+
+            obs_info = payload.get('observation', {})
+            obs_id = obs_info.get('observation_id')
+            time_s = obs_info.get('time_s')
+
+            record.update(
+                image_sha256=hashlib.sha256(png).hexdigest(),
+                prompt_sha256=prompt_sha256,
+                static_instruction_sha256=static_instruction_sha256,
+                schema_sha256=schema_sha256,
+                source_commit=source_info['commit'],
+                observation_id=obs_id,
+                time_s=time_s,
+            )
             (folder / 'prompt.txt').write_text(prompt)
             (folder / 'observation.png').write_bytes(png)
             with tempfile.TemporaryDirectory(prefix='humanoid-codex-public-') as scratch:
                 directory = Path(scratch)
                 (directory / 'observation.png').write_bytes(png)
-                write_json(directory / 'schema.json', action_schema())
+                (directory / 'schema.json').write_bytes(schema_bytes)
                 argv = cli_command(self.executable, directory, self.model)
                 record.update(argv=argv, status='pending', process_started=None)
                 write_json(folder / 'record.json', record)
@@ -441,12 +494,35 @@ class CodexPolicy:
                 raw = result.read_text()
                 (folder / 'decision.json').write_text(raw)
                 validate_events(folder / 'events.jsonl', raw)
-                parsed = strict_json(raw)
-                if not isinstance(parsed, dict) or set(parsed) != {'command'}:
-                    raise MalformedResponseError('Expected exactly one command wrapper')
-                command = parse_and_validate_response(parsed)
-                record.update(status='completed', command=command, tool_items=0)
-                return {'command': command}
+
+                if self.condition == 'c3':
+                    c3_result = parse_and_validate_c3_response(raw)
+                    visual_assessment = c3_result['visual_assessment']
+                    command = c3_result['command']
+                    self.last_assessment = visual_assessment
+                    assessment_record = {
+                        'call': self.calls,
+                        'observation_id': obs_id,
+                        'time_s': time_s,
+                        'image_sha256': record['image_sha256'],
+                        'prompt_sha256': prompt_sha256,
+                        'static_instruction_sha256': static_instruction_sha256,
+                        'schema_sha256': schema_sha256,
+                        'model_requested': self.model,
+                        'source_commit': source_info['commit'],
+                        'visual_assessment': visual_assessment,
+                        'command': command,
+                    }
+                    self.assessments.append(assessment_record)
+                    record.update(status='completed', visual_assessment=visual_assessment, command=command, tool_items=0)
+                    return {'visual_assessment': visual_assessment, 'command': command}
+                else:
+                    parsed = strict_json(raw)
+                    if not isinstance(parsed, dict) or set(parsed) != {'command'}:
+                        raise MalformedResponseError('Expected exactly one command wrapper')
+                    command = parse_and_validate_response(parsed)
+                    record.update(status='completed', command=command, tool_items=0)
+                    return {'command': command}
         except (KeyboardInterrupt, SystemExit):
             record['status'] = 'interrupted'
             raise
@@ -517,12 +593,17 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
     geom_evidence = None
     geom_evidence_bytes = None
     geom_evidence_sha256 = None
-    if condition == 'c2':
+    if condition in ('c2', 'c3'):
         geom_evidence = generate_geometry_evidence()
         geom_evidence_bytes = serialize_geometry_evidence(geom_evidence)
         geom_evidence_sha256 = hashlib.sha256(geom_evidence_bytes).hexdigest()
 
-    # 2. Public payload from committed archive & isolation verification
+    # 2. Output schema
+    schema = output_schema(condition)
+    schema_bytes = serialize_schema(schema)
+    schema_sha256 = hashlib.sha256(schema_bytes).hexdigest()
+
+    # 3. Public payload from committed archive & isolation verification
     archive_path = ROOT / 'experiments/humanoid-pick-place/results/codex_C1_episode.zip'
     input_provenance = 'experiments/humanoid-pick-place/results/codex_C1_episode.zip:seed-820/call_001.json'
     with zipfile.ZipFile(archive_path) as z:
@@ -533,12 +614,18 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
     test_payload = copy.deepcopy(payload)
     test_payload['observation']['ground_truth_object_pos'] = [0.25, -0.18, 0.76]
     test_payload['private_oracle_score'] = {'penetration': 0.005}
+    test_payload['history'] = [{'action': {'action': 'hold', 'arguments': {'seconds': 0.1}},
+                                'response': {'status': 'completed',
+                                             'visual_assessment': {'block_visibility': 'visible'},
+                                             'robot_state': test_payload['observation']['robot_state']}}]
 
     _, test_prompt = public_input(test_payload, condition=condition)
 
     # Verify isolation
     if 'ground_truth_object_pos' in test_prompt or 'private_oracle_score' in test_prompt:
         raise RuntimeError('Private fields leaked into public prompt')
+    if '"visual_assessment"' in test_prompt:
+        raise RuntimeError('Visual assessment leaked into public prompt history')
 
     child_env = child_environment()
     for secret_key in ('OPENAI_API_KEY', 'OPENAI_BASE_URL', 'GEMINI_API_KEY'):
@@ -553,9 +640,56 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
     output.mkdir(parents=True)
     if geom_evidence_bytes is not None:
         (output / 'geometry_evidence.json').write_bytes(geom_evidence_bytes)
+    (output / 'schema.json').write_bytes(schema_bytes)
     write_json(output / 'public_payload.json', payload)
     (output / 'prompt.txt').write_text(prompt_clean)
     (output / 'observation.png').write_bytes(png_clean)
+
+    synthetic_check_meta = None
+    if condition == 'c3':
+        synthetic_decision = {
+            'visual_assessment': {
+                'block_visibility': 'visible',
+                'block_relative_to_fingers': 'separate'
+            },
+            'command': {
+                'action': 'hold',
+                'arguments': {
+                    'seconds': 0.1
+                }
+            }
+        }
+        synthetic_raw = json.dumps(synthetic_decision, indent=2) + '\n'
+        (output / 'synthetic_decision.json').write_text(synthetic_raw)
+        synthetic_events = [
+            {'type': 'thread.started', 'thread_id': 'preflight-synthetic-check'},
+            {'type': 'turn.started'},
+            {'type': 'item.completed', 'item': {'type': 'agent_message', 'text': synthetic_raw.strip()}},
+            {'type': 'turn.completed', 'usage': {}}
+        ]
+        (output / 'synthetic_events.jsonl').write_text('\n'.join(json.dumps(ev) for ev in synthetic_events) + '\n')
+
+        def mock_synthetic_runner(argv, pr, cwd, env, to, rec_dir):
+            (cwd / 'decision.json').write_text(synthetic_raw)
+            (rec_dir / 'events.jsonl').write_text((output / 'synthetic_events.jsonl').read_text())
+            return 0
+
+        with tempfile.TemporaryDirectory(prefix='c3-synthetic-check-') as scratch:
+            check_policy = CodexPolicy(scratch, condition='c3', process_runner=mock_synthetic_runner)
+            res = check_policy(payload)
+            if res != synthetic_decision:
+                raise RuntimeError('Synthetic C3 software check failed output agreement')
+            scratch_rec = (Path(scratch) / 'decision-001' / 'record.json').read_text()
+            (output / 'synthetic_record.json').write_text(scratch_rec)
+
+        synthetic_check_meta = {
+            'status': 'verified',
+            'type': 'offline_synthetic_software_check',
+            'model_generated': False,
+            'decision_agreement': True,
+            'event_agreement': True,
+            'assessment_retained': True,
+        }
 
     preflight_record = {
         'status': 'complete',
@@ -577,6 +711,7 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
         'decision_timeout_s': 120.0,
         'demonstration_prompt_sha256': prompt_sha256,
         'static_instruction_sha256': static_instruction_sha256,
+        'schema_sha256': schema_sha256,
         'geometry_evidence_sha256': geom_evidence_sha256,
         'input_provenance': input_provenance,
         'isolation_verified': True,
@@ -585,6 +720,8 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
         'config': cli_info.get('config', CONFIG),
         'disabled_features': list(cli_info.get('disabled_features', DISABLED_FEATURES)),
     }
+    if synthetic_check_meta is not None:
+        preflight_record['synthetic_software_check'] = synthetic_check_meta
     write_json(output / 'preflight.json', preflight_record)
     return preflight_record
 
@@ -592,8 +729,8 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', required=True, type=Path)
-    parser.add_argument('--condition', choices=['c1', 'c2'], default=DEFAULT_CONDITION,
-                        help='Experiment condition: c1 (default) or c2')
+    parser.add_argument('--condition', choices=['c1', 'c2', 'c3'], default=DEFAULT_CONDITION,
+                        help='Experiment condition: c1 (default), c2, or c3')
     parser.add_argument('--execute', action='store_true', help='Run the seed-820 development episode')
     parser.add_argument('--probe', type=Path, help='One signed-in decision on an archived public payload; no action')
     parser.add_argument('--model', default=MODEL)
@@ -604,7 +741,7 @@ def main():
         parser.error('Use a new output directory')
     if args.execute and args.probe:
         parser.error('Choose episode or archived-image probe')
-    if args.condition in ('c1', 'c2') and (args.model != MODEL or args.max_calls != 20):
+    if args.condition in ('c1', 'c2', 'c3') and (args.model != MODEL or args.max_calls != 20):
         parser.error(f'{args.condition.upper()} fixes the requested model ({MODEL}) and 20-call cap; declare a successor before changing them')
     _validate_budget(args.max_calls, 25.)
 
@@ -616,7 +753,7 @@ def main():
             print(json.dumps(info, indent=2))
             return
         else:
-            preflight_record = run_preflight(args.output, condition='c2',
+            preflight_record = run_preflight(args.output, condition=args.condition,
                                              model=args.model, max_calls=args.max_calls,
                                              executable=args.executable)
             print(json.dumps(preflight_record, indent=2))
@@ -628,10 +765,12 @@ def main():
     if args.probe:
         args.output.mkdir(parents=True)
         write_json(args.output / 'preflight.json', info)
-        if args.condition == 'c2':
+        if args.condition in ('c2', 'c3'):
             geom_ev = generate_geometry_evidence()
             geom_ev_bytes = serialize_geometry_evidence(geom_ev)
             (args.output / 'geometry_evidence.json').write_bytes(geom_ev_bytes)
+        schema = output_schema(args.condition)
+        (args.output / 'schema.json').write_bytes(serialize_schema(schema))
         decision = policy(strict_json(args.probe.read_text()))
         write_json(args.output / 'probe.json', {'decision': decision, 'actions_executed': 0, 'condition': args.condition, 'model': args.model})
         print(json.dumps(decision))
@@ -648,11 +787,16 @@ def main():
     geom_evidence_bytes = None
     geom_evidence_sha256 = None
     static_files = {}
-    if args.condition == 'c2':
+    if args.condition in ('c2', 'c3'):
         geom_evidence = generate_geometry_evidence()
         geom_evidence_bytes = serialize_geometry_evidence(geom_evidence)
         geom_evidence_sha256 = hashlib.sha256(geom_evidence_bytes).hexdigest()
         static_files['geometry_evidence.json'] = geom_evidence_bytes
+
+    schema = output_schema(args.condition)
+    schema_bytes = serialize_schema(schema)
+    schema_sha256 = hashlib.sha256(schema_bytes).hexdigest()
+    static_files['schema.json'] = schema_bytes
 
     static_inst = static_instruction(args.condition)
     static_instruction_sha256 = hashlib.sha256(static_inst.encode('utf-8')).hexdigest()
@@ -676,6 +820,7 @@ def main():
         'max_calls': args.max_calls,
         'decision_timeout_s': 120.0,
         'static_instruction_sha256': static_instruction_sha256,
+        'schema_sha256': schema_sha256,
         'geometry_evidence_sha256': geom_evidence_sha256,
         'static_files': static_files,
         **info,

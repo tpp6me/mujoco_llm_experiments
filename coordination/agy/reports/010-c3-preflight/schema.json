@@ -1,0 +1,149 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "command": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "move",
+              "type": "string"
+            },
+            "arguments": {
+              "additionalProperties": false,
+              "properties": {
+                "quaternion_wxyz": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 4,
+                  "minItems": 4,
+                  "type": "array"
+                },
+                "seconds": {
+                  "maximum": 10,
+                  "minimum": 0.02,
+                  "type": "number"
+                },
+                "xyz_m": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "type": "array"
+                }
+              },
+              "required": [
+                "xyz_m",
+                "quaternion_wxyz",
+                "seconds"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "action",
+            "arguments"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "hand",
+              "type": "string"
+            },
+            "arguments": {
+              "additionalProperties": false,
+              "properties": {
+                "closure": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "seconds": {
+                  "maximum": 10,
+                  "minimum": 0.02,
+                  "type": "number"
+                }
+              },
+              "required": [
+                "closure",
+                "seconds"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "action",
+            "arguments"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "hold",
+              "type": "string"
+            },
+            "arguments": {
+              "additionalProperties": false,
+              "properties": {
+                "seconds": {
+                  "maximum": 10,
+                  "minimum": 0.02,
+                  "type": "number"
+                }
+              },
+              "required": [
+                "seconds"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "action",
+            "arguments"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "visual_assessment": {
+      "additionalProperties": false,
+      "properties": {
+        "block_relative_to_fingers": {
+          "enum": [
+            "between",
+            "separate",
+            "uncertain"
+          ],
+          "type": "string"
+        },
+        "block_visibility": {
+          "enum": [
+            "visible",
+            "partly_visible",
+            "not_visible",
+            "uncertain"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_visibility",
+        "block_relative_to_fingers"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "visual_assessment",
+    "command"
+  ],
+  "type": "object"
+}
