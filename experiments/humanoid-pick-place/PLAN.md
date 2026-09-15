@@ -85,7 +85,7 @@ individual-finger control are outside the initial scope.
 - [x] Codex freezes [C2](protocols/C2.md) and issues [AGY task 008](../../coordination/agy/tasks/008-c2-execution.md) under the user's instruction to execute all five steps.
 - [x] AGY operates the one frozen C2 episode and packages complete evidence; signed-in Codex makes every VLA decision ([C2 results](CODEX_C2_RESULTS.md), [archive](results/codex_C2_episode.zip)).
 - [x] Codex audits C2 outcome and defines the next scientific step: [acceptance](../../coordination/agy/reviews/008-acceptance.md). All five requested stages complete; 0/1 placement/lift/strict pass, 9 decisions, 8 actions, one IK rejection, 5.185 mm peak penetration. All 73 runtime files and nine public decisions independently verified.
-- [ ] AGY executes [Task 009](../../coordination/agy/tasks/009-c2-failure-audit.md), an offline audit of the damaging approach and retained feedback; Codex reviews visual interpretation before defining a successor condition. Brief ready; no new trial launched.
+- [x] AGY executes [Task 009](../../coordination/agy/tasks/009-c2-failure-audit.md), an offline audit of the damaging approach and retained feedback; [C2 diagnosis](CODEX_C2_DIAGNOSIS.md), [audit numeric data](results/codex_C2_audit/audit.json), [contact sheet](results/codex_C2_audit/contact_sheet.png), [test log](results/codex_C2_audit/tests.txt). Zero physics steps or model calls; 8 audit tests passed. Codex reviews visual interpretation before defining a successor condition.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -392,6 +392,7 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-14 | Audited C1's preserved trajectory and reproduced rejected preflight; defined C2 | [Diagnosis](CODEX_C1_DIAGNOSIS.md): approach toppled/displaced block; fingertips extend below site and collide with table on rejected path. [C2 proposal](protocols/C2_PROPOSAL.md) supplies robot geometry and reassessment instructions; unexecuted. Three focused audit tests passed; original evidence unchanged |
 
 | 2026-09-14 | Codex accepted Task 007 revisions, froze C2, supervised AGY Task 008, reviewed complete evidence and reporting corrections | [Acceptance](../../coordination/agy/reviews/008-acceptance.md): all five requested stages complete; manipulation failed, evidence retained. [Task 009](../../coordination/agy/tasks/009-c2-failure-audit.md) ready for offline diagnosis; no further model episode |
+| 2026-09-15 | Executed offline C2 failure audit (Task 009); 8 audit tests passed | [C2 diagnosis](CODEX_C2_DIAGNOSIS.md), [audit data](results/codex_C2_audit/audit.json): Action 4 displaced block 154.269 mm in XY and toppled it; Action 9 IK rejection reproduced on scratch data without state mutation (residual 0.0542 m); 1 kHz scorer telemetry (25.51 N at peak penetration) distinguished from 30 Hz qpos geometry; contact sheet and public/private evidence assembled; no physics steps or model calls |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.

@@ -1,0 +1,979 @@
+[
+  {
+    "call": 3,
+    "observation_time_s": 1.9999999999998905,
+    "image_sha256": "cad63bf0f20427f4b2329f27a1f7f82a42708e585dffe2f6dfe55fc0c7c70a39",
+    "robot_proprioception": null,
+    "public_history_preceding_decision": [
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 0.0,
+            "seconds": 0.5
+          },
+          "request_id": "visual-1"
+        },
+        "response": {
+          "end_time_s": 1.0000000000000007,
+          "request_id": "visual-1",
+          "start_time_s": 0.5000000000000003,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.0,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.91
+            ]
+          },
+          "request_id": "visual-2"
+        },
+        "response": {
+          "end_time_s": 1.9999999999998905,
+          "request_id": "visual-2",
+          "start_time_s": 1.0000000000000007,
+          "status": "completed"
+        }
+      }
+    ],
+    "command": {
+      "action": "move",
+      "arguments": {
+        "quaternion_wxyz": [
+          0.5,
+          -0.5,
+          0.5,
+          0.5
+        ],
+        "seconds": 1.2,
+        "xyz_m": [
+          0.251,
+          -0.149,
+          0.84
+        ]
+      }
+    },
+    "interface_response": {
+      "status": "completed",
+      "start_time_s": 1.9999999999998905,
+      "end_time_s": 3.1999999999997586,
+      "error": null
+    }
+  },
+  {
+    "call": 4,
+    "observation_time_s": 3.1999999999997586,
+    "image_sha256": "c5f58211f6c4a0f19d8c24d37d61249c33e65846de2042ffc152246e440573ad",
+    "robot_proprioception": null,
+    "public_history_preceding_decision": [
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 0.0,
+            "seconds": 0.5
+          },
+          "request_id": "visual-1"
+        },
+        "response": {
+          "end_time_s": 1.0000000000000007,
+          "request_id": "visual-1",
+          "start_time_s": 0.5000000000000003,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.0,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.91
+            ]
+          },
+          "request_id": "visual-2"
+        },
+        "response": {
+          "end_time_s": 1.9999999999998905,
+          "request_id": "visual-2",
+          "start_time_s": 1.0000000000000007,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.2,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.84
+            ]
+          },
+          "request_id": "visual-3"
+        },
+        "response": {
+          "end_time_s": 3.1999999999997586,
+          "request_id": "visual-3",
+          "start_time_s": 1.9999999999998905,
+          "status": "completed"
+        }
+      }
+    ],
+    "command": {
+      "action": "move",
+      "arguments": {
+        "quaternion_wxyz": [
+          0.5,
+          -0.5,
+          0.5,
+          0.5
+        ],
+        "seconds": 0.8,
+        "xyz_m": [
+          0.251,
+          -0.173,
+          0.8
+        ]
+      }
+    },
+    "interface_response": {
+      "status": "completed",
+      "start_time_s": 3.1999999999997586,
+      "end_time_s": 3.9999999999996705,
+      "error": null
+    }
+  },
+  {
+    "call": 5,
+    "observation_time_s": 3.9999999999996705,
+    "image_sha256": "4461921cd27bda89d43db4fda9f09e7c46c91d343be143b28c0d4ce7b15506ac",
+    "robot_proprioception": null,
+    "public_history_preceding_decision": [
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 0.0,
+            "seconds": 0.5
+          },
+          "request_id": "visual-1"
+        },
+        "response": {
+          "end_time_s": 1.0000000000000007,
+          "request_id": "visual-1",
+          "start_time_s": 0.5000000000000003,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.0,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.91
+            ]
+          },
+          "request_id": "visual-2"
+        },
+        "response": {
+          "end_time_s": 1.9999999999998905,
+          "request_id": "visual-2",
+          "start_time_s": 1.0000000000000007,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.2,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.84
+            ]
+          },
+          "request_id": "visual-3"
+        },
+        "response": {
+          "end_time_s": 3.1999999999997586,
+          "request_id": "visual-3",
+          "start_time_s": 1.9999999999998905,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 0.8,
+            "xyz_m": [
+              0.251,
+              -0.173,
+              0.8
+            ]
+          },
+          "request_id": "visual-4"
+        },
+        "response": {
+          "end_time_s": 3.9999999999996705,
+          "request_id": "visual-4",
+          "start_time_s": 3.1999999999997586,
+          "status": "completed"
+        }
+      }
+    ],
+    "command": {
+      "action": "hand",
+      "arguments": {
+        "closure": 1.0,
+        "seconds": 1.0
+      }
+    },
+    "interface_response": {
+      "status": "completed",
+      "start_time_s": 3.9999999999996705,
+      "end_time_s": 5.000000000000004,
+      "error": null
+    }
+  },
+  {
+    "call": 6,
+    "observation_time_s": 5.000000000000004,
+    "image_sha256": "9af8e3ad3ca8f698a78a0b955040912d4fe0911b6209bad216b6b33e1b648224",
+    "robot_proprioception": null,
+    "public_history_preceding_decision": [
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 0.0,
+            "seconds": 0.5
+          },
+          "request_id": "visual-1"
+        },
+        "response": {
+          "end_time_s": 1.0000000000000007,
+          "request_id": "visual-1",
+          "start_time_s": 0.5000000000000003,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.0,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.91
+            ]
+          },
+          "request_id": "visual-2"
+        },
+        "response": {
+          "end_time_s": 1.9999999999998905,
+          "request_id": "visual-2",
+          "start_time_s": 1.0000000000000007,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.2,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.84
+            ]
+          },
+          "request_id": "visual-3"
+        },
+        "response": {
+          "end_time_s": 3.1999999999997586,
+          "request_id": "visual-3",
+          "start_time_s": 1.9999999999998905,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 0.8,
+            "xyz_m": [
+              0.251,
+              -0.173,
+              0.8
+            ]
+          },
+          "request_id": "visual-4"
+        },
+        "response": {
+          "end_time_s": 3.9999999999996705,
+          "request_id": "visual-4",
+          "start_time_s": 3.1999999999997586,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 1.0,
+            "seconds": 1.0
+          },
+          "request_id": "visual-5"
+        },
+        "response": {
+          "end_time_s": 5.000000000000004,
+          "request_id": "visual-5",
+          "start_time_s": 3.9999999999996705,
+          "status": "completed"
+        }
+      }
+    ],
+    "command": {
+      "action": "move",
+      "arguments": {
+        "quaternion_wxyz": [
+          0.5,
+          -0.5,
+          0.5,
+          0.5
+        ],
+        "seconds": 1.2,
+        "xyz_m": [
+          0.251,
+          -0.173,
+          0.95
+        ]
+      }
+    },
+    "interface_response": {
+      "status": "completed",
+      "start_time_s": 5.000000000000004,
+      "end_time_s": 6.200000000000405,
+      "error": null
+    }
+  },
+  {
+    "call": 7,
+    "observation_time_s": 6.200000000000405,
+    "image_sha256": "72b19a753915c987bad6cc8f2a6f3d02976ec55beb87291d994984523778f41d",
+    "robot_proprioception": null,
+    "public_history_preceding_decision": [
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 0.0,
+            "seconds": 0.5
+          },
+          "request_id": "visual-1"
+        },
+        "response": {
+          "end_time_s": 1.0000000000000007,
+          "request_id": "visual-1",
+          "start_time_s": 0.5000000000000003,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.0,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.91
+            ]
+          },
+          "request_id": "visual-2"
+        },
+        "response": {
+          "end_time_s": 1.9999999999998905,
+          "request_id": "visual-2",
+          "start_time_s": 1.0000000000000007,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.2,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.84
+            ]
+          },
+          "request_id": "visual-3"
+        },
+        "response": {
+          "end_time_s": 3.1999999999997586,
+          "request_id": "visual-3",
+          "start_time_s": 1.9999999999998905,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 0.8,
+            "xyz_m": [
+              0.251,
+              -0.173,
+              0.8
+            ]
+          },
+          "request_id": "visual-4"
+        },
+        "response": {
+          "end_time_s": 3.9999999999996705,
+          "request_id": "visual-4",
+          "start_time_s": 3.1999999999997586,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 1.0,
+            "seconds": 1.0
+          },
+          "request_id": "visual-5"
+        },
+        "response": {
+          "end_time_s": 5.000000000000004,
+          "request_id": "visual-5",
+          "start_time_s": 3.9999999999996705,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.2,
+            "xyz_m": [
+              0.251,
+              -0.173,
+              0.95
+            ]
+          },
+          "request_id": "visual-6"
+        },
+        "response": {
+          "end_time_s": 6.200000000000405,
+          "request_id": "visual-6",
+          "start_time_s": 5.000000000000004,
+          "status": "completed"
+        }
+      }
+    ],
+    "command": {
+      "action": "hand",
+      "arguments": {
+        "closure": 0.0,
+        "seconds": 0.5
+      }
+    },
+    "interface_response": {
+      "status": "completed",
+      "start_time_s": 6.200000000000405,
+      "end_time_s": 6.700000000000572,
+      "error": null
+    }
+  },
+  {
+    "call": 8,
+    "observation_time_s": 6.700000000000572,
+    "image_sha256": "1f86664cd8ce757eb07f25931a608d7dae17c6427db43c6a9059d16d0baae962",
+    "robot_proprioception": null,
+    "public_history_preceding_decision": [
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 0.0,
+            "seconds": 0.5
+          },
+          "request_id": "visual-1"
+        },
+        "response": {
+          "end_time_s": 1.0000000000000007,
+          "request_id": "visual-1",
+          "start_time_s": 0.5000000000000003,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.0,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.91
+            ]
+          },
+          "request_id": "visual-2"
+        },
+        "response": {
+          "end_time_s": 1.9999999999998905,
+          "request_id": "visual-2",
+          "start_time_s": 1.0000000000000007,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.2,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.84
+            ]
+          },
+          "request_id": "visual-3"
+        },
+        "response": {
+          "end_time_s": 3.1999999999997586,
+          "request_id": "visual-3",
+          "start_time_s": 1.9999999999998905,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 0.8,
+            "xyz_m": [
+              0.251,
+              -0.173,
+              0.8
+            ]
+          },
+          "request_id": "visual-4"
+        },
+        "response": {
+          "end_time_s": 3.9999999999996705,
+          "request_id": "visual-4",
+          "start_time_s": 3.1999999999997586,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 1.0,
+            "seconds": 1.0
+          },
+          "request_id": "visual-5"
+        },
+        "response": {
+          "end_time_s": 5.000000000000004,
+          "request_id": "visual-5",
+          "start_time_s": 3.9999999999996705,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.2,
+            "xyz_m": [
+              0.251,
+              -0.173,
+              0.95
+            ]
+          },
+          "request_id": "visual-6"
+        },
+        "response": {
+          "end_time_s": 6.200000000000405,
+          "request_id": "visual-6",
+          "start_time_s": 5.000000000000004,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 0.0,
+            "seconds": 0.5
+          },
+          "request_id": "visual-7"
+        },
+        "response": {
+          "end_time_s": 6.700000000000572,
+          "request_id": "visual-7",
+          "start_time_s": 6.200000000000405,
+          "status": "completed"
+        }
+      }
+    ],
+    "command": {
+      "action": "move",
+      "arguments": {
+        "quaternion_wxyz": [
+          0.5,
+          -0.5,
+          0.5,
+          0.5
+        ],
+        "seconds": 1.0,
+        "xyz_m": [
+          0.251,
+          -0.173,
+          0.8
+        ]
+      }
+    },
+    "interface_response": {
+      "status": "completed",
+      "start_time_s": 6.700000000000572,
+      "end_time_s": 7.700000000000906,
+      "error": null
+    }
+  },
+  {
+    "call": 9,
+    "observation_time_s": 7.700000000000906,
+    "image_sha256": "142f1ab0e437b72c9afa05541d0fbf1389a03a6a4f5c7e573505ddf612f0662f",
+    "robot_proprioception": null,
+    "public_history_preceding_decision": [
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 0.0,
+            "seconds": 0.5
+          },
+          "request_id": "visual-1"
+        },
+        "response": {
+          "end_time_s": 1.0000000000000007,
+          "request_id": "visual-1",
+          "start_time_s": 0.5000000000000003,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.0,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.91
+            ]
+          },
+          "request_id": "visual-2"
+        },
+        "response": {
+          "end_time_s": 1.9999999999998905,
+          "request_id": "visual-2",
+          "start_time_s": 1.0000000000000007,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.2,
+            "xyz_m": [
+              0.251,
+              -0.149,
+              0.84
+            ]
+          },
+          "request_id": "visual-3"
+        },
+        "response": {
+          "end_time_s": 3.1999999999997586,
+          "request_id": "visual-3",
+          "start_time_s": 1.9999999999998905,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 0.8,
+            "xyz_m": [
+              0.251,
+              -0.173,
+              0.8
+            ]
+          },
+          "request_id": "visual-4"
+        },
+        "response": {
+          "end_time_s": 3.9999999999996705,
+          "request_id": "visual-4",
+          "start_time_s": 3.1999999999997586,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 1.0,
+            "seconds": 1.0
+          },
+          "request_id": "visual-5"
+        },
+        "response": {
+          "end_time_s": 5.000000000000004,
+          "request_id": "visual-5",
+          "start_time_s": 3.9999999999996705,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.2,
+            "xyz_m": [
+              0.251,
+              -0.173,
+              0.95
+            ]
+          },
+          "request_id": "visual-6"
+        },
+        "response": {
+          "end_time_s": 6.200000000000405,
+          "request_id": "visual-6",
+          "start_time_s": 5.000000000000004,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "hand",
+          "arguments": {
+            "closure": 0.0,
+            "seconds": 0.5
+          },
+          "request_id": "visual-7"
+        },
+        "response": {
+          "end_time_s": 6.700000000000572,
+          "request_id": "visual-7",
+          "start_time_s": 6.200000000000405,
+          "status": "completed"
+        }
+      },
+      {
+        "action": {
+          "action": "move",
+          "arguments": {
+            "quaternion_wxyz": [
+              0.5,
+              -0.5,
+              0.5,
+              0.5
+            ],
+            "seconds": 1.0,
+            "xyz_m": [
+              0.251,
+              -0.173,
+              0.8
+            ]
+          },
+          "request_id": "visual-8"
+        },
+        "response": {
+          "end_time_s": 7.700000000000906,
+          "request_id": "visual-8",
+          "start_time_s": 6.700000000000572,
+          "status": "completed"
+        }
+      }
+    ],
+    "command": {
+      "action": "move",
+      "arguments": {
+        "quaternion_wxyz": [
+          0.5,
+          -0.5,
+          0.5,
+          0.5
+        ],
+        "seconds": 1.2,
+        "xyz_m": [
+          0.15,
+          -0.48,
+          0.9
+        ]
+      }
+    },
+    "interface_response": {
+      "status": "rejected",
+      "start_time_s": 7.700000000000906,
+      "end_time_s": 7.700000000000906,
+      "error": "Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m"
+    }
+  }
+]

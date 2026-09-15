@@ -66,6 +66,15 @@ All 9 prompts/images and event logs audited. [Results](results/codex_C2.json),
 [episode archive](results/codex_C2_episode.zip). This is a descriptive development result,
 not a qualified visual controller.
 
+[C2 post-hoc failure audit](CODEX_C2_DIAGNOSIS.md), 2026-09-15: Action 4 approach displaced
+the block 154.269 mm in XY and toppled it; reached floor height by Action 5. Action 9 IK
+rejection reproduced on scratch data without state mutation (residual 0.0542 m). Full-rate
+1 kHz scorer telemetry (5.185 mm peak penetration, 25.51 N normal force at peak penetration at
+t=3.795 s) distinctly attributed from sampled 30 Hz qpos geometry. Original-image contact sheet
+for decisions 3–9, public proprioception/history, and separate private geometry assembled.
+Zero physics steps or model invocations; 5 new focused audit tests and 3 C1 audit tests pass.
+[Audit numeric data](results/codex_C2_audit/audit.json), [test log](results/codex_C2_audit/tests.txt).
+
 [Five-capture checks and limitations](VISUAL.md): calibration bounds and exact
 state preservation passed; the centroid/known-plane estimate has up to 2.983 cm
 XY error. The head view crops the task. These are infrastructure checks, not
