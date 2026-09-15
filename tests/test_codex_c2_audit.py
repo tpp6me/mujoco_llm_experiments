@@ -8,7 +8,7 @@ import zipfile
 
 from humanoid_sim.scene import ROOT
 import scripts.audit_codex_c2
-from scripts.audit_codex_c2 import audit, PINNED_C2_ARCHIVE_SHA256
+from scripts.audit_codex_c2 import audit, PINNED_C2_ARCHIVE_SHA256, AUDIT_RUNTIME_DEPENDENCIES
 
 
 class C2AuditTests(unittest.TestCase):
@@ -179,20 +179,49 @@ class C2AuditTests(unittest.TestCase):
         self.assertEqual(act9['ik_residual_m'], 0.0542)
         self.assertEqual(act9['ik_residual_precision'], 'four_decimals')
 
-    def test_source_mismatch_is_rejected_before_output(self):
-        # Episode bytes stay intact; perturb only the source file digest check
+    def test_unrelated_controller_edits_allowed(self):
+        # Edits to controller code (e.g. codex_policy.py) must not break post-hoc physical audit
         orig_digest = scripts.audit_codex_c2.digest
 
         def mock_digest(path):
-            if Path(path).name == 'environment.py':
+            if Path(path).name == 'codex_policy.py':
                 return '0' * 64
             return orig_digest(path)
 
-        fail_dir = self.root / 'audit_source_mismatch'
-        with patch('scripts.audit_codex_c2.digest', side_effect=mock_digest):
-            with self.assertRaisesRegex(ValueError, 'Execution source changed: humanoid_sim/environment.py'):
-                audit(self.episode, fail_dir)
-        self.assertFalse(fail_dir.exists())
+        output_dir = self.root / 'audit_unrelated_edits'
+        with (
+            patch('scripts.audit_codex_c2.digest', side_effect=mock_digest),
+            patch('mujoco.mj_step', side_effect=AssertionError('No physics steps allowed')),
+            patch('humanoid_sim.environment.Environment.reset', side_effect=AssertionError('No fresh reset allowed')),
+            patch('subprocess.Popen', side_effect=AssertionError('No subprocess.Popen calls allowed')),
+            patch('subprocess.run', side_effect=AssertionError('No subprocess.run calls allowed')),
+        ):
+            result = audit(self.episode, output_dir)
+        self.assertTrue((output_dir / 'audit.json').is_file())
+        self.assertEqual(result['physics_steps'], 0)
+        self.assertEqual(result['model_invocations'], 0)
+
+    def test_source_mismatch_is_rejected_before_output(self):
+        # Episode bytes stay intact; perturb actual audit runtime dependencies
+        orig_digest = scripts.audit_codex_c2.digest
+
+        for dep in AUDIT_RUNTIME_DEPENDENCIES:
+            fname = Path(dep).name
+
+            def mock_digest(path, bad_fname=fname):
+                if Path(path).name == bad_fname:
+                    return '0' * 64
+                return orig_digest(path)
+
+            fail_dir = self.root / f'audit_source_mismatch_{fname}'
+            with patch('scripts.audit_codex_c2.digest', side_effect=mock_digest):
+                if fname == 'g1_pick_place.xml':
+                    with self.assertRaisesRegex(ValueError, 'Scene changed|Execution source changed'):
+                        audit(self.episode, fail_dir)
+                else:
+                    with self.assertRaisesRegex(ValueError, f'Execution source changed: {dep}'):
+                        audit(self.episode, fail_dir)
+            self.assertFalse(fail_dir.exists())
 
     def test_scene_mismatch_is_rejected_before_output(self):
         # Episode bytes stay intact; perturb only the scene file digest check

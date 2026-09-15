@@ -1,0 +1,4 @@
+{"type": "thread.started", "thread_id": "preflight-synthetic-check"}
+{"type": "turn.started"}
+{"type": "item.completed", "item": {"type": "agent_message", "text": "{\n  \"visual_assessment\": {\n    \"block_visibility\": \"visible\",\n    \"block_relative_to_fingers\": \"separate\"\n  },\n  \"command\": {\n    \"action\": \"hold\",\n    \"arguments\": {\n      \"seconds\": 0.1\n    }\n  }\n}"}}
+{"type": "turn.completed", "usage": {}}

@@ -143,6 +143,41 @@ def action_schema():
     }
 
 
+def c3_response_schema():
+    """Exact C3 response schema formatted for structured output."""
+    schema = action_schema()
+    command_prop = schema['properties']['command']
+    assessment_prop = {
+        'type': 'object',
+        'properties': {
+            'block_visibility': {
+                'type': 'string',
+                'enum': ['visible', 'partly_visible', 'not_visible', 'uncertain']
+            },
+            'block_relative_to_fingers': {
+                'type': 'string',
+                'enum': ['between', 'separate', 'uncertain']
+            }
+        },
+        'required': ['block_visibility', 'block_relative_to_fingers'],
+        'additionalProperties': False
+    }
+    return {
+        'type': 'object',
+        'properties': {
+            'visual_assessment': assessment_prop,
+            'command': command_prop
+        },
+        'required': ['visual_assessment', 'command'],
+        'additionalProperties': False
+    }
+
+
+def serialize_schema(schema_dict):
+    """Deterministic serialization of schema with sorted keys and trailing newline."""
+    return json.dumps(schema_dict, indent=2, sort_keys=True).encode('utf-8') + b'\n'
+
+
 def _validate_finite_float(val, name):
     if isinstance(val, bool) or not isinstance(val, (int, float)) or not math.isfinite(val):
         raise ValueError(f'{name} must be a finite float, got {val!r}')
@@ -332,8 +367,57 @@ def build_public_payload(observation, history, deadline=DEADLINE, max_calls=MAX_
     return payload
 
 
-def parse_and_validate_response(raw):
+def validate_visual_assessment(va):
+    """Validate C3 visual_assessment object against strict contract."""
+    if not isinstance(va, dict):
+        raise MalformedResponseError(f'visual_assessment must be an object, got {type(va).__name__}')
+    if set(va.keys()) != {'block_visibility', 'block_relative_to_fingers'}:
+        raise MalformedResponseError(
+            f'visual_assessment fields must be exactly block_visibility and block_relative_to_fingers, got {sorted(va.keys())}'
+        )
+    vis = va['block_visibility']
+    if not isinstance(vis, str) or vis not in ('visible', 'partly_visible', 'not_visible', 'uncertain'):
+        raise MalformedResponseError(f'Invalid block_visibility: {vis!r}')
+    rel = va['block_relative_to_fingers']
+    if not isinstance(rel, str) or rel not in ('between', 'separate', 'uncertain'):
+        raise MalformedResponseError(f'Invalid block_relative_to_fingers: {rel!r}')
+    return {'block_visibility': vis, 'block_relative_to_fingers': rel}
+
+
+def parse_and_validate_c3_response(raw):
+    """Parse and validate C3 response returning visual_assessment and validated command."""
+    if isinstance(raw, str):
+        try:
+            parsed = strict_json(raw)
+        except ValueError as exc:
+            raise MalformedResponseError(f'Invalid JSON in model response: {exc}')
+    elif isinstance(raw, dict):
+        parsed = raw
+    else:
+        raise MalformedResponseError(f'Model response must be JSON string or dict, got {type(raw).__name__}')
+
+    # Check for refusal
+    if isinstance(parsed, dict):
+        if parsed.get('refusal'):
+            raise ModelRefusalError(f'Model refused: {parsed["refusal"]}')
+        if parsed.get('status') == 'refusal':
+            raise ModelRefusalError(f'Model status is refusal: {parsed.get("error", "refusal")}')
+
+    if not isinstance(parsed, dict) or set(parsed.keys()) != {'visual_assessment', 'command'}:
+        fields = sorted(parsed.keys()) if isinstance(parsed, dict) else type(parsed).__name__
+        raise MalformedResponseError(f'C3 response fields must be exactly visual_assessment and command, got {fields}')
+
+    va = validate_visual_assessment(parsed['visual_assessment'])
+    command = parse_and_validate_response({'command': parsed['command']})
+    return {'visual_assessment': va, 'command': command}
+
+
+def parse_and_validate_response(raw, condition=None):
     """Parse and validate model response into a single valid primitive command."""
+    if condition == 'c3':
+        c3_res = parse_and_validate_c3_response(raw)
+        return c3_res['command']
+
     if isinstance(raw, str):
         try:
             parsed = strict_json(raw)
@@ -675,6 +759,7 @@ def run_visual_episode(
     """
     # 1. Pre-validate configuration before directory creation or episode execution
     max_calls, deadline = _validate_budget(max_calls, deadline)
+    effective_cond = None
     if execution_metadata is not None:
         if (not isinstance(execution_metadata, dict)
                 or type(execution_metadata.get('offline_only')) is not bool
@@ -688,7 +773,7 @@ def run_visual_episode(
             raise ValueError(f'Conflicting condition ({cond}) and condition_id ({cond_id})')
         effective_cond = cond if cond is not None else cond_id
 
-        if effective_cond is not None and effective_cond not in ('c1', 'c2'):
+        if effective_cond is not None and effective_cond not in ('c1', 'c2', 'c3'):
             raise ValueError(f'Unknown condition: {effective_cond}')
 
         prot = execution_metadata.get('protocol_id')
@@ -700,14 +785,18 @@ def run_visual_episode(
             if effective_cond is not None and effective_cond != 'c2':
                 raise ValueError(f'Mismatched condition and protocol_id: {effective_cond} vs {prot}')
             effective_cond = 'c2'
+        elif prot == 'humanoid-codex-c3-development':
+            if effective_cond is not None and effective_cond != 'c3':
+                raise ValueError(f'Mismatched condition and protocol_id: {effective_cond} vs {prot}')
+            effective_cond = 'c3'
         elif effective_cond is not None:
             raise ValueError(f'Mismatched condition and protocol_id: {effective_cond} vs {prot}')
 
         if effective_cond and hasattr(model_callable, 'condition') and model_callable.condition != effective_cond:
             raise ValueError(f'Mismatched model callable condition ({model_callable.condition}) and execution metadata condition ({effective_cond})')
 
-        # Validate model callable configuration against declared metadata for C1/C2 conditions
-        if effective_cond in ('c1', 'c2'):
+        # Validate model callable configuration against declared metadata for C1/C2/C3 conditions
+        if effective_cond in ('c1', 'c2', 'c3'):
             declared_model = execution_metadata.get('model') or execution_metadata.get('model_requested') or 'gpt-5.6-sol'
             if hasattr(model_callable, 'model') and model_callable.model != declared_model:
                 raise ValueError(f'Mismatched model callable model ({model_callable.model}) and expected model ({declared_model})')
@@ -716,6 +805,8 @@ def run_visual_episode(
                 raise ValueError(f'Mismatched model callable timeout ({model_callable.timeout}) and expected timeout ({declared_timeout})')
 
         execution_metadata = copy.deepcopy(execution_metadata)
+    elif hasattr(model_callable, 'condition'):
+        effective_cond = getattr(model_callable, 'condition', None)
 
     if seed is not None:
         if isinstance(seed, bool) or not isinstance(seed, int):
@@ -837,6 +928,33 @@ def run_visual_episode(
                 'request': public_payload,
                 'status': 'pending'
             }
+            if effective_cond == 'c3':
+                schema_hash = None
+                if execution_metadata and 'schema_sha256' in execution_metadata:
+                    schema_hash = execution_metadata['schema_sha256']
+                else:
+                    schema_hash = hashlib.sha256(serialize_schema(c3_response_schema())).hexdigest()
+                from .codex_policy import static_instruction, public_input
+                static_inst_hash = hashlib.sha256(static_instruction('c3').encode('utf-8')).hexdigest()
+                try:
+                    _, pr_text = public_input(public_payload, condition='c3')
+                    pr_hash = hashlib.sha256(pr_text.encode('utf-8')).hexdigest()
+                except Exception:
+                    pr_hash = None
+                req_model = 'gpt-5.6-sol'
+                if execution_metadata is not None:
+                    req_model = execution_metadata.get('model') or execution_metadata.get('model_requested') or req_model
+                elif hasattr(model_callable, 'model') and getattr(model_callable, 'model', None):
+                    req_model = getattr(model_callable, 'model')
+
+                call_record.update({
+                    'schema_sha256': schema_hash,
+                    'static_instruction_sha256': static_inst_hash,
+                    'prompt_sha256': pr_hash,
+                    'model_requested': req_model,
+                    'visual_assessment_state': 'unreached',
+                    'visual_assessment': None,
+                })
             write_json(call_file, call_record)
 
             start_wall = clock()
@@ -852,6 +970,9 @@ def run_visual_episode(
                 call_record['wall_latency_s'] = wall_s
                 call_record['status'] = 'refusal'
                 call_record['error'] = str(exc)
+                if effective_cond == 'c3':
+                    call_record['visual_assessment_state'] = 'refusal'
+                    call_record['visual_assessment'] = None
                 write_json(call_file, call_record)
                 termination_reason = 'refusal'
                 terminal_error = str(exc)
@@ -863,6 +984,9 @@ def run_visual_episode(
                 call_record['wall_latency_s'] = wall_s
                 call_record['status'] = 'malformed_response'
                 call_record['error'] = str(exc)
+                if effective_cond == 'c3':
+                    call_record['visual_assessment_state'] = 'missing' if 'missing' in str(exc).lower() else 'malformed'
+                    call_record['visual_assessment'] = None
                 write_json(call_file, call_record)
                 termination_reason = 'malformed_response'
                 terminal_error = str(exc)
@@ -874,6 +998,9 @@ def run_visual_episode(
                 call_record['wall_latency_s'] = wall_s
                 call_record['status'] = 'exception'
                 call_record['error'] = f'{type(exc).__name__}: {exc}'
+                if effective_cond == 'c3':
+                    call_record['visual_assessment_state'] = 'unreached'
+                    call_record['visual_assessment'] = None
                 write_json(call_file, call_record)
                 termination_reason = 'exception'
                 terminal_error = call_record['error']
@@ -881,11 +1008,22 @@ def run_visual_episode(
                 break
 
             try:
-                command = parse_and_validate_response(raw_response)
-                call_record['command'] = command
+                if effective_cond == 'c3':
+                    c3_res = parse_and_validate_c3_response(raw_response)
+                    command = c3_res['command']
+                    va = c3_res['visual_assessment']
+                    call_record['command'] = command
+                    call_record['visual_assessment'] = copy.deepcopy(va)
+                    call_record['visual_assessment_state'] = 'valid'
+                else:
+                    command = parse_and_validate_response(raw_response, condition=effective_cond)
+                    call_record['command'] = command
             except ModelRefusalError as exc:
                 call_record['status'] = 'refusal'
                 call_record['error'] = str(exc)
+                if effective_cond == 'c3':
+                    call_record['visual_assessment_state'] = 'refusal'
+                    call_record['visual_assessment'] = None
                 write_json(call_file, call_record)
                 termination_reason = 'refusal'
                 terminal_error = str(exc)
@@ -894,6 +1032,21 @@ def run_visual_episode(
             except MalformedResponseError as exc:
                 call_record['status'] = 'malformed_response'
                 call_record['error'] = str(exc)
+                if effective_cond == 'c3':
+                    va = None
+                    va_state = 'malformed'
+                    try:
+                        p = strict_json(raw_response) if isinstance(raw_response, str) else raw_response
+                        if isinstance(p, dict):
+                            if 'visual_assessment' not in p:
+                                va_state = 'missing'
+                            else:
+                                va = validate_visual_assessment(p['visual_assessment'])
+                                va_state = 'valid'
+                    except Exception:
+                        pass
+                    call_record['visual_assessment'] = va
+                    call_record['visual_assessment_state'] = va_state
                 write_json(call_file, call_record)
                 termination_reason = 'malformed_response'
                 terminal_error = str(exc)
@@ -902,6 +1055,9 @@ def run_visual_episode(
             except Exception as exc:
                 call_record['status'] = 'malformed_response'
                 call_record['error'] = f'Unexpected parser error: {exc}'
+                if effective_cond == 'c3':
+                    call_record['visual_assessment_state'] = 'malformed'
+                    call_record['visual_assessment'] = None
                 write_json(call_file, call_record)
                 termination_reason = 'malformed_response'
                 terminal_error = call_record['error']
@@ -1046,6 +1202,8 @@ def run_visual_episode(
             current_sim_time = None
         if call_record is not None:
             call_record.update(status=termination_reason, error=terminal_error)
+            if effective_cond == 'c3':
+                call_record['visual_assessment_state'] = 'unreached'
             write_json(call_file, call_record)
         raise
     except OSError:
@@ -1063,6 +1221,8 @@ def run_visual_episode(
             current_sim_time = None
         if call_record is not None:
             call_record.update(status=termination_reason, error=terminal_error)
+            if effective_cond == 'c3':
+                call_record['visual_assessment_state'] = 'unreached'
             write_json(call_file, call_record)
     finally:
         if not report_written:
@@ -1093,7 +1253,7 @@ def run_visual_episode(
                 prov['scaffold_origin_task'] = prov['task']
                 prov['task'] = execution_metadata['protocol_id']
                 for key in ('condition', 'condition_id', 'source_commit', 'prompt_sha256',
-                            'static_instruction_sha256', 'geometry_evidence_sha256',
+                            'static_instruction_sha256', 'schema_sha256', 'geometry_evidence_sha256',
                             'protocol_path', 'protocol_sha256', 'git_status', 'is_dirty'):
                     if key in execution_metadata:
                         prov[key] = execution_metadata[key]
@@ -1120,6 +1280,64 @@ def run_visual_episode(
                 'image_identities': image_identities,
                 'provenance': prov
             }
+            if effective_cond == 'c3':
+                report['visual_assessments'] = []
+                schema_hash = execution_metadata.get('schema_sha256') if execution_metadata else None
+                if not schema_hash:
+                    schema_hash = hashlib.sha256(serialize_schema(c3_response_schema())).hexdigest()
+                prov['schema_sha256'] = schema_hash
+
+                from .codex_policy import static_instruction, public_input
+                static_inst_hash = hashlib.sha256(static_instruction('c3').encode('utf-8')).hexdigest()
+
+                for call_num in range(1, calls + 1):
+                    call_path = folder / f'call_{call_num:03}.json'
+                    rec = {}
+                    if call_path.is_file():
+                        try:
+                            rec = json.loads(call_path.read_text())
+                        except Exception:
+                            pass
+
+                    im = next((item for item in image_identities if item['call'] == call_num), None)
+                    obs_id = rec.get('observation_id') or (im['observation_id'] if im else None)
+                    time_s = rec.get('time_s') if rec.get('time_s') is not None else (im['time_s'] if im else None)
+                    img_sha = rec.get('image_sha256') or (im['image_sha256'] if im else None)
+
+                    p_hash = rec.get('prompt_sha256')
+                    if not p_hash and 'request' in rec and isinstance(rec['request'], dict):
+                        try:
+                            _, pr_text = public_input(rec['request'], condition='c3')
+                            p_hash = hashlib.sha256(pr_text.encode('utf-8')).hexdigest()
+                        except Exception:
+                            pass
+
+                    call_status = rec.get('status', 'unknown')
+                    va_state = rec.get('visual_assessment_state')
+                    if not va_state:
+                        if rec.get('visual_assessment') is not None:
+                            va_state = 'valid'
+                        elif call_status in ('interrupted', 'exception', 'timeout', 'pending'):
+                            va_state = 'unreached'
+                        elif call_status == 'malformed_response':
+                            va_state = 'malformed'
+                        else:
+                            va_state = 'missing'
+
+                    report['visual_assessments'].append({
+                        'call': call_num,
+                        'observation_id': obs_id,
+                        'time_s': time_s,
+                        'image_sha256': img_sha,
+                        'status': call_status,
+                        'visual_assessment_state': va_state,
+                        'visual_assessment': rec.get('visual_assessment'),
+                        'prompt_sha256': p_hash,
+                        'static_instruction_sha256': rec.get('static_instruction_sha256', static_inst_hash),
+                        'schema_sha256': rec.get('schema_sha256', schema_hash),
+                        'model_requested': rec.get('model_requested', (execution_metadata.get('model_requested') if execution_metadata else None) or getattr(model_callable, 'model', None) or 'gpt-5.6-sol'),
+                        'error': rec.get('error'),
+                    })
             if evaluator_error is not None:
                 report['evaluator_error'] = evaluator_error
 

@@ -1,0 +1,12 @@
+{
+  "visual_assessment": {
+    "block_visibility": "visible",
+    "block_relative_to_fingers": "separate"
+  },
+  "command": {
+    "action": "hold",
+    "arguments": {
+      "seconds": 0.1
+    }
+  }
+}

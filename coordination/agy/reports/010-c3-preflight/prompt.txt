@@ -1,0 +1,49 @@
+Control a supported G1 humanoid in a MuJoCo simulation using visual observations and robot proprioception.
+Pick the red block from the table and place it fully inside the basket, release it, withdraw the hand at least 0.12 m from the object, and let it settle for at least 2 seconds.
+Choose ONE primitive per response using the supplied action schema. No automatic pickup skill exists. You choose approach, grasp, lift, transport, release, and withdrawal.
+Use current visual observations, robot proprioception, and previous public action outcomes to close the loop.
+No ground-truth object coordinates, basket coordinates, or oracle score feedback are provided.
+Physics pauses while you think; only action durations consume simulated time.
+The entire episode must finish by simulated t=25 s including reset. At most 20 actions are allowed.
+A rejected action ends the episode without retry. Do not request an action that exceeds the remaining time. Hold is an explicit action.
+All poses use world metres, Z up; joint readings use radians. move targets the right grasp-site pose; orientation is a unit quaternion in w,x,y,z order mapping site-local axes into world coordinates.
+The downward orientation is [0.5, -0.5, 0.5, 0.5]; local hand X then points down and finger flexion is toward world -X. The site is a hand reference, not an automatic object grasp or centering operation.
+Hand closure 0 opens and 1 closes the coordinated three fingers.
+Actions take 0.02 to 10 s. Motion interpolation and force-limited physical contacts control the arm; completed means execution, not exact tracking or task success.
+Workspace input bounds: X [0.15, 0.55], Y [-0.60, -0.05], Z [0.60, 1.15]. Some poses inside these bounds are unreachable or rejected by the sampled collision guard.
+Robot pelvis is fixed; do not walk. The arm starts in an overhead ready pose.
+Static task geometry: table top z=0.70; block dimensions 0.05 x 0.07 x 0.12 m, mass 0.06 kg; basket floor top z=0.712, rim top z=0.84, interior 0.17 x 0.17 m.
+The block must be lifted at least 0.04 m above the table with hand contact for 0.2 s, then fully contained, on the basket floor, without hand contact, nearly stationary for 2 s.
+Keep contact gentle. The private evaluator measures maximum object penetration.
+Return only the structured C3 response specified below. Do not claim task success.
+You are the decision component, not a coding assistant. The attached image and the following JSON are the entire task observation. Do not call tools, read files, search, ask questions or edit anything. Return exactly one JSON object matching the supplied C3 output schema. Do not provide commentary.
+Additional robot geometry and feedback contract:
+The right_grasp site is a reference embedded within the hand geometry. It is not
+the lowest fingertip, an empty grasp cavity, or the desired object centre.
+With fully open fingers and the declared downward orientation, nominal collision
+geometry occupies approximately these world-axis offsets relative to the site:
+X [-0.074, +0.058] m, Y [-0.042, +0.042] m, Z [-0.077, +0.085] m.
+These are rounded bounds on solid robot geometry from its description. Actual
+extents change with finger articulation, orientation and tracking error. They do
+not specify where to place an object within the hand or certify a safe path.
+A grasp-site target above the table can still put fingertips through the table.
+Likewise, putting the site at an object's visible top does not guarantee clearance
+between the open hand and the object. Plan clearance for the entire hand and its
+path, not only the reference point. The guard does not certify object contacts.
+After every completed motion, use the current image to reassess the object's
+position and orientation. If it moved or toppled, do not keep descending toward
+its former position or assume that it remains upright. A completed motion is not
+evidence of a grasp. Replan using the new visual observation and public hand state.
+C3 visual assessment contract:
+Report the current visible state of the red block before selecting the next action.
+Return visual_assessment and command in the supplied JSON schema.
+For block_visibility, use visible when the block is clearly visible, partly_visible
+when part is hidden, not_visible when it cannot be seen, and uncertain when unsure.
+For block_relative_to_fingers, use between when the image clearly places the block
+between the fingers, separate when it is visibly separate from them, and uncertain
+when the image does not establish this relation. Apparent alignment in an image
+alone does not establish a physical grasp. Use the current image and public robot
+state rather than assuming the previous command achieved its purpose. Choose the
+next command consistently with this assessment. Do not report private coordinates,
+scorer values or additional explanations.
+{"history": [], "observation": {"camera": {"axes": "camera X right, Y down, Z forward; world Z up; pixel centers indexed from 0", "camera_world_xyz_m": [0.23999999463558197, -0.810534656047821, 2.023515462875366], "focal_xy_px": [869.1168717472739, 869.1168717472739], "height": 720, "principal_xy_px": [479.5, 359.5], "projection": "pinhole", "width": 960, "world_to_camera_rotation": [[1.0, -6.123233429181629e-17, 2.4517539044545777e-24], [-5.549534048139286e-17, -0.9063077891669693, -0.42261825717221474], [2.58779046230375e-17, 0.42261825717221474, -0.9063077891669693]]}, "observation_id": "616adda17a3a48e085f4150bb676d40f", "rgb_sha256": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65", "robot_state": {"frame": "world", "instruction_version": 1, "mode": "robot_state", "robot": {"contact_links": [], "hand_quaternion_wxyz": [0.4924886750328165, -0.49331171604994806, 0.5070399109401347, 0.5069605354325886], "hand_xyz_m": [0.2385147360376968, -0.18032909726373042, 0.9332364710259523], "joint_names": ["left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint", "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint", "right_hip_pitch_joint", "right_hip_roll_joint", "right_hip_yaw_joint", "right_knee_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint", "waist_yaw_joint", "waist_roll_joint", "waist_pitch_joint", "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint", "left_elbow_joint", "left_wrist_roll_joint", "left_wrist_pitch_joint", "left_wrist_yaw_joint", "left_hand_thumb_0_joint", "left_hand_thumb_1_joint", "left_hand_thumb_2_joint", "left_hand_middle_0_joint", "left_hand_middle_1_joint", "left_hand_index_0_joint", "left_hand_index_1_joint", "right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint", "right_elbow_joint", "right_wrist_roll_joint", "right_wrist_pitch_joint", "right_wrist_yaw_joint", "right_hand_thumb_0_joint", "right_hand_thumb_1_joint", "right_hand_thumb_2_joint", "right_hand_index_0_joint", "right_hand_index_1_joint", "right_hand_middle_0_joint", "right_hand_middle_1_joint"], "joint_position_rad": [0.0019193977533130447, 7.520855491061849e-05, -1.8028106477050278e-05, 0.0004908001776688332, 0.00030460750406783427, -1.375607395526573e-08, 0.0019280416385041145, -7.516955201500695e-05, 1.803039132930723e-05, 0.0004881038566410679, 0.0003046019213805219, 1.3702606570796505e-08, 9.030229084719075e-05, 0.0011656853904506567, 0.011516360169414996, 0.19864680540200524, 0.19618972709065735, -0.00046598326010660786, 1.2801812999590436, 1.1586001302108653e-06, 0.00019308058058433353, -0.0002782736064468432, -0.0007935192435674123, 1.0604203399505567, 6.41228198609022e-05, -0.0002557617340221821, -4.555372667893896e-05, -0.0002556957642381472, -4.554706630076351e-05, -1.3029463068372764, -1.1484514170795743, 1.3156752261144384, -0.16908461398526609, 0.1672654076001292, 0.8274535445620631, 1.3929886442476296, 1.9995030818718397e-05, -0.10115921667748697, -0.10017387263987491, -2.8019338235529924e-06, 6.500941447957764e-06, -2.8137359423645105e-06, 6.500142623804291e-06], "joint_velocity_rad_s": [0.000602005283624336, 9.798703679078764e-05, 8.583464706330626e-07, 2.4895289612792947e-06, -2.883046442673334e-07, -2.1467311545904624e-08, 0.0005896196891732761, -9.796111656523815e-05, -8.86177481238981e-07, 2.77146585351623e-05, -2.691053238150847e-07, 2.186929186621864e-08, -0.00041412229114695854, -0.00016807330931306607, 0.00045128051108182636, -0.0004140637581827571, 0.0006254156746007776, -8.98832363110552e-05, -9.229812402521304e-05, 1.9305770652069457e-06, -5.058191929181997e-05, -0.000417539940266393, 0.010409421454851017, -0.359774543956803, -0.0021892604818995326, 0.0010327917180531746, 0.00016096210351639512, 0.0010681508792826431, 0.00016607142725866001, 0.00024402954140851756, 0.00014577171705399336, -1.5805251358082898e-06, -5.197790495248271e-06, -4.073425686806146e-06, -1.314594325441183e-07, -1.413100849193928e-06, 4.0960875114662e-07, 2.0848474752478794e-06, 4.47448096575193e-07, 6.957764832682783e-07, 1.821232653544138e-07, 1.947431277216108e-06, 3.3797608692685506e-07]}, "schema_version": "humanoid-actions-v2", "supported_body": true, "time_s": 0.5000000000000003}, "schema_version": "humanoid-visual-v1", "time_s": 0.5000000000000003}, "remaining_actions": 20, "remaining_time_s": 24.5}
