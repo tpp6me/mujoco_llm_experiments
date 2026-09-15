@@ -3,6 +3,12 @@
 MuJoCo runs locally on the Mac. Codex operates a simulated SO101 arm through
 terminal commands, observing state and contacts after each action.
 
+## Resume a session
+
+Start with [the current handoff](coordination/RESUME.md) and
+[execution policy](coordination/EXECUTION_POLICY.md). Task011 (C3 execution/review)
+is complete; Task012 is prepared but not started. The user paused work for later.
+
 ## Experiment plans
 
 - [G1 humanoid pick and basket](experiments/humanoid-pick-place/README.md):

@@ -4,6 +4,9 @@ Updated 2026-09-15 following the user's instruction to minimise Codex usage,
 maximise AGY usage, and reserve Codex for VLA tasks, planning and review.
 The earlier restriction on direct OpenAI APIs remains in force.
 
+Session paused by the user after Task011. Read [RESUME.md](RESUME.md) when they
+return; Task012 remains unlaunched. No background experiment is scheduled.
+
 - AGY performs implementation, debugging, local testing, artifact preparation and
   documentation under bounded Codex task briefs. Codex owns experiment planning,
   acceptance criteria, review, interpretation and integration decisions. Route
