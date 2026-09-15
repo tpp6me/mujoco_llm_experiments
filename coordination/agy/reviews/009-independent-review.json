@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "code_hash_mismatches": [],
+  "reproduced_json_artifacts": [
+    "audit.json",
+    "private_trajectory_annotations.json",
+    "public_proprioception_history.json"
+  ],
+  "contact_sheet_byte_exact": true,
+  "original_image_panels_verified": 7,
+  "public_state_history_identity_rows_verified": 7,
+  "physics_steps": 0,
+  "model_invocations": 0,
+  "audit_code_sha256": "fa05101f4833aefe545211acaa0a8d4b6d81765a552b5244f9dc50334e5a6e4e",
+  "geometry": {
+    "overall_min_m": [
+      -0.07319634091698721,
+      -0.0416800419760317,
+      -0.07778212847904054
+    ],
+    "overall_max_m": [
+      0.05748905727366574,
+      0.04178345055479393,
+      0.08470566247130085
+    ],
+    "min_departure_from_prompt_m": [
+      0.0008036590830127893,
+      0.0003199580239683017,
+      -0.0007821284790405364
+    ],
+    "max_departure_from_prompt_m": [
+      -0.0005109427263342639,
+      -0.00021654944520606983,
+      -0.0002943375286991595
+    ]
+  },
+  "first_contact": {
+    "rate_hz": 30,
+    "nearest_to_scorer_peak_sample_index": 118,
+    "nearest_sample_time_s": 3.793999999999693,
+    "nearest_sample_penetration_m": 0.005184671623014815,
+    "first_sampled_contact_sample_index": 117,
+    "first_sampled_contact_time_s": 3.760999999999697,
+    "first_sampled_contact_penetration_m": 0.0002741165378328769,
+    "first_contact_sample_index": 117,
+    "first_contact_time_s": 3.760999999999697,
+    "first_contact_penetration_m": 0.0002741165378328769,
+    "max_contact_sample_index": 118,
+    "max_sampled_penetration_m": 0.005184671623014815,
+    "note": "Qpos trajectory analysis is post-hoc geometric reconstruction only (dt ~ 0.033 s). 30 Hz snapshots cannot identify exact collision onset or continuous contact forces."
+  },
+  "finger_joint_order": [
+    "right_hand_thumb_0_joint",
+    "right_hand_thumb_1_joint",
+    "right_hand_thumb_2_joint",
+    "right_hand_index_0_joint",
+    "right_hand_index_1_joint",
+    "right_hand_middle_0_joint",
+    "right_hand_middle_1_joint"
+  ],
+  "ik_error": "Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m"
+}

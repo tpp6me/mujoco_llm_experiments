@@ -1,6 +1,6 @@
 # AGY task 009 — Offline C2 failure audit
 
-Status: ready for delegation after Task 008 acceptance; no new experiment authorized.
+Status: accepted and integrated after [Codex review](../reviews/009-acceptance.md); no new experiment executed.
 Owner: AGY implements and packages; Codex reviews geometry, visual interpretation
 and any successor VLA condition. Start a dedicated branch/worktree from the main
 commit containing Task 008 acceptance. Record that exact commit before edits.

@@ -1,6 +1,6 @@
 # Current execution direction
 
-Updated 2026-09-14 following the user's instruction to minimise Codex usage,
+Updated 2026-09-15 following the user's instruction to minimise Codex usage,
 maximise AGY usage, and reserve Codex for VLA tasks, planning and review.
 The earlier restriction on direct OpenAI APIs remains in force.
 
@@ -28,8 +28,9 @@ The earlier restriction on direct OpenAI APIs remains in force.
   visual runner. ChatGPT login is required; no direct API transport or API keys.
   The separate [C1 development protocol](../experiments/humanoid-pick-place/protocols/C1.md)
   declares the model, public input boundary, budgets and trial accounting.
-- Next implementation handoff: [AGY task 007](agy/tasks/007-c2-implementation.md).
-  This task is offline preparation only; a separate post-review task will authorize
-  the frozen C2 episode and specify its execution/evidence boundaries.
+- C2 execution and Task 009 offline diagnosis are accepted. Next implementation
+  handoff: [AGY task 010](agy/tasks/010-c3-offline-preparation.md), preparing the
+  proposed C3 visual assessment contract. It authorizes offline implementation
+  only; any model episode requires a separate Codex review, freeze and run brief.
 - Held-out seeds 840–849 remain unused. P5's 5.0 mm mean gate remains unchanged and
   unmet. Do not convert implementation tests into model-performance claims.

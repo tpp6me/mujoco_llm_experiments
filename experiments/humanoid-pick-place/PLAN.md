@@ -1,10 +1,10 @@
 # Humanoid VLA experiment — implementation checklist
 
-Started: 2026-09-11. Last updated: 2026-09-14.
+Started: 2026-09-11. Last updated: 2026-09-15.
 
 Robot: Unitree G1 with hands, simulated in MuJoCo.
 
-Current phase: **Phase 5 — visual action control development (C1 and C2 executed)**
+Current phase: **Phase 5 — C2 diagnosis accepted; C3 offline preparation next**
 
 This is the canonical, living plan for the experiment. Use it to choose the next
 work item and record progress across sessions. Keep commands in the
@@ -85,7 +85,9 @@ individual-finger control are outside the initial scope.
 - [x] Codex freezes [C2](protocols/C2.md) and issues [AGY task 008](../../coordination/agy/tasks/008-c2-execution.md) under the user's instruction to execute all five steps.
 - [x] AGY operates the one frozen C2 episode and packages complete evidence; signed-in Codex makes every VLA decision ([C2 results](CODEX_C2_RESULTS.md), [archive](results/codex_C2_episode.zip)).
 - [x] Codex audits C2 outcome and defines the next scientific step: [acceptance](../../coordination/agy/reviews/008-acceptance.md). All five requested stages complete; 0/1 placement/lift/strict pass, 9 decisions, 8 actions, one IK rejection, 5.185 mm peak penetration. All 73 runtime files and nine public decisions independently verified.
-- [x] AGY executes [Task 009](../../coordination/agy/tasks/009-c2-failure-audit.md), an offline audit of the damaging approach and retained feedback; [C2 diagnosis](CODEX_C2_DIAGNOSIS.md), [audit numeric data](results/codex_C2_audit/audit.json), [contact sheet](results/codex_C2_audit/contact_sheet.png), [test log](results/codex_C2_audit/tests.txt). Zero physics steps or model calls; 11 audit tests passed (8 C2 + 3 C1). Codex reviews visual interpretation before defining a successor condition.
+- [x] AGY executes [Task 009](../../coordination/agy/tasks/009-c2-failure-audit.md), an offline audit of the damaging approach and retained feedback; [C2 diagnosis](CODEX_C2_DIAGNOSIS.md), [audit numeric data](results/codex_C2_audit/audit.json), [contact sheet](results/codex_C2_audit/contact_sheet.png), [test log](results/codex_C2_audit/tests.txt). Zero physics steps or model calls; 11 audit tests passed (8 C2 + 3 C1). [Codex acceptance](../../coordination/agy/reviews/009-acceptance.md): all artifacts reproduced, seven public image/state records verified, final script provenance corrected.
+- [x] Define [C3](protocols/C3_PROPOSAL.md): explicit visual-state report plus command in one Codex response, with existing geometry, guards and scoring unchanged. Proposed only; no new model call or episode.
+- [ ] AGY implements and qualifies C3 offline under [Task 010](../../coordination/agy/tasks/010-c3-offline-preparation.md); Codex reviews before any separate freeze and execution brief. Task ready, not launched.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -393,6 +395,8 @@ trace every reported result to its configuration, observations, actions, and sco
 
 | 2026-09-14 | Codex accepted Task 007 revisions, froze C2, supervised AGY Task 008, reviewed complete evidence and reporting corrections | [Acceptance](../../coordination/agy/reviews/008-acceptance.md): all five requested stages complete; manipulation failed, evidence retained. [Task 009](../../coordination/agy/tasks/009-c2-failure-audit.md) ready for offline diagnosis; no further model episode |
 | 2026-09-15 | Executed offline C2 failure audit (Task 009); 11 audit tests passed | [C2 diagnosis](CODEX_C2_DIAGNOSIS.md), [audit data](results/codex_C2_audit/audit.json): Action 4 displaced block 154.269 mm in XY and toppled it; Action 9 IK rejection reproduced on scratch data without state mutation (residual 0.0542 m); 1 kHz scorer telemetry (25.51 N at peak penetration) distinguished from 30 Hz qpos geometry; contact sheet, verified public proprioception and private evidence assembled; no physics steps or model calls |
+
+| 2026-09-15 | Codex accepted Task 009 after evidence/provenance corrections; 11 tests and independent artifact reproduction passed | [Acceptance](../../coordination/agy/reviews/009-acceptance.md): observed visual feedback inconsistency remains distinct from inferred model beliefs. [C3 proposal](protocols/C3_PROPOSAL.md) and [Task 010](../../coordination/agy/tasks/010-c3-offline-preparation.md) ready; no new experiment executed |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.
