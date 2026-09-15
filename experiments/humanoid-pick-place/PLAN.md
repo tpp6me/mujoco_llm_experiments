@@ -4,7 +4,7 @@ Started: 2026-09-11. Last updated: 2026-09-15.
 
 Robot: Unitree G1 with hands, simulated in MuJoCo.
 
-Current phase: **Phase 5 — C3 frozen; one development episode authorized**
+Current phase: **Phase 5 — C3 execution reviewed; offline grasp audit is next**
 
 This is the canonical, living plan for the experiment. Use it to choose the next
 work item and record progress across sessions. Keep commands in the
@@ -59,7 +59,7 @@ individual-finger control are outside the initial scope.
 | 2. Physical baseline and scorer | Complete | [V4](V4_RESULTS.md): 98/100 task successes, **96/100 strict passes**; ≥95 required |
 | 3. Action/observation interface | Complete for the declared recipe | [G2](GUARDED_RESULTS.md): 100/100 placements, 97/100 strict passes, zero rejections through interface v2 |
 | 4. LLM with exact state | Development pilot complete | [L2](LLM_RESULTS.md): LLM 0/3 placements, 1/3 lifts; conventional 3/3 placements; formal comparison pending |
-| 5. Visual action control | Development pilot complete; qualification pending | [C1 signed-in Codex](CODEX_C1_RESULTS.md): 0/1 placements, 0/1 lifts, one guard rejection; [C2 signed-in Codex](CODEX_C2_RESULTS.md): 0/1 placements, 0/1 lifts, 8 completed actions, one guard rejection; visual runner implemented. [P1](POSE_RESULTS.md) passes initial-pose screening; [P3](CARRIED_POSE_RESULTS.md), [P4](TEMPORAL_POSE_RESULTS.md) and reacquisition development have unmet gates. Qualified carried pose and matched visual comparator remain pending |
+| 5. Visual action control | Development pilot complete; qualification pending | [C1 signed-in Codex](CODEX_C1_RESULTS.md): 0/1 placements, 0/1 lifts, one guard rejection; [C2 signed-in Codex](CODEX_C2_RESULTS.md): 0/1 placements, 0/1 lifts, 8 completed actions, one guard rejection; [C3](CODEX_C3_RESULTS.md): 0/1 placements/lifts, 17 completed actions, one guard rejection, 1.611 mm peak penetration; all 18 assessments reviewed. [P1](POSE_RESULTS.md) passes initial-pose screening; [P3](CARRIED_POSE_RESULTS.md), [P4](TEMPORAL_POSE_RESULTS.md) and reacquisition development have unmet gates. Qualified carried pose and matched visual comparator remain pending |
 | 6. Free-standing manipulation | Not started | Balance controller and mechanical requalification |
 | 7. Continuous-time execution | Not started | Independent physics/control loop and latency measurement |
 | 8. Robustness and recovery | Not started | Frozen challenge sets and recovery evaluation |
@@ -89,7 +89,8 @@ individual-finger control are outside the initial scope.
 - [x] Define [C3](protocols/C3_PROPOSAL.md): explicit visual-state report plus command in one Codex response, with existing geometry, guards and scoring unchanged. Proposed only; no new model call or episode.
 - [x] Accept and integrate C3 offline preparation under [Task 010](../../coordination/agy/tasks/010-c3-offline-preparation.md); [Codex acceptance](../../coordination/agy/reviews/010-acceptance.md): 45 guarded tests passed, all 12 historical prompts/images preserved, implementation and artifact hashes verified. Initial physics-backed tests were stopped and replaced with doubles; no C3 VLA episode.
 - [x] Freeze [C3](protocols/C3.md) with exact [source hashes](protocols/C3_FREEZE.json) and issue [Task011](../../coordination/agy/tasks/011-c3-execution.md).
-- [ ] Execute the single C3 seed-820 episode; Codex labels saved images before reading model assessments/outcomes, then reviews all accounting and physical results.
+- [x] Execute and review the single C3 seed-820 episode: [results](CODEX_C3_RESULTS.md), [acceptance](../../coordination/agy/reviews/011-acceptance.md). 18 decisions, 17 actions, one rejection; no sustained lift/placement; 1.611 mm peak object penetration. All 18 blind image labels committed before unblinding.
+- [ ] Delegate [Task012](../../coordination/agy/tasks/012-c3-grasp-audit.md) for offline closing-geometry and rejected-path diagnosis; Codex reviews before declaring another condition.
 
 - [x] Inspect exact-state failures and audit the hand-site/grasp geometry contract; see [grasp audit](GRASP_AUDIT.md).
 - [ ] Keep any recipe-assisted prompting as a separately declared condition.
@@ -402,6 +403,8 @@ trace every reported result to its configuration, observations, actions, and sco
 | 2026-09-15 | Executed AGY Task 010 (C3 offline preparation); addressed review items R1–R4 and R2 review; 45 guarded offline tests passed | [Completion report](../../coordination/agy/reports/010-completion.md), [preflight bundle](../../coordination/agy/reports/010-c3-preflight/preflight.json), [manifest](../../coordination/agy/reports/010-c3-preflight/manifest.json), [focused test log](../../coordination/agy/reports/010-focused-tests.log); schema, static instructions (SHA-256 de0525e07f9470be60f9e01c4d720ad4f65260fd54b08065708e4096ce6313d0), visual assessment accounting, default runner fixes, historical audit provenance distinction, and checked-in test runner verified with zero physics/resets via test doubles; disclosed initial batch physics test run and halted state; zero VLA model episode decisions |
 
 | 2026-09-15 | Codex accepted and integrated Task 010 at `9d9e087` | [Acceptance](../../coordination/agy/reviews/010-acceptance.md): 45 independently passed guarded tests, nine artifact and eight source hashes verified, all 12 C1/C2 prompts/images preserved. C3 protocol freeze is next; no new model trial |
+
+| 2026-09-15 | Froze and executed C3 once; Codex accepted Task011 evidence at `7710356` | [Results](CODEX_C3_RESULTS.md): 0/1 placement/lift/strict pass, 18 decisions, 17 actions, one rejection, 1.611 mm peak object penetration. All 137 runtime files verified; all 18 image labels saved before unblinding. [Task012](../../coordination/agy/tasks/012-c3-grasp-audit.md) ready for offline diagnosis; no further model run |
 
 Add a dated row for each meaningful implementation, protocol freeze, evaluation,
 or change of direction. Link new result files in the row and relevant phase.

@@ -1,0 +1,197 @@
+{
+  "scope": "Private post-hoc endpoint pass after blind labels; saved qpos, no dynamics rerun",
+  "physics_steps": 0,
+  "model_invocations": 0,
+  "sample_count": 430,
+  "script_sha256": "fcf32f243d146d6d5a873436d79758a01eeea21e0fd6f324e7bcb1ea7c4d8627",
+  "trajectory_sha256": "ff3ace7568b2192beecbb7c856f7835609223799090c1d1b3e17934934da2262",
+  "limits": "Sampled endpoint geometry, not force reconstruction or proof of enclosure. Negligible rotations/displacements can reflect numerical roundoff.",
+  "rows": [
+    {
+      "call": 4,
+      "action": "hand",
+      "status": "completed",
+      "requested_interval_s": [
+        2.6999999999998137,
+        3.4999999999997256
+      ],
+      "sampled_interval_s": [
+        2.6999999999998137,
+        3.4999999999997256
+      ],
+      "before_xyz_m": [
+        0.24925611092171268,
+        -0.17548383934658096,
+        0.759998579538808
+      ],
+      "after_xyz_m": [
+        0.1636450629548647,
+        -0.18591178518063145,
+        0.7249985795388063
+      ],
+      "displacement_xyz_m": [
+        -0.08561104796684799,
+        -0.01042794583405049,
+        -0.035000000000001696
+      ],
+      "xy_displacement_m": 0.08624380318782235,
+      "rotation_deg": 90.00058776949393,
+      "final_object_local_z_world_z": -1.0976836193471451e-11
+    },
+    {
+      "call": 5,
+      "action": "hand",
+      "status": "completed",
+      "requested_interval_s": [
+        3.4999999999997256,
+        4.099999999999704
+      ],
+      "sampled_interval_s": [
+        3.4999999999997256,
+        4.099999999999704
+      ],
+      "before_xyz_m": [
+        0.1636450629548647,
+        -0.18591178518063145,
+        0.7249985795388063
+      ],
+      "after_xyz_m": [
+        0.16364506297336223,
+        -0.18591178517833687,
+        0.724998579538808
+      ],
+      "displacement_xyz_m": [
+        1.8497536835582196e-11,
+        2.294581191719658e-12,
+        1.6653345369377348e-15
+      ],
+      "xy_displacement_m": 1.8639312536387007e-11,
+      "rotation_deg": 0.0,
+      "final_object_local_z_world_z": 1.37785585892225e-11
+    },
+    {
+      "call": 13,
+      "action": "hand",
+      "status": "completed",
+      "requested_interval_s": [
+        9.500000000000174,
+        10.29999999999973
+      ],
+      "sampled_interval_s": [
+        9.500000000000174,
+        10.29999999999973
+      ],
+      "before_xyz_m": [
+        0.16364506298724815,
+        -0.18591178517674922,
+        0.7249985795388079
+      ],
+      "after_xyz_m": [
+        0.163645062985655,
+        -0.18591178517671617,
+        0.7249985795388083
+      ],
+      "displacement_xyz_m": [
+        -1.593142284761484e-12,
+        3.3056890558214036e-14,
+        4.440892098500626e-16
+      ],
+      "xy_displacement_m": 1.593485204671954e-12,
+      "rotation_deg": 0.0,
+      "final_object_local_z_world_z": 8.15083222270585e-12
+    },
+    {
+      "call": 14,
+      "action": "move",
+      "status": "completed",
+      "requested_interval_s": [
+        10.29999999999973,
+        11.499999999999066
+      ],
+      "sampled_interval_s": [
+        10.29999999999973,
+        11.499999999999066
+      ],
+      "before_xyz_m": [
+        0.163645062985655,
+        -0.18591178517671617,
+        0.7249985795388083
+      ],
+      "after_xyz_m": [
+        0.16364506297287537,
+        -0.18591178517822554,
+        0.7249985795388081
+      ],
+      "displacement_xyz_m": [
+        -1.2779638458582099e-11,
+        -1.509375957553516e-12,
+        -2.220446049250313e-16
+      ],
+      "xy_displacement_m": 1.2868464357230478e-11,
+      "rotation_deg": 0.0,
+      "final_object_local_z_world_z": -7.867045990345156e-12
+    },
+    {
+      "call": 17,
+      "action": "hand",
+      "status": "completed",
+      "requested_interval_s": [
+        12.89999999999829,
+        13.699999999997846
+      ],
+      "sampled_interval_s": [
+        12.89999999999829,
+        13.699999999997846
+      ],
+      "before_xyz_m": [
+        0.16364506297654408,
+        -0.18591178517779483,
+        0.724998579538808
+      ],
+      "after_xyz_m": [
+        0.1636450629831059,
+        -0.18591178517700932,
+        0.724998579538808
+      ],
+      "displacement_xyz_m": [
+        6.5618344091689096e-12,
+        7.855105454979139e-13,
+        0.0
+      ],
+      "xy_displacement_m": 6.60868350206314e-12,
+      "rotation_deg": 0.0,
+      "final_object_local_z_world_z": 6.337768200873062e-12
+    },
+    {
+      "call": 18,
+      "action": "move",
+      "status": "rejected",
+      "requested_interval_s": [
+        13.699999999997846,
+        13.699999999997846
+      ],
+      "sampled_interval_s": [
+        13.699999999997846,
+        13.699999999997846
+      ],
+      "before_xyz_m": [
+        0.1636450629831059,
+        -0.18591178517700932,
+        0.724998579538808
+      ],
+      "after_xyz_m": [
+        0.1636450629831059,
+        -0.18591178517700932,
+        0.724998579538808
+      ],
+      "displacement_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "xy_displacement_m": 0.0,
+      "rotation_deg": 0.0,
+      "final_object_local_z_world_z": 6.337768200873062e-12
+    }
+  ]
+}

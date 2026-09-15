@@ -28,9 +28,11 @@ The earlier restriction on direct OpenAI APIs remains in force.
   visual runner. ChatGPT login is required; no direct API transport or API keys.
   The separate [C1 development protocol](../experiments/humanoid-pick-place/protocols/C1.md)
   declares the model, public input boundary, budgets and trial accounting.
-- C2 execution, Task 009 diagnosis and [Task 010 offline C3 preparation](agy/reviews/010-acceptance.md)
-  are accepted. Next: Codex freezes a separate C3 protocol and prepares a bounded
-  run brief. C3 has not been executed; no new model episode is launched by Task 010
-  acceptance. AGY operates the harness only when the run brief authorizes it.
+- C3 execution and [Task 011 review](agy/reviews/011-acceptance.md) are accepted:
+  one seed-820 trial, 18 decisions, 17 completed actions, one rejection, no lift or
+  placement. All 18 first-pass image labels were saved before outcome review.
+- Next: [AGY Task 012](agy/tasks/012-c3-grasp-audit.md), an offline audit of saved
+  closing geometry and the rejected path. It is ready but not launched. No further
+  model episode is authorized by Task011 acceptance; Codex chooses any successor.
 - Held-out seeds 840–849 remain unused. P5's 5.0 mm mean gate remains unchanged and
   unmet. Do not convert implementation tests into model-performance claims.

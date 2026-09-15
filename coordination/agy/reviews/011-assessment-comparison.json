@@ -1,0 +1,578 @@
+{
+  "status": "complete",
+  "blind_labels_commit": "cd2c4888a8b56469a69263db6a30c9e93f3b7bfc",
+  "blind_labels_sha256": "dd1c88792cfc150c2686afdcba2455388fbc876a85b83d915630ee3fcfb2a374",
+  "comparison_utc": "2026-09-15T03:42:11.549967+00:00",
+  "requested_episodes": 1,
+  "attempted_responses": 18,
+  "metrics": {
+    "block_visibility": {
+      "all_attempted_responses": 18,
+      "valid_assessments": 18,
+      "missing_or_malformed": 0,
+      "exact_agreement_all_valid": 6,
+      "reviewer_abstentions": 0,
+      "model_abstentions": 0,
+      "both_determinate": 18,
+      "agreement_both_determinate": 6,
+      "reviewer_counts": {
+        "partly_visible": 18
+      },
+      "model_counts": {
+        "visible": 12,
+        "partly_visible": 6
+      }
+    },
+    "block_relative_to_fingers": {
+      "all_attempted_responses": 18,
+      "valid_assessments": 18,
+      "missing_or_malformed": 0,
+      "exact_agreement_all_valid": 9,
+      "reviewer_abstentions": 6,
+      "model_abstentions": 1,
+      "both_determinate": 11,
+      "agreement_both_determinate": 9,
+      "reviewer_counts": {
+        "separate": 12,
+        "uncertain": 6
+      },
+      "model_counts": {
+        "separate": 12,
+        "between": 5,
+        "uncertain": 1
+      }
+    }
+  },
+  "limitations": [
+    "Reviewer labels are interpretation, not validated ground truth.",
+    "Visibility disagreement often reflects basket-rim occlusion classification; both reviewers saw the red block.",
+    "Uncertain relation labels are abstentions, not established model errors.",
+    "One reused development seed cannot establish performance improvement."
+  ],
+  "rows": [
+    {
+      "call": 1,
+      "time_s": 0.5000000000000003,
+      "image_sha256": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.4
+        }
+      },
+      "image_only_note": "Red block clearly identifiable; basket rim obscures its lower portion. Fingers are to the right, with the block visibly outside them.",
+      "post_unblinding_action_review": "Opening after separate assessment: no direct semantic conflict."
+    },
+    {
+      "call": 2,
+      "time_s": 0.9000000000000007,
+      "image_sha256": "da14a466a8da5f23492425482c557c71c24e1d5b8f505e845058589693bda9eb",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.25,
+            -0.14,
+            0.895
+          ]
+        }
+      },
+      "image_only_note": "Red block clearly identifiable; basket rim obscures its lower portion. Fingers are to the right, with the block visibly outside them.",
+      "post_unblinding_action_review": "Repositioning after separate assessment; labels do not establish coordinate accuracy."
+    },
+    {
+      "call": 3,
+      "time_s": 1.8999999999999015,
+      "image_sha256": "6d28b456e2b7f1f1927094de43295633ad993ebc4484f64352492a585dc8b6b7",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.248,
+            -0.18,
+            0.875
+          ]
+        }
+      },
+      "image_only_note": "Red block clearly identifiable; basket rim obscures its lower portion. Fingers are to the right, with the block visibly outside them.",
+      "post_unblinding_action_review": "Repositioning after separate assessment; labels do not establish coordinate accuracy."
+    },
+    {
+      "call": 4,
+      "time_s": 2.6999999999998137,
+      "image_sha256": "82ad3c5b07783979b5041b9ca5ef0395434f838ac4057ef4f5d3f4fce176ab45",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "between",
+        "block_visibility": "partly_visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.65,
+          "seconds": 0.8
+        }
+      },
+      "image_only_note": "Lower portion obscured by basket rim; visible block remains to the left of the fingers, outside their span.",
+      "post_unblinding_action_review": "Closing follows between claim; blind reviewer instead labelled separate. Private endpoints show displacement/topple during this close."
+    },
+    {
+      "call": 5,
+      "time_s": 3.4999999999997256,
+      "image_sha256": "f41888b38f1b213d7eee47b6b57c754a007f4d925c99d8ddea217e8157e02e2d",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "between",
+        "block_visibility": "partly_visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 1.0,
+          "seconds": 0.6
+        }
+      },
+      "image_only_note": "Red block appears tilted/sideways to the left of the hand, with its lower region obscured by the basket rim; it is visibly separate from the fingers.",
+      "post_unblinding_action_review": "Further closing follows between claim; blind reviewer labelled separate. Private endpoints show no meaningful object movement."
+    },
+    {
+      "call": 6,
+      "time_s": 4.099999999999704,
+      "image_sha256": "44ad291716f59f9e804c2f75b1637fc7874e277832835c88410c22e8330f95e1",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.5
+        }
+      },
+      "image_only_note": "Red block is to the left of the fingers; its lower part is obscured by the basket rim.",
+      "post_unblinding_action_review": "Opening follows separate assessment; no direct semantic conflict."
+    },
+    {
+      "call": 7,
+      "time_s": 4.599999999999871,
+      "image_sha256": "701b1c178f864e2d91233a6fd6896bd932efb4773a823ffe2a34a0200dfe9e68",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.18,
+            -0.2,
+            0.875
+          ]
+        }
+      },
+      "image_only_note": "Red block is left of the hand with a visible gap; lower part is obscured by basket rim.",
+      "post_unblinding_action_review": "Repositioning after separate assessment; no verified grasp asserted by the label."
+    },
+    {
+      "call": 8,
+      "time_s": 5.400000000000138,
+      "image_sha256": "ac80068f221a9101497580a20b33c32cf5e78612bc739e8fabe38f03f86256c1",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "uncertain"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.7,
+          "xyz_m": [
+            0.18,
+            -0.15,
+            0.875
+          ]
+        }
+      },
+      "image_only_note": "Block extends left of the hand and is partly obscured by basket rim. Fingertips overlap its right edge in projection; the image does not establish between versus separate.",
+      "post_unblinding_action_review": "Repositioning after separate assessment; reviewer abstained on relation."
+    },
+    {
+      "call": 9,
+      "time_s": 6.100000000000372,
+      "image_sha256": "255e5d883886034f36b3a63ccb7d25feb318c604e34ca59f965150fd22301a66",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "uncertain"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.245,
+            -0.15,
+            0.875
+          ]
+        }
+      },
+      "image_only_note": "Block is partly obscured by basket rim. Fingertips project over its right edge; projection and occlusion do not establish whether it lies between the fingers.",
+      "post_unblinding_action_review": "Repositioning after separate assessment; reviewer abstained on relation."
+    },
+    {
+      "call": 10,
+      "time_s": 6.900000000000639,
+      "image_sha256": "2deb571f6b3707c3b66d2b78be45ee3c64b4d7d4293d1abf8c36bb2fb9738df7",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.245,
+            -0.23,
+            0.875
+          ]
+        }
+      },
+      "image_only_note": "Block partly behind basket rim; hand is visibly to its right with a gap.",
+      "post_unblinding_action_review": "Repositioning after separate assessment; coordinate appropriateness requires geometric analysis."
+    },
+    {
+      "call": 11,
+      "time_s": 7.700000000000906,
+      "image_sha256": "ed91674fbab36187724495953e35ee4ac302e4ab3562de3731fb6d7b4df59477",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.205,
+            -0.15,
+            0.875
+          ]
+        }
+      },
+      "image_only_note": "Block partly obscured by basket rim and arm; fingers are visibly to its right, outside the block.",
+      "post_unblinding_action_review": "Repositioning after separate assessment; coordinate appropriateness requires geometric analysis."
+    },
+    {
+      "call": 12,
+      "time_s": 8.500000000000728,
+      "image_sha256": "63fb1dffc4e7415281a184dfafab02e30246009b0e9672f211ada96f5134e9bc",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.19,
+            -0.22,
+            0.84
+          ]
+        }
+      },
+      "image_only_note": "Block partly behind basket rim; fingertips are above/right with a visible gap from the block.",
+      "post_unblinding_action_review": "Lower repositioning after separate assessment; coordinate appropriateness requires geometric analysis."
+    },
+    {
+      "call": 13,
+      "time_s": 9.500000000000174,
+      "image_sha256": "422e91b5156a08f085fdf6a7de6025a4cb770b4f9424079d11235cee294e75a4",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "uncertain"
+      },
+      "model": {
+        "block_relative_to_fingers": "between",
+        "block_visibility": "partly_visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 1.0,
+          "seconds": 0.8
+        }
+      },
+      "image_only_note": "Basket and hand obscure parts of the block and fingertips; projected overlap does not establish whether block is between fingers.",
+      "post_unblinding_action_review": "Closing follows between claim; reviewer abstained. Private endpoints show no meaningful object movement."
+    },
+    {
+      "call": 14,
+      "time_s": 10.29999999999973,
+      "image_sha256": "51c200ef9504d6bd1ec123abc255108e2f563f4074afd9d9391de371ee542452",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "uncertain"
+      },
+      "model": {
+        "block_relative_to_fingers": "between",
+        "block_visibility": "partly_visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.19,
+            -0.22,
+            0.96
+          ]
+        }
+      },
+      "image_only_note": "Open fingers overlap the partially obscured block in projection; image does not clearly establish between versus separate.",
+      "post_unblinding_action_review": "Upward move follows between claim; reviewer abstained. Private object remained stationary rather than lifting."
+    },
+    {
+      "call": 15,
+      "time_s": 11.499999999999066,
+      "image_sha256": "1868785205e33a957b42e6cc5f11a4e941606cbd7d5ea6096e684ac77d155665",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.4
+        }
+      },
+      "image_only_note": "Block partly behind basket rim, visibly below the open fingers; the visible space between fingers is empty.",
+      "post_unblinding_action_review": "Opening follows separate assessment after unsuccessful lift; no direct semantic conflict."
+    },
+    {
+      "call": 16,
+      "time_s": 11.899999999998844,
+      "image_sha256": "72e7f86b7147b9240a4dc12e66d06463386f7a6256d87683c04e06e778adab47",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "uncertain"
+      },
+      "model": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.23,
+            -0.22,
+            0.84
+          ]
+        }
+      },
+      "image_only_note": "Partly obscured block meets/overlaps fingertips at its right edge in projection; image does not establish between versus separate.",
+      "post_unblinding_action_review": "Repositioning after separate assessment; reviewer abstained on relation."
+    },
+    {
+      "call": 17,
+      "time_s": 12.89999999999829,
+      "image_sha256": "be58e9f68dcaec4f625f3d6530bd06bca2d76ca27e94611fae12b6798f51ecf6",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "separate"
+      },
+      "model": {
+        "block_relative_to_fingers": "uncertain",
+        "block_visibility": "partly_visible"
+      },
+      "response_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 1.0,
+          "seconds": 0.8
+        }
+      },
+      "image_only_note": "Block partly obscured by basket rim and arm; fingers visibly to the right, outside the block.",
+      "post_unblinding_action_review": "Closing despite uncertain relation is an unverified attempt, not a logical contradiction or a protocol violation."
+    },
+    {
+      "call": 18,
+      "time_s": 13.699999999997846,
+      "image_sha256": "e5a0bc73aaebc646390d9600e8268f3ed8077415a3d76974dce3226f560a3759",
+      "reviewer": {
+        "block_visibility": "partly_visible",
+        "block_relative_to_fingers": "uncertain"
+      },
+      "model": {
+        "block_relative_to_fingers": "between",
+        "block_visibility": "partly_visible"
+      },
+      "response_status": "rejected",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.6,
+          "xyz_m": [
+            0.19,
+            -0.39,
+            0.98
+          ]
+        }
+      },
+      "image_only_note": "Basket rim, arm and open fingers obscure parts of block; projected overlap at the right end does not clearly establish between versus separate.",
+      "post_unblinding_action_review": "Higher move toward basket region follows between claim; reviewer abstained. Guard rejected it before execution."
+    }
+  ]
+}

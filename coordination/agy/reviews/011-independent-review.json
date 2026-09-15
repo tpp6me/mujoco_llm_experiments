@@ -1,0 +1,464 @@
+{
+  "reviewed_source_commit": "19b78537ff52b348f30a10e5147ab5012c5c1ef1",
+  "status": "verified",
+  "model_calls": 18,
+  "completed_actions": 17,
+  "rejected_actions": 1,
+  "termination_reason": "rejected_action",
+  "physical_success": false,
+  "sustained_lift": false,
+  "strict_success": false,
+  "max_object_penetration_m": 0.0016109884560006648,
+  "final_simulated_time_s": 13.699999999997846,
+  "mean_cli_latency_s": 19.60385236789039,
+  "records": [
+    {
+      "call": 1,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.4
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 22.780088166007772
+    },
+    {
+      "call": 2,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.25,
+            -0.14,
+            0.895
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 17.614642791013466
+    },
+    {
+      "call": 3,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.248,
+            -0.18,
+            0.875
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 21.944355458021164
+    },
+    {
+      "call": 4,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.65,
+          "seconds": 0.8
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "between",
+        "block_visibility": "partly_visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 20.00495937501546
+    },
+    {
+      "call": 5,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 1.0,
+          "seconds": 0.6
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "between",
+        "block_visibility": "partly_visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 12.638597790995846
+    },
+    {
+      "call": 6,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.5
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 11.396706250001444
+    },
+    {
+      "call": 7,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.18,
+            -0.2,
+            0.875
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 22.73746816700441
+    },
+    {
+      "call": 8,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.7,
+          "xyz_m": [
+            0.18,
+            -0.15,
+            0.875
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 19.861067165998975
+    },
+    {
+      "call": 9,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.245,
+            -0.15,
+            0.875
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 19.39509841700783
+    },
+    {
+      "call": 10,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.245,
+            -0.23,
+            0.875
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 21.118361583008664
+    },
+    {
+      "call": 11,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.205,
+            -0.15,
+            0.875
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 20.620371833007084
+    },
+    {
+      "call": 12,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.19,
+            -0.22,
+            0.84
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 19.09850799999549
+    },
+    {
+      "call": 13,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 1.0,
+          "seconds": 0.8
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "between",
+        "block_visibility": "partly_visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 9.16368312499253
+    },
+    {
+      "call": 14,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.19,
+            -0.22,
+            0.96
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "between",
+        "block_visibility": "partly_visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 9.39089004098787
+    },
+    {
+      "call": 15,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.4
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 34.26753483398352
+    },
+    {
+      "call": 16,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.23,
+            -0.22,
+            0.84
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "separate",
+        "block_visibility": "visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 21.40122795800562
+    },
+    {
+      "call": 17,
+      "status": "completed",
+      "decision_status": "completed",
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 1.0,
+          "seconds": 0.8
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "uncertain",
+        "block_visibility": "partly_visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 15.208037584001431
+    },
+    {
+      "call": 18,
+      "status": "rejected",
+      "decision_status": "completed",
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.6,
+          "xyz_m": [
+            0.19,
+            -0.39,
+            0.98
+          ]
+        }
+      },
+      "visual_assessment": {
+        "block_relative_to_fingers": "between",
+        "block_visibility": "partly_visible"
+      },
+      "assessment_state": "valid",
+      "cli_latency_s": 34.22774408297846
+    }
+  ],
+  "archive_members_verified": 137,
+  "archive_sha256": "08202990a01ecd22adc2c860ff2260b126bfae57579963285bba6595e7198972",
+  "accepted_tip": "7710356d183928c1cad005bb338d956c27c1d2ce",
+  "unique_codex_sessions": 18,
+  "cli_reported_usage": {
+    "input_tokens": 218639,
+    "cached_input_tokens": 12032,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 7382,
+    "reasoning_output_tokens": 6104
+  },
+  "frozen_files_verified": 92,
+  "summary_matches_runner_and_private_score": true,
+  "blind_labels_commit": "cd2c4888a8b56469a69263db6a30c9e93f3b7bfc"
+}

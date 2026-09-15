@@ -2,7 +2,7 @@
 
 All results use a fixed pelvis. The mechanical matrices below use conventional
 exact-state control; the separate L2 pilot adds LLM exact-state control, and C1 adds
-one signed-in Codex visual-control development case. Free-standing balance and
+signed-in Codex visual-control development cases C1–C3. Free-standing balance and
 walking have not been evaluated.
 
 | Configuration | Seeds | Physical success | Strict success | Gate | Evidence |
@@ -74,6 +74,16 @@ t=3.795 s) distinctly attributed from sampled 30 Hz qpos geometry. Original-imag
 for decisions 3–9, public proprioception/history, and separate private geometry assembled.
 Zero physics steps or model invocations; 8 focused C2 audit tests and 3 C1 audit tests pass (11 total).
 [Audit numeric data](results/codex_C2_audit/audit.json), [test log](results/codex_C2_audit/tests.txt).
+
+
+[C3 signed-in Codex with explicit visual assessments](CODEX_C3_RESULTS.md), seed820:
+0/1 placement, 0/1 sustained lift, 0/1 strict pass. 18 decisions, 17 completed actions,
+one path-guard rejection at t=13.700 s; 1.611 mm peak object penetration. All 18
+first-pass image labels were committed before opening model assessments/outcomes.
+Relation agreement: 9/18 overall, 9/11 where both judgments were determinate; six
+reviewer abstentions and one model abstention remain counted. [Machine summary](results/codex_C3.json),
+[full archive](results/codex_C3_episode.zip), [Codex acceptance](../../coordination/agy/reviews/011-acceptance.md).
+This is a failed single-seed development trial, not controller qualification.
 
 [Five-capture checks and limitations](VISUAL.md): calibration bounds and exact
 state preservation passed; the centroid/known-plane estimate has up to 2.983 cm

@@ -85,7 +85,8 @@ inputs. It must not mistake missing local artifacts for missing committed code.
 | [009](tasks/009-c2-failure-audit.md) | [Accepted; integrated](reviews/009-acceptance.md) | `agy/009-c2-failure-audit` | Reviewed `97f1b2c`; reproduced offline evidence and all 11 tests; no new model episode |
 | [010](tasks/010-c3-offline-preparation.md) | [Accepted; integrated](reviews/010-acceptance.md) | `agy/010-c3-offline-preparation` | Reviewed `9d9e087`; 45 guarded tests and prompt/artifact hashes verified; C3 remains unexecuted |
 
-| [011](tasks/011-c3-execution.md) | Frozen; ready for one run | `agy/011-c3-execution` | Operate C3 once; Codex labels images before unblinding outcomes |
+| [011](tasks/011-c3-execution.md) | [Accepted; integrated](reviews/011-acceptance.md) | `agy/011-c3-execution` | Reviewed `7710356`; C3 failed physically; all 137 runtime files and 18 responses verified |
+| [012](tasks/012-c3-grasp-audit.md) | Ready for delegation; not launched | `agy/012-c3-grasp-audit` | Audit saved C3 closes and rejected path; no model/physics run |
 
 Use the [completion template](reports/TEMPLATE.md) and [review template](reviews/TEMPLATE.md).
 The experiment's [living checklist](../../experiments/humanoid-pick-place/PLAN.md)
