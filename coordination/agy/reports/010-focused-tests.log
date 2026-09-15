@@ -28,6 +28,7 @@ test_geometry_distinguishes_occupied_bounds_from_grasp_cavity_and_safe_path (tes
 test_geometry_evidence_written_and_retained_on_interruption (tests.test_codex_policy.CodexPolicyTests.test_geometry_evidence_written_and_retained_on_interruption) ... ok
 test_geometry_nominal_bounds_and_enclosure_verification (tests.test_codex_policy.CodexPolicyTests.test_geometry_nominal_bounds_and_enclosure_verification) ... ok
 test_guarded_runner_records_condition_and_preserves_mock_identity (tests.test_codex_policy.CodexPolicyTests.test_guarded_runner_records_condition_and_preserves_mock_identity) ... ok
+test_inferred_c3_without_metadata_invokes_policy_and_retains_report (tests.test_codex_policy.CodexPolicyTests.test_inferred_c3_without_metadata_invokes_policy_and_retains_report) ... ok
 test_offline_preflight_zero_model_invocations_and_artifacts (tests.test_codex_policy.CodexPolicyTests.test_offline_preflight_zero_model_invocations_and_artifacts) ... ok
 test_only_exact_disabled_host_notice_before_turn_is_allowed (tests.test_codex_policy.CodexPolicyTests.test_only_exact_disabled_host_notice_before_turn_is_allowed) ... ok
 test_private_field_exclusion_and_payload_isolation (tests.test_codex_policy.CodexPolicyTests.test_private_field_exclusion_and_payload_isolation) ... ok
@@ -48,10 +49,10 @@ test_source_mismatch_is_rejected_before_output (tests.test_codex_c2_audit.C2Audi
 test_unrelated_controller_edits_allowed (tests.test_codex_c2_audit.C2AuditTests.test_unrelated_controller_edits_allowed) ... ok
 
 ----------------------------------------------------------------------
-Ran 44 tests in 5.362s
+Ran 45 tests in 4.773s
 
 OK
 
 ======================================================================
-Summary: ran 44 tests, 0 failures, 0 errors
+Summary: ran 45 tests, 0 failures, 0 errors
 ======================================================================

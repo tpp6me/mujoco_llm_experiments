@@ -26,15 +26,22 @@ from humanoid_sim.visual import integration_state
 
 PINNED_C2_ARCHIVE_SHA256 = '940f3ef71518a15f9f171adb877c108596060142b9f1e08276146ad876bd95f8'
 
-# Audit runtime dependencies: only the simulation, kinematic, interface, and scene assets
+# Audit runtime dependencies: simulation, kinematic, interface, scoring, and scene assets
 # required by this post-hoc audit to reconstruct and evaluate saved physical states.
+# Includes transitive local package imports (humanoid_sim/__init__.py, scoring.py).
+# Note on asset verification: checking scenes/g1_pick_place.xml against metadata['scene_sha256']
+# verifies the top-level scene XML; individual mesh XMLs/assets inherit provenance from
+# model_commit recorded in metadata rather than per-mesh historical digests. Full per-mesh
+# historical pinning is deferred from Task 010; model assets remain untouched in this branch.
 # Historical execution provenance recorded in report['provenance']['source_sha256'] includes
 # controller/runner files (e.g. codex_policy.py) that were active during trial execution but
 # are not imported, executed, or depended upon by this post-hoc diagnostic audit.
 AUDIT_RUNTIME_DEPENDENCIES = (
+    'humanoid_sim/__init__.py',
     'humanoid_sim/environment.py',
     'humanoid_sim/interface.py',
     'humanoid_sim/scene.py',
+    'humanoid_sim/scoring.py',
     'humanoid_sim/visual.py',
     'scenes/g1_pick_place.xml',
 )

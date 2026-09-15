@@ -15,13 +15,13 @@
     "--model",
     "gpt-5.6-sol",
     "--cd",
-    "/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/humanoid-codex-public-_bi0ecb3",
+    "/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/humanoid-codex-public-masmy1ft",
     "--image",
-    "/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/humanoid-codex-public-_bi0ecb3/observation.png",
+    "/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/humanoid-codex-public-masmy1ft/observation.png",
     "--output-schema",
-    "/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/humanoid-codex-public-_bi0ecb3/schema.json",
+    "/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/humanoid-codex-public-masmy1ft/schema.json",
     "--output-last-message",
-    "/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/humanoid-codex-public-_bi0ecb3/decision.json",
+    "/var/folders/3s/_hhbb2fs4lqcl9s7txtl3g000000gn/T/humanoid-codex-public-masmy1ft/decision.json",
     "--config",
     "forced_login_method=\"chatgpt\"",
     "--config",
@@ -106,7 +106,7 @@
   "prompt_sha256": "6780e6c97153238a5ee9a52fc6368fdd83641f875a406a7fc613c3e660a2071c",
   "returncode": 0,
   "schema_sha256": "79afc9c195908ce3e268e50193db8d188e579d451c0467365a64fb2297fb0dff",
-  "source_commit": "9445fbef35e2944165314d306b4b214ef7d4bd9c",
+  "source_commit": "109c6c3cd00f9b99b1212c1df63adaf157600c3c",
   "static_instruction_sha256": "de0525e07f9470be60f9e01c4d720ad4f65260fd54b08065708e4096ce6313d0",
   "status": "completed",
   "time_s": 0.5000000000000003,
@@ -116,5 +116,5 @@
     "block_relative_to_fingers": "separate",
     "block_visibility": "visible"
   },
-  "wall_latency_s": 0.06762770799105056
+  "wall_latency_s": 0.07145137499901466
 }

@@ -691,6 +691,22 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
             'assessment_retained': True,
         }
 
+    impl_sources = (
+        'humanoid_sim/codex_policy.py',
+        'humanoid_sim/visual_policy_runner.py',
+        'scripts/audit_codex_c2.py',
+        'scripts/run_offline_tests.py',
+        'tests/test_codex_policy.py',
+        'tests/test_codex_c1_audit.py',
+        'tests/test_codex_c2_audit.py',
+        'experiments/humanoid-pick-place/schemas/llm-response-c3.schema.json',
+    )
+    impl_source_hashes = {
+        rel_p: hashlib.sha256((ROOT / rel_p).read_bytes()).hexdigest()
+        for rel_p in impl_sources
+        if (ROOT / rel_p).is_file()
+    }
+
     preflight_record = {
         'status': 'complete',
         'condition': condition,
@@ -698,9 +714,11 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
         'protocol_id': protocol_id,
         'protocol_path': str(protocol_path.relative_to(ROOT)),
         'protocol_sha256': protocol_sha256,
+        'source_base_commit': '9445fbef35e2944165314d306b4b214ef7d4bd9c',
         'source_commit': git_info['commit'],
         'git_status': git_info['status'],
         'is_dirty': git_info['is_dirty'],
+        'implementation_source_sha256': impl_source_hashes,
         'cli_version': cli_info.get('cli_version'),
         'login_method': cli_info.get('login_method'),
         'executable': cli_info.get('executable'),
@@ -723,6 +741,51 @@ def run_preflight(output_dir, *, condition=DEFAULT_CONDITION, model=MODEL, max_c
     if synthetic_check_meta is not None:
         preflight_record['synthetic_software_check'] = synthetic_check_meta
     write_json(output / 'preflight.json', preflight_record)
+
+    file_descriptions = {
+        'geometry_evidence.json': 'Nominal robot-only hand geometry offsets and bounds serialized with sort_keys=True',
+        'observation.png': 'Archived initial observation PNG byte-for-byte identical to C1 seed-820 call 1',
+        'preflight.json': 'Preflight execution metadata with base source commit, CLI/config status, implementation hashes, and verification metrics',
+        'prompt.txt': 'Full demonstration prompt containing static instructions, C2 geometry paragraph, C3 visual assessment contract, and public observation JSON',
+        'public_payload.json': 'Public observation payload extracted from archived seed-820 call 1 excluding private simulator state',
+        'schema.json': 'Deterministic C3 structured response schema defining required visual_assessment and command properties',
+        'synthetic_decision.json': 'Offline synthetic decision fixture adhering to C3 schema for zero-model verification',
+        'synthetic_events.jsonl': 'Offline synthetic Codex CLI events stream fixture corresponding to synthetic_decision',
+        'synthetic_record.json': 'Offline synthetic decision record verifying output agreement and assessment retention',
+    }
+    manifest_files = {}
+    for p in sorted(output.iterdir()):
+        if p.name == 'manifest.json' or not p.is_file():
+            continue
+        manifest_files[p.name] = {
+            'description': file_descriptions.get(p.name, f'Preflight artifact {p.name}'),
+            'sha256': hashlib.sha256(p.read_bytes()).hexdigest(),
+            'size_bytes': p.stat().st_size,
+        }
+
+    rel_output = str(output.relative_to(ROOT)) if output.is_relative_to(ROOT) else str(output)
+    manifest_record = {
+        'condition': condition,
+        'condition_id': condition,
+        'protocol_id': protocol_id,
+        'protocol_path': str(protocol_path.relative_to(ROOT)),
+        'protocol_sha256': protocol_sha256,
+        'source_base_commit': '9445fbef35e2944165314d306b4b214ef7d4bd9c',
+        'source_commit': git_info['commit'],
+        'git_status': git_info['status'],
+        'is_dirty': git_info['is_dirty'],
+        'implementation_source_sha256': impl_source_hashes,
+        'generator_command': f'python -m humanoid_sim.codex_policy --condition {condition} --output {rel_output}',
+        'geometry_evidence_sha256': geom_evidence_sha256,
+        'schema_sha256': schema_sha256,
+        'static_instruction_sha256': static_instruction_sha256,
+        'input_provenance': input_provenance,
+        'isolation_verified': True,
+        'model_invocations': 0,
+        'physics_steps': 0,
+        'files': manifest_files,
+    }
+    write_json(output / 'manifest.json', manifest_record)
     return preflight_record
 
 

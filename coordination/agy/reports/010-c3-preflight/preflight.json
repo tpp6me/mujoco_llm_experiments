@@ -46,6 +46,16 @@
   "executable": "/Users/praveen/versions/node/v20.18.1/bin/codex",
   "geometry_evidence_sha256": "d05eaa296612db243fd9362d1018d7b92d63cb93006221f959422fa1712141d6",
   "git_status": "dirty",
+  "implementation_source_sha256": {
+    "experiments/humanoid-pick-place/schemas/llm-response-c3.schema.json": "969434023fd1d874402b83bd4c689ee83351b1b678ead129c60ef5088a3f510b",
+    "humanoid_sim/codex_policy.py": "70719232ea2c343624e877e80fe57638ae7b4589b6c657580c7eb9e5743ac1ee",
+    "humanoid_sim/visual_policy_runner.py": "295de19872e35a001146d3de79ef6b989e852d70942645ab8d108678e77d2884",
+    "scripts/audit_codex_c2.py": "c4d773af346f180591362c794b18bd2f4b33c60878beca4461763475e92ceca0",
+    "scripts/run_offline_tests.py": "f7d56ab0a86112ef02c4ab4b41b47d9e358999b387a9393cdd50ce6977cc28a2",
+    "tests/test_codex_c1_audit.py": "bb4accc648b68eff453ea5a1949b0fd1b54a571693fe2e62d77cf3ad9c92df2f",
+    "tests/test_codex_c2_audit.py": "5e2cd19dade03ce48ea4a37c8996c7793a884e010bac9843d4a71b6e7a4804fc",
+    "tests/test_codex_policy.py": "67a357e34877883c03a5f19332d6c65ed7d8fff7d4aa0e5625d8c1029d363684"
+  },
   "input_provenance": "experiments/humanoid-pick-place/results/codex_C1_episode.zip:seed-820/call_001.json",
   "is_dirty": true,
   "isolation_verified": true,
@@ -58,7 +68,8 @@
   "protocol_path": "experiments/humanoid-pick-place/protocols/C3_PROPOSAL.md",
   "protocol_sha256": "caf0febc1493033a03702195e338d9212d411381dac647e06af3acceb417f6c6",
   "schema_sha256": "79afc9c195908ce3e268e50193db8d188e579d451c0467365a64fb2297fb0dff",
-  "source_commit": "9445fbef35e2944165314d306b4b214ef7d4bd9c",
+  "source_base_commit": "9445fbef35e2944165314d306b4b214ef7d4bd9c",
+  "source_commit": "109c6c3cd00f9b99b1212c1df63adaf157600c3c",
   "static_instruction_sha256": "de0525e07f9470be60f9e01c4d720ad4f65260fd54b08065708e4096ce6313d0",
   "status": "complete",
   "synthetic_software_check": {

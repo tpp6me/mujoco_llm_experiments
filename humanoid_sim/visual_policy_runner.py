@@ -941,11 +941,17 @@ def run_visual_episode(
                     pr_hash = hashlib.sha256(pr_text.encode('utf-8')).hexdigest()
                 except Exception:
                     pr_hash = None
+                req_model = 'gpt-5.6-sol'
+                if execution_metadata is not None:
+                    req_model = execution_metadata.get('model') or execution_metadata.get('model_requested') or req_model
+                elif hasattr(model_callable, 'model') and getattr(model_callable, 'model', None):
+                    req_model = getattr(model_callable, 'model')
+
                 call_record.update({
                     'schema_sha256': schema_hash,
                     'static_instruction_sha256': static_inst_hash,
                     'prompt_sha256': pr_hash,
-                    'model_requested': (execution_metadata.get('model') or execution_metadata.get('model_requested') or getattr(model_callable, 'model', None) or 'gpt-5.6-sol') if execution_metadata or hasattr(model_callable, 'model') else 'gpt-5.6-sol',
+                    'model_requested': req_model,
                     'visual_assessment_state': 'unreached',
                     'visual_assessment': None,
                 })
@@ -1329,7 +1335,7 @@ def run_visual_episode(
                         'prompt_sha256': p_hash,
                         'static_instruction_sha256': rec.get('static_instruction_sha256', static_inst_hash),
                         'schema_sha256': rec.get('schema_sha256', schema_hash),
-                        'model_requested': rec.get('model_requested', execution_metadata.get('model_requested') if execution_metadata else None),
+                        'model_requested': rec.get('model_requested', (execution_metadata.get('model_requested') if execution_metadata else None) or getattr(model_callable, 'model', None) or 'gpt-5.6-sol'),
                         'error': rec.get('error'),
                     })
             if evaluator_error is not None:

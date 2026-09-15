@@ -291,6 +291,87 @@ class CodexPolicyTests(unittest.TestCase):
         self.assertEqual(report_intr['termination_reason'], 'interrupted')
         self.assertEqual(report_intr['errors'], 1)
 
+    def test_inferred_c3_without_metadata_invokes_policy_and_retains_report(self):
+        # R1-A: Callable with condition='c3' and model='gpt-5.6-sol' under execution_metadata=None
+        # must not crash before invoking callable, must invoke the policy, and retain visual_assessments.
+        class InferredC3Policy:
+            condition = 'c3'
+            model = 'gpt-5.6-sol'
+            def __init__(self):
+                self.invocations = 0
+            def __call__(self, p):
+                self.invocations += 1
+                return {
+                    'visual_assessment': {'block_visibility': 'visible', 'block_relative_to_fingers': 'separate'},
+                    'command': {'action': 'hold', 'arguments': {'seconds': 0.1}}
+                }
+
+        folder_norm = self.root / 'inferred_c3_normal'
+        session_norm = FakeSession(sim_time=0.5)
+        pol_norm = InferredC3Policy()
+        rep_norm = run_visual_episode(folder_norm, session_norm, pol_norm, max_calls=1, execution_metadata=None)
+
+        self.assertEqual(pol_norm.invocations, 1)
+        self.assertEqual(rep_norm['model_calls'], 1)
+        self.assertEqual(rep_norm['completed_actions'], 1)
+        self.assertEqual(rep_norm['termination_reason'], 'action_limit')
+        self.assertTrue((folder_norm / 'report.json').is_file())
+        self.assertEqual(len(rep_norm['visual_assessments']), 1)
+        va = rep_norm['visual_assessments'][0]
+        self.assertEqual(va['status'], 'completed')
+        self.assertEqual(va['visual_assessment_state'], 'valid')
+        self.assertEqual(va['model_requested'], 'gpt-5.6-sol')
+
+        # Interrupted case without metadata
+        class InferredC3InterruptPolicy:
+            condition = 'c3'
+            model = 'gpt-5.6-sol'
+            def __init__(self):
+                self.invocations = 0
+            def __call__(self, p):
+                self.invocations += 1
+                raise KeyboardInterrupt('User interrupted inferred C3')
+
+        folder_intr = self.root / 'inferred_c3_intr'
+        session_intr = FakeSession(sim_time=0.5)
+        pol_intr = InferredC3InterruptPolicy()
+        with self.assertRaises(KeyboardInterrupt):
+            run_visual_episode(folder_intr, session_intr, pol_intr, max_calls=1, execution_metadata=None)
+
+        self.assertEqual(pol_intr.invocations, 1)
+        self.assertTrue((folder_intr / 'report.json').is_file())
+        rep_intr = json.loads((folder_intr / 'report.json').read_text())
+        self.assertEqual(rep_intr['model_calls'], 1)
+        self.assertEqual(rep_intr['completed_actions'], 0)
+        self.assertEqual(rep_intr['termination_reason'], 'interrupted')
+        self.assertEqual(len(rep_intr['visual_assessments']), 1)
+        self.assertEqual(rep_intr['visual_assessments'][0]['status'], 'interrupted')
+        self.assertEqual(rep_intr['visual_assessments'][0]['visual_assessment_state'], 'unreached')
+
+        # Malformed response case without metadata
+        class InferredC3MalformedPolicy:
+            condition = 'c3'
+            model = 'gpt-5.6-sol'
+            def __init__(self):
+                self.invocations = 0
+            def __call__(self, p):
+                self.invocations += 1
+                raise MalformedResponseError('Missing visual_assessment')
+
+        folder_mal = self.root / 'inferred_c3_mal'
+        session_mal = FakeSession(sim_time=0.5)
+        pol_mal = InferredC3MalformedPolicy()
+        rep_mal = run_visual_episode(folder_mal, session_mal, pol_mal, max_calls=1, execution_metadata=None)
+
+        self.assertEqual(pol_mal.invocations, 1)
+        self.assertEqual(rep_mal['model_calls'], 1)
+        self.assertEqual(rep_mal['completed_actions'], 0)
+        self.assertEqual(rep_mal['termination_reason'], 'malformed_response')
+        self.assertTrue((folder_mal / 'report.json').is_file())
+        self.assertEqual(len(rep_mal['visual_assessments']), 1)
+        self.assertEqual(rep_mal['visual_assessments'][0]['status'], 'malformed_response')
+        self.assertEqual(rep_mal['visual_assessments'][0]['visual_assessment_state'], 'missing')
+
     def test_c1_rejects_changed_condition_before_login_or_execution(self):
         for extra in (['--model', 'different-model'], ['--max-calls', '1']):
             with patch.object(sys, 'argv', ['codex_policy', '--execute', '--output', str(self.root / 'new'), *extra]), patch('humanoid_sim.codex_policy.check_install') as check, contextlib.redirect_stderr(io.StringIO()):
@@ -1211,9 +1292,9 @@ class CodexPolicyTests(unittest.TestCase):
         self.assertEqual(record['synthetic_software_check']['type'], 'offline_synthetic_software_check')
         self.assertFalse(record['synthetic_software_check']['model_generated'])
 
-        # Verify all 9 artifact files exist and have non-zero size
+        # Verify all 10 artifact files exist and have non-zero size
         expected_artifacts = (
-            'preflight.json', 'prompt.txt', 'schema.json', 'geometry_evidence.json',
+            'preflight.json', 'manifest.json', 'prompt.txt', 'schema.json', 'geometry_evidence.json',
             'public_payload.json', 'observation.png', 'synthetic_decision.json',
             'synthetic_events.jsonl', 'synthetic_record.json'
         )
@@ -1221,6 +1302,9 @@ class CodexPolicyTests(unittest.TestCase):
             p = preflight_dir / fname
             self.assertTrue(p.is_file(), f'Missing C3 preflight artifact: {fname}')
             self.assertGreater(p.stat().st_size, 0, f'Empty artifact: {fname}')
+
+        self.assertIn('implementation_source_sha256', record)
+        self.assertEqual(record['source_base_commit'], '9445fbef35e2944165314d306b4b214ef7d4bd9c')
 
         # Verify geometry evidence file hash matches record hash
         written_geom_hash = hashlib.sha256((preflight_dir / 'geometry_evidence.json').read_bytes()).hexdigest()
