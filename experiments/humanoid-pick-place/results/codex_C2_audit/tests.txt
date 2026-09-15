@@ -1,5 +1,8 @@
+test_archive_digest_mismatch_is_rejected_before_output (tests.test_codex_c2_audit.C2AuditTests.test_archive_digest_mismatch_is_rejected_before_output) ... ok
 test_modified_evidence_is_rejected_before_output (tests.test_codex_c2_audit.C2AuditTests.test_modified_evidence_is_rejected_before_output) ... ok
 test_overlap_and_existing_output_are_rejected (tests.test_codex_c2_audit.C2AuditTests.test_overlap_and_existing_output_are_rejected) ... ok
+test_r1_public_proprioception_matches_archived_requests_and_rejects_missing (tests.test_codex_c2_audit.C2AuditTests.test_r1_public_proprioception_matches_archived_requests_and_rejects_missing) ... ok
+test_r2_penetration_and_samples_distinct_and_derived (tests.test_codex_c2_audit.C2AuditTests.test_r2_penetration_and_samples_distinct_and_derived) ... ok
 test_saved_c2_failure_reproduces_with_physics_and_model_disabled (tests.test_codex_c2_audit.C2AuditTests.test_saved_c2_failure_reproduces_with_physics_and_model_disabled) ... ok
 test_scene_mismatch_is_rejected_before_output (tests.test_codex_c2_audit.C2AuditTests.test_scene_mismatch_is_rejected_before_output) ... ok
 test_source_mismatch_is_rejected_before_output (tests.test_codex_c2_audit.C2AuditTests.test_source_mismatch_is_rejected_before_output) ... ok
@@ -8,6 +11,6 @@ test_overlap_and_existing_output_are_rejected (tests.test_codex_c1_audit.C1Audit
 test_saved_failure_reproduces_with_physics_disabled (tests.test_codex_c1_audit.C1AuditTests.test_saved_failure_reproduces_with_physics_disabled) ... ok
 
 ----------------------------------------------------------------------
-Ran 8 tests in 0.991s
+Ran 11 tests in 1.921s
 
 OK

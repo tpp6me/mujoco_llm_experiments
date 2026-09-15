@@ -719,6 +719,7 @@
     }
   ],
   "action_4_summary": {
+    "interval_label": "Action 4 (approach move)",
     "time_interval_s": [
       3.1999999999997586,
       3.9999999999996705
@@ -733,30 +734,20 @@
       -0.19399654067113212,
       0.7429230753908174
     ],
-    "object_displacement_m": [
+    "object_displacement_vector_m": [
       -0.1531546794150448,
       -0.01851270131111704,
       -0.01707550414799075
     ],
     "object_xy_displacement_m": 0.1542694912695306,
-    "object_total_displacement_m": 0.15521162578385625,
+    "object_3d_displacement_m": 0.15521162578385625,
     "object_rotation_deg": 166.57843760259001,
     "object_upright_axis_z_final": 0.00022344362884890723,
     "first_sampled_hand_contact": {
+      "sample_index": 117,
       "time_s": 3.760999999999697,
-      "hand_xyz_m": [
-        0.24823694537071844,
-        -0.17073183258912816,
-        0.8001511550231744
-      ],
-      "object_xyz_m": [
-        0.24917415846850888,
-        -0.1756592906523914,
-        0.7600031451902935
-      ],
-      "object_vertical_extent_m": 0.06007924591637542,
-      "object_upright_axis_z_abs": 0.9999982983100866,
-      "object_hand_contacts": [
+      "penetration_m": 0.0002741165378328769,
+      "contacts": [
         {
           "geom_ids": [
             105,
@@ -780,43 +771,151 @@
       ]
     },
     "max_sampled_penetration": {
-      "penetration_m": 0.005184671623014815,
+      "sample_index": 118,
       "time_s": 3.793999999999693,
-      "contact": {
-        "geom_ids": [
-          105,
-          98
-        ],
-        "geom_names": [
-          "object",
-          ""
-        ],
-        "body_names": [
-          "red_block",
-          "right_hand_middle_0_link"
-        ],
-        "distance_m": -0.005184671623014815,
-        "position_world_m": [
-          0.2761322305018046,
-          -0.20764877163916434,
-          0.7811403330220213
-        ]
-      }
+      "penetration_m": 0.005184671623014815,
+      "contacts": [
+        {
+          "geom_ids": [
+            105,
+            98
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_0_link"
+          ],
+          "distance_m": -0.005184671623014815,
+          "position_world_m": [
+            0.2761322305018046,
+            -0.20764877163916434,
+            0.7811403330220213
+          ]
+        },
+        {
+          "geom_ids": [
+            105,
+            98
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_0_link"
+          ],
+          "distance_m": -0.005072835953874126,
+          "position_world_m": [
+            0.2761949266674878,
+            -0.20763912926990336,
+            0.7798794599186092
+          ]
+        },
+        {
+          "geom_ids": [
+            105,
+            100
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_1_link"
+          ],
+          "distance_m": -0.00112993960329269,
+          "position_world_m": [
+            0.2783481406031306,
+            -0.20754910286451872,
+            0.7489943084183472
+          ]
+        },
+        {
+          "geom_ids": [
+            105,
+            100
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_1_link"
+          ],
+          "distance_m": -0.00107466530630292,
+          "position_world_m": [
+            0.27778129144384556,
+            -0.2051903366306539,
+            0.7456486535641589
+          ]
+        },
+        {
+          "geom_ids": [
+            105,
+            100
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_1_link"
+          ],
+          "distance_m": -0.0010842298348492608,
+          "position_world_m": [
+            0.27778162279074714,
+            -0.20524373408443053,
+            0.7468154124302648
+          ]
+        },
+        {
+          "geom_ids": [
+            105,
+            100
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_1_link"
+          ],
+          "distance_m": -0.001135741651544525,
+          "position_world_m": [
+            0.2783411772932005,
+            -0.2075554952252136,
+            0.7497451709654901
+          ]
+        }
+      ]
     }
   },
-  "action_5_summary": {
-    "time_s": 5.000000000000004,
+  "action_4_to_5_floor_summary": {
+    "interval_label": "Action 4 start (t=3.200 s) to Action 5 end (t=5.000 s)",
+    "time_interval_s": [
+      3.1999999999997586,
+      5.000000000000004
+    ],
     "object_floor_xyz_m": [
       -0.02262110838389256,
       -0.3557796709698707,
       0.024998579538808057
     ],
-    "total_displacement_to_floor_m": 0.8041447688533166,
-    "total_displacement_to_floor_vector_m": [
+    "displacement_vector_m": [
       -0.2718772193072904,
       -0.1802958316098556,
       -0.7350000000000001
-    ]
+    ],
+    "xy_displacement_m": 0.3262266225711107,
+    "3d_displacement_m": 0.8041447688533166
   },
   "authoritative_scorer_telemetry": {
     "normal_force_n": 25.5065408364408,

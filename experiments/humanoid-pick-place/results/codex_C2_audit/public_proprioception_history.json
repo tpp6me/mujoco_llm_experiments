@@ -1,978 +1,2105 @@
 [
   {
     "call": 3,
-    "observation_time_s": 1.9999999999998905,
-    "image_sha256": "cad63bf0f20427f4b2329f27a1f7f82a42708e585dffe2f6dfe55fc0c7c70a39",
-    "robot_proprioception": null,
-    "public_history_preceding_decision": [
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 0.0,
-            "seconds": 0.5
-          },
-          "request_id": "visual-1"
+    "input_preceding_decision": {
+      "observation_time_s": 1.9999999999998905,
+      "observation_id": "a3ab85546e14496c89711d9432f067e0",
+      "image_sha256": "cad63bf0f20427f4b2329f27a1f7f82a42708e585dffe2f6dfe55fc0c7c70a39",
+      "public_robot_state": {
+        "frame": "world",
+        "instruction_version": 1,
+        "mode": "robot_state",
+        "robot": {
+          "contact_links": [],
+          "hand_quaternion_wxyz": [
+            0.4945749553950536,
+            -0.49675472686938266,
+            0.5051926595956784,
+            0.5033991771144946
+          ],
+          "hand_xyz_m": [
+            0.24784478760934245,
+            -0.14938307034385892,
+            0.9061125230695279
+          ],
+          "joint_names": [
+            "left_hip_pitch_joint",
+            "left_hip_roll_joint",
+            "left_hip_yaw_joint",
+            "left_knee_joint",
+            "left_ankle_pitch_joint",
+            "left_ankle_roll_joint",
+            "right_hip_pitch_joint",
+            "right_hip_roll_joint",
+            "right_hip_yaw_joint",
+            "right_knee_joint",
+            "right_ankle_pitch_joint",
+            "right_ankle_roll_joint",
+            "waist_yaw_joint",
+            "waist_roll_joint",
+            "waist_pitch_joint",
+            "left_shoulder_pitch_joint",
+            "left_shoulder_roll_joint",
+            "left_shoulder_yaw_joint",
+            "left_elbow_joint",
+            "left_wrist_roll_joint",
+            "left_wrist_pitch_joint",
+            "left_wrist_yaw_joint",
+            "left_hand_thumb_0_joint",
+            "left_hand_thumb_1_joint",
+            "left_hand_thumb_2_joint",
+            "left_hand_middle_0_joint",
+            "left_hand_middle_1_joint",
+            "left_hand_index_0_joint",
+            "left_hand_index_1_joint",
+            "right_shoulder_pitch_joint",
+            "right_shoulder_roll_joint",
+            "right_shoulder_yaw_joint",
+            "right_elbow_joint",
+            "right_wrist_roll_joint",
+            "right_wrist_pitch_joint",
+            "right_wrist_yaw_joint",
+            "right_hand_thumb_0_joint",
+            "right_hand_thumb_1_joint",
+            "right_hand_thumb_2_joint",
+            "right_hand_index_0_joint",
+            "right_hand_index_1_joint",
+            "right_hand_middle_0_joint",
+            "right_hand_middle_1_joint"
+          ],
+          "joint_position_rad": [
+            0.0022903461082868135,
+            0.00012755611855853847,
+            -1.756485766855574e-05,
+            0.0004875331215285987,
+            0.00030442722931110354,
+            -2.5111700929894495e-08,
+            0.002291354145058967,
+            -0.00012754410258712204,
+            1.756484625940662e-05,
+            0.00048752160037695766,
+            0.00030442673826550694,
+            2.5108800200424548e-08,
+            -1.062799823155351e-06,
+            -0.0001665126718666788,
+            0.012585619760028696,
+            0.19861408128544256,
+            0.196220005392015,
+            -0.00046355351249578356,
+            1.280171334660335,
+            1.0838979316717947e-06,
+            0.00019065427499846436,
+            -0.00027686946406313634,
+            -0.0007920062587125796,
+            1.0597228611923641,
+            6.158959771693437e-05,
+            -0.00025317921892906414,
+            -4.5156549251800115e-05,
+            -0.000252855499631044,
+            -4.512629787750915e-05,
+            -1.2815460720591458,
+            -0.9661477358641746,
+            1.349938123957038,
+            -0.10574568172098577,
+            0.17170916381494522,
+            0.9300065854085162,
+            1.2908263688471733,
+            1.996353827493962e-05,
+            -0.10115817889638717,
+            -0.10017367483763666,
+            8.893212648238801e-06,
+            8.525034303350012e-06,
+            7.823226668943036e-06,
+            8.444297000583489e-06
+          ],
+          "joint_velocity_rad_s": [
+            7.02008469446198e-05,
+            7.3043567471020495e-06,
+            6.639130907123863e-08,
+            -8.019211853601069e-07,
+            -3.421147508019281e-08,
+            -1.5769717270870029e-09,
+            6.875567011687683e-05,
+            -7.3191564598082734e-06,
+            -6.635298487781978e-08,
+            -7.853923991630064e-07,
+            -3.3507484429437756e-08,
+            1.5805884023034004e-09,
+            1.5347506570355315e-05,
+            -0.00042941611964037243,
+            0.00024395283022630965,
+            -0.0003737432462415041,
+            -0.00024405871142929412,
+            5.877301759998579e-06,
+            5.6165903888869794e-05,
+            -5.225462503648485e-06,
+            3.37703889538742e-05,
+            0.0002572283023138128,
+            -0.00790947726741524,
+            0.16713685249879467,
+            0.0012988677977126908,
+            -0.0005974520937309342,
+            -9.3675384625701e-05,
+            -0.000624529318924168,
+            -9.729402397994887e-05,
+            0.0014709617189144117,
+            0.0012144453199628173,
+            0.0007999904808820109,
+            0.000877695793924071,
+            -8.26618194742444e-06,
+            2.507293322420014e-05,
+            -1.264588634271808e-05,
+            -8.501705398026531e-07,
+            -6.380841939374902e-06,
+            -3.7686242273975035e-07,
+            -3.3257917851490975e-05,
+            -2.886260690610463e-06,
+            -1.011502380968778e-05,
+            -1.0944798693605684e-06
+          ]
         },
-        "response": {
-          "end_time_s": 1.0000000000000007,
-          "request_id": "visual-1",
-          "start_time_s": 0.5000000000000003,
-          "status": "completed"
+        "schema_version": "humanoid-actions-v2",
+        "supported_body": true,
+        "time_s": 1.9999999999998905
+      },
+      "public_history": [
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 0.0,
+              "seconds": 0.5
+            },
+            "request_id": "visual-1"
+          },
+          "response": {
+            "end_time_s": 1.0000000000000007,
+            "request_id": "visual-1",
+            "start_time_s": 0.5000000000000003,
+            "status": "completed"
+          }
+        },
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.0,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.91
+              ]
+            },
+            "request_id": "visual-2"
+          },
+          "response": {
+            "end_time_s": 1.9999999999998905,
+            "request_id": "visual-2",
+            "start_time_s": 1.0000000000000007,
+            "status": "completed"
+          }
+        }
+      ],
+      "remaining_actions": 18,
+      "remaining_time_s": 23.00000000000011
+    },
+    "subsequent_command_and_execution": {
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.251,
+            -0.149,
+            0.84
+          ]
         }
       },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.0,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.91
-            ]
-          },
-          "request_id": "visual-2"
-        },
-        "response": {
-          "end_time_s": 1.9999999999998905,
-          "request_id": "visual-2",
-          "start_time_s": 1.0000000000000007,
-          "status": "completed"
-        }
-      }
-    ],
-    "command": {
-      "action": "move",
-      "arguments": {
-        "quaternion_wxyz": [
-          0.5,
-          -0.5,
-          0.5,
-          0.5
-        ],
-        "seconds": 1.2,
-        "xyz_m": [
-          0.251,
-          -0.149,
-          0.84
-        ]
-      }
-    },
-    "interface_response": {
-      "status": "completed",
-      "start_time_s": 1.9999999999998905,
-      "end_time_s": 3.1999999999997586,
+      "execution_status": "completed",
+      "execution_start_time_s": 1.9999999999998905,
+      "execution_end_time_s": 3.1999999999997586,
       "error": null
     }
   },
   {
     "call": 4,
-    "observation_time_s": 3.1999999999997586,
-    "image_sha256": "c5f58211f6c4a0f19d8c24d37d61249c33e65846de2042ffc152246e440573ad",
-    "robot_proprioception": null,
-    "public_history_preceding_decision": [
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 0.0,
-            "seconds": 0.5
-          },
-          "request_id": "visual-1"
+    "input_preceding_decision": {
+      "observation_time_s": 3.1999999999997586,
+      "observation_id": "90adfb8c81df41a69f590027cbf8718c",
+      "image_sha256": "c5f58211f6c4a0f19d8c24d37d61249c33e65846de2042ffc152246e440573ad",
+      "public_robot_state": {
+        "frame": "world",
+        "instruction_version": 1,
+        "mode": "robot_state",
+        "robot": {
+          "contact_links": [],
+          "hand_quaternion_wxyz": [
+            0.4952766030441167,
+            -0.4967919877082832,
+            0.5043489400462325,
+            0.5035185737390189
+          ],
+          "hand_xyz_m": [
+            0.24697508338702295,
+            -0.14918976150570495,
+            0.8362727223613804
+          ],
+          "joint_names": [
+            "left_hip_pitch_joint",
+            "left_hip_roll_joint",
+            "left_hip_yaw_joint",
+            "left_knee_joint",
+            "left_ankle_pitch_joint",
+            "left_ankle_roll_joint",
+            "right_hip_pitch_joint",
+            "right_hip_roll_joint",
+            "right_hip_yaw_joint",
+            "right_knee_joint",
+            "right_ankle_pitch_joint",
+            "right_ankle_roll_joint",
+            "waist_yaw_joint",
+            "waist_roll_joint",
+            "waist_pitch_joint",
+            "left_shoulder_pitch_joint",
+            "left_shoulder_roll_joint",
+            "left_shoulder_yaw_joint",
+            "left_elbow_joint",
+            "left_wrist_roll_joint",
+            "left_wrist_pitch_joint",
+            "left_wrist_yaw_joint",
+            "left_hand_thumb_0_joint",
+            "left_hand_thumb_1_joint",
+            "left_hand_thumb_2_joint",
+            "left_hand_middle_0_joint",
+            "left_hand_middle_1_joint",
+            "left_hand_index_0_joint",
+            "left_hand_index_1_joint",
+            "right_shoulder_pitch_joint",
+            "right_shoulder_roll_joint",
+            "right_shoulder_yaw_joint",
+            "right_elbow_joint",
+            "right_wrist_roll_joint",
+            "right_wrist_pitch_joint",
+            "right_wrist_yaw_joint",
+            "right_hand_thumb_0_joint",
+            "right_hand_thumb_1_joint",
+            "right_hand_thumb_2_joint",
+            "right_hand_index_0_joint",
+            "right_hand_index_1_joint",
+            "right_hand_middle_0_joint",
+            "right_hand_middle_1_joint"
+          ],
+          "joint_position_rad": [
+            0.002330537351669563,
+            0.0001312438639935102,
+            -1.753086086938014e-05,
+            0.0004870739829718101,
+            0.0003044076434345439,
+            -2.5906568034573128e-08,
+            0.0023307180097809875,
+            -0.00013124145304072317,
+            1.7530861326289694e-05,
+            0.00048707191839056547,
+            0.00030440755543053325,
+            2.5905989755745987e-08,
+            -1.7034848331638376e-05,
+            -0.0006357044025166069,
+            0.012792282463820264,
+            0.19855332124283645,
+            0.19623080332161885,
+            -0.0004639867806369458,
+            1.2801725344131756,
+            1.1228885597620874e-06,
+            0.00019066395874536518,
+            -0.00027557281137368316,
+            -0.0008104824275809504,
+            1.0604006650906168,
+            6.505044376568895e-05,
+            -0.00025415888601860873,
+            -4.532436584562339e-05,
+            -0.0002541353415585913,
+            -4.532148406694597e-05,
+            -1.0685785930592273,
+            -0.8317263634567651,
+            1.3520352757129426,
+            0.06931658120191711,
+            0.10651786526640203,
+            0.8312249422737158,
+            1.114770757735314,
+            2.0010628322217958e-05,
+            -0.10115812310167165,
+            -0.10017363827884672,
+            1.0297432091216936e-05,
+            8.772978980404706e-06,
+            9.873594709383527e-06,
+            8.729889045573147e-06
+          ],
+          "joint_velocity_rad_s": [
+            1.2581703036572746e-05,
+            9.149378494342971e-07,
+            8.697273463265539e-09,
+            -1.4374212798355904e-07,
+            -6.1308530518548896e-09,
+            -1.9649366530400899e-10,
+            1.2322701721076325e-05,
+            -9.183567051269486e-07,
+            -8.697337223086366e-09,
+            -1.4078225272994958e-07,
+            -6.00468537383893e-09,
+            1.9731298989899284e-10,
+            5.310293915904599e-05,
+            -0.00017917713248344884,
+            3.2346189250950447e-05,
+            -2.146565197487036e-05,
+            0.00015489950458170095,
+            -2.3973686324566422e-05,
+            -2.868016136831617e-05,
+            3.2740038068271433e-06,
+            -1.5215303246735995e-05,
+            -0.00012009767868591751,
+            0.004089321515516721,
+            -0.08802169466244558,
+            -0.000613756571892039,
+            0.0002845881797648403,
+            4.451255845769168e-05,
+            0.00029492982669916375,
+            4.6007007376952824e-05,
+            0.0015118844876016117,
+            0.001018130475355998,
+            0.00014433536708593166,
+            0.0005726168436109427,
+            -8.671136611131989e-06,
+            1.0557141145435297e-06,
+            -1.0803397926810162e-05,
+            -3.5995739051605796e-07,
+            -2.885734876785002e-06,
+            2.375242436738804e-08,
+            -2.0548979161895672e-05,
+            -1.6469976309837944e-06,
+            -1.6063217171284304e-05,
+            -1.2644938678510845e-06
+          ]
         },
-        "response": {
-          "end_time_s": 1.0000000000000007,
-          "request_id": "visual-1",
-          "start_time_s": 0.5000000000000003,
-          "status": "completed"
-        }
+        "schema_version": "humanoid-actions-v2",
+        "supported_body": true,
+        "time_s": 3.1999999999997586
       },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.0,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.91
-            ]
+      "public_history": [
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 0.0,
+              "seconds": 0.5
+            },
+            "request_id": "visual-1"
           },
-          "request_id": "visual-2"
+          "response": {
+            "end_time_s": 1.0000000000000007,
+            "request_id": "visual-1",
+            "start_time_s": 0.5000000000000003,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 1.9999999999998905,
-          "request_id": "visual-2",
-          "start_time_s": 1.0000000000000007,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.2,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.84
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.0,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.91
+              ]
+            },
+            "request_id": "visual-2"
           },
-          "request_id": "visual-3"
+          "response": {
+            "end_time_s": 1.9999999999998905,
+            "request_id": "visual-2",
+            "start_time_s": 1.0000000000000007,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.1999999999997586,
-          "request_id": "visual-3",
-          "start_time_s": 1.9999999999998905,
-          "status": "completed"
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.2,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.84
+              ]
+            },
+            "request_id": "visual-3"
+          },
+          "response": {
+            "end_time_s": 3.1999999999997586,
+            "request_id": "visual-3",
+            "start_time_s": 1.9999999999998905,
+            "status": "completed"
+          }
         }
-      }
-    ],
-    "command": {
-      "action": "move",
-      "arguments": {
-        "quaternion_wxyz": [
-          0.5,
-          -0.5,
-          0.5,
-          0.5
-        ],
-        "seconds": 0.8,
-        "xyz_m": [
-          0.251,
-          -0.173,
-          0.8
-        ]
-      }
+      ],
+      "remaining_actions": 17,
+      "remaining_time_s": 21.800000000000242
     },
-    "interface_response": {
-      "status": "completed",
-      "start_time_s": 3.1999999999997586,
-      "end_time_s": 3.9999999999996705,
+    "subsequent_command_and_execution": {
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 0.8,
+          "xyz_m": [
+            0.251,
+            -0.173,
+            0.8
+          ]
+        }
+      },
+      "execution_status": "completed",
+      "execution_start_time_s": 3.1999999999997586,
+      "execution_end_time_s": 3.9999999999996705,
       "error": null
     }
   },
   {
     "call": 5,
-    "observation_time_s": 3.9999999999996705,
-    "image_sha256": "4461921cd27bda89d43db4fda9f09e7c46c91d343be143b28c0d4ce7b15506ac",
-    "robot_proprioception": null,
-    "public_history_preceding_decision": [
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 0.0,
-            "seconds": 0.5
-          },
-          "request_id": "visual-1"
+    "input_preceding_decision": {
+      "observation_time_s": 3.9999999999996705,
+      "observation_id": "65f49dc8457f4800b2c68230c4e85a33",
+      "image_sha256": "4461921cd27bda89d43db4fda9f09e7c46c91d343be143b28c0d4ce7b15506ac",
+      "public_robot_state": {
+        "frame": "world",
+        "instruction_version": 1,
+        "mode": "robot_state",
+        "robot": {
+          "contact_links": [],
+          "hand_quaternion_wxyz": [
+            0.4959597858419046,
+            -0.496954433322436,
+            0.5032120590574659,
+            0.5038231888748015
+          ],
+          "hand_xyz_m": [
+            0.2467346205337109,
+            -0.172665565260235,
+            0.7965515788730833
+          ],
+          "joint_names": [
+            "left_hip_pitch_joint",
+            "left_hip_roll_joint",
+            "left_hip_yaw_joint",
+            "left_knee_joint",
+            "left_ankle_pitch_joint",
+            "left_ankle_roll_joint",
+            "right_hip_pitch_joint",
+            "right_hip_roll_joint",
+            "right_hip_yaw_joint",
+            "right_knee_joint",
+            "right_ankle_pitch_joint",
+            "right_ankle_roll_joint",
+            "waist_yaw_joint",
+            "waist_roll_joint",
+            "waist_pitch_joint",
+            "left_shoulder_pitch_joint",
+            "left_shoulder_roll_joint",
+            "left_shoulder_yaw_joint",
+            "left_elbow_joint",
+            "left_wrist_roll_joint",
+            "left_wrist_pitch_joint",
+            "left_wrist_yaw_joint",
+            "left_hand_thumb_0_joint",
+            "left_hand_thumb_1_joint",
+            "left_hand_thumb_2_joint",
+            "left_hand_middle_0_joint",
+            "left_hand_middle_1_joint",
+            "left_hand_index_0_joint",
+            "left_hand_index_1_joint",
+            "right_shoulder_pitch_joint",
+            "right_shoulder_roll_joint",
+            "right_shoulder_yaw_joint",
+            "right_elbow_joint",
+            "right_wrist_roll_joint",
+            "right_wrist_pitch_joint",
+            "right_wrist_yaw_joint",
+            "right_hand_thumb_0_joint",
+            "right_hand_thumb_1_joint",
+            "right_hand_thumb_2_joint",
+            "right_hand_index_0_joint",
+            "right_hand_index_1_joint",
+            "right_hand_middle_0_joint",
+            "right_hand_middle_1_joint"
+          ],
+          "joint_position_rad": [
+            0.002336523734635002,
+            0.00013163970687942226,
+            -1.7527043424306726e-05,
+            0.00048700558864635203,
+            0.00030440472644619913,
+            -2.599143106324151e-08,
+            0.002336581161037912,
+            -0.00013163895133111396,
+            1.752704354618842e-05,
+            0.0004870049323671346,
+            0.0003044046984721448,
+            2.5991249269046673e-08,
+            0.0002500313624013387,
+            -0.0005214290641013412,
+            0.011997227513975903,
+            0.19850494938355234,
+            0.19623577243216453,
+            -0.0004619475465776413,
+            1.2801879679848294,
+            1.279234303713884e-06,
+            0.00019617377414588605,
+            -0.00027126591416936095,
+            -0.0008141238994090441,
+            1.0606472603601138,
+            6.705913935323275e-05,
+            -0.0002512562338625761,
+            -4.4836767771699084e-05,
+            -0.0002521829569897887,
+            -4.494527691741284e-05,
+            -0.9406672773806153,
+            -0.8038352105956963,
+            1.3402157895590472,
+            0.2719733505739472,
+            0.05533144772148108,
+            0.6248319925027417,
+            1.0378737351022034,
+            2.0471193168298517e-05,
+            -0.1011633676627926,
+            -0.10017420141354619,
+            2.1479602669483473e-05,
+            1.0974617265427674e-05,
+            0.0001616018717501005,
+            -4.0480036234143594e-05
+          ],
+          "joint_velocity_rad_s": [
+            3.999491956773289e-06,
+            2.2901473292372185e-07,
+            2.2625024242079154e-09,
+            -4.569567229195e-08,
+            -1.9487657906315993e-09,
+            -4.895044488346788e-11,
+            3.917162343968916e-06,
+            -2.3013308453142797e-07,
+            -2.262891040502342e-09,
+            -4.4754797874975556e-08,
+            -1.9086605916457956e-09,
+            4.9218378559814196e-11,
+            -0.0010330102678147459,
+            0.00040900997967822754,
+            0.0005596751454635309,
+            0.00032166214252624977,
+            -0.0005174726954829894,
+            4.601671388876608e-05,
+            -3.8563072012902806e-05,
+            -3.316294401988835e-06,
+            -4.326613380123109e-06,
+            0.0003728616747038381,
+            -0.008268374934725839,
+            0.45027307220511065,
+            0.0024546593237785796,
+            -0.001229813072999386,
+            -0.00019333751734773482,
+            -0.0012458508020975927,
+            -0.00019587762593076431,
+            0.0021818405335453208,
+            0.0005959784667760072,
+            0.0014046202933611091,
+            0.0021680636220700773,
+            -0.00011465664438135004,
+            -0.0002145948493285068,
+            -0.00029788623916620976,
+            -1.503944711948625e-05,
+            0.00011373761402116882,
+            1.3098929334965883e-05,
+            -0.00024097073238983424,
+            -5.8841646870918905e-05,
+            -0.0041198792914457485,
+            0.001711861754886193
+          ]
         },
-        "response": {
-          "end_time_s": 1.0000000000000007,
-          "request_id": "visual-1",
-          "start_time_s": 0.5000000000000003,
-          "status": "completed"
-        }
+        "schema_version": "humanoid-actions-v2",
+        "supported_body": true,
+        "time_s": 3.9999999999996705
       },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.0,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.91
-            ]
+      "public_history": [
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 0.0,
+              "seconds": 0.5
+            },
+            "request_id": "visual-1"
           },
-          "request_id": "visual-2"
+          "response": {
+            "end_time_s": 1.0000000000000007,
+            "request_id": "visual-1",
+            "start_time_s": 0.5000000000000003,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 1.9999999999998905,
-          "request_id": "visual-2",
-          "start_time_s": 1.0000000000000007,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.2,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.84
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.0,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.91
+              ]
+            },
+            "request_id": "visual-2"
           },
-          "request_id": "visual-3"
+          "response": {
+            "end_time_s": 1.9999999999998905,
+            "request_id": "visual-2",
+            "start_time_s": 1.0000000000000007,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.1999999999997586,
-          "request_id": "visual-3",
-          "start_time_s": 1.9999999999998905,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 0.8,
-            "xyz_m": [
-              0.251,
-              -0.173,
-              0.8
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.2,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.84
+              ]
+            },
+            "request_id": "visual-3"
           },
-          "request_id": "visual-4"
+          "response": {
+            "end_time_s": 3.1999999999997586,
+            "request_id": "visual-3",
+            "start_time_s": 1.9999999999998905,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.9999999999996705,
-          "request_id": "visual-4",
-          "start_time_s": 3.1999999999997586,
-          "status": "completed"
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 0.8,
+              "xyz_m": [
+                0.251,
+                -0.173,
+                0.8
+              ]
+            },
+            "request_id": "visual-4"
+          },
+          "response": {
+            "end_time_s": 3.9999999999996705,
+            "request_id": "visual-4",
+            "start_time_s": 3.1999999999997586,
+            "status": "completed"
+          }
         }
-      }
-    ],
-    "command": {
-      "action": "hand",
-      "arguments": {
-        "closure": 1.0,
-        "seconds": 1.0
-      }
+      ],
+      "remaining_actions": 16,
+      "remaining_time_s": 21.00000000000033
     },
-    "interface_response": {
-      "status": "completed",
-      "start_time_s": 3.9999999999996705,
-      "end_time_s": 5.000000000000004,
+    "subsequent_command_and_execution": {
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 1.0,
+          "seconds": 1.0
+        }
+      },
+      "execution_status": "completed",
+      "execution_start_time_s": 3.9999999999996705,
+      "execution_end_time_s": 5.000000000000004,
       "error": null
     }
   },
   {
     "call": 6,
-    "observation_time_s": 5.000000000000004,
-    "image_sha256": "9af8e3ad3ca8f698a78a0b955040912d4fe0911b6209bad216b6b33e1b648224",
-    "robot_proprioception": null,
-    "public_history_preceding_decision": [
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 0.0,
-            "seconds": 0.5
-          },
-          "request_id": "visual-1"
+    "input_preceding_decision": {
+      "observation_time_s": 5.000000000000004,
+      "observation_id": "75fe14c960a1469b9908f0fe2cd87aab",
+      "image_sha256": "9af8e3ad3ca8f698a78a0b955040912d4fe0911b6209bad216b6b33e1b648224",
+      "public_robot_state": {
+        "frame": "world",
+        "instruction_version": 1,
+        "mode": "robot_state",
+        "robot": {
+          "contact_links": [],
+          "hand_quaternion_wxyz": [
+            0.4959816941232419,
+            -0.49672655147403805,
+            0.5033726215655235,
+            0.5038659504407909
+          ],
+          "hand_xyz_m": [
+            0.24662692950010728,
+            -0.17275852610817255,
+            0.7963595596497537
+          ],
+          "joint_names": [
+            "left_hip_pitch_joint",
+            "left_hip_roll_joint",
+            "left_hip_yaw_joint",
+            "left_knee_joint",
+            "left_ankle_pitch_joint",
+            "left_ankle_roll_joint",
+            "right_hip_pitch_joint",
+            "right_hip_roll_joint",
+            "right_hip_yaw_joint",
+            "right_knee_joint",
+            "right_ankle_pitch_joint",
+            "right_ankle_roll_joint",
+            "waist_yaw_joint",
+            "waist_roll_joint",
+            "waist_pitch_joint",
+            "left_shoulder_pitch_joint",
+            "left_shoulder_roll_joint",
+            "left_shoulder_yaw_joint",
+            "left_elbow_joint",
+            "left_wrist_roll_joint",
+            "left_wrist_pitch_joint",
+            "left_wrist_yaw_joint",
+            "left_hand_thumb_0_joint",
+            "left_hand_thumb_1_joint",
+            "left_hand_thumb_2_joint",
+            "left_hand_middle_0_joint",
+            "left_hand_middle_1_joint",
+            "left_hand_index_0_joint",
+            "left_hand_index_1_joint",
+            "right_shoulder_pitch_joint",
+            "right_shoulder_roll_joint",
+            "right_shoulder_yaw_joint",
+            "right_elbow_joint",
+            "right_wrist_roll_joint",
+            "right_wrist_pitch_joint",
+            "right_wrist_yaw_joint",
+            "right_hand_thumb_0_joint",
+            "right_hand_thumb_1_joint",
+            "right_hand_thumb_2_joint",
+            "right_hand_index_0_joint",
+            "right_hand_index_1_joint",
+            "right_hand_middle_0_joint",
+            "right_hand_middle_1_joint"
+          ],
+          "joint_position_rad": [
+            0.0023386477038642934,
+            0.00013174847171644645,
+            -1.7525942161254168e-05,
+            0.0004869812634170745,
+            0.0003044036940622902,
+            -2.6014744053896292e-08,
+            0.0023391304860943376,
+            -0.0001238977668143187,
+            1.7589652586835618e-05,
+            0.0004869754612504215,
+            0.0003044034722504939,
+            2.4298901201025072e-08,
+            3.496056548789401e-06,
+            -0.00027636256067967553,
+            0.012275199409735612,
+            0.19855657453087253,
+            0.19622746233667718,
+            -0.0004654722014447731,
+            1.2801753723392468,
+            1.1358908861378362e-06,
+            0.00019191366635238182,
+            -0.0002764081430034749,
+            -0.0008035375547695512,
+            1.06005756447733,
+            6.302235581542563e-05,
+            -0.0002535514948897925,
+            -4.522299535724843e-05,
+            -0.00025353289309345205,
+            -4.522036454160509e-05,
+            -0.9404035460191238,
+            -0.803784555391949,
+            1.3402553469187508,
+            0.2721282117328091,
+            0.05526668691508938,
+            0.6248262604714253,
+            1.0377607049818083,
+            1.9819116544747612e-05,
+            -0.700797421256166,
+            -0.8000258684016145,
+            1.1489693462672261,
+            1.1998698115591073,
+            1.1489693395230494,
+            1.1998698117393436
+          ],
+          "joint_velocity_rad_s": [
+            9.548256324112366e-07,
+            4.0550955809728993e-08,
+            4.3034107804042726e-10,
+            -1.0988475573795383e-08,
+            -4.482151268597177e-10,
+            -8.979277277026857e-12,
+            2.6309378507597306e-07,
+            -1.3627392803033486e-05,
+            -1.106875742934241e-07,
+            -2.3865001949555545e-09,
+            -1.5567938852176437e-10,
+            2.9779144789363915e-09,
+            3.478181373649078e-06,
+            0.00015000492991976396,
+            0.0001478449265811366,
+            -9.900664822403118e-06,
+            -0.00020579937782034107,
+            2.370559017619107e-05,
+            2.538752834862579e-05,
+            -2.872295716746426e-06,
+            2.216573749754396e-05,
+            0.00017390604224341573,
+            -0.005614739133077664,
+            0.12880754106510425,
+            0.0009083439915037989,
+            -0.00042562262574596813,
+            -6.663440291584096e-05,
+            -0.000441264468478163,
+            -6.890051677767653e-05,
+            -1.2816213517651041e-05,
+            -1.6965518114479208e-05,
+            -7.310788099793057e-06,
+            3.013908825373416e-06,
+            1.22037809614107e-06,
+            -1.0845576292006364e-06,
+            -1.6212808306642438e-06,
+            -1.0688383393721559e-06,
+            -6.114896338924336e-05,
+            -8.017541526298336e-06,
+            7.636291245740693e-06,
+            -1.559286365161568e-05,
+            6.203100063770362e-06,
+            -1.584902882674198e-05
+          ]
         },
-        "response": {
-          "end_time_s": 1.0000000000000007,
-          "request_id": "visual-1",
-          "start_time_s": 0.5000000000000003,
-          "status": "completed"
-        }
+        "schema_version": "humanoid-actions-v2",
+        "supported_body": true,
+        "time_s": 5.000000000000004
       },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.0,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.91
-            ]
+      "public_history": [
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 0.0,
+              "seconds": 0.5
+            },
+            "request_id": "visual-1"
           },
-          "request_id": "visual-2"
+          "response": {
+            "end_time_s": 1.0000000000000007,
+            "request_id": "visual-1",
+            "start_time_s": 0.5000000000000003,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 1.9999999999998905,
-          "request_id": "visual-2",
-          "start_time_s": 1.0000000000000007,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.2,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.84
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.0,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.91
+              ]
+            },
+            "request_id": "visual-2"
           },
-          "request_id": "visual-3"
+          "response": {
+            "end_time_s": 1.9999999999998905,
+            "request_id": "visual-2",
+            "start_time_s": 1.0000000000000007,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.1999999999997586,
-          "request_id": "visual-3",
-          "start_time_s": 1.9999999999998905,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 0.8,
-            "xyz_m": [
-              0.251,
-              -0.173,
-              0.8
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.2,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.84
+              ]
+            },
+            "request_id": "visual-3"
           },
-          "request_id": "visual-4"
+          "response": {
+            "end_time_s": 3.1999999999997586,
+            "request_id": "visual-3",
+            "start_time_s": 1.9999999999998905,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.9999999999996705,
-          "request_id": "visual-4",
-          "start_time_s": 3.1999999999997586,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 1.0,
-            "seconds": 1.0
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 0.8,
+              "xyz_m": [
+                0.251,
+                -0.173,
+                0.8
+              ]
+            },
+            "request_id": "visual-4"
           },
-          "request_id": "visual-5"
+          "response": {
+            "end_time_s": 3.9999999999996705,
+            "request_id": "visual-4",
+            "start_time_s": 3.1999999999997586,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 5.000000000000004,
-          "request_id": "visual-5",
-          "start_time_s": 3.9999999999996705,
-          "status": "completed"
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 1.0,
+              "seconds": 1.0
+            },
+            "request_id": "visual-5"
+          },
+          "response": {
+            "end_time_s": 5.000000000000004,
+            "request_id": "visual-5",
+            "start_time_s": 3.9999999999996705,
+            "status": "completed"
+          }
         }
-      }
-    ],
-    "command": {
-      "action": "move",
-      "arguments": {
-        "quaternion_wxyz": [
-          0.5,
-          -0.5,
-          0.5,
-          0.5
-        ],
-        "seconds": 1.2,
-        "xyz_m": [
-          0.251,
-          -0.173,
-          0.95
-        ]
-      }
+      ],
+      "remaining_actions": 15,
+      "remaining_time_s": 19.999999999999996
     },
-    "interface_response": {
-      "status": "completed",
-      "start_time_s": 5.000000000000004,
-      "end_time_s": 6.200000000000405,
+    "subsequent_command_and_execution": {
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.251,
+            -0.173,
+            0.95
+          ]
+        }
+      },
+      "execution_status": "completed",
+      "execution_start_time_s": 5.000000000000004,
+      "execution_end_time_s": 6.200000000000405,
       "error": null
     }
   },
   {
     "call": 7,
-    "observation_time_s": 6.200000000000405,
-    "image_sha256": "72b19a753915c987bad6cc8f2a6f3d02976ec55beb87291d994984523778f41d",
-    "robot_proprioception": null,
-    "public_history_preceding_decision": [
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 0.0,
-            "seconds": 0.5
-          },
-          "request_id": "visual-1"
+    "input_preceding_decision": {
+      "observation_time_s": 6.200000000000405,
+      "observation_id": "2f29c44f35c84615a6770bd12ea34958",
+      "image_sha256": "72b19a753915c987bad6cc8f2a6f3d02976ec55beb87291d994984523778f41d",
+      "public_robot_state": {
+        "frame": "world",
+        "instruction_version": 1,
+        "mode": "robot_state",
+        "robot": {
+          "contact_links": [],
+          "hand_quaternion_wxyz": [
+            0.49513724775911006,
+            -0.49641940266292717,
+            0.5045916729207005,
+            0.5037798389777088
+          ],
+          "hand_xyz_m": [
+            0.2483501718220291,
+            -0.1734619803820879,
+            0.945959311084299
+          ],
+          "joint_names": [
+            "left_hip_pitch_joint",
+            "left_hip_roll_joint",
+            "left_hip_yaw_joint",
+            "left_knee_joint",
+            "left_ankle_pitch_joint",
+            "left_ankle_roll_joint",
+            "right_hip_pitch_joint",
+            "right_hip_roll_joint",
+            "right_hip_yaw_joint",
+            "right_knee_joint",
+            "right_ankle_pitch_joint",
+            "right_ankle_roll_joint",
+            "waist_yaw_joint",
+            "waist_roll_joint",
+            "waist_pitch_joint",
+            "left_shoulder_pitch_joint",
+            "left_shoulder_roll_joint",
+            "left_shoulder_yaw_joint",
+            "left_elbow_joint",
+            "left_wrist_roll_joint",
+            "left_wrist_pitch_joint",
+            "left_wrist_yaw_joint",
+            "left_hand_thumb_0_joint",
+            "left_hand_thumb_1_joint",
+            "left_hand_thumb_2_joint",
+            "left_hand_middle_0_joint",
+            "left_hand_middle_1_joint",
+            "left_hand_index_0_joint",
+            "left_hand_index_1_joint",
+            "right_shoulder_pitch_joint",
+            "right_shoulder_roll_joint",
+            "right_shoulder_yaw_joint",
+            "right_elbow_joint",
+            "right_wrist_roll_joint",
+            "right_wrist_pitch_joint",
+            "right_wrist_yaw_joint",
+            "right_hand_thumb_0_joint",
+            "right_hand_thumb_1_joint",
+            "right_hand_thumb_2_joint",
+            "right_hand_index_0_joint",
+            "right_hand_index_1_joint",
+            "right_hand_middle_0_joint",
+            "right_hand_middle_1_joint"
+          ],
+          "joint_position_rad": [
+            0.002339194356783596,
+            0.00013176893908416724,
+            -1.752572074850778e-05,
+            0.0004869750115092554,
+            0.00030440342846568775,
+            -2.601908722009992e-08,
+            0.0023392808403021955,
+            -0.0001307832090127338,
+            1.7533721226630735e-05,
+            0.00048697404383451674,
+            0.00030440338508927765,
+            2.5803529460755006e-08,
+            7.543255193185939e-05,
+            0.0002562765504630641,
+            0.01212771191466765,
+            0.19850812216881264,
+            0.19621782553255915,
+            -0.00046947197872639876,
+            1.2801756725189777,
+            1.1919547381915717e-06,
+            0.00019254499554894865,
+            -0.00027758787126671495,
+            -0.0007806650702163099,
+            1.0599635583188165,
+            6.147789950447501e-05,
+            -0.0002535502832080878,
+            -4.5212743754773345e-05,
+            -0.00025361932089211134,
+            -4.5218522557419346e-05,
+            -1.3667727980768782,
+            -1.1098160912979096,
+            1.3245173783295323,
+            -0.1150430018981383,
+            0.16546985141280104,
+            0.8273551665843057,
+            1.4327266297504537,
+            1.8260516300925673e-05,
+            -0.7008020076527339,
+            -0.8000265730352175,
+            1.1489691844594525,
+            1.199869801298964,
+            1.1489687400014181,
+            1.1998697247747996
+          ],
+          "joint_velocity_rad_s": [
+            1.7108973248888345e-07,
+            5.07056276101013e-09,
+            5.3278101644924385e-11,
+            -1.9007236255421767e-09,
+            -8.544304097728988e-11,
+            -8.69983814402909e-13,
+            4.693774790880867e-08,
+            -1.711038828632674e-06,
+            -1.400006265912369e-08,
+            -4.670039112011801e-10,
+            -2.5686601071378756e-11,
+            3.8369492999678184e-10,
+            -0.0003588411908971817,
+            0.00022363566000610147,
+            0.00024542240188739275,
+            0.0003459670457736206,
+            0.0007344897142641668,
+            -4.043686266610362e-05,
+            -7.842433600036048e-05,
+            -2.9306207789420524e-06,
+            -7.638926075566167e-05,
+            -0.0005792595836150233,
+            0.012291625614023001,
+            -0.5562522185413179,
+            -0.003087897629559775,
+            0.001469280794202536,
+            0.00022842989673602752,
+            0.0015212072400810545,
+            0.00023578062736333562,
+            -0.001912680628066561,
+            -0.0010515609574770735,
+            -0.0003765281701515659,
+            -0.0007602349496282387,
+            3.4164622011540353e-06,
+            -2.158878519628282e-06,
+            1.1347547156618953e-05,
+            6.15734013478701e-06,
+            1.4380615324961036e-05,
+            1.8656103182277912e-06,
+            -5.068925161170796e-06,
+            -2.6847883594517302e-06,
+            1.0856068355569463e-05,
+            -1.16673551466903e-06
+          ]
         },
-        "response": {
-          "end_time_s": 1.0000000000000007,
-          "request_id": "visual-1",
-          "start_time_s": 0.5000000000000003,
-          "status": "completed"
-        }
+        "schema_version": "humanoid-actions-v2",
+        "supported_body": true,
+        "time_s": 6.200000000000405
       },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.0,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.91
-            ]
+      "public_history": [
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 0.0,
+              "seconds": 0.5
+            },
+            "request_id": "visual-1"
           },
-          "request_id": "visual-2"
+          "response": {
+            "end_time_s": 1.0000000000000007,
+            "request_id": "visual-1",
+            "start_time_s": 0.5000000000000003,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 1.9999999999998905,
-          "request_id": "visual-2",
-          "start_time_s": 1.0000000000000007,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.2,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.84
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.0,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.91
+              ]
+            },
+            "request_id": "visual-2"
           },
-          "request_id": "visual-3"
+          "response": {
+            "end_time_s": 1.9999999999998905,
+            "request_id": "visual-2",
+            "start_time_s": 1.0000000000000007,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.1999999999997586,
-          "request_id": "visual-3",
-          "start_time_s": 1.9999999999998905,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 0.8,
-            "xyz_m": [
-              0.251,
-              -0.173,
-              0.8
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.2,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.84
+              ]
+            },
+            "request_id": "visual-3"
           },
-          "request_id": "visual-4"
+          "response": {
+            "end_time_s": 3.1999999999997586,
+            "request_id": "visual-3",
+            "start_time_s": 1.9999999999998905,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.9999999999996705,
-          "request_id": "visual-4",
-          "start_time_s": 3.1999999999997586,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 1.0,
-            "seconds": 1.0
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 0.8,
+              "xyz_m": [
+                0.251,
+                -0.173,
+                0.8
+              ]
+            },
+            "request_id": "visual-4"
           },
-          "request_id": "visual-5"
+          "response": {
+            "end_time_s": 3.9999999999996705,
+            "request_id": "visual-4",
+            "start_time_s": 3.1999999999997586,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 5.000000000000004,
-          "request_id": "visual-5",
-          "start_time_s": 3.9999999999996705,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.2,
-            "xyz_m": [
-              0.251,
-              -0.173,
-              0.95
-            ]
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 1.0,
+              "seconds": 1.0
+            },
+            "request_id": "visual-5"
           },
-          "request_id": "visual-6"
+          "response": {
+            "end_time_s": 5.000000000000004,
+            "request_id": "visual-5",
+            "start_time_s": 3.9999999999996705,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 6.200000000000405,
-          "request_id": "visual-6",
-          "start_time_s": 5.000000000000004,
-          "status": "completed"
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.2,
+              "xyz_m": [
+                0.251,
+                -0.173,
+                0.95
+              ]
+            },
+            "request_id": "visual-6"
+          },
+          "response": {
+            "end_time_s": 6.200000000000405,
+            "request_id": "visual-6",
+            "start_time_s": 5.000000000000004,
+            "status": "completed"
+          }
         }
-      }
-    ],
-    "command": {
-      "action": "hand",
-      "arguments": {
-        "closure": 0.0,
-        "seconds": 0.5
-      }
+      ],
+      "remaining_actions": 14,
+      "remaining_time_s": 18.799999999999596
     },
-    "interface_response": {
-      "status": "completed",
-      "start_time_s": 6.200000000000405,
-      "end_time_s": 6.700000000000572,
+    "subsequent_command_and_execution": {
+      "command": {
+        "action": "hand",
+        "arguments": {
+          "closure": 0.0,
+          "seconds": 0.5
+        }
+      },
+      "execution_status": "completed",
+      "execution_start_time_s": 6.200000000000405,
+      "execution_end_time_s": 6.700000000000572,
       "error": null
     }
   },
   {
     "call": 8,
-    "observation_time_s": 6.700000000000572,
-    "image_sha256": "1f86664cd8ce757eb07f25931a608d7dae17c6427db43c6a9059d16d0baae962",
-    "robot_proprioception": null,
-    "public_history_preceding_decision": [
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 0.0,
-            "seconds": 0.5
-          },
-          "request_id": "visual-1"
+    "input_preceding_decision": {
+      "observation_time_s": 6.700000000000572,
+      "observation_id": "d5a5119120be4bb9b84fb3e0c663820a",
+      "image_sha256": "1f86664cd8ce757eb07f25931a608d7dae17c6427db43c6a9059d16d0baae962",
+      "public_robot_state": {
+        "frame": "world",
+        "instruction_version": 1,
+        "mode": "robot_state",
+        "robot": {
+          "contact_links": [],
+          "hand_quaternion_wxyz": [
+            0.49515283418624456,
+            -0.4963771688712573,
+            0.5046027547013259,
+            0.5037950346802943
+          ],
+          "hand_xyz_m": [
+            0.24835658740838062,
+            -0.17348739559308549,
+            0.9459814425177011
+          ],
+          "joint_names": [
+            "left_hip_pitch_joint",
+            "left_hip_roll_joint",
+            "left_hip_yaw_joint",
+            "left_knee_joint",
+            "left_ankle_pitch_joint",
+            "left_ankle_roll_joint",
+            "right_hip_pitch_joint",
+            "right_hip_roll_joint",
+            "right_hip_yaw_joint",
+            "right_knee_joint",
+            "right_ankle_pitch_joint",
+            "right_ankle_roll_joint",
+            "waist_yaw_joint",
+            "waist_roll_joint",
+            "waist_pitch_joint",
+            "left_shoulder_pitch_joint",
+            "left_shoulder_roll_joint",
+            "left_shoulder_yaw_joint",
+            "left_elbow_joint",
+            "left_wrist_roll_joint",
+            "left_wrist_pitch_joint",
+            "left_wrist_yaw_joint",
+            "left_hand_thumb_0_joint",
+            "left_hand_thumb_1_joint",
+            "left_hand_thumb_2_joint",
+            "left_hand_middle_0_joint",
+            "left_hand_middle_1_joint",
+            "left_hand_index_0_joint",
+            "left_hand_index_1_joint",
+            "right_shoulder_pitch_joint",
+            "right_shoulder_roll_joint",
+            "right_shoulder_yaw_joint",
+            "right_elbow_joint",
+            "right_wrist_roll_joint",
+            "right_wrist_pitch_joint",
+            "right_wrist_yaw_joint",
+            "right_hand_thumb_0_joint",
+            "right_hand_thumb_1_joint",
+            "right_hand_thumb_2_joint",
+            "right_hand_index_0_joint",
+            "right_hand_index_1_joint",
+            "right_hand_middle_0_joint",
+            "right_hand_middle_1_joint"
+          ],
+          "joint_position_rad": [
+            0.002339255362491465,
+            0.00013177063084580243,
+            -1.7525703045123643e-05,
+            0.00048697434614393555,
+            0.0003044033972472811,
+            -2.6019370640183748e-08,
+            0.0023392975812994584,
+            -0.0001313554993224999,
+            1.752902787524991e-05,
+            0.0004869738705128607,
+            0.0003044033760098327,
+            2.5931097018254023e-08,
+            2.0450836149080837e-05,
+            0.0003199477719474048,
+            0.012243685089945795,
+            0.19855745971873048,
+            0.19621922487639856,
+            -0.0004666026488069283,
+            1.2801754798950997,
+            1.1204035493268367e-06,
+            0.00019197624211472603,
+            -0.0002785703875395528,
+            -0.0007858949908853516,
+            1.05880482013296,
+            5.587186432662729e-05,
+            -0.00025076988767840796,
+            -4.478764976265052e-05,
+            -0.00025062562565949734,
+            -4.476705392284786e-05,
+            -1.367016009623817,
+            -1.1099362616100958,
+            1.3245630811934823,
+            -0.11510125275915198,
+            0.165546229355249,
+            0.8273552666670159,
+            1.4328327617261531,
+            1.986927410571868e-05,
+            -0.10110586979680057,
+            -0.1000980456093945,
+            -0.0001468438879356874,
+            -0.00012802830158318464,
+            -0.00014714377559793003,
+            -0.00012805174553659043
+          ],
+          "joint_velocity_rad_s": [
+            8.350279391208323e-08,
+            2.1242181675253e-09,
+            2.3071546852591693e-11,
+            -9.093797231694892e-10,
+            -4.5175709475173674e-11,
+            -3.884548735661626e-13,
+            2.2902364227351414e-08,
+            -7.209108466304206e-07,
+            -5.841469683619721e-09,
+            -2.0847749145311968e-10,
+            -1.7426524024285585e-11,
+            1.5613788200363822e-10,
+            -9.30568623077272e-05,
+            0.0001330020496303092,
+            0.00023139273341384048,
+            2.3868318758389407e-05,
+            1.10506019143124e-05,
+            -1.2918698240280145e-05,
+            -1.662195946005583e-05,
+            -1.5350468590967783e-05,
+            -1.390485472141256e-05,
+            -7.00304710850362e-05,
+            -0.005359994433288105,
+            -0.23466789230563773,
+            -0.0005288739385930015,
+            0.0002889037260502901,
+            4.3941771626239465e-05,
+            0.0002968087912264346,
+            4.48978631376803e-05,
+            8.338734483561711e-05,
+            0.00010999033014161485,
+            6.757733202265823e-06,
+            -9.98462442170506e-05,
+            2.3660788284740255e-05,
+            -2.1233822637754172e-05,
+            -0.00010197599492925006,
+            3.65629547719937e-06,
+            -0.0013319557645838568,
+            -0.002446587386860822,
+            0.004694246679593905,
+            0.004729661939379516,
+            0.004701985255961404,
+            0.004730404152604362
+          ]
         },
-        "response": {
-          "end_time_s": 1.0000000000000007,
-          "request_id": "visual-1",
-          "start_time_s": 0.5000000000000003,
-          "status": "completed"
-        }
+        "schema_version": "humanoid-actions-v2",
+        "supported_body": true,
+        "time_s": 6.700000000000572
       },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.0,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.91
-            ]
+      "public_history": [
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 0.0,
+              "seconds": 0.5
+            },
+            "request_id": "visual-1"
           },
-          "request_id": "visual-2"
+          "response": {
+            "end_time_s": 1.0000000000000007,
+            "request_id": "visual-1",
+            "start_time_s": 0.5000000000000003,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 1.9999999999998905,
-          "request_id": "visual-2",
-          "start_time_s": 1.0000000000000007,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.2,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.84
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.0,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.91
+              ]
+            },
+            "request_id": "visual-2"
           },
-          "request_id": "visual-3"
+          "response": {
+            "end_time_s": 1.9999999999998905,
+            "request_id": "visual-2",
+            "start_time_s": 1.0000000000000007,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.1999999999997586,
-          "request_id": "visual-3",
-          "start_time_s": 1.9999999999998905,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 0.8,
-            "xyz_m": [
-              0.251,
-              -0.173,
-              0.8
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.2,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.84
+              ]
+            },
+            "request_id": "visual-3"
           },
-          "request_id": "visual-4"
+          "response": {
+            "end_time_s": 3.1999999999997586,
+            "request_id": "visual-3",
+            "start_time_s": 1.9999999999998905,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.9999999999996705,
-          "request_id": "visual-4",
-          "start_time_s": 3.1999999999997586,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 1.0,
-            "seconds": 1.0
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 0.8,
+              "xyz_m": [
+                0.251,
+                -0.173,
+                0.8
+              ]
+            },
+            "request_id": "visual-4"
           },
-          "request_id": "visual-5"
+          "response": {
+            "end_time_s": 3.9999999999996705,
+            "request_id": "visual-4",
+            "start_time_s": 3.1999999999997586,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 5.000000000000004,
-          "request_id": "visual-5",
-          "start_time_s": 3.9999999999996705,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.2,
-            "xyz_m": [
-              0.251,
-              -0.173,
-              0.95
-            ]
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 1.0,
+              "seconds": 1.0
+            },
+            "request_id": "visual-5"
           },
-          "request_id": "visual-6"
+          "response": {
+            "end_time_s": 5.000000000000004,
+            "request_id": "visual-5",
+            "start_time_s": 3.9999999999996705,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 6.200000000000405,
-          "request_id": "visual-6",
-          "start_time_s": 5.000000000000004,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 0.0,
-            "seconds": 0.5
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.2,
+              "xyz_m": [
+                0.251,
+                -0.173,
+                0.95
+              ]
+            },
+            "request_id": "visual-6"
           },
-          "request_id": "visual-7"
+          "response": {
+            "end_time_s": 6.200000000000405,
+            "request_id": "visual-6",
+            "start_time_s": 5.000000000000004,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 6.700000000000572,
-          "request_id": "visual-7",
-          "start_time_s": 6.200000000000405,
-          "status": "completed"
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 0.0,
+              "seconds": 0.5
+            },
+            "request_id": "visual-7"
+          },
+          "response": {
+            "end_time_s": 6.700000000000572,
+            "request_id": "visual-7",
+            "start_time_s": 6.200000000000405,
+            "status": "completed"
+          }
         }
-      }
-    ],
-    "command": {
-      "action": "move",
-      "arguments": {
-        "quaternion_wxyz": [
-          0.5,
-          -0.5,
-          0.5,
-          0.5
-        ],
-        "seconds": 1.0,
-        "xyz_m": [
-          0.251,
-          -0.173,
-          0.8
-        ]
-      }
+      ],
+      "remaining_actions": 13,
+      "remaining_time_s": 18.29999999999943
     },
-    "interface_response": {
-      "status": "completed",
-      "start_time_s": 6.700000000000572,
-      "end_time_s": 7.700000000000906,
+    "subsequent_command_and_execution": {
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.0,
+          "xyz_m": [
+            0.251,
+            -0.173,
+            0.8
+          ]
+        }
+      },
+      "execution_status": "completed",
+      "execution_start_time_s": 6.700000000000572,
+      "execution_end_time_s": 7.700000000000906,
       "error": null
     }
   },
   {
     "call": 9,
-    "observation_time_s": 7.700000000000906,
-    "image_sha256": "142f1ab0e437b72c9afa05541d0fbf1389a03a6a4f5c7e573505ddf612f0662f",
-    "robot_proprioception": null,
-    "public_history_preceding_decision": [
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 0.0,
-            "seconds": 0.5
-          },
-          "request_id": "visual-1"
+    "input_preceding_decision": {
+      "observation_time_s": 7.700000000000906,
+      "observation_id": "8dadc5d68f50470da7b8e92a50c1d1b5",
+      "image_sha256": "142f1ab0e437b72c9afa05541d0fbf1389a03a6a4f5c7e573505ddf612f0662f",
+      "public_robot_state": {
+        "frame": "world",
+        "instruction_version": 1,
+        "mode": "robot_state",
+        "robot": {
+          "contact_links": [],
+          "hand_quaternion_wxyz": [
+            0.49555641645915904,
+            -0.4965119615984169,
+            0.5038092329174255,
+            0.5040594874843691
+          ],
+          "hand_xyz_m": [
+            0.24660170332975417,
+            -0.1728103118007936,
+            0.7961579147838403
+          ],
+          "joint_names": [
+            "left_hip_pitch_joint",
+            "left_hip_roll_joint",
+            "left_hip_yaw_joint",
+            "left_knee_joint",
+            "left_ankle_pitch_joint",
+            "left_ankle_roll_joint",
+            "right_hip_pitch_joint",
+            "right_hip_roll_joint",
+            "right_hip_yaw_joint",
+            "right_knee_joint",
+            "right_ankle_pitch_joint",
+            "right_ankle_roll_joint",
+            "waist_yaw_joint",
+            "waist_roll_joint",
+            "waist_pitch_joint",
+            "left_shoulder_pitch_joint",
+            "left_shoulder_roll_joint",
+            "left_shoulder_yaw_joint",
+            "left_elbow_joint",
+            "left_wrist_roll_joint",
+            "left_wrist_pitch_joint",
+            "left_wrist_yaw_joint",
+            "left_hand_thumb_0_joint",
+            "left_hand_thumb_1_joint",
+            "left_hand_thumb_2_joint",
+            "left_hand_middle_0_joint",
+            "left_hand_middle_1_joint",
+            "left_hand_index_0_joint",
+            "left_hand_index_1_joint",
+            "right_shoulder_pitch_joint",
+            "right_shoulder_roll_joint",
+            "right_shoulder_yaw_joint",
+            "right_elbow_joint",
+            "right_wrist_roll_joint",
+            "right_wrist_pitch_joint",
+            "right_wrist_yaw_joint",
+            "right_hand_thumb_0_joint",
+            "right_hand_thumb_1_joint",
+            "right_hand_thumb_2_joint",
+            "right_hand_index_0_joint",
+            "right_hand_index_1_joint",
+            "right_hand_middle_0_joint",
+            "right_hand_middle_1_joint"
+          ],
+          "joint_position_rad": [
+            0.0023392996655862007,
+            0.0001317716351464738,
+            -1.7525692188888512e-05,
+            0.0004869738649228458,
+            0.0003044033742574773,
+            -2.6019514116552843e-08,
+            0.0023393097354582485,
+            -0.00013169813043932918,
+            1.7526257130507724e-05,
+            0.0004869737472549774,
+            0.00030440336954388444,
+            2.6005264261122386e-08,
+            -3.620144009831332e-05,
+            0.00026351603079714857,
+            0.013088176150081185,
+            0.19855354067744754,
+            0.19622586581216406,
+            -0.00046412890098622574,
+            1.2801734181676525,
+            1.073495453424616e-06,
+            0.00018978204071194165,
+            -0.00027704116458460057,
+            -0.0008026863533785786,
+            1.0602672353982245,
+            6.379868950537843e-05,
+            -0.00025437244012898344,
+            -4.53669755039004e-05,
+            -0.00025443596754245036,
+            -4.5366745174264625e-05,
+            -0.9410841679903709,
+            -0.803475266529924,
+            1.3408412586434828,
+            0.2723376297398464,
+            0.054845278751419334,
+            0.6255551068741342,
+            1.0386957396953653,
+            2.017567197053063e-05,
+            -0.10115722414727786,
+            -0.10017359546042541,
+            1.558122346810779e-05,
+            9.184973094120545e-06,
+            1.3862871272653844e-05,
+            9.042518321436985e-06
+          ],
+          "joint_velocity_rad_s": [
+            1.9884586682481874e-08,
+            3.712978278381459e-10,
+            4.403780779110506e-12,
+            -2.1647142261392478e-10,
+            -1.0063856999699834e-11,
+            -5.747793908566596e-14,
+            5.450763925418384e-09,
+            -1.278094303589106e-07,
+            -9.943396851671513e-10,
+            -5.09453327947955e-11,
+            -3.240708874958778e-12,
+            2.5945998567135402e-11,
+            0.00010844691545521116,
+            -0.00021496201267639855,
+            -0.00046172529222433036,
+            -3.8359580610019986e-05,
+            0.00017643026342072267,
+            -5.955578973239746e-05,
+            -8.755769533405508e-05,
+            1.3605088100044155e-06,
+            -2.5158311706999803e-05,
+            -0.00021050775007953643,
+            0.0050214008204916664,
+            -0.18813268718205403,
+            -0.0010997926623795592,
+            0.0005123134662976743,
+            8.022465211255201e-05,
+            0.0005349961273520445,
+            8.32163558332302e-05,
+            0.001875642976983306,
+            0.0014834222728220654,
+            8.693911604454787e-05,
+            0.0015650569801382765,
+            -6.111895183821278e-06,
+            -1.4960041869763059e-05,
+            -4.799203928274678e-05,
+            -4.018813351921824e-06,
+            -2.3822978372789312e-05,
+            -1.075090424887047e-06,
+            -0.00015795451293117526,
+            -1.4206290345624922e-05,
+            -0.0001242196755386541,
+            -1.1485883917035018e-05
+          ]
         },
-        "response": {
-          "end_time_s": 1.0000000000000007,
-          "request_id": "visual-1",
-          "start_time_s": 0.5000000000000003,
-          "status": "completed"
-        }
+        "schema_version": "humanoid-actions-v2",
+        "supported_body": true,
+        "time_s": 7.700000000000906
       },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.0,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.91
-            ]
+      "public_history": [
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 0.0,
+              "seconds": 0.5
+            },
+            "request_id": "visual-1"
           },
-          "request_id": "visual-2"
+          "response": {
+            "end_time_s": 1.0000000000000007,
+            "request_id": "visual-1",
+            "start_time_s": 0.5000000000000003,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 1.9999999999998905,
-          "request_id": "visual-2",
-          "start_time_s": 1.0000000000000007,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.2,
-            "xyz_m": [
-              0.251,
-              -0.149,
-              0.84
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.0,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.91
+              ]
+            },
+            "request_id": "visual-2"
           },
-          "request_id": "visual-3"
+          "response": {
+            "end_time_s": 1.9999999999998905,
+            "request_id": "visual-2",
+            "start_time_s": 1.0000000000000007,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.1999999999997586,
-          "request_id": "visual-3",
-          "start_time_s": 1.9999999999998905,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 0.8,
-            "xyz_m": [
-              0.251,
-              -0.173,
-              0.8
-            ]
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.2,
+              "xyz_m": [
+                0.251,
+                -0.149,
+                0.84
+              ]
+            },
+            "request_id": "visual-3"
           },
-          "request_id": "visual-4"
+          "response": {
+            "end_time_s": 3.1999999999997586,
+            "request_id": "visual-3",
+            "start_time_s": 1.9999999999998905,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 3.9999999999996705,
-          "request_id": "visual-4",
-          "start_time_s": 3.1999999999997586,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 1.0,
-            "seconds": 1.0
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 0.8,
+              "xyz_m": [
+                0.251,
+                -0.173,
+                0.8
+              ]
+            },
+            "request_id": "visual-4"
           },
-          "request_id": "visual-5"
+          "response": {
+            "end_time_s": 3.9999999999996705,
+            "request_id": "visual-4",
+            "start_time_s": 3.1999999999997586,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 5.000000000000004,
-          "request_id": "visual-5",
-          "start_time_s": 3.9999999999996705,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.2,
-            "xyz_m": [
-              0.251,
-              -0.173,
-              0.95
-            ]
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 1.0,
+              "seconds": 1.0
+            },
+            "request_id": "visual-5"
           },
-          "request_id": "visual-6"
+          "response": {
+            "end_time_s": 5.000000000000004,
+            "request_id": "visual-5",
+            "start_time_s": 3.9999999999996705,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 6.200000000000405,
-          "request_id": "visual-6",
-          "start_time_s": 5.000000000000004,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "hand",
-          "arguments": {
-            "closure": 0.0,
-            "seconds": 0.5
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.2,
+              "xyz_m": [
+                0.251,
+                -0.173,
+                0.95
+              ]
+            },
+            "request_id": "visual-6"
           },
-          "request_id": "visual-7"
+          "response": {
+            "end_time_s": 6.200000000000405,
+            "request_id": "visual-6",
+            "start_time_s": 5.000000000000004,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 6.700000000000572,
-          "request_id": "visual-7",
-          "start_time_s": 6.200000000000405,
-          "status": "completed"
-        }
-      },
-      {
-        "action": {
-          "action": "move",
-          "arguments": {
-            "quaternion_wxyz": [
-              0.5,
-              -0.5,
-              0.5,
-              0.5
-            ],
-            "seconds": 1.0,
-            "xyz_m": [
-              0.251,
-              -0.173,
-              0.8
-            ]
+        {
+          "action": {
+            "action": "hand",
+            "arguments": {
+              "closure": 0.0,
+              "seconds": 0.5
+            },
+            "request_id": "visual-7"
           },
-          "request_id": "visual-8"
+          "response": {
+            "end_time_s": 6.700000000000572,
+            "request_id": "visual-7",
+            "start_time_s": 6.200000000000405,
+            "status": "completed"
+          }
         },
-        "response": {
-          "end_time_s": 7.700000000000906,
-          "request_id": "visual-8",
-          "start_time_s": 6.700000000000572,
-          "status": "completed"
+        {
+          "action": {
+            "action": "move",
+            "arguments": {
+              "quaternion_wxyz": [
+                0.5,
+                -0.5,
+                0.5,
+                0.5
+              ],
+              "seconds": 1.0,
+              "xyz_m": [
+                0.251,
+                -0.173,
+                0.8
+              ]
+            },
+            "request_id": "visual-8"
+          },
+          "response": {
+            "end_time_s": 7.700000000000906,
+            "request_id": "visual-8",
+            "start_time_s": 6.700000000000572,
+            "status": "completed"
+          }
         }
-      }
-    ],
-    "command": {
-      "action": "move",
-      "arguments": {
-        "quaternion_wxyz": [
-          0.5,
-          -0.5,
-          0.5,
-          0.5
-        ],
-        "seconds": 1.2,
-        "xyz_m": [
-          0.15,
-          -0.48,
-          0.9
-        ]
-      }
+      ],
+      "remaining_actions": 12,
+      "remaining_time_s": 17.299999999999095
     },
-    "interface_response": {
-      "status": "rejected",
-      "start_time_s": 7.700000000000906,
-      "end_time_s": 7.700000000000906,
+    "subsequent_command_and_execution": {
+      "command": {
+        "action": "move",
+        "arguments": {
+          "quaternion_wxyz": [
+            0.5,
+            -0.5,
+            0.5,
+            0.5
+          ],
+          "seconds": 1.2,
+          "xyz_m": [
+            0.15,
+            -0.48,
+            0.9
+          ]
+        }
+      },
+      "execution_status": "rejected",
+      "execution_start_time_s": 7.700000000000906,
+      "execution_end_time_s": 7.700000000000906,
       "error": "Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m"
     }
   }
