@@ -16,37 +16,37 @@ These are observations to audit, not instructions to repair or rerun the policy.
 
 ## Checklist
 
-- [ ] Verify the committed C2 ZIP SHA-256 and every member against its manifest;
+- [x] Verify the committed C2 ZIP SHA-256 and every member against its manifest;
       verify the frozen source/scene identity. Extract to a new audit directory.
       Preserve C1/C2 source archives and all historical outcomes byte-for-byte.
-- [ ] Build a reproducible offline audit patterned after `scripts/audit_codex_c1.py`.
+- [x] Build a reproducible offline audit patterned after `scripts/audit_codex_c1.py`.
       Generalize only with explicit protocol/source checks. Do not instantiate an
       environment that resets or steps. Model loading, saved qpos, `mj_forward`
       and scratch-data IK checks are permitted; no `mj_step`, new rollout,
       renderer-generated replacement input, CLI model invocation or API call.
-- [ ] For C2 action four, retain saved samples spanning the approach, actual
+- [x] For C2 action four, retain saved samples spanning the approach, actual
       grasp-site path, object pose, and finger/object geometric contacts. Relate
       the scorer's recorded peak contact at t=3.795 s to the available sampled
       poses. Keep full-rate scorer telemetry distinct from sampled geometry;
       never infer forces or exact peak timing from qpos-only reconstruction.
-- [ ] Compare actual finger geometry along this path with the nominal C2 bounds.
+- [x] Compare actual finger geometry along this path with the nominal C2 bounds.
       Establish whether the prompt's reference frame/bounds were applicable;
       bounds alone do not describe a free grasp cavity or certify a safe path.
       Report measurements, without asserting what the model believed.
-- [ ] Produce an ordered contact sheet from the original saved public images
+- [x] Produce an ordered contact sheet from the original saved public images
       for decisions 3–9, labelled with observation time and following command.
       Include the exact public proprioception/history alongside it. Keep private
       trajectory annotations in a separately labelled evaluator artifact. AGY
       assembles evidence; Codex judges visibility and VLA reasoning implications.
-- [ ] Reproduce action nine's IK rejection on scratch data without advancing or
+- [x] Reproduce action nine's IK rejection on scratch data without advancing or
       mutating the saved integration state. Record the residual and unchanged state.
-- [ ] Compare only descriptive C1/C2 facts: first damaging action, displacement,
+- [x] Compare only descriptive C1/C2 facts: first damaging action, displacement,
       lift/placement, penetration and stop reason. Do not treat the reused single
       seed, different action sequences, or extra executed actions as efficacy proof.
-- [ ] Add focused tests for new audit logic, including source mismatch rejection
+- [x] Add focused tests for new audit logic, including source mismatch rejection
       and a check that the audit cannot step/reset physics or invoke a model.
       Report exact commands, source hashes, artifact hashes and limitations.
-- [ ] Commit/push the task branch, write `coordination/agy/reports/009-completion.md`
+- [x] Commit/push the task branch, write `coordination/agy/reports/009-completion.md`
       and stop for Codex review. Leave thresholds, prompts, controller and scorer
       unchanged; seeds 840–849 remain unused.
 

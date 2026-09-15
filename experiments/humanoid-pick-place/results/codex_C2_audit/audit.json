@@ -1,0 +1,1735 @@
+{
+  "status": "complete",
+  "mode": "private_posthoc_qpos_geometry_and_final_state_preflight",
+  "physics_steps": 0,
+  "model_invocations": 0,
+  "source_episode": "/private/tmp/mujoco-llms-agy-009/runtime/humanoid/codex-C2/seed-820",
+  "source_files_sha256": {
+    "call_001.json": "effb9e9acd3156f1fe60e2d53a42822795a3be225cffd43c0a9cf76eab398010",
+    "call_002.json": "0feb9cddac5416b9ba92f1e9990bec44eaa2bc92a450f4c020546fbe7a09a94a",
+    "call_003.json": "1b6b7da9827d0ee6c474d9bc9156547eb3923345c14bf280a077439dd7f4b36f",
+    "call_004.json": "1179fdddd1e8ef66f21edc759a0ad68add17a7829f3e8156e7f63a90f9252413",
+    "call_005.json": "6771d3fba82ec4044ca2ff1882564345d78b3dce4b6c007abf75cad7b929cb67",
+    "call_006.json": "da2a6d6917f8bc84757009ff23e05e936467ef959d1f9a9ee50fb84f3e0bf806",
+    "call_007.json": "9b8c9b72c3f2430e801ca0961a648d6b79c616159223f32803de17ebd6499395",
+    "call_008.json": "5601a8093594e2887e5f0c4b4e1d885c089ae75a81a732ebfd9cbc7efb54cbd1",
+    "call_009.json": "d521b606e04b1eae34bf553f1bb9e39bc9c311562ba3ee98e785fc48bd79820d",
+    "codex/decision-001/decision.json": "3df237d7f9aef1fec871b6223cee11b57debceaf07db5011b331ae481ef28c3e",
+    "codex/decision-001/events.jsonl": "288a3b846fff7f6beddd147be6fced86c8eb14eef7fb0090d18c688dd84fcdc1",
+    "codex/decision-001/observation.png": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65",
+    "codex/decision-001/prompt.txt": "738ec18796e636af0e7491d8b192e7d1cfd32ed28912ff20db66d8e11d07322e",
+    "codex/decision-001/record.json": "c2be201c42fc67765d72089a390a6dc588801f12ee267bf0acf8c201071814ea",
+    "codex/decision-001/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex/decision-002/decision.json": "ff0d81d3cfa94177ff9b9b17456d11e36fefc3e93b267bece968fbed2ce64f01",
+    "codex/decision-002/events.jsonl": "c910769a74935637522d982d3f7d6497d219ecfb5c810cc173de7181969a84f0",
+    "codex/decision-002/observation.png": "316ba72b8d1b7ffa3ea8de6a98ba0dc9f09087ad054f8539a73ed1b46833601e",
+    "codex/decision-002/prompt.txt": "4914a14e9f8533b9d86211a0e4acc9ec4ad1fdd76f0f0ba731a905958e6b4f73",
+    "codex/decision-002/record.json": "6bd9c96c7ea634c19c47c7a55c77a11048985e3f2f76a4f27a2ffd76991333ac",
+    "codex/decision-002/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex/decision-003/decision.json": "a46c83bbff3f995a190c370e4f456360a5e01656dde23f307c6fabc3ede12ecd",
+    "codex/decision-003/events.jsonl": "03762768f68eded1ebff05ca6153ab356d754214fa304547e7dfd44250283e3a",
+    "codex/decision-003/observation.png": "cad63bf0f20427f4b2329f27a1f7f82a42708e585dffe2f6dfe55fc0c7c70a39",
+    "codex/decision-003/prompt.txt": "a2f336d7608d5913d85848dab9a8b9456fceef9d61347827165524a4145a7a49",
+    "codex/decision-003/record.json": "f05368783446503053942dea7da5ca7eb4700f9ab469e8a84a1d893a608c6989",
+    "codex/decision-003/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex/decision-004/decision.json": "f74f40fbc8400d3fff42b4f9571d9c3cd5fad45f0a86036a6ba048a4ab720d9d",
+    "codex/decision-004/events.jsonl": "5f549b5d11aac8c98dab3b85f2390c39d6b80ba1833409ab373140dbccb600d6",
+    "codex/decision-004/observation.png": "c5f58211f6c4a0f19d8c24d37d61249c33e65846de2042ffc152246e440573ad",
+    "codex/decision-004/prompt.txt": "e7bca0cd7056fc6008cc79d72b9da5532feb24f1fbde98307390837f55e53c28",
+    "codex/decision-004/record.json": "c7da35754a4410db5d25bc9f75737a7417feb2dd53a28359d07ff41eba1874e1",
+    "codex/decision-004/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex/decision-005/decision.json": "d4f20932d2c5f01ab88b9e2489a83651855b36119f9ab227b1b1b7ed80d4f73d",
+    "codex/decision-005/events.jsonl": "70763c3d5a26140416850557b9b221e553476c723f516d126f287e7dfd1e3978",
+    "codex/decision-005/observation.png": "4461921cd27bda89d43db4fda9f09e7c46c91d343be143b28c0d4ce7b15506ac",
+    "codex/decision-005/prompt.txt": "1d48deaec2943dd15046b161fba6e352345012dddc3ef8db28a9396f61e29fa1",
+    "codex/decision-005/record.json": "ddaff8e6ad71308e240da988d3b89cd9a0b7db2ddd51a6068c7958386efa0bba",
+    "codex/decision-005/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex/decision-006/decision.json": "47e47e420e6991173d3ce57ec6e13f062ccfe2275850292488a5591d4580ab05",
+    "codex/decision-006/events.jsonl": "19fcb29a3e2a65af7bd408539d52464774cdfa2fde000fa7f3e406a590f53c95",
+    "codex/decision-006/observation.png": "9af8e3ad3ca8f698a78a0b955040912d4fe0911b6209bad216b6b33e1b648224",
+    "codex/decision-006/prompt.txt": "dafc8f34b12249a3fbaae1c4d57652869bd72130e0d6a4a73c4ae64dd05a75fd",
+    "codex/decision-006/record.json": "154cfbf2f7acec2fa4345d66c2db6b02af1773a090c3cb2f40fc8055e62d6830",
+    "codex/decision-006/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex/decision-007/decision.json": "3df237d7f9aef1fec871b6223cee11b57debceaf07db5011b331ae481ef28c3e",
+    "codex/decision-007/events.jsonl": "52f20be87dcd0b175c1011fe6060646e16b73c95fc2012efe91da7a1f1960bc1",
+    "codex/decision-007/observation.png": "72b19a753915c987bad6cc8f2a6f3d02976ec55beb87291d994984523778f41d",
+    "codex/decision-007/prompt.txt": "fea6388ed342ebb313aa9ab3e0beb04dbec1f671f4bd6ec41c881ae0a78f15ec",
+    "codex/decision-007/record.json": "1cc1f73de3f7d86343da1e0256d16b17bca88df1aefe3f611eeddea4a482f40c",
+    "codex/decision-007/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex/decision-008/decision.json": "7c5e5fe89ab3801b1a32028295f9a1b5dbe125f3aff4325332d5e52d68f0544e",
+    "codex/decision-008/events.jsonl": "a5316a2c13ff90d937bd1e9259059e1c22c3f9257822af0146f4559dd5175052",
+    "codex/decision-008/observation.png": "1f86664cd8ce757eb07f25931a608d7dae17c6427db43c6a9059d16d0baae962",
+    "codex/decision-008/prompt.txt": "c33e7092c950ed2d78239c0b13d54b271f5102a4aa489621babe3386d33417c4",
+    "codex/decision-008/record.json": "3e12eebfb568b76dcd833f476f60e40df6400f4eb4667eda33e5df44162fc599",
+    "codex/decision-008/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "codex/decision-009/decision.json": "0f91c0d0fa724a71070ad871049f23e77a51837619aaa41b9b46d8b72864c2ae",
+    "codex/decision-009/events.jsonl": "d712e6e8275205648eeb52dd084ad9ad2f51189e38f7e2a583a87ac8e281fc46",
+    "codex/decision-009/observation.png": "142f1ab0e437b72c9afa05541d0fbf1389a03a6a4f5c7e573505ddf612f0662f",
+    "codex/decision-009/prompt.txt": "35b9787da69474b7fe7b1a1b71467216972f4b334450e074378a86fb30298f65",
+    "codex/decision-009/record.json": "b93200c3ccc16670ac4d4fa5f15c3dae876b2319bbff5f96d1d3511a041d79e2",
+    "codex/decision-009/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "episode.npz": "4a95988d255a4a5d2525f258d67776e2638ae16450c06f81b6e2521f8688cee5",
+    "evaluator_report.json": "f482ce384f18d89f37e3217e028f62174b0801c3a6d61508f74490e6b945a9ce",
+    "events.json": "3a1bbaa14c189f20e4e4352ea7912039766c05a00c66942d07aa6041e1552646",
+    "geometry_evidence.json": "d05eaa296612db243fd9362d1018d7b92d63cb93006221f959422fa1712141d6",
+    "metadata.json": "e2c0d404f93ca72a339ac48c80ca3442634c48205807d371f9480468207e5577",
+    "report.json": "265da393b2466ef56b3c5c790aa54d3499632d62d5da8ab243096562157408d6"
+  },
+  "archive_verification": {
+    "pinned_archive_sha256": "940f3ef71518a15f9f171adb877c108596060142b9f1e08276146ad876bd95f8",
+    "archive_sha256_verified": true,
+    "member_count": 73,
+    "members_verified": true
+  },
+  "source_archive_sha256": "940f3ef71518a15f9f171adb877c108596060142b9f1e08276146ad876bd95f8",
+  "physical_source_sha256": {
+    "experiments/humanoid-pick-place/VISUAL_POLICY_RUNNER.md": "46acf384eb00038b310b060d96b7d00968814284e04b501c51524f17500f6331",
+    "experiments/humanoid-pick-place/protocols/G2.md": "cf2b42beb075e951017df75f0d1d7039a93b3289bfd709071d195d9831f0b253",
+    "experiments/humanoid-pick-place/protocols/V4.md": "932c8e2e527045c24247bea3f17a370a35986d87d1b3795ef686cfcc3cefc62c",
+    "experiments/humanoid-pick-place/schemas/action-v2.schema.json": "6ad1d1f5a4b24044b1fafb29d3632ec493e865c0bd433040addf62a4bb3acbc8",
+    "humanoid_sim/__init__.py": "9c51b8465ec21f63fb2b62450c63449be841333bd02f91478c17ccd8d41695d7",
+    "humanoid_sim/__main__.py": "4012b00a4d98e65c71f48835fcd6f9d8b29c011c0abb5f4275fc2780702c0237",
+    "humanoid_sim/baseline.py": "26ef06bff2343deca7eb160e5615ad00800004e599a6d8efb6c624d8a3b769de",
+    "humanoid_sim/carried_pose.py": "ff705e89afbc08643dc029576b6381d5ad990bd981852f51049a445a4af449cb",
+    "humanoid_sim/carried_pose_evaluation.py": "b91fc8293046ef6ed92c0cebc0ca5d05241e6999783922b314d0a96d75b68259",
+    "humanoid_sim/codex_policy.py": "1f11d6f5dd9ef04be0f96362d9a53983a40cd3fb593e3cfbfababe61e1a1968f",
+    "humanoid_sim/environment.py": "ccbceee88de3ba356efd4231d6c8d2d94c3c298ba3b892ff23e3820f996ee5e6",
+    "humanoid_sim/evaluation.py": "42eaa9549cdd5c2e507315277a35530896594354bd29b04002d2b5f12418ea21",
+    "humanoid_sim/guarded_baseline.py": "38fab1b84b21e86087e860547fa28112850c30a0f30ff45e051bc47a406fc488",
+    "humanoid_sim/guarded_evaluation.py": "f5fa8c492c575779de235d0ad5de0cb0600b3ec4201d851a568c87a194e9e339",
+    "humanoid_sim/interface.py": "b9ba6c91fa2c34f248997c6ddc73957b66afcc5068fdcc8c45dbb995121e9afc",
+    "humanoid_sim/llm_runner.py": "b7fbcc7a0cf54cf1484a96ce6e395d8e984ab95890be3b81fda58516129e0f8b",
+    "humanoid_sim/p5_evaluation.py": "c43d2014e412c38ce42ec499dcf09cdc54d5facf348b91f605b043c880bf87d2",
+    "humanoid_sim/perception.py": "47457f5bac5c47d818f7dcf9f909c750f7820d10dfd7a02b6426a5ebc486caad",
+    "humanoid_sim/perception_evaluation.py": "009dbb594b5b5f80046c5cec5b4d67ba4e21482e79514d3b8b30e0582b414df2",
+    "humanoid_sim/render.py": "7c14067e1a3de6d145510353c13e0e59117ddef1321e58071f81abb2c9683e5b",
+    "humanoid_sim/scene.py": "40c2ab689f6f7e31fcb40875c4ff3efbba7fb4de691733f64db0f428cd1bde5d",
+    "humanoid_sim/scoring.py": "3445409f340afd7756ac2542e16630d1ffcb53ad786c146742a71f6fd435c386",
+    "humanoid_sim/temporal_pose.py": "19806899e9820fffb21783e16e30788d53efb189d7c50dab50b6633b05ebf258",
+    "humanoid_sim/temporal_pose_evaluation.py": "9218d45c72a11bedbef69768a16f862ce39d18060b1654724872ccb987689b9d",
+    "humanoid_sim/temporal_reacquisition_evaluation.py": "1dd630c4ef86fd972eb3150eb9ac0d5fe0c2a65cea31ae4805dd95844e0cead3",
+    "humanoid_sim/vision_pose.py": "005911f63e4f2c63940477d2ab04983ca9218765fdf51a97297d6f5a43309108",
+    "humanoid_sim/visual.py": "8a17935f50acf412b3a5050ffc57d4cb874ccf8be08d6cf2990275bd1f97b5cb",
+    "humanoid_sim/visual_policy_runner.py": "5260dadd726d4222656bffe6962c3728d4f145f58181f8dfd6a899ec773cab81",
+    "humanoid_sim/visual_provider_adapter.py": "381e275c1bc8fa2ba690d4a40392f4fe3bcbfff92544eeeb59ced3bf5bbe9b99",
+    "scenes/g1_pick_place.xml": "6d86617e402db06acc80226736bc7202ccae5dd8efc98fb348b714935333e725"
+  },
+  "audit_source_sha256": "fa05101f4833aefe545211acaa0a8d4b6d81765a552b5244f9dc50334e5a6e4e",
+  "mujoco_version": "3.12.0",
+  "action_4_analysis": {
+    "call_index": 4,
+    "interval_s": [
+      3.1999999999997586,
+      3.9999999999996705
+    ],
+    "command": {
+      "quaternion_wxyz": [
+        0.5,
+        -0.5,
+        0.5,
+        0.5
+      ],
+      "seconds": 0.8,
+      "xyz_m": [
+        0.251,
+        -0.173,
+        0.8
+      ]
+    },
+    "approach_start": {
+      "time_s": 3.1999999999997586,
+      "hand_xyz_m": [
+        0.24697508338702295,
+        -0.14918976150570495,
+        0.8362727223613804
+      ],
+      "object_xyz_m": [
+        0.24925611092339786,
+        -0.17548383936001508,
+        0.7599985795388081
+      ],
+      "object_vertical_extent_m": 0.060000000000133065,
+      "object_upright_axis_z_abs": 1.0000000000000002,
+      "object_hand_contacts": []
+    },
+    "approach_end": {
+      "time_s": 3.9999999999996705,
+      "hand_xyz_m": [
+        0.2467346205337109,
+        -0.172665565260235,
+        0.7965515788730833
+      ],
+      "object_xyz_m": [
+        0.09610143150835308,
+        -0.19399654067113212,
+        0.7429230753908174
+      ],
+      "object_vertical_extent_m": 0.042995697055180256,
+      "object_upright_axis_z_abs": 0.00022344362884890723,
+      "object_hand_contacts": []
+    },
+    "object_displacement_m": [
+      -0.1531546794150448,
+      -0.01851270131111704,
+      -0.01707550414799075
+    ],
+    "object_xy_displacement_m": 0.1542694912695306,
+    "object_3d_displacement_m": 0.15521162578385625,
+    "object_rotation_deg": 166.57843760259001,
+    "object_upright_axis_z_final": 0.00022344362884890723,
+    "requested_approach_minus_initial_object_xyz_m": [
+      0.0017438890766021398,
+      0.0024838393600150888,
+      0.04000142046119193
+    ],
+    "first_sampled_hand_contact": {
+      "sample_index": 117,
+      "time_s": 3.760999999999697,
+      "penetration_m": 0.0002741165378328769,
+      "contacts": [
+        {
+          "geom_ids": [
+            105,
+            98
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_0_link"
+          ],
+          "distance_m": -0.0002741165378328769,
+          "position_world_m": [
+            0.2780975697361727,
+            -0.2073856155670838,
+            0.7796868986224268
+          ]
+        }
+      ]
+    },
+    "max_sampled_penetration": {
+      "sample_index": 118,
+      "time_s": 3.793999999999693,
+      "penetration_m": 0.005184671623014815,
+      "contacts": [
+        {
+          "geom_ids": [
+            105,
+            98
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_0_link"
+          ],
+          "distance_m": -0.005184671623014815,
+          "position_world_m": [
+            0.2761322305018046,
+            -0.20764877163916434,
+            0.7811403330220213
+          ]
+        },
+        {
+          "geom_ids": [
+            105,
+            98
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_0_link"
+          ],
+          "distance_m": -0.005072835953874126,
+          "position_world_m": [
+            0.2761949266674878,
+            -0.20763912926990336,
+            0.7798794599186092
+          ]
+        },
+        {
+          "geom_ids": [
+            105,
+            100
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_1_link"
+          ],
+          "distance_m": -0.00112993960329269,
+          "position_world_m": [
+            0.2783481406031306,
+            -0.20754910286451872,
+            0.7489943084183472
+          ]
+        },
+        {
+          "geom_ids": [
+            105,
+            100
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_1_link"
+          ],
+          "distance_m": -0.00107466530630292,
+          "position_world_m": [
+            0.27778129144384556,
+            -0.2051903366306539,
+            0.7456486535641589
+          ]
+        },
+        {
+          "geom_ids": [
+            105,
+            100
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_1_link"
+          ],
+          "distance_m": -0.0010842298348492608,
+          "position_world_m": [
+            0.27778162279074714,
+            -0.20524373408443053,
+            0.7468154124302648
+          ]
+        },
+        {
+          "geom_ids": [
+            105,
+            100
+          ],
+          "geom_names": [
+            "object",
+            ""
+          ],
+          "body_names": [
+            "red_block",
+            "right_hand_middle_1_link"
+          ],
+          "distance_m": -0.001135741651544525,
+          "position_world_m": [
+            0.2783411772932005,
+            -0.2075554952252136,
+            0.7497451709654901
+          ]
+        }
+      ]
+    }
+  },
+  "telemetry_vs_sampled_geometry": {
+    "full_rate_scorer_telemetry": {
+      "rate_hz": 1000,
+      "peak_time_s": 3.794999999999693,
+      "other_body": "right_hand_middle_0_link",
+      "other_geom_id": 98,
+      "penetration_m": 0.005184671623014815,
+      "normal_force_at_peak_penetration_n": 25.5065408364408,
+      "note": "Recorded by private scorer during live physics integration at 1 kHz (dt=0.001 s). Normal force 25.51 N was measured at peak penetration (t=3.795 s), not a separately maximized force."
+    },
+    "sampled_qpos_geometry": {
+      "rate_hz": 30,
+      "nearest_to_scorer_peak_sample_index": 118,
+      "nearest_sample_time_s": 3.793999999999693,
+      "nearest_sample_penetration_m": 0.005184671623014815,
+      "first_sampled_contact_sample_index": 117,
+      "first_sampled_contact_time_s": 3.760999999999697,
+      "first_sampled_contact_penetration_m": 0.0002741165378328769,
+      "first_contact_sample_index": 117,
+      "first_contact_time_s": 3.760999999999697,
+      "first_contact_penetration_m": 0.0002741165378328769,
+      "max_contact_sample_index": 118,
+      "max_sampled_penetration_m": 0.005184671623014815,
+      "note": "Qpos trajectory analysis is post-hoc geometric reconstruction only (dt ~ 0.033 s). 30 Hz snapshots cannot identify exact collision onset or continuous contact forces."
+    }
+  },
+  "finger_geometry_vs_nominal_bounds": {
+    "prompt_bounds_world_offset_m": {
+      "x": [
+        -0.074,
+        0.058
+      ],
+      "y": [
+        -0.042,
+        0.042
+      ],
+      "z": [
+        -0.077,
+        0.085
+      ]
+    },
+    "per_sample_action_4_bounds": [
+      {
+        "sample_index": 100,
+        "time_s": 3.1999999999997586,
+        "hand_quaternion_wxyz": [
+          0.4952766030441167,
+          -0.4967919877082832,
+          0.5043489400462325,
+          0.5035185737390189
+        ],
+        "quaternion_diff_from_nominal": 0.007993463726651426,
+        "finger_joints_rad": [
+          2.0010628322217958e-05,
+          -0.10115812310167165,
+          -0.10017363827884672,
+          1.0297432091216936e-05,
+          8.772978980404706e-06,
+          9.873594709383527e-06,
+          8.729889045573147e-06
+        ],
+        "world_offset_min_m": [
+          -0.07251217235627777,
+          -0.0416800419760317,
+          -0.07778212847904054
+        ],
+        "world_offset_max_m": [
+          0.057240735656255426,
+          0.04139190791540909,
+          0.08465012749024836
+        ],
+        "departure_min_m": [
+          0.0014878276437222254,
+          0.0003199580239683017,
+          -0.0007821284790405364
+        ],
+        "departure_max_m": [
+          -0.000759264343744577,
+          -0.0006080920845909152,
+          -0.00034987250975164474
+        ]
+      },
+      {
+        "sample_index": 101,
+        "time_s": 3.232999999999755,
+        "hand_quaternion_wxyz": [
+          0.4952673229677217,
+          -0.4968346129481734,
+          0.5042841078602013,
+          0.5035505781315974
+        ],
+        "quaternion_diff_from_nominal": 0.007961035881475632,
+        "finger_joints_rad": [
+          1.9931406338052042e-05,
+          -0.10116157710731999,
+          -0.10017395799030578,
+          7.705711455254058e-06,
+          8.632798537046406e-06,
+          1.5949688308771608e-06,
+          7.880982698202992e-06
+        ],
+        "world_offset_min_m": [
+          -0.07251645576346427,
+          -0.041672354251467286,
+          -0.0777777005682887
+        ],
+        "world_offset_max_m": [
+          0.05724701305490032,
+          0.041397704144290184,
+          0.08465007612023079
+        ],
+        "departure_min_m": [
+          0.0014835442365357249,
+          0.0003276457485327164,
+          -0.0007777005682887
+        ],
+        "departure_max_m": [
+          -0.0007529869450996832,
+          -0.0006022958557098182,
+          -0.0003499238797692178
+        ]
+      },
+      {
+        "sample_index": 102,
+        "time_s": 3.2659999999997513,
+        "hand_quaternion_wxyz": [
+          0.495286791333713,
+          -0.49711507428025253,
+          0.503839512405739,
+          0.5036996555413173
+        ],
+        "quaternion_diff_from_nominal": 0.007678960800697384,
+        "finger_joints_rad": [
+          1.827876225128749e-05,
+          -0.1011752614620945,
+          -0.10017491065778152,
+          -1.842328895816756e-05,
+          5.727870161552192e-06,
+          -3.740970456456806e-05,
+          3.570417154185869e-06
+        ],
+        "world_offset_min_m": [
+          -0.07255514011972022,
+          -0.04162500185418899,
+          -0.07773993888690667
+        ],
+        "world_offset_max_m": [
+          0.05728278323852817,
+          0.04144300148981149,
+          0.08465064051935534
+        ],
+        "departure_min_m": [
+          0.0014448598802797724,
+          0.0003749981458110105,
+          -0.0007399388869066686
+        ],
+        "departure_max_m": [
+          -0.0007172167614718297,
+          -0.0005569985101885125,
+          -0.00034935948064467037
+        ]
+      },
+      {
+        "sample_index": 103,
+        "time_s": 3.2989999999997477,
+        "hand_quaternion_wxyz": [
+          0.49541955228454904,
+          -0.49767889252351794,
+          0.5031714172788299,
+          0.5036801683453064
+        ],
+        "quaternion_diff_from_nominal": 0.007068915602666123,
+        "finger_joints_rad": [
+          1.6680119305971792e-05,
+          -0.10118036380925244,
+          -0.10017497958850755,
+          -4.5409128142867165e-05,
+          2.4595063606196555e-06,
+          -6.127671216846374e-05,
+          8.910484611348849e-07
+        ],
+        "world_offset_min_m": [
+          -0.07264523429754821,
+          -0.041574519251902864,
+          -0.07766809697177479
+        ],
+        "world_offset_max_m": [
+          0.057327177770861576,
+          0.04150123406983372,
+          0.08465787519560775
+        ],
+        "departure_min_m": [
+          0.001354765702451785,
+          0.0004254807480971387,
+          -0.0006680969717747925
+        ],
+        "departure_max_m": [
+          -0.000672822229138427,
+          -0.0004987659301662825,
+          -0.00034212480439226034
+        ]
+      },
+      {
+        "sample_index": 104,
+        "time_s": 3.331999999999744,
+        "hand_quaternion_wxyz": [
+          0.4956241045413173,
+          -0.4982099640050498,
+          0.502474638199038,
+          0.5036494978955602
+        ],
+        "quaternion_diff_from_nominal": 0.006464933026286835,
+        "finger_joints_rad": [
+          1.5785608145127507e-05,
+          -0.10117654005508024,
+          -0.10017427620899086,
+          -5.277520459735928e-05,
+          1.6292344130684917e-06,
+          -6.252519060945445e-05,
+          8.469187465078927e-07
+        ],
+        "world_offset_min_m": [
+          -0.0727403286396022,
+          -0.041521928940813274,
+          -0.07758897562192124
+        ],
+        "world_offset_max_m": [
+          0.05736730485461178,
+          0.041559146442640166,
+          0.08466446037205566
+        ],
+        "departure_min_m": [
+          0.0012596713603977988,
+          0.0004780710591867285,
+          -0.0005889756219212422
+        ],
+        "departure_max_m": [
+          -0.0006326951453882249,
+          -0.00044085355735983683,
+          -0.0003355396279443451
+        ]
+      },
+      {
+        "sample_index": 105,
+        "time_s": 3.3649999999997404,
+        "hand_quaternion_wxyz": [
+          0.49585656571453113,
+          -0.49866266991749564,
+          0.5018172495827031,
+          0.5036280928321984
+        ],
+        "quaternion_diff_from_nominal": 0.005951634487471028,
+        "finger_joints_rad": [
+          1.5854618055138028e-05,
+          -0.10117334078022053,
+          -0.1001739470413864,
+          -5.092755491087757e-05,
+          1.8539571427775448e-06,
+          -5.7581681608254684e-05,
+          1.3860815609335997e-06
+        ],
+        "world_offset_min_m": [
+          -0.07282876095753332,
+          -0.041471135796850245,
+          -0.07751227956183049
+        ],
+        "world_offset_max_m": [
+          0.05740158432918002,
+          0.04161260904234643,
+          0.08466946729089397
+        ],
+        "departure_min_m": [
+          0.0011712390424666735,
+          0.0005288642031497578,
+          -0.0005122795618304893
+        ],
+        "departure_max_m": [
+          -0.0005984156708199809,
+          -0.00038739095765357584,
+          -0.0003305327091060323
+        ]
+      },
+      {
+        "sample_index": 106,
+        "time_s": 3.397999999999737,
+        "hand_quaternion_wxyz": [
+          0.4960892967354823,
+          -0.49903573386861527,
+          0.5012345669416269,
+          0.5036096254933441
+        ],
+        "quaternion_diff_from_nominal": 0.005547698705842157,
+        "finger_joints_rad": [
+          1.6279645951118692e-05,
+          -0.10117077273461755,
+          -0.10017381260498087,
+          -4.506330107630848e-05,
+          2.521194983411296e-06,
+          -4.989169125721822e-05,
+          2.207088709294876e-06
+        ],
+        "world_offset_min_m": [
+          -0.07290718036331711,
+          -0.041425717810177176,
+          -0.07744271196816788
+        ],
+        "world_offset_max_m": [
+          0.05742955499775071,
+          0.041658961091961086,
+          0.0846732109806847
+        ],
+        "departure_min_m": [
+          0.0010928196366828818,
+          0.0005742821898228265,
+          -0.0004427119681678776
+        ],
+        "departure_max_m": [
+          -0.0005704450022492938,
+          -0.00034103890803891673,
+          -0.00032678901931530724
+        ]
+      },
+      {
+        "sample_index": 107,
+        "time_s": 3.430999999999733,
+        "hand_quaternion_wxyz": [
+          0.49630363144223255,
+          -0.49933301421869586,
+          0.5007425394987249,
+          0.5035932440620026
+        ],
+        "quaternion_diff_from_nominal": 0.0052507883544851705,
+        "finger_joints_rad": [
+          1.6815020862438558e-05,
+          -0.1011684442430295,
+          -0.1001737473702624,
+          -3.7419579439009695e-05,
+          3.3828635894083764e-06,
+          -4.0764631580221286e-05,
+          3.1936971174845537e-06
+        ],
+        "world_offset_min_m": [
+          -0.07297391826012159,
+          -0.0413871930205669,
+          -0.0773828535445723
+        ],
+        "world_offset_max_m": [
+          0.05745155299650559,
+          0.04169742767903584,
+          0.084675937537815
+        ],
+        "departure_min_m": [
+          0.0010260817398784067,
+          0.0006128069794331045,
+          -0.00038285354457230636
+        ],
+        "departure_max_m": [
+          -0.0005484470034944136,
+          -0.0003025723209641659,
+          -0.00032406246218501245
+        ]
+      },
+      {
+        "sample_index": 108,
+        "time_s": 3.4639999999997295,
+        "hand_quaternion_wxyz": [
+          0.4964865218018049,
+          -0.4995582579651952,
+          0.5003480799444672,
+          0.5035816512382186
+        ],
+        "quaternion_diff_from_nominal": 0.005048668172347929,
+        "finger_joints_rad": [
+          1.7385311503214554e-05,
+          -0.10116609844484965,
+          -0.10017368681628427,
+          -2.8980124370957425e-05,
+          4.332265310379474e-06,
+          -3.0918005441652375e-05,
+          4.266674188384596e-06
+        ],
+        "world_offset_min_m": [
+          -0.07302708682150677,
+          -0.0413565433228292,
+          -0.07734488208799384
+        ],
+        "world_offset_max_m": [
+          0.057468166401389326,
+          0.04173046962336613,
+          0.0846811729606961
+        ],
+        "departure_min_m": [
+          0.000972913178493226,
+          0.0006434566771707992,
+          -0.0003448820879938391
+        ],
+        "departure_max_m": [
+          -0.0005318335986106773,
+          -0.00026953037663387386,
+          -0.0003188270393039011
+        ]
+      },
+      {
+        "sample_index": 109,
+        "time_s": 3.496999999999726,
+        "hand_quaternion_wxyz": [
+          0.4966271522299742,
+          -0.4997135530886711,
+          0.5000577443982815,
+          0.5035772917782779
+        ],
+        "quaternion_diff_from_nominal": 0.004925292356322156,
+        "finger_joints_rad": [
+          1.796428552831536e-05,
+          -0.10116365117921482,
+          -0.10017361083540312,
+          -2.0133007602163496e-05,
+          5.331721665082137e-06,
+          -2.0681665583230404e-05,
+          5.390392894611537e-06
+        ],
+        "world_offset_min_m": [
+          -0.0730656070164808,
+          -0.04133416495827327,
+          -0.07732432469366912
+        ],
+        "world_offset_max_m": [
+          0.05747980992729007,
+          0.04175792409941405,
+          0.08468764706941168
+        ],
+        "departure_min_m": [
+          0.0009343929835192027,
+          0.0006658350417267297,
+          -0.000324324693669123
+        ],
+        "departure_max_m": [
+          -0.0005201900727099321,
+          -0.00024207590058595435,
+          -0.00031235293058833047
+        ]
+      },
+      {
+        "sample_index": 110,
+        "time_s": 3.5299999999997222,
+        "hand_quaternion_wxyz": [
+          0.49671780442350233,
+          -0.4997998880283476,
+          0.4998767660387564,
+          0.5035818835801992
+        ],
+        "quaternion_diff_from_nominal": 0.004863941734322454,
+        "finger_joints_rad": [
+          1.8545955051182473e-05,
+          -0.1011610598297403,
+          -0.10017351042589102,
+          -1.096291109694599e-05,
+          6.381978195551339e-06,
+          -1.0122146283921353e-05,
+          6.565562513227782e-06
+        ],
+        "world_offset_min_m": [
+          -0.07308864383842426,
+          -0.04131962821440241,
+          -0.07731279962853832
+        ],
+        "world_offset_max_m": [
+          0.057486732927418904,
+          0.04177564420590715,
+          0.0846917955131431
+        ],
+        "departure_min_m": [
+          0.000911356161575741,
+          0.000680371785597593,
+          -0.0003127996285383211
+        ],
+        "departure_max_m": [
+          -0.0005132670725810987,
+          -0.0002243557940928495,
+          -0.0003082044868569084
+        ]
+      },
+      {
+        "sample_index": 111,
+        "time_s": 3.5629999999997186,
+        "hand_quaternion_wxyz": [
+          0.4967542152132294,
+          -0.4998175545443845,
+          0.4998082480180802,
+          0.5035964426505193
+        ],
+        "quaternion_diff_from_nominal": 0.00485175986497175,
+        "finger_joints_rad": [
+          1.9125824987403113e-05,
+          -0.10115829542708267,
+          -0.10017338067571833,
+          -1.4815759187409484e-06,
+          7.4878795087697095e-06,
+          7.622817732409987e-07,
+          7.798063684300513e-06
+        ],
+        "world_offset_min_m": [
+          -0.07309570441044871,
+          -0.041313585963720145,
+          -0.07731053627102957
+        ],
+        "world_offset_max_m": [
+          0.05748905727366574,
+          0.04178345055479393,
+          0.08469352865306534
+        ],
+        "departure_min_m": [
+          0.0009042955895512822,
+          0.0006864140362798574,
+          -0.00031053627102957393
+        ],
+        "departure_max_m": [
+          -0.0005109427263342639,
+          -0.00021654944520606983,
+          -0.00030647134693466416
+        ]
+      },
+      {
+        "sample_index": 112,
+        "time_s": 3.595999999999715,
+        "hand_quaternion_wxyz": [
+          0.4967358109480114,
+          -0.49976632679509386,
+          0.4998528835768334,
+          0.5036211348856264
+        ],
+        "quaternion_diff_from_nominal": 0.00488301079618707,
+        "finger_joints_rad": [
+          1.9705683359675736e-05,
+          -0.10115532972045674,
+          -0.1001732163674859,
+          8.349645857230779e-06,
+          8.658827209093049e-06,
+          1.2010321819218994e-05,
+          9.096768562901678e-06
+        ],
+        "world_offset_min_m": [
+          -0.07308669064605516,
+          -0.041315365225702005,
+          -0.07731759945950745
+        ],
+        "world_offset_max_m": [
+          0.05748677983954595,
+          0.04178129804967817,
+          0.08469283719073983
+        ],
+        "departure_min_m": [
+          0.0009133093539448328,
+          0.0006846347742979972,
+          -0.0003175994595074477
+        ],
+        "departure_max_m": [
+          -0.0005132201604540546,
+          -0.00021870195032182987,
+          -0.0003071628092601725
+        ]
+      },
+      {
+        "sample_index": 113,
+        "time_s": 3.6289999999997113,
+        "hand_quaternion_wxyz": [
+          0.496665594083338,
+          -0.49964565500941027,
+          0.5000091894898872,
+          0.5036549587860013
+        ],
+        "quaternion_diff_from_nominal": 0.00496010396700706,
+        "finger_joints_rad": [
+          2.0280734186549717e-05,
+          -0.10115215110439765,
+          -0.1001730163099115,
+          1.8512876475281403e-05,
+          9.89206198503222e-06,
+          2.3608854336512103e-05,
+          1.0459618847614074e-05
+        ],
+        "world_offset_min_m": [
+          -0.07306190907356158,
+          -0.04132406377251499,
+          -0.07733385614804122
+        ],
+        "world_offset_max_m": [
+          0.05747976407077063,
+          0.041769209603008034,
+          0.08468978352458645
+        ],
+        "departure_min_m": [
+          0.0009380909264384146,
+          0.000675936227485012,
+          -0.00033385614804122554
+        ],
+        "departure_max_m": [
+          -0.0005202359292293748,
+          -0.00023079039699196863,
+          -0.0003102164754135578
+        ]
+      },
+      {
+        "sample_index": 114,
+        "time_s": 3.6619999999997077,
+        "hand_quaternion_wxyz": [
+          0.4965508813424863,
+          -0.49945438289273525,
+          0.5002726103189216,
+          0.5036961951533186
+        ],
+        "quaternion_diff_from_nominal": 0.0050921795469865095,
+        "finger_joints_rad": [
+          2.0855657472188034e-05,
+          -0.10114870273214496,
+          -0.10017277048261403,
+          2.9038772976397583e-05,
+          1.1193300708678589e-05,
+          3.558041789487781e-05,
+          1.1890938550104776e-05
+        ],
+        "world_offset_min_m": [
+          -0.07302213081994485,
+          -0.041341281322908596,
+          -0.0773590010841666
+        ],
+        "world_offset_max_m": [
+          0.05746775089013245,
+          0.04174739801578653,
+          0.08468453365300688
+        ],
+        "departure_min_m": [
+          0.0009778691800551437,
+          0.0006587186770914064,
+          -0.0003590010841666019
+        ],
+        "departure_max_m": [
+          -0.0005322491098675511,
+          -0.00025260198421347274,
+          -0.00031546634699312903
+        ]
+      },
+      {
+        "sample_index": 115,
+        "time_s": 3.694999999999704,
+        "hand_quaternion_wxyz": [
+          0.4964036622406751,
+          -0.49918970346094815,
+          0.5006352192418916,
+          0.5037434082221226
+        ],
+        "quaternion_diff_from_nominal": 0.005292148369336384,
+        "finger_joints_rad": [
+          2.1423510497542267e-05,
+          -0.1011449874980283,
+          -0.10017248107606773,
+          3.979584048047486e-05,
+          1.2538152944556965e-05,
+          4.7797227074553825e-05,
+          1.3367067383818797e-05
+        ],
+        "world_offset_min_m": [
+          -0.07296850269708091,
+          -0.04136568816306546,
+          -0.07739270354332772
+        ],
+        "world_offset_max_m": [
+          0.05745035949699345,
+          0.041716381786117085,
+          0.08467737820999632
+        ],
+        "departure_min_m": [
+          0.001031497302919085,
+          0.000634311836934541,
+          -0.0003927035433277243
+        ],
+        "departure_max_m": [
+          -0.0005496405030065502,
+          -0.0002836182138829177,
+          -0.00032262179000368263
+        ]
+      },
+      {
+        "sample_index": 116,
+        "time_s": 3.7279999999997004,
+        "hand_quaternion_wxyz": [
+          0.4962363969062555,
+          -0.4988493816277175,
+          0.501090237158677,
+          0.503792920811123
+        ],
+        "quaternion_diff_from_nominal": 0.005573463575505583,
+        "finger_joints_rad": [
+          2.199066012650367e-05,
+          -0.10114106348979106,
+          -0.10017215822112391,
+          5.0809639847796086e-05,
+          1.393050372915245e-05,
+          6.0273738618893624e-05,
+          1.4890360345833042e-05
+        ],
+        "world_offset_min_m": [
+          -0.07290229535168008,
+          -0.04139698624201285,
+          -0.07743442362929176
+        ],
+        "world_offset_max_m": [
+          0.057427061990825284,
+          0.04167637620003545,
+          0.0846685783306842
+        ],
+        "departure_min_m": [
+          0.0010977046483199165,
+          0.0006030137579871517,
+          -0.0004344236292917608
+        ],
+        "departure_max_m": [
+          -0.0005729380091747185,
+          -0.000323623799964555,
+          -0.0003314216693158095
+        ]
+      },
+      {
+        "sample_index": 117,
+        "time_s": 3.760999999999697,
+        "hand_quaternion_wxyz": [
+          0.496267175020702,
+          -0.49874759320266354,
+          0.5013338817696865,
+          0.5036209569321557
+        ],
+        "quaternion_diff_from_nominal": 0.005512991455835397,
+        "finger_joints_rad": [
+          2.34079813310401e-05,
+          -0.10113854885681495,
+          -0.10017266669783621,
+          0.00013409681032287634,
+          1.977580924978651e-05,
+          0.004896940953273293,
+          4.306531182136425e-05
+        ],
+        "world_offset_min_m": [
+          -0.07289300866539344,
+          -0.041431367350327764,
+          -0.07744569490422326
+        ],
+        "world_offset_max_m": [
+          0.05730912678565736,
+          0.04163989468912346,
+          0.08466868191420673
+        ],
+        "departure_min_m": [
+          0.0011069913346065524,
+          0.0005686326496722391,
+          -0.0004456949042232622
+        ],
+        "departure_max_m": [
+          -0.0006908732143426424,
+          -0.00036010531087653924,
+          -0.0003313180857932724
+        ]
+      },
+      {
+        "sample_index": 118,
+        "time_s": 3.793999999999693,
+        "hand_quaternion_wxyz": [
+          0.4971330542329766,
+          -0.4978301885919082,
+          0.5012746845823688,
+          0.5037335806876331
+        ],
+        "quaternion_diff_from_nominal": 0.005337780916573299,
+        "finger_joints_rad": [
+          1.5998679252320316e-05,
+          -0.10124755825711636,
+          -0.10018250346503627,
+          0.00026704214178809444,
+          -1.5100462398905777e-06,
+          0.11218199682643674,
+          -0.03668827689973059
+        ],
+        "world_offset_min_m": [
+          -0.07288534973602781,
+          -0.041451475592803794,
+          -0.07739245764099933
+        ],
+        "world_offset_max_m": [
+          0.05715452331727197,
+          0.04164011631917436,
+          0.08468161691815679
+        ],
+        "departure_min_m": [
+          0.0011146502639721861,
+          0.0005485244071962089,
+          -0.0003924576409993358
+        ],
+        "departure_max_m": [
+          -0.0008454766827280316,
+          -0.0003598836808256442,
+          -0.0003183830818432182
+        ]
+      },
+      {
+        "sample_index": 119,
+        "time_s": 3.8269999999996895,
+        "hand_quaternion_wxyz": [
+          0.4976493053520754,
+          -0.49973318067968836,
+          0.49960144840233583,
+          0.503001301951245
+        ],
+        "quaternion_diff_from_nominal": 0.0038423449423523664,
+        "finger_joints_rad": [
+          2.4716315336155664e-05,
+          -0.10135648727391054,
+          -0.10017352984722329,
+          9.251855071339722e-05,
+          0.00010713902586241807,
+          0.0820488225703452,
+          -0.076179754905588
+        ],
+        "world_offset_min_m": [
+          -0.07319634091698721,
+          -0.04137384299713523,
+          -0.07717452497493427
+        ],
+        "world_offset_max_m": [
+          0.05711731790105637,
+          0.04173972883399224,
+          0.08470566247130085
+        ],
+        "departure_min_m": [
+          0.0008036590830127893,
+          0.0006261570028647731,
+          -0.00017452497493426755
+        ],
+        "departure_max_m": [
+          -0.0008826820989436338,
+          -0.0002602711660077625,
+          -0.0002943375286991595
+        ]
+      },
+      {
+        "sample_index": 120,
+        "time_s": 3.859999999999686,
+        "hand_quaternion_wxyz": [
+          0.49666766152802183,
+          -0.4985887116613743,
+          0.5015215380112926,
+          0.5031964601494385
+        ],
+        "quaternion_diff_from_nominal": 0.005062474678783447,
+        "finger_joints_rad": [
+          2.2913855146677546e-05,
+          -0.10120518035628744,
+          -0.10016741082205353,
+          6.303658758489868e-06,
+          5.127807202042221e-05,
+          -0.006670053488353083,
+          -0.0004961994309266923
+        ],
+        "world_offset_min_m": [
+          -0.0729238250678613,
+          -0.04147457612969929,
+          -0.07742167229583896
+        ],
+        "world_offset_max_m": [
+          0.05748858715245131,
+          0.04157851321425954,
+          0.08467118450804711
+        ],
+        "departure_min_m": [
+          0.0010761749321386987,
+          0.0005254238703007105,
+          -0.0004216722958389624
+        ],
+        "departure_max_m": [
+          -0.0005114128475486937,
+          -0.00042148678574046444,
+          -0.0003288154919528913
+        ]
+      },
+      {
+        "sample_index": 121,
+        "time_s": 3.8929999999996823,
+        "hand_quaternion_wxyz": [
+          0.49618644512325705,
+          -0.4976195278396229,
+          0.502588738257547,
+          0.5035656634097513
+        ],
+        "quaternion_diff_from_nominal": 0.006294868530953384,
+        "finger_joints_rad": [
+          2.3236747191414304e-05,
+          -0.10119253570015731,
+          -0.1001760618059426,
+          -3.382082049982383e-05,
+          1.8096376127438146e-05,
+          -0.004403668122220993,
+          0.0013317559125395244
+        ],
+        "world_offset_min_m": [
+          -0.0727365951275524,
+          -0.0415295122046401,
+          -0.07756478819413926
+        ],
+        "world_offset_max_m": [
+          0.057397049185474336,
+          0.04151250055926056,
+          0.08465447785973601
+        ],
+        "departure_min_m": [
+          0.001263404872447596,
+          0.00047048779535990154,
+          -0.0005647881941392568
+        ],
+        "departure_max_m": [
+          -0.0006029508145256671,
+          -0.00048749944073944035,
+          -0.00034552214026399575
+        ]
+      },
+      {
+        "sample_index": 122,
+        "time_s": 3.9259999999996786,
+        "hand_quaternion_wxyz": [
+          0.4960325478447314,
+          -0.49716742881363096,
+          0.5029895813389477,
+          0.5037635757674206
+        ],
+        "quaternion_diff_from_nominal": 0.006845891853476308,
+        "finger_joints_rad": [
+          2.2327968500104484e-05,
+          -0.10117426989952322,
+          -0.10017492015507135,
+          2.683808357287513e-05,
+          1.791824933076563e-05,
+          0.0007434358496357307,
+          -0.00030203162004696833
+        ],
+        "world_offset_min_m": [
+          -0.07265838977961689,
+          -0.041544800172619356,
+          -0.07761936811134929
+        ],
+        "world_offset_max_m": [
+          0.057275331945212865,
+          0.04148906719126294,
+          0.08464570751563638
+        ],
+        "departure_min_m": [
+          0.0013416102203831076,
+          0.0004551998273806465,
+          -0.000619368111349286
+        ],
+        "departure_max_m": [
+          -0.0007246680547871379,
+          -0.0005109328087370621,
+          -0.0003542924843636247
+        ]
+      },
+      {
+        "sample_index": 123,
+        "time_s": 3.958999999999675,
+        "hand_quaternion_wxyz": [
+          0.4959881095687611,
+          -0.4970174900876781,
+          0.5031249377734086,
+          0.5038201134371829
+        ],
+        "quaternion_diff_from_nominal": 0.007024893804890296,
+        "finger_joints_rad": [
+          2.1386170910943053e-05,
+          -0.10116824950487352,
+          -0.10017463262968909,
+          3.326677588791779e-05,
+          1.469594299276144e-05,
+          0.00044292315779400357,
+          -0.00017209968593473414
+        ],
+        "world_offset_min_m": [
+          -0.07263329407635832,
+          -0.041550488695619336,
+          -0.07763691839063569
+        ],
+        "world_offset_max_m": [
+          0.057273816299242886,
+          0.04148025237486222,
+          0.08464290711061873
+        ],
+        "departure_min_m": [
+          0.0013667059236416729,
+          0.00044951130438066617,
+          -0.0006369183906356907
+        ],
+        "departure_max_m": [
+          -0.0007261837007571173,
+          -0.0005197476251377828,
+          -0.00035709288938128025
+        ]
+      },
+      {
+        "sample_index": 124,
+        "time_s": 3.9919999999996714,
+        "hand_quaternion_wxyz": [
+          0.49596403824188856,
+          -0.49696342243210856,
+          0.5031982380668659,
+          0.5038239402229364
+        ],
+        "quaternion_diff_from_nominal": 0.007096551007334532,
+        "finger_joints_rad": [
+          2.059683909845488e-05,
+          -0.1011643085965688,
+          -0.10017430894246365,
+          2.348277881847892e-05,
+          1.1480683709908432e-05,
+          0.00019767590900718405,
+          -5.584981221416947e-05
+        ],
+        "world_offset_min_m": [
+          -0.07262322576733005,
+          -0.04155594775481769,
+          -0.077645373249701
+        ],
+        "world_offset_max_m": [
+          0.05727463226913712,
+          0.04147419649191664,
+          0.0846423032614092
+        ],
+        "departure_min_m": [
+          0.00137677423266995,
+          0.0004440522451823123,
+          -0.0006453732497010006
+        ],
+        "departure_max_m": [
+          -0.0007253677308628817,
+          -0.0005258035080833653,
+          -0.0003576967385908042
+        ]
+      },
+      {
+        "sample_index": 125,
+        "time_s": 3.9999999999996705,
+        "hand_quaternion_wxyz": [
+          0.4959597858419046,
+          -0.496954433322436,
+          0.5032120590574659,
+          0.5038231888748015
+        ],
+        "quaternion_diff_from_nominal": 0.00710864989937031,
+        "finger_joints_rad": [
+          2.0471193168298517e-05,
+          -0.1011633676627926,
+          -0.10017420141354619,
+          2.1479602669483473e-05,
+          1.0974617265427674e-05,
+          0.0001616018717501005,
+          -4.0480036234143594e-05
+        ],
+        "world_offset_min_m": [
+          -0.07262152289014473,
+          -0.04155710518112132,
+          -0.07764689545952641
+        ],
+        "world_offset_max_m": [
+          0.05727456149888252,
+          0.041472968496779145,
+          0.0846422372196578
+        ],
+        "departure_min_m": [
+          0.0013784771098552667,
+          0.0004428948188786794,
+          -0.0006468954595264115
+        ],
+        "departure_max_m": [
+          -0.0007254385011174827,
+          -0.0005270315032208581,
+          -0.0003577627803422051
+        ]
+      }
+    ],
+    "action_4_envelope": {
+      "overall_min_m": [
+        -0.07319634091698721,
+        -0.0416800419760317,
+        -0.07778212847904054
+      ],
+      "overall_max_m": [
+        0.05748905727366574,
+        0.04178345055479393,
+        0.08470566247130085
+      ],
+      "min_departure_from_prompt_m": [
+        0.0008036590830127893,
+        0.0003199580239683017,
+        -0.0007821284790405364
+      ],
+      "max_departure_from_prompt_m": [
+        -0.0005109427263342639,
+        -0.00021654944520606983,
+        -0.0002943375286991595
+      ]
+    },
+    "nominal_open_hand_calibration": {
+      "source": "robot model, closure=0 joint targets, downward IK at nominal site [.24,-.18,.94]; no episode state",
+      "world_offset_min_m": [
+        -0.07355185900082623,
+        -0.04160017704683794,
+        -0.0769602209585496
+      ],
+      "world_offset_max_m": [
+        0.05720106964327992,
+        0.04139976336228118,
+        0.08474807814493945
+      ],
+      "per_geom": [
+        {
+          "geom_id": 92,
+          "body": "right_hand_thumb_0_link",
+          "world_offset_min_m": [
+            0.014697577463195055,
+            -0.009499954052615778,
+            0.06290053690904318
+          ],
+          "world_offset_max_m": [
+            0.0429979967005662,
+            0.0095001266486415,
+            0.08450137238691768
+          ],
+          "site_local_min_m": [
+            -0.08450000025945283,
+            -0.043000000122200115,
+            -0.00949999969452626
+          ],
+          "site_local_max_m": [
+            -0.06290000033121375,
+            -0.014699999884710836,
+            0.009499999694526218
+          ]
+        },
+        {
+          "geom_id": 94,
+          "body": "right_hand_thumb_1_link",
+          "world_offset_min_m": [
+            -0.024165985994610617,
+            -0.009999888745635954,
+            0.06185206632651652
+          ],
+          "world_offset_max_m": [
+            0.007681381287234446,
+            0.010000200068990162,
+            0.08474807814493945
+          ],
+          "site_local_min_m": [
+            -0.08474787773506255,
+            -0.0076834299400949935,
+            -0.010000000000000028
+          ],
+          "site_local_max_m": [
+            -0.061852791930097135,
+            0.024163363351182375,
+            0.009999999999999998
+          ]
+        },
+        {
+          "geom_id": 96,
+          "body": "right_hand_thumb_2_link",
+          "world_offset_min_m": [
+            -0.07355185900082623,
+            -0.01289971522820757,
+            0.05657499849925052
+          ],
+          "world_offset_max_m": [
+            -0.014875745318152389,
+            0.013100217065827952,
+            0.07792468178870937
+          ],
+          "site_local_min_m": [
+            -0.07792535969065892,
+            0.01487346162937121,
+            -0.012899872356926318
+          ],
+          "site_local_max_m": [
+            -0.05657680933998141,
+            0.07354980933004211,
+            0.013100000556658446
+          ]
+        },
+        {
+          "geom_id": 98,
+          "body": "right_hand_middle_0_link",
+          "world_offset_min_m": [
+            0.029950117911460683,
+            -0.04140016281494002,
+            -0.03399854304194805
+          ],
+          "world_offset_max_m": [
+            0.057200968921786055,
+            -0.015700024651822964,
+            0.027801501620456692
+          ],
+          "site_local_min_m": [
+            -0.027800000801790688,
+            -0.05720000042509017,
+            -0.04140000091711306
+          ],
+          "site_local_max_m": [
+            0.034000000900045416,
+            -0.02994999547474163,
+            -0.015699999890673715
+          ]
+        },
+        {
+          "geom_id": 100,
+          "body": "right_hand_middle_1_link",
+          "world_offset_min_m": [
+            0.035829399452506405,
+            -0.04160017704683794,
+            -0.07696011123780377
+          ],
+          "world_offset_max_m": [
+            0.053520951436893116,
+            -0.015600236637524245,
+            -0.017998541449590677
+          ],
+          "site_local_min_m": [
+            0.01799999840354151,
+            -0.05351961872535875,
+            -0.04160000055665848
+          ],
+          "site_local_max_m": [
+            0.07696167621353919,
+            -0.03582795568861888,
+            -0.015600127643073667
+          ]
+        },
+        {
+          "geom_id": 102,
+          "body": "right_hand_index_0_link",
+          "world_offset_min_m": [
+            0.02995021863295455,
+            0.015599837184865406,
+            -0.03399865276269387
+          ],
+          "world_offset_max_m": [
+            0.05720106964327992,
+            0.041299975347982465,
+            0.02780139189971087
+          ],
+          "site_local_min_m": [
+            -0.02780000080179062,
+            -0.05720000042509015,
+            0.01559999908288697
+          ],
+          "site_local_max_m": [
+            0.034000000900045485,
+            -0.029949995474741604,
+            0.041300000109326315
+          ]
+        },
+        {
+          "geom_id": 104,
+          "body": "right_hand_index_1_link",
+          "world_offset_min_m": [
+            0.03582950017400027,
+            0.01539982295296749,
+            -0.0769602209585496
+          ],
+          "world_offset_max_m": [
+            0.053521052158386984,
+            0.04139976336228118,
+            -0.0179986511703365
+          ],
+          "site_local_min_m": [
+            0.017999998403541575,
+            -0.05351961872535873,
+            0.01539999944334155
+          ],
+          "site_local_max_m": [
+            0.07696167621353926,
+            -0.03582795568861885,
+            0.04139987235692636
+          ]
+        }
+      ]
+    },
+    "geometric_applicability_finding": "The prompt supplied approximate posture-specific bounds. Measured pre-approach lower Z bounds extended to -0.0778 m, slightly beyond the prompt lower bound of -0.077 m, and finger articulation under dynamic contact further altered geometry. Furthermore, bounding boxes enclose solid geometry rather than certifying a safe swept volume or free cavity. Along the actual recorded trajectory, first sampled contact occurred at sample 117 (t=3.761 s) between right_hand_middle_0_link and the object (30 Hz snapshots cannot identify exact collision onset), reaching 5.185 mm penetration at sample 118. The empirical contact pairs and path, not box overlap alone, establish physical collision."
+  },
+  "action_9_rejection": {
+    "call_index": 9,
+    "time_s": 7.700000000000906,
+    "command": {
+      "quaternion_wxyz": [
+        0.5,
+        -0.5,
+        0.5,
+        0.5
+      ],
+      "seconds": 1.2,
+      "xyz_m": [
+        0.15,
+        -0.48,
+        0.9
+      ]
+    },
+    "production_error": "Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m",
+    "reproduced_error": "Unreachable hand pose [0.15, -0.48, 0.9]: residual 0.0542 m",
+    "ik_residual_m": 0.0542,
+    "ik_residual_precision": "four_decimals",
+    "final_integration_state_unchanged": true,
+    "note": "Rejected before execution by interface IK reachability check on scratch data. Zero physics advance or state mutation occurred."
+  },
+  "descriptive_c1_c2_comparison": {
+    "evidence_sources": {
+      "c1_archive_sha256": "19f3313d521ecbdd5b9181dee2717e9219d5eea1784ed346d6e1553745b9caee",
+      "c1_audit_sha256": "6c3da29eb53d291d30d8e7b24195c174e95debaa76f73d0e1bd3a5d729cdf601",
+      "c2_archive_sha256": "940f3ef71518a15f9f171adb877c108596060142b9f1e08276146ad876bd95f8"
+    },
+    "c1": {
+      "protocol_id": "humanoid-codex-c1-development",
+      "first_damaging_action": "Action 2 (move to [0.250, -0.184, 0.820])",
+      "first_damaging_action_interval_s": [
+        1.0,
+        2.5
+      ],
+      "first_damaging_action_xy_displacement_mm": 84.63962642608833,
+      "first_damaging_action_3d_displacement_mm": 91.5907547820523,
+      "subsequent_displacement_to_floor_mm": null,
+      "object_toppled": true,
+      "sustained_lift": false,
+      "placement_success": false,
+      "peak_object_penetration_mm": 6.290933918042204,
+      "scorer_normal_force_at_peak_n": 0.0,
+      "stop_reason": "Action 3 rejected by preflight collision guard (fingertips vs table > 2 mm)",
+      "simulated_time_s": 2.5,
+      "completed_actions": 2
+    },
+    "c2": {
+      "protocol_id": "humanoid-codex-c2-development",
+      "first_damaging_action": "Action 4 (move to [0.251, -0.173, 0.800])",
+      "first_damaging_action_interval_s": [
+        3.1999999999997586,
+        3.9999999999996705
+      ],
+      "first_damaging_action_xy_displacement_mm": 154.2694912695306,
+      "first_damaging_action_3d_displacement_mm": 155.21162578385625,
+      "action_4_start_to_action_5_end_interval_s": [
+        3.1999999999997586,
+        5.000000000000004
+      ],
+      "action_4_start_to_action_5_end_xy_displacement_mm": 326.2266225711107,
+      "action_4_start_to_action_5_end_3d_displacement_mm": 804.1447688533167,
+      "object_toppled": true,
+      "sustained_lift": false,
+      "placement_success": false,
+      "peak_object_penetration_mm": 5.1846716230148155,
+      "scorer_normal_force_at_peak_n": 25.5065408364408,
+      "stop_reason": "Action 9 rejected by interface IK reachability check (residual 0.0542 m)",
+      "simulated_time_s": 7.7,
+      "completed_actions": 8
+    },
+    "efficacy_disclaimer": "C1 and C2 share a single development seed (820). Differences in action count or sequence are descriptive observations, not proof of controller efficacy or systematic task progress. Subsequent commands returning to the prior region are observed in command JSON; they do not establish open-loop intent or recovery strategy."
+  },
+  "authoritative_private_score": {
+    "basket_floor_contact": false,
+    "hand_contact": false,
+    "lifted": false,
+    "max_object_bottom_m": 0.7094665301209561,
+    "max_object_penetration_m": 0.005184671623014815,
+    "peak_object_contact": {
+      "normal_force_n": 25.5065408364408,
+      "other_body": "right_hand_middle_0_link",
+      "other_geom_id": 98,
+      "penetration_m": 0.005184671623014815,
+      "time_s": 3.794999999999693
+    },
+    "settled_dwell_s": 0.0,
+    "success": false,
+    "supported_body": true
+  },
+  "artifacts_generated": {
+    "audit_json": "audit.json",
+    "contact_sheet_png": "contact_sheet.png",
+    "public_proprioception_history_json": "public_proprioception_history.json",
+    "private_trajectory_annotations_json": "private_trajectory_annotations.json"
+  },
+  "limitations": [
+    "Saved trajectory is qpos at approximately 30 Hz, not full dynamic state at every millisecond.",
+    "Recomputed geometric contacts from qpos cannot reconstruct contact forces or continuous dynamics; scorer normal force (25.51 N at peak penetration) and peak timing (t=3.795 s) are from authoritative 1 kHz scorer telemetry.",
+    "Requested action coordinates reflect model output, not the model's internal belief or visual estimate.",
+    "Collision bounds describe occupied solid geometry, not an open grasp cavity or certified collision-free path.",
+    "Descriptive comparisons between C1 and C2 on a single development seed do not support performance or qualification claims."
+  ]
+}
