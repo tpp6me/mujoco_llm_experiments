@@ -1,0 +1,164 @@
+[
+  {
+    "call": 1,
+    "observation_id": "f6211adccf2b472780875aefdfca7f11",
+    "time_s": 0.5000000000000003,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-001/observation.png",
+    "archive_png_member": "seed-820/codex/decision-001/observation.png",
+    "image_sha256": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65",
+    "available": true
+  },
+  {
+    "call": 2,
+    "observation_id": "55bb95c9762d42ac8325489c99a9b4d5",
+    "time_s": 0.9000000000000007,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-002/observation.png",
+    "archive_png_member": "seed-820/codex/decision-002/observation.png",
+    "image_sha256": "da14a466a8da5f23492425482c557c71c24e1d5b8f505e845058589693bda9eb",
+    "available": true
+  },
+  {
+    "call": 3,
+    "observation_id": "f57c5f6b38f844a88a37b8e6804bb934",
+    "time_s": 1.8999999999999015,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-003/observation.png",
+    "archive_png_member": "seed-820/codex/decision-003/observation.png",
+    "image_sha256": "6d28b456e2b7f1f1927094de43295633ad993ebc4484f64352492a585dc8b6b7",
+    "available": true
+  },
+  {
+    "call": 4,
+    "observation_id": "8dcc1f13efcb43bcbede4c3e127315d8",
+    "time_s": 2.6999999999998137,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-004/observation.png",
+    "archive_png_member": "seed-820/codex/decision-004/observation.png",
+    "image_sha256": "82ad3c5b07783979b5041b9ca5ef0395434f838ac4057ef4f5d3f4fce176ab45",
+    "available": true
+  },
+  {
+    "call": 5,
+    "observation_id": "408089f0dd8c49729baea73e657f5266",
+    "time_s": 3.4999999999997256,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-005/observation.png",
+    "archive_png_member": "seed-820/codex/decision-005/observation.png",
+    "image_sha256": "f41888b38f1b213d7eee47b6b57c754a007f4d925c99d8ddea217e8157e02e2d",
+    "available": true
+  },
+  {
+    "call": 6,
+    "observation_id": "faf99a75f49d4f9089b1ec825ff0bf6f",
+    "time_s": 4.099999999999704,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-006/observation.png",
+    "archive_png_member": "seed-820/codex/decision-006/observation.png",
+    "image_sha256": "44ad291716f59f9e804c2f75b1637fc7874e277832835c88410c22e8330f95e1",
+    "available": true
+  },
+  {
+    "call": 7,
+    "observation_id": "bc4a3df090144803a5ba7db1e3de8ef1",
+    "time_s": 4.599999999999871,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-007/observation.png",
+    "archive_png_member": "seed-820/codex/decision-007/observation.png",
+    "image_sha256": "701b1c178f864e2d91233a6fd6896bd932efb4773a823ffe2a34a0200dfe9e68",
+    "available": true
+  },
+  {
+    "call": 8,
+    "observation_id": "632c80099f214cb89cd90a58cf26311d",
+    "time_s": 5.400000000000138,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-008/observation.png",
+    "archive_png_member": "seed-820/codex/decision-008/observation.png",
+    "image_sha256": "ac80068f221a9101497580a20b33c32cf5e78612bc739e8fabe38f03f86256c1",
+    "available": true
+  },
+  {
+    "call": 9,
+    "observation_id": "4199cd874c444384b00075dad38cab28",
+    "time_s": 6.100000000000372,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-009/observation.png",
+    "archive_png_member": "seed-820/codex/decision-009/observation.png",
+    "image_sha256": "255e5d883886034f36b3a63ccb7d25feb318c604e34ca59f965150fd22301a66",
+    "available": true
+  },
+  {
+    "call": 10,
+    "observation_id": "3caa9ce1750944208bb205b5ba5f4f64",
+    "time_s": 6.900000000000639,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-010/observation.png",
+    "archive_png_member": "seed-820/codex/decision-010/observation.png",
+    "image_sha256": "2deb571f6b3707c3b66d2b78be45ee3c64b4d7d4293d1abf8c36bb2fb9738df7",
+    "available": true
+  },
+  {
+    "call": 11,
+    "observation_id": "4f91f38ded0f4549ab094c340ca94456",
+    "time_s": 7.700000000000906,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-011/observation.png",
+    "archive_png_member": "seed-820/codex/decision-011/observation.png",
+    "image_sha256": "ed91674fbab36187724495953e35ee4ac302e4ab3562de3731fb6d7b4df59477",
+    "available": true
+  },
+  {
+    "call": 12,
+    "observation_id": "1e5837e28b7a45189c8d1c27162a1fd8",
+    "time_s": 8.500000000000728,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-012/observation.png",
+    "archive_png_member": "seed-820/codex/decision-012/observation.png",
+    "image_sha256": "63fb1dffc4e7415281a184dfafab02e30246009b0e9672f211ada96f5134e9bc",
+    "available": true
+  },
+  {
+    "call": 13,
+    "observation_id": "4fc2b65f11f84c5ca24bdfd53369118e",
+    "time_s": 9.500000000000174,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-013/observation.png",
+    "archive_png_member": "seed-820/codex/decision-013/observation.png",
+    "image_sha256": "422e91b5156a08f085fdf6a7de6025a4cb770b4f9424079d11235cee294e75a4",
+    "available": true
+  },
+  {
+    "call": 14,
+    "observation_id": "c9a8faae4c8940fa8f84cd04c021135c",
+    "time_s": 10.29999999999973,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-014/observation.png",
+    "archive_png_member": "seed-820/codex/decision-014/observation.png",
+    "image_sha256": "51c200ef9504d6bd1ec123abc255108e2f563f4074afd9d9391de371ee542452",
+    "available": true
+  },
+  {
+    "call": 15,
+    "observation_id": "aa522708fc694a97a8ec0adf8d8a0e42",
+    "time_s": 11.499999999999066,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-015/observation.png",
+    "archive_png_member": "seed-820/codex/decision-015/observation.png",
+    "image_sha256": "1868785205e33a957b42e6cc5f11a4e941606cbd7d5ea6096e684ac77d155665",
+    "available": true
+  },
+  {
+    "call": 16,
+    "observation_id": "506308a2d21b4c82af8b65e569d08a50",
+    "time_s": 11.899999999998844,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-016/observation.png",
+    "archive_png_member": "seed-820/codex/decision-016/observation.png",
+    "image_sha256": "72e7f86b7147b9240a4dc12e66d06463386f7a6256d87683c04e06e778adab47",
+    "available": true
+  },
+  {
+    "call": 17,
+    "observation_id": "b2c039fefabf47ea87906fc2c23fc696",
+    "time_s": 12.89999999999829,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-017/observation.png",
+    "archive_png_member": "seed-820/codex/decision-017/observation.png",
+    "image_sha256": "be58e9f68dcaec4f625f3d6530bd06bca2d76ca27e94611fae12b6798f51ecf6",
+    "available": true
+  },
+  {
+    "call": 18,
+    "observation_id": "5149019b774c467eb68680c183c9ba88",
+    "time_s": 13.699999999997846,
+    "runtime_png_path": "runtime/humanoid/codex-C3/seed-820/codex/decision-018/observation.png",
+    "archive_png_member": "seed-820/codex/decision-018/observation.png",
+    "image_sha256": "e5a0bc73aaebc646390d9600e8268f3ed8077415a3d76974dce3226f560a3759",
+    "available": true
+  }
+]
