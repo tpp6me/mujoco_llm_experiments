@@ -1,0 +1,195 @@
+{
+  "reviewer": "Codex",
+  "scope": "First-pass labels from saved public RGB only; model assessments, associated commands, outcome summaries and private trajectory unopened",
+  "definitions": "C3_PROPOSAL.md",
+  "historical_familiarity": "Reviewer previously inspected C1/C2 on reused seed820; this is not an independent perception benchmark",
+  "labels": [
+    {
+      "call": 1,
+      "observation_id": "f6211adccf2b472780875aefdfca7f11",
+      "time_s": 0.5000000000000003,
+      "image_sha256": "c59315cbd6cc656d0f86ba918ede532855377a7eff1c9da0e4a8252034c3ce65",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Red block clearly identifiable; basket rim obscures its lower portion. Fingers are to the right, with the block visibly outside them.",
+      "labelled_utc": "2026-09-15T03:35:06.512255+00:00"
+    },
+    {
+      "call": 2,
+      "observation_id": "55bb95c9762d42ac8325489c99a9b4d5",
+      "time_s": 0.9000000000000007,
+      "image_sha256": "da14a466a8da5f23492425482c557c71c24e1d5b8f505e845058589693bda9eb",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Red block clearly identifiable; basket rim obscures its lower portion. Fingers are to the right, with the block visibly outside them.",
+      "labelled_utc": "2026-09-15T03:35:06.513482+00:00"
+    },
+    {
+      "call": 3,
+      "observation_id": "f57c5f6b38f844a88a37b8e6804bb934",
+      "time_s": 1.8999999999999015,
+      "image_sha256": "6d28b456e2b7f1f1927094de43295633ad993ebc4484f64352492a585dc8b6b7",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Red block clearly identifiable; basket rim obscures its lower portion. Fingers are to the right, with the block visibly outside them.",
+      "labelled_utc": "2026-09-15T03:35:06.514228+00:00"
+    },
+    {
+      "call": 4,
+      "observation_id": "8dcc1f13efcb43bcbede4c3e127315d8",
+      "time_s": 2.6999999999998137,
+      "image_sha256": "82ad3c5b07783979b5041b9ca5ef0395434f838ac4057ef4f5d3f4fce176ab45",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Lower portion obscured by basket rim; visible block remains to the left of the fingers, outside their span.",
+      "labelled_utc": "2026-09-15T03:35:29.344027+00:00"
+    },
+    {
+      "call": 5,
+      "observation_id": "408089f0dd8c49729baea73e657f5266",
+      "time_s": 3.4999999999997256,
+      "image_sha256": "f41888b38f1b213d7eee47b6b57c754a007f4d925c99d8ddea217e8157e02e2d",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Red block appears tilted/sideways to the left of the hand, with its lower region obscured by the basket rim; it is visibly separate from the fingers.",
+      "labelled_utc": "2026-09-15T03:35:29.345147+00:00"
+    },
+    {
+      "call": 6,
+      "observation_id": "faf99a75f49d4f9089b1ec825ff0bf6f",
+      "time_s": 4.099999999999704,
+      "image_sha256": "44ad291716f59f9e804c2f75b1637fc7874e277832835c88410c22e8330f95e1",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Red block is to the left of the fingers; its lower part is obscured by the basket rim.",
+      "labelled_utc": "2026-09-15T03:36:57.553319+00:00"
+    },
+    {
+      "call": 7,
+      "observation_id": "bc4a3df090144803a5ba7db1e3de8ef1",
+      "time_s": 4.599999999999871,
+      "image_sha256": "701b1c178f864e2d91233a6fd6896bd932efb4773a823ffe2a34a0200dfe9e68",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Red block is left of the hand with a visible gap; lower part is obscured by basket rim.",
+      "labelled_utc": "2026-09-15T03:36:57.554516+00:00"
+    },
+    {
+      "call": 8,
+      "observation_id": "632c80099f214cb89cd90a58cf26311d",
+      "time_s": 5.400000000000138,
+      "image_sha256": "ac80068f221a9101497580a20b33c32cf5e78612bc739e8fabe38f03f86256c1",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "uncertain",
+      "image_only_note": "Block extends left of the hand and is partly obscured by basket rim. Fingertips overlap its right edge in projection; the image does not establish between versus separate.",
+      "labelled_utc": "2026-09-15T03:36:57.555238+00:00"
+    },
+    {
+      "call": 9,
+      "observation_id": "4199cd874c444384b00075dad38cab28",
+      "time_s": 6.100000000000372,
+      "image_sha256": "255e5d883886034f36b3a63ccb7d25feb318c604e34ca59f965150fd22301a66",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "uncertain",
+      "image_only_note": "Block is partly obscured by basket rim. Fingertips project over its right edge; projection and occlusion do not establish whether it lies between the fingers.",
+      "labelled_utc": "2026-09-15T03:36:57.555972+00:00"
+    },
+    {
+      "call": 10,
+      "observation_id": "3caa9ce1750944208bb205b5ba5f4f64",
+      "time_s": 6.900000000000639,
+      "image_sha256": "2deb571f6b3707c3b66d2b78be45ee3c64b4d7d4293d1abf8c36bb2fb9738df7",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Block partly behind basket rim; hand is visibly to its right with a gap.",
+      "labelled_utc": "2026-09-15T03:38:50.716494+00:00"
+    },
+    {
+      "call": 11,
+      "observation_id": "4f91f38ded0f4549ab094c340ca94456",
+      "time_s": 7.700000000000906,
+      "image_sha256": "ed91674fbab36187724495953e35ee4ac302e4ab3562de3731fb6d7b4df59477",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Block partly obscured by basket rim and arm; fingers are visibly to its right, outside the block.",
+      "labelled_utc": "2026-09-15T03:38:50.717737+00:00"
+    },
+    {
+      "call": 12,
+      "observation_id": "1e5837e28b7a45189c8d1c27162a1fd8",
+      "time_s": 8.500000000000728,
+      "image_sha256": "63fb1dffc4e7415281a184dfafab02e30246009b0e9672f211ada96f5134e9bc",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Block partly behind basket rim; fingertips are above/right with a visible gap from the block.",
+      "labelled_utc": "2026-09-15T03:38:50.718531+00:00"
+    },
+    {
+      "call": 13,
+      "observation_id": "4fc2b65f11f84c5ca24bdfd53369118e",
+      "time_s": 9.500000000000174,
+      "image_sha256": "422e91b5156a08f085fdf6a7de6025a4cb770b4f9424079d11235cee294e75a4",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "uncertain",
+      "image_only_note": "Basket and hand obscure parts of the block and fingertips; projected overlap does not establish whether block is between fingers.",
+      "labelled_utc": "2026-09-15T03:38:50.719280+00:00"
+    },
+    {
+      "call": 14,
+      "observation_id": "c9a8faae4c8940fa8f84cd04c021135c",
+      "time_s": 10.29999999999973,
+      "image_sha256": "51c200ef9504d6bd1ec123abc255108e2f563f4074afd9d9391de371ee542452",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "uncertain",
+      "image_only_note": "Open fingers overlap the partially obscured block in projection; image does not clearly establish between versus separate.",
+      "labelled_utc": "2026-09-15T03:38:50.720212+00:00"
+    },
+    {
+      "call": 15,
+      "observation_id": "aa522708fc694a97a8ec0adf8d8a0e42",
+      "time_s": 11.499999999999066,
+      "image_sha256": "1868785205e33a957b42e6cc5f11a4e941606cbd7d5ea6096e684ac77d155665",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Block partly behind basket rim, visibly below the open fingers; the visible space between fingers is empty.",
+      "labelled_utc": "2026-09-15T03:38:50.721136+00:00"
+    },
+    {
+      "call": 16,
+      "observation_id": "506308a2d21b4c82af8b65e569d08a50",
+      "time_s": 11.899999999998844,
+      "image_sha256": "72e7f86b7147b9240a4dc12e66d06463386f7a6256d87683c04e06e778adab47",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "uncertain",
+      "image_only_note": "Partly obscured block meets/overlaps fingertips at its right edge in projection; image does not establish between versus separate.",
+      "labelled_utc": "2026-09-15T03:39:20.174853+00:00"
+    },
+    {
+      "call": 17,
+      "observation_id": "b2c039fefabf47ea87906fc2c23fc696",
+      "time_s": 12.89999999999829,
+      "image_sha256": "be58e9f68dcaec4f625f3d6530bd06bca2d76ca27e94611fae12b6798f51ecf6",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "separate",
+      "image_only_note": "Block partly obscured by basket rim and arm; fingers visibly to the right, outside the block.",
+      "labelled_utc": "2026-09-15T03:39:20.175867+00:00"
+    },
+    {
+      "call": 18,
+      "observation_id": "5149019b774c467eb68680c183c9ba88",
+      "time_s": 13.699999999997846,
+      "image_sha256": "e5a0bc73aaebc646390d9600e8268f3ed8077415a3d76974dce3226f560a3759",
+      "block_visibility": "partly_visible",
+      "block_relative_to_fingers": "uncertain",
+      "image_only_note": "Basket rim, arm and open fingers obscure parts of block; projected overlap at the right end does not clearly establish between versus separate.",
+      "labelled_utc": "2026-09-15T03:40:48.286331+00:00"
+    }
+  ],
+  "accounting": {
+    "attempted_calls": 18,
+    "images_reviewed": 18,
+    "missing_images": 0
+  },
+  "completed_before_unblinding_utc": "2026-09-15T03:40:48.292236+00:00",
+  "status": "complete; immutable first-pass labels before model/outcome review"
+}
